@@ -17,11 +17,5 @@
       "name": "Thorsten Krug",
       "email": "thorsten.krug@consensys.net"
     }
-  ],
-  "repositories": [
-    {
-      "type": "git",
-      "url": "https://github.com/digitaldonkey/ethjs-schema.git"
-    }
   ]
 }
