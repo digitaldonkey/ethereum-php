@@ -4,7 +4,6 @@
   "require": {
     "php": ">=5.6",
     "graze/guzzle-jsonrpc": "~3.0",
-    "moontoast/math": "^1.1",
     "digitaldonkey/ethjs-schema": "dev-master"
   },
   "autoload": {
@@ -22,25 +21,7 @@
   "repositories": [
     {
       "type": "git",
-      "package": {
-        "name": "digitaldonkey/ethereum-php",
-        "version": "dev-master",
-        "source": {
-          "url": "https://github.com/digitaldonkey/ethereum-php.git",
-          "reference": "master"
-        }
-      }
-    },
-    {
-      "type": "git",
-      "package": {
-        "name": "digitaldonkey/ethjs-schema",
-        "version": "dev-master",
-        "source": {
-          "url": "https://github.com/digitaldonkey/ethjs-schema.git",
-          "reference": "master"
-        }
-      }
+      "url": "https://github.com/digitaldonkey/ethjs-schema.git"
     }
   ]
 }
