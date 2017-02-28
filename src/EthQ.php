@@ -1,5 +1,7 @@
 <?php
 
+namespace Ethereum;
+
 /**
  * Numeric data.
  */

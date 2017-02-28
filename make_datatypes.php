@@ -4,6 +4,8 @@ define('TAGETPATH', './src');
 
 require_once './includes.inc.php';
 
+use Ethereum\EthDataTypePrimitive;
+
 $d = new EthDataTypePrimitive();
 
 
@@ -42,10 +44,17 @@ foreach ($schema['objects'] as $obj_name => $params) {
 
   $data = array (
     "<?php\n",
+    "namespace Ethereum;",
+    "",
+    "/**",
+    " * Implement data type $obj_name.",
+    " */",
     "class $obj_name extends EthDataType {",
     "",
     $properties,
-    "",
+    "  /**",
+    "   * Constructor.",
+    "   */",
     "  public function __construct($constructor) {",
     $constructor_content,
     "  }",

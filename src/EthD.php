@@ -1,5 +1,8 @@
 <?php
 
+namespace Ethereum;
+
+use \Ethereum\EthDataTypePrimitive;
 
 /**
  * Byte data.

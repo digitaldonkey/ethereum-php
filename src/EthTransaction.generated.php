@@ -1,5 +1,10 @@
 <?php
 
+namespace Ethereum;
+
+/**
+ * Implement data type Transaction.
+ */
 class Transaction extends EthDataType {
 
   protected $hash;
@@ -14,7 +19,9 @@ class Transaction extends EthDataType {
   protected $gas;
   protected $input;
 
-
+  /**
+   * Constructor.
+   */
   public function __construct(EthD32 $hash = NULL, EthQ $nonce = NULL, EthD32 $blockHash = NULL, EthQ $blockNumber = NULL, EthQ $transactionIndex = NULL, EthD20 $from = NULL, EthD20 $to = NULL, EthQ $value = NULL, EthQ $gasPrice = NULL, EthQ $gas = NULL, EthD $input = NULL) {
     $this->hash = $hash;  
     $this->nonce = $nonce;  

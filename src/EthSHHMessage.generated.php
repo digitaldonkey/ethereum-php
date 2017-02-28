@@ -1,5 +1,10 @@
 <?php
 
+namespace Ethereum;
+
+/**
+ * Implement data type SHHMessage.
+ */
 class SHHMessage extends EthDataType {
 
   protected $hash;
@@ -12,7 +17,9 @@ class SHHMessage extends EthDataType {
   protected $payload;
   protected $workProved;
 
-
+  /**
+   * Constructor.
+   */
   public function __construct(EthD $hash = NULL, EthD $from = NULL, EthD $to = NULL, EthQ $expiry = NULL, EthQ $ttl = NULL, EthQ $sent = NULL, Array  $topics = NULL, EthD $payload = NULL, EthQ $workProved = NULL) {
     $this->hash = $hash;  
     $this->from = $from;  

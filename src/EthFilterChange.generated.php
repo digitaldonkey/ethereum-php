@@ -1,5 +1,10 @@
 <?php
 
+namespace Ethereum;
+
+/**
+ * Implement data type FilterChange.
+ */
 class FilterChange extends EthDataType {
 
   protected $removed;
@@ -12,7 +17,9 @@ class FilterChange extends EthDataType {
   protected $data;
   protected $topics;
 
-
+  /**
+   * Constructor.
+   */
   public function __construct(EthB $removed = NULL, EthQ $logIndex = NULL, EthQ $transactionIndex = NULL, EthD32 $transactionHash = NULL, EthD32 $blockHash = NULL, EthQ $blockNumber = NULL, EthD20 $address = NULL, EthData $data = NULL, Array  $topics = NULL) {
     $this->removed = $removed;  
     $this->logIndex = $logIndex;  

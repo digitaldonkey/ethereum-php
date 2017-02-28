@@ -1,5 +1,10 @@
 <?php
 
+namespace Ethereum;
+
+/**
+ * Implement data type Receipt.
+ */
 class Receipt extends EthDataType {
 
   protected $transactionHash;
@@ -11,7 +16,9 @@ class Receipt extends EthDataType {
   protected $contractAddress;
   protected $logs;
 
-
+  /**
+   * Constructor.
+   */
   public function __construct(EthD32 $transactionHash = NULL, EthQ $transactionIndex = NULL, EthD32 $blockHash = NULL, EthQ $blockNumber = NULL, EthQ $cumulativeGasUsed = NULL, EthQ $gasUsed = NULL, EthD20 $contractAddress = NULL, Array  $logs = NULL) {
     $this->transactionHash = $transactionHash;  
     $this->transactionIndex = $transactionIndex;  

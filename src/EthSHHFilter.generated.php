@@ -1,11 +1,18 @@
 <?php
 
+namespace Ethereum;
+
+/**
+ * Implement data type SHHFilter.
+ */
 class SHHFilter extends EthDataType {
 
   protected $topics;
   protected $to;
 
-
+  /**
+   * Constructor.
+   */
   public function __construct(Array  $topics, EthD $to = NULL) {
     $this->topics = $topics;  
     $this->to = $to; 

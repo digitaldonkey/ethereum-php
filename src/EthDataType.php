@@ -1,8 +1,10 @@
 <?php
 
+namespace Ethereum;
+
 /**
- * Base Class for all Datatypes.
-*/
+ * Base Class for all Data types.
+ */
 class EthDataType {
 
   /**

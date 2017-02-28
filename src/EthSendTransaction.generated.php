@@ -1,5 +1,10 @@
 <?php
 
+namespace Ethereum;
+
+/**
+ * Implement data type SendTransaction.
+ */
 class SendTransaction extends EthDataType {
 
   protected $from;
@@ -10,7 +15,9 @@ class SendTransaction extends EthDataType {
   protected $value;
   protected $nonce;
 
-
+  /**
+   * Constructor.
+   */
   public function __construct(EthD20 $from, EthD $data, EthD20 $to = NULL, EthQ $gas = NULL, EthQ $gasPrice = NULL, EthQ $value = NULL, EthQ $nonce = NULL) {
     $this->from = $from;  
     $this->data = $data;  

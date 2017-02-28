@@ -1,5 +1,8 @@
 <?php
 
+namespace Ethereum;
+
+use \Ethereum\EthDataType;
 
 /**
  * Basic Ethereum data types.
@@ -13,7 +16,7 @@ class EthDataTypePrimitive extends EthDataType {
    */
   protected $value;
 
-  const map = array(
+   const map = array(
     // Bytes data.
     'D' => 'EthD',
     // Bytes data, length 20
@@ -34,6 +37,9 @@ class EthDataTypePrimitive extends EthDataType {
     'Array|DATA' => 'EthData',
   );
 
+  public static function typeMap($type) {
+    return self::map[$type];
+  }
   public function setValue($val){
 
     // TODO IMPLEMENT VALIDATE

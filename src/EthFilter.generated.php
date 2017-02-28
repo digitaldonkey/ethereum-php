@@ -1,5 +1,10 @@
 <?php
 
+namespace Ethereum;
+
+/**
+ * Implement data type Filter.
+ */
 class Filter extends EthDataType {
 
   protected $fromBlock;
@@ -7,7 +12,9 @@ class Filter extends EthDataType {
   protected $address;
   protected $topics;
 
-
+  /**
+   * Constructor.
+   */
   public function __construct(EthBlockParam $fromBlock = NULL, EthBlockParam $toBlock = NULL, EthData $address = NULL, Array  $topics = NULL) {
     $this->fromBlock = $fromBlock;  
     $this->toBlock = $toBlock;  

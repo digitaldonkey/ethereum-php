@@ -1,5 +1,10 @@
 <?php
 
+namespace Ethereum;
+
+/**
+ * Implement data type SHHPost.
+ */
 class SHHPost extends EthDataType {
 
   protected $topics;
@@ -9,7 +14,9 @@ class SHHPost extends EthDataType {
   protected $from;
   protected $to;
 
-
+  /**
+   * Constructor.
+   */
   public function __construct(Array  $topics, EthD $payload, EthQ $priority, EthQ $ttl, EthD $from = NULL, EthD $to = NULL) {
     $this->topics = $topics;  
     $this->payload = $payload;  

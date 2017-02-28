@@ -1,12 +1,19 @@
 <?php
 
+namespace Ethereum;
+
+/**
+ * Implement data type EthSyncing.
+ */
 class EthSyncing extends EthDataType {
 
   protected $startingBlock;
   protected $currentBlock;
   protected $highestBlock;
 
-
+  /**
+   * Constructor.
+   */
   public function __construct(EthQ $startingBlock = NULL, EthQ $currentBlock = NULL, EthQ $highestBlock = NULL) {
     $this->startingBlock = $startingBlock;  
     $this->currentBlock = $currentBlock;  

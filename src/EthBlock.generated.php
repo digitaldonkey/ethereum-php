@@ -1,5 +1,10 @@
 <?php
 
+namespace Ethereum;
+
+/**
+ * Implement data type Block.
+ */
 class Block extends EthDataType {
 
   protected $number;
@@ -22,7 +27,9 @@ class Block extends EthDataType {
   protected $transactions;
   protected $uncles;
 
-
+  /**
+   * Constructor.
+   */
   public function __construct(EthQ $number = NULL, EthD32 $hash = NULL, EthD32 $parentHash = NULL, EthD $nonce = NULL, EthD $sha3Uncles = NULL, EthD $logsBloom = NULL, EthD $transactionsRoot = NULL, EthD $stateRoot = NULL, EthD $receiptsRoot = NULL, EthD $miner = NULL, EthQ $difficulty = NULL, EthQ $totalDifficulty = NULL, EthD $extraData = NULL, EthQ $size = NULL, EthQ $gasLimit = NULL, EthQ $gasUsed = NULL, EthQ $timestamp = NULL, Array  $transactions = NULL, Array  $uncles = NULL) {
     $this->number = $number;  
     $this->hash = $hash;  
