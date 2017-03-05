@@ -40,7 +40,7 @@ class EthDataTypePrimitive extends EthDataType {
    * @param array $params
    *   Array with optional parameters. Add Abi type $params['abi'] = 'unint8'.
    */
-  public function __construct($val, array $params) {
+  public function __construct($val, array $params = array()) {
     $this->setValue($val, $params);
   }
 

@@ -28,10 +28,16 @@ class EthS extends EthD {
   }
 
   /**
-   * Implement validation.
+   * Get hexadecimal string representation.
    */
   public function hexVal() {
     return $this->strToHex($this->value);
   }
 
+  /**
+   * Get string.
+   */
+  public function val() {
+    return $this->value;
+  }
 }

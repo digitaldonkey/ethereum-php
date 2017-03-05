@@ -14,7 +14,7 @@ class EthereumStaticTestEthQ extends \PHPUnit_Framework_TestCase {
    * This test is bases data by
    * http://www.binaryhexconverter.com/decimal-to-hex-converter.
    */
-  public function testEthQSimple() {
+  public function testEthQ__simple() {
     $x = new EthQ(999);
     $this->assertSame($x->val(), 999);
     $this->assertSame($x->hexVal(), '0x000003e7');
@@ -22,7 +22,7 @@ class EthereumStaticTestEthQ extends \PHPUnit_Framework_TestCase {
     $this->assertSame($x->getType($schema = TRUE), "Q");
   }
 
-  public function testEthQZero() {
+  public function testEthQ__zero() {
 
     $hex_null_short = new EthQ('0x');
     $this->assertSame($hex_null_short->val(), 0);
@@ -37,7 +37,7 @@ class EthereumStaticTestEthQ extends \PHPUnit_Framework_TestCase {
     $this->assertSame($int_null->hexVal(), '0x00000000');
   }
 
-  public function testEthQOne() {
+  public function testEthQ__one() {
 
     $hex_one = new EthQ('0x00000001');
     $this->assertSame($hex_one->val(), 1);
@@ -49,13 +49,13 @@ class EthereumStaticTestEthQ extends \PHPUnit_Framework_TestCase {
 
   }
 
-  public function testEthQRandom() {
+  public function testEthQ__random() {
     $hex_number = new EthQ('0x000003e7');
     $this->assertSame($hex_number->val(), 999);
     $this->assertSame($hex_number->hexVal(), '0x000003e7');
   }
 
-  public function testEthNegative() {
+  public function testEthQ__negative() {
 
     $x = new EthQ(-999);
     $this->assertSame($x->val(), -999);
@@ -71,32 +71,32 @@ class EthereumStaticTestEthQ extends \PHPUnit_Framework_TestCase {
   }
 
   // Given ABI.
-  public function testEthQAbi8() {
+  public function testEthQ__abi8() {
     $x = new EthQ('0x0000270f', array('abi' => 'uint8'));
     $this->assertSame($x->val(), 9999);
     $this->assertSame($x->hexVal(), '0x0000270f');
   }
 
-  public function testEthQAbi16() {
+  public function testEthQ__abi16() {
 
     $typed_hex_number_16 = new EthQ('0x0000270f', array('abi' => 'uint16'));
     $this->assertSame((int) $typed_hex_number_16->val(), 9999);
     $this->assertSame($typed_hex_number_16->hexVal(), '0x000000000000270f');
   }
 
-  public function testEthQAbi256() {
+  public function testEthQ__abi256() {
     $typed_hex_number_16 = new EthQ('0x0000270f', array('abi' => 'int256'));
     $this->assertSame((int) $typed_hex_number_16->val(), 9999);
     $this->assertSame($typed_hex_number_16->hexVal(), '0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000270f');
   }
 
   // Made to Fail.
-  public function testEthQWrongLength() {
+  public function testEthQ__fail_wrongLength() {
     $this->setExpectedException(InvalidArgumentException::class);
     new EthQ('0xfffffc1');
   }
 
-  public function testEthQTooLong() {
+  public function testEthQ__fail_tooLong() {
     $this->setExpectedException(InvalidArgumentException::class);
     new EthQ('0x' . str_repeat('0', 2 ^ 256) . '1');
   }
