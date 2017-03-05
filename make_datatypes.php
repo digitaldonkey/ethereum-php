@@ -6,11 +6,6 @@ require_once './includes.inc.php';
 
 use Ethereum\EthDataTypePrimitive;
 
-$d = new EthDataTypePrimitive();
-
-
-
-
 foreach ($schema['objects'] as $obj_name => $params) {
 
   echo "<h3>" .  $obj_name ."</h3>";
@@ -87,14 +82,14 @@ foreach ($schema['objects'] as $obj_name => $params) {
  *    'required' => ['name', 'name' ...] ]
  */
 function makeSetFunctions(Array $input) {
-  global $d;
+
   $functions = '';
   // Required params first.
   foreach ($input['params'] as $name => $type) {
 
     // TODO ARRAY HANDLING MISSING!
 
-    $functions .= '    public function set' . ucfirst($name) . '(' . $d::map[$type] .' $value){' . "\n";
+    $functions .= '    public function set' . ucfirst($name) . '(' . EthDataTypePrimitive::MAP[$type] .' $value){' . "\n";
     $functions .= '      $this->' . $name . ' = $value;' . "\n";
     $functions .=     "    }\n";
   }
@@ -164,7 +159,6 @@ function makeProperties(Array $input) {
  *    'required' => ['name', 'name' ...] ]
  */
 function makeConstructor(Array $input) {
-  global $d;
 
   $constructor = '';
 
@@ -172,7 +166,7 @@ function makeConstructor(Array $input) {
   foreach ($input['params'] as $name => $type) {
 
     if (!is_array($type)) {
-      $constructor .= $d::map[$type] . ' $' . $name;
+      $constructor .= EthDataTypePrimitive::typeMap($type) . ' $' . $name;
       if (!in_array($name, $input['required'])) {
         $constructor .= ' = NULL';
       }

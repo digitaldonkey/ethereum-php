@@ -13,7 +13,6 @@ use Ethereum\EthB;
 use Ethereum\EthBlockParam;
 use Ethereum\EthData;
 
-
 /**
  * Ethereum JsonRPC API for PHP.
  *
@@ -88,23 +87,13 @@ class Ethereum extends EthereumStatic {
 
         // TODO Validate Call params.
 
-        //Call
-        $X = FALSE;
+        // Call.
+        $value = $this->ether_request($method, $params = array());
 
-        $return_type = EthDataTypePrimitive::typeMap($param_definition[1]);
+        // Create return value.
+        $classname = "\Ethereum\\" . EthDataTypePrimitive::typeMap($param_definition[1]);
 
-
-//        ReflectionClass::newInstance ( mixed $args [, mixed $... ] )
-
-        $return = new $return_type($this->ether_request($method, $params = array()));
-
-        $X = FALSE;
-
-        exit;
-        return $this->ether_request($method, $params = array());
-
-        // Todo: Implement type validation and create return param.
-
+        return new $classname($value);
       };
       // Binding above function.
       $this->methods[$name] = \Closure::bind(${$name}, $this, get_class());
