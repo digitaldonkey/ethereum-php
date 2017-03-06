@@ -10,7 +10,7 @@ class EthS extends EthD {
   /**
    * Implement validation.
    */
-  public function validate($val) {
+  public function validate($val, array $params) {
     $return = NULL;
     if ($this->hasHexPrefix($val)) {
       // Hex encoded string.
