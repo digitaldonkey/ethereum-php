@@ -24,9 +24,7 @@ class EthD extends EthDataTypePrimitive {
    */
   public function validate($val, array $params) {
 
-    $X = FALSE;
-
-    if ($this->hasHexPrefix($val) && ctype_xdigit(substr(2, $val))) {
+    if ($this->hasHexPrefix($val) && $this->validateHexString($val)) {
 
       // All Hex strings are lowercase.
       $val = strtolower($val);
@@ -38,6 +36,29 @@ class EthD extends EthDataTypePrimitive {
     else {
       throw new \InvalidArgumentException('Can not decode hex binary: ' . $val);
     }
+  }
+
+
+  /**
+   * Validate hex string for Hex letters.
+   *
+   * @param string $val
+   *   Prefixed Hexadecimal String.
+   *
+   * @return bool
+   *   Return TRUE if value contains only Hex digits.
+   *
+   * @throws \InvalidArgumentException
+   *   If value contains non Hexadecimal characters.
+   */
+  public function validateHexString($val) {
+    if ($val === '0x') {
+      $val = '0x0';
+    }
+    if (!ctype_xdigit(substr($val, 2))) {
+      throw new \InvalidArgumentException('A non well formed hex value encountered: ' . $val);
+    }
+    return TRUE;
   }
 
   /**

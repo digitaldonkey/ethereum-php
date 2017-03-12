@@ -22,7 +22,7 @@ class EthD20 extends EthD {
    *   Validated D20 value.
    */
   public function validateLength($val) {
-
+    $val = $this->unPadHex($val);
     if (strlen($val) === 42) {
       return $val;
     }

@@ -29,8 +29,9 @@ class EthereumStaticTestEthD extends \PHPUnit_Framework_TestCase {
 
   public function testEthQ__notHex() {
     try {
-      $exception_message_expected = 'A non well formed numeric value encountered';
-      new EthD('0xyz116b6e1a6e963efffa30c0a8541075cc51c45');
+      $val = '0xyz116b6e1a6e963efffa30c0a8541075cc51c45';
+      $exception_message_expected = 'A non well formed hex value encountered: ' . $val;
+      new EthD($val);
       $this->fail("Expected exception '" . $exception_message_expected . "' not thrown");
     }
     catch (\Exception $exception) {

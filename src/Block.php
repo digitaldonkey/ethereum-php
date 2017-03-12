@@ -111,27 +111,31 @@ class Block extends EthDataType {
     }
 
 
+  public function getType() {
+    return 'Block';
+  }
+
   public function toArray() {
     $return = array();
-      (!is_null($this->number)) ? $return['number'] = $this->number->getHexVal() : NULL; 
-      (!is_null($this->hash)) ? $return['hash'] = $this->hash->getHexVal() : NULL; 
-      (!is_null($this->parentHash)) ? $return['parentHash'] = $this->parentHash->getHexVal() : NULL; 
-      (!is_null($this->nonce)) ? $return['nonce'] = $this->nonce->getHexVal() : NULL; 
-      (!is_null($this->sha3Uncles)) ? $return['sha3Uncles'] = $this->sha3Uncles->getHexVal() : NULL; 
-      (!is_null($this->logsBloom)) ? $return['logsBloom'] = $this->logsBloom->getHexVal() : NULL; 
-      (!is_null($this->transactionsRoot)) ? $return['transactionsRoot'] = $this->transactionsRoot->getHexVal() : NULL; 
-      (!is_null($this->stateRoot)) ? $return['stateRoot'] = $this->stateRoot->getHexVal() : NULL; 
-      (!is_null($this->receiptsRoot)) ? $return['receiptsRoot'] = $this->receiptsRoot->getHexVal() : NULL; 
-      (!is_null($this->miner)) ? $return['miner'] = $this->miner->getHexVal() : NULL; 
-      (!is_null($this->difficulty)) ? $return['difficulty'] = $this->difficulty->getHexVal() : NULL; 
-      (!is_null($this->totalDifficulty)) ? $return['totalDifficulty'] = $this->totalDifficulty->getHexVal() : NULL; 
-      (!is_null($this->extraData)) ? $return['extraData'] = $this->extraData->getHexVal() : NULL; 
-      (!is_null($this->size)) ? $return['size'] = $this->size->getHexVal() : NULL; 
-      (!is_null($this->gasLimit)) ? $return['gasLimit'] = $this->gasLimit->getHexVal() : NULL; 
-      (!is_null($this->gasUsed)) ? $return['gasUsed'] = $this->gasUsed->getHexVal() : NULL; 
-      (!is_null($this->timestamp)) ? $return['timestamp'] = $this->timestamp->getHexVal() : NULL; 
-      (!is_null($this->transactions)) ? $return['transactions'] = $this->transactions->getHexVal() : NULL; 
-      (!is_null($this->uncles)) ? $return['uncles'] = $this->uncles->getHexVal() : NULL; 
+      (!is_null($this->number)) ? $return['number'] = $this->number->hexVal() : NULL; 
+      (!is_null($this->hash)) ? $return['hash'] = $this->hash->hexVal() : NULL; 
+      (!is_null($this->parentHash)) ? $return['parentHash'] = $this->parentHash->hexVal() : NULL; 
+      (!is_null($this->nonce)) ? $return['nonce'] = $this->nonce->hexVal() : NULL; 
+      (!is_null($this->sha3Uncles)) ? $return['sha3Uncles'] = $this->sha3Uncles->hexVal() : NULL; 
+      (!is_null($this->logsBloom)) ? $return['logsBloom'] = $this->logsBloom->hexVal() : NULL; 
+      (!is_null($this->transactionsRoot)) ? $return['transactionsRoot'] = $this->transactionsRoot->hexVal() : NULL; 
+      (!is_null($this->stateRoot)) ? $return['stateRoot'] = $this->stateRoot->hexVal() : NULL; 
+      (!is_null($this->receiptsRoot)) ? $return['receiptsRoot'] = $this->receiptsRoot->hexVal() : NULL; 
+      (!is_null($this->miner)) ? $return['miner'] = $this->miner->hexVal() : NULL; 
+      (!is_null($this->difficulty)) ? $return['difficulty'] = $this->difficulty->hexVal() : NULL; 
+      (!is_null($this->totalDifficulty)) ? $return['totalDifficulty'] = $this->totalDifficulty->hexVal() : NULL; 
+      (!is_null($this->extraData)) ? $return['extraData'] = $this->extraData->hexVal() : NULL; 
+      (!is_null($this->size)) ? $return['size'] = $this->size->hexVal() : NULL; 
+      (!is_null($this->gasLimit)) ? $return['gasLimit'] = $this->gasLimit->hexVal() : NULL; 
+      (!is_null($this->gasUsed)) ? $return['gasUsed'] = $this->gasUsed->hexVal() : NULL; 
+      (!is_null($this->timestamp)) ? $return['timestamp'] = $this->timestamp->hexVal() : NULL; 
+      (!is_null($this->transactions)) ? $return['transactions'] = $this->transactions->hexVal() : NULL; 
+      (!is_null($this->uncles)) ? $return['uncles'] = $this->uncles->hexVal() : NULL; 
     return $return;
   }
 }

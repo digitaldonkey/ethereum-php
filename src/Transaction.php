@@ -71,19 +71,23 @@ class Transaction extends EthDataType {
     }
 
 
+  public function getType() {
+    return 'Transaction';
+  }
+
   public function toArray() {
     $return = array();
-      (!is_null($this->hash)) ? $return['hash'] = $this->hash->getHexVal() : NULL; 
-      (!is_null($this->nonce)) ? $return['nonce'] = $this->nonce->getHexVal() : NULL; 
-      (!is_null($this->blockHash)) ? $return['blockHash'] = $this->blockHash->getHexVal() : NULL; 
-      (!is_null($this->blockNumber)) ? $return['blockNumber'] = $this->blockNumber->getHexVal() : NULL; 
-      (!is_null($this->transactionIndex)) ? $return['transactionIndex'] = $this->transactionIndex->getHexVal() : NULL; 
-      (!is_null($this->from)) ? $return['from'] = $this->from->getHexVal() : NULL; 
-      (!is_null($this->to)) ? $return['to'] = $this->to->getHexVal() : NULL; 
-      (!is_null($this->value)) ? $return['value'] = $this->value->getHexVal() : NULL; 
-      (!is_null($this->gasPrice)) ? $return['gasPrice'] = $this->gasPrice->getHexVal() : NULL; 
-      (!is_null($this->gas)) ? $return['gas'] = $this->gas->getHexVal() : NULL; 
-      (!is_null($this->input)) ? $return['input'] = $this->input->getHexVal() : NULL; 
+      (!is_null($this->hash)) ? $return['hash'] = $this->hash->hexVal() : NULL; 
+      (!is_null($this->nonce)) ? $return['nonce'] = $this->nonce->hexVal() : NULL; 
+      (!is_null($this->blockHash)) ? $return['blockHash'] = $this->blockHash->hexVal() : NULL; 
+      (!is_null($this->blockNumber)) ? $return['blockNumber'] = $this->blockNumber->hexVal() : NULL; 
+      (!is_null($this->transactionIndex)) ? $return['transactionIndex'] = $this->transactionIndex->hexVal() : NULL; 
+      (!is_null($this->from)) ? $return['from'] = $this->from->hexVal() : NULL; 
+      (!is_null($this->to)) ? $return['to'] = $this->to->hexVal() : NULL; 
+      (!is_null($this->value)) ? $return['value'] = $this->value->hexVal() : NULL; 
+      (!is_null($this->gasPrice)) ? $return['gasPrice'] = $this->gasPrice->hexVal() : NULL; 
+      (!is_null($this->gas)) ? $return['gas'] = $this->gas->hexVal() : NULL; 
+      (!is_null($this->input)) ? $return['input'] = $this->input->hexVal() : NULL; 
     return $return;
   }
 }

@@ -61,17 +61,21 @@ class SHHMessage extends EthDataType {
     }
 
 
+  public function getType() {
+    return 'SHHMessage';
+  }
+
   public function toArray() {
     $return = array();
-      (!is_null($this->hash)) ? $return['hash'] = $this->hash->getHexVal() : NULL; 
-      (!is_null($this->from)) ? $return['from'] = $this->from->getHexVal() : NULL; 
-      (!is_null($this->to)) ? $return['to'] = $this->to->getHexVal() : NULL; 
-      (!is_null($this->expiry)) ? $return['expiry'] = $this->expiry->getHexVal() : NULL; 
-      (!is_null($this->ttl)) ? $return['ttl'] = $this->ttl->getHexVal() : NULL; 
-      (!is_null($this->sent)) ? $return['sent'] = $this->sent->getHexVal() : NULL; 
-      (!is_null($this->topics)) ? $return['topics'] = $this->topics->getHexVal() : NULL; 
-      (!is_null($this->payload)) ? $return['payload'] = $this->payload->getHexVal() : NULL; 
-      (!is_null($this->workProved)) ? $return['workProved'] = $this->workProved->getHexVal() : NULL; 
+      (!is_null($this->hash)) ? $return['hash'] = $this->hash->hexVal() : NULL; 
+      (!is_null($this->from)) ? $return['from'] = $this->from->hexVal() : NULL; 
+      (!is_null($this->to)) ? $return['to'] = $this->to->hexVal() : NULL; 
+      (!is_null($this->expiry)) ? $return['expiry'] = $this->expiry->hexVal() : NULL; 
+      (!is_null($this->ttl)) ? $return['ttl'] = $this->ttl->hexVal() : NULL; 
+      (!is_null($this->sent)) ? $return['sent'] = $this->sent->hexVal() : NULL; 
+      (!is_null($this->topics)) ? $return['topics'] = $this->topics->hexVal() : NULL; 
+      (!is_null($this->payload)) ? $return['payload'] = $this->payload->hexVal() : NULL; 
+      (!is_null($this->workProved)) ? $return['workProved'] = $this->workProved->hexVal() : NULL; 
     return $return;
   }
 }

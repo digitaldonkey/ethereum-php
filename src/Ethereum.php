@@ -48,7 +48,7 @@ class Ethereum extends EthereumStatic {
     foreach ($this->definition['methods'] as $name => $params) {
       ${$name} = function () {
 
-        $this->debug = TRUE;
+        $this->debug = FALSE;
         $request_params = array();
 
         // Get name of called function.
@@ -66,7 +66,13 @@ class Ethereum extends EthereumStatic {
 
           // Get argument definition Classes.
           foreach ($valid_arguments as $type) {
-            $argument_class_names[] = EthDataTypePrimitive::typeMap($type);
+            $primitiveType = EthDataTypePrimitive::typeMap($type);
+            if ($primitiveType) {
+              $argument_class_names[] = $primitiveType;
+            }
+            else {
+              $argument_class_names[] = $type;
+            }
           }
           $this->debug('Valid arguments class names', $argument_class_names);
         }
@@ -78,12 +84,18 @@ class Ethereum extends EthereumStatic {
 
           // Validate arguments.
           foreach ($args as $i => $arg) {
+            $is_primitive = (bool) EthDataTypePrimitive::typeMap($arg->getType());
             if ($argument_class_names[$i] !== $arg->getType()) {
               throw new \InvalidArgumentException("Argument $i is " . $arg->getType() . " but expected $argument_class_names[$i] in $method().");
             }
             else {
               // Add hex value.
-              $request_params[] = $arg->hexVal();
+              if ($is_primitive) {
+                $request_params[] = $arg->hexVal();
+              }
+              else {
+                $request_params[] = $arg->toArray();
+              }
             }
           }
         }
@@ -146,13 +158,7 @@ class Ethereum extends EthereumStatic {
    */
   public function __call($method, $args) {
 
-    $X = FALSE;
-
-
     if(is_callable($this->methods[$method])) {
-
-      $X = FALSE;
-
       return call_user_func_array($this->methods[$method], $args);
     }
     else {
@@ -172,7 +178,6 @@ class Ethereum extends EthereumStatic {
    * Ethereum request.
    */
   private function ether_request($method, $params = array()) {
-
     try {
       return $this->request($method, $params);
     }

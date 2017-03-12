@@ -200,6 +200,22 @@ class EthereumStatic {
   }
 
   /**
+   * Add Hex Prefix "0x".
+   *
+   * @param string $str
+   *   String without prefix.
+   *
+   * @return string
+   *   String with prefix.
+   */
+  public static function ensureHexPrefix($str) {
+    if (self::hasHexPrefix($str)) {
+      return $str;
+    }
+    return '0x' . $str;
+  }
+
+  /**
    * Converts a string to Hex.
    *
    * @param string $string
@@ -225,7 +241,7 @@ class EthereumStatic {
    * @throws \Exception
    *   If string is not a formally valid address.
    */
-  public static function hexToAddress($string) {
+  public static function unPadHex($string) {
 
     if (!self::hasHexPrefix($string)) {
       $string = '0x' . $string;

@@ -46,14 +46,18 @@ class SHHPost extends EthDataType {
     }
 
 
+  public function getType() {
+    return 'SHHPost';
+  }
+
   public function toArray() {
     $return = array();
-      (!is_null($this->topics)) ? $return['topics'] = $this->topics->getHexVal() : NULL; 
-      (!is_null($this->payload)) ? $return['payload'] = $this->payload->getHexVal() : NULL; 
-      (!is_null($this->priority)) ? $return['priority'] = $this->priority->getHexVal() : NULL; 
-      (!is_null($this->ttl)) ? $return['ttl'] = $this->ttl->getHexVal() : NULL; 
-      (!is_null($this->from)) ? $return['from'] = $this->from->getHexVal() : NULL; 
-      (!is_null($this->to)) ? $return['to'] = $this->to->getHexVal() : NULL; 
+      (!is_null($this->topics)) ? $return['topics'] = $this->topics->hexVal() : NULL; 
+      (!is_null($this->payload)) ? $return['payload'] = $this->payload->hexVal() : NULL; 
+      (!is_null($this->priority)) ? $return['priority'] = $this->priority->hexVal() : NULL; 
+      (!is_null($this->ttl)) ? $return['ttl'] = $this->ttl->hexVal() : NULL; 
+      (!is_null($this->from)) ? $return['from'] = $this->from->hexVal() : NULL; 
+      (!is_null($this->to)) ? $return['to'] = $this->to->hexVal() : NULL; 
     return $return;
   }
 }

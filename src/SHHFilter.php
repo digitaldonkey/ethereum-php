@@ -26,10 +26,14 @@ class SHHFilter extends EthDataType {
     }
 
 
+  public function getType() {
+    return 'SHHFilter';
+  }
+
   public function toArray() {
     $return = array();
-      (!is_null($this->topics)) ? $return['topics'] = $this->topics->getHexVal() : NULL; 
-      (!is_null($this->to)) ? $return['to'] = $this->to->getHexVal() : NULL; 
+      (!is_null($this->topics)) ? $return['topics'] = $this->topics->hexVal() : NULL; 
+      (!is_null($this->to)) ? $return['to'] = $this->to->hexVal() : NULL; 
     return $return;
   }
 }

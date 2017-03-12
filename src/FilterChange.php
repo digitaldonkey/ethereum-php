@@ -61,17 +61,21 @@ class FilterChange extends EthDataType {
     }
 
 
+  public function getType() {
+    return 'FilterChange';
+  }
+
   public function toArray() {
     $return = array();
-      (!is_null($this->removed)) ? $return['removed'] = $this->removed->getHexVal() : NULL; 
-      (!is_null($this->logIndex)) ? $return['logIndex'] = $this->logIndex->getHexVal() : NULL; 
-      (!is_null($this->transactionIndex)) ? $return['transactionIndex'] = $this->transactionIndex->getHexVal() : NULL; 
-      (!is_null($this->transactionHash)) ? $return['transactionHash'] = $this->transactionHash->getHexVal() : NULL; 
-      (!is_null($this->blockHash)) ? $return['blockHash'] = $this->blockHash->getHexVal() : NULL; 
-      (!is_null($this->blockNumber)) ? $return['blockNumber'] = $this->blockNumber->getHexVal() : NULL; 
-      (!is_null($this->address)) ? $return['address'] = $this->address->getHexVal() : NULL; 
-      (!is_null($this->data)) ? $return['data'] = $this->data->getHexVal() : NULL; 
-      (!is_null($this->topics)) ? $return['topics'] = $this->topics->getHexVal() : NULL; 
+      (!is_null($this->removed)) ? $return['removed'] = $this->removed->hexVal() : NULL; 
+      (!is_null($this->logIndex)) ? $return['logIndex'] = $this->logIndex->hexVal() : NULL; 
+      (!is_null($this->transactionIndex)) ? $return['transactionIndex'] = $this->transactionIndex->hexVal() : NULL; 
+      (!is_null($this->transactionHash)) ? $return['transactionHash'] = $this->transactionHash->hexVal() : NULL; 
+      (!is_null($this->blockHash)) ? $return['blockHash'] = $this->blockHash->hexVal() : NULL; 
+      (!is_null($this->blockNumber)) ? $return['blockNumber'] = $this->blockNumber->hexVal() : NULL; 
+      (!is_null($this->address)) ? $return['address'] = $this->address->hexVal() : NULL; 
+      (!is_null($this->data)) ? $return['data'] = $this->data->hexVal() : NULL; 
+      (!is_null($this->topics)) ? $return['topics'] = $this->topics->hexVal() : NULL; 
     return $return;
   }
 }

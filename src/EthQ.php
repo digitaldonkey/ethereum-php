@@ -9,7 +9,7 @@ use Math_BigInteger;
 /**
  * Numeric data.
  */
-class EthQ extends EthDataTypePrimitive {
+class EthQ extends EthD {
 
   // Validation properties.
   protected $intTypes = array('int', 'uint');
@@ -20,6 +20,10 @@ class EthQ extends EthDataTypePrimitive {
   // Visibility public, so you can interact with Math_BigInteger.
   public $value;
   protected $abi;
+
+  // Non not RLP encoded values have a hex padding length of 64 (strlen).
+  // See:https://github.com/ethereum/wiki/wiki/RLP
+  const HEXPADDING = 64;
 
   /**
    * Overriding constructor.
@@ -66,6 +70,10 @@ class EthQ extends EthDataTypePrimitive {
       // With this we can guess negative values if no ABI is given.
       // But it will trigger negative if we have the highest number
       // a of current hex length.
+
+      // TODO
+      // This is WRONG We need to check for RLP
+      // SEE: https://github.com/ethereum/wiki/wiki/RLP
       if (!$abi && strlen($val) >= 10 && $val[2] === 'f') {
         $big_int = new Math_BigInteger($val, -16);
         $big_int->is_negative = TRUE;
@@ -75,7 +83,7 @@ class EthQ extends EthDataTypePrimitive {
         $big_int = new Math_BigInteger($val, 16);
       }
     }
-    elseif (is_int($val)) {
+    elseif (is_numeric($val)) {
       if ($val < 0) {
         $big_int = new Math_BigInteger($val);
         $big_int->is_negative = TRUE;
@@ -85,18 +93,13 @@ class EthQ extends EthDataTypePrimitive {
       }
     }
     if ($big_int && is_a($big_int, 'Math_BigInteger')) {
+
+      $this->abi = $this->getAbiFromNumber($big_int);
+
       // Check for valid ABI type. If exists, generate it.
       if ($abi && $this->validateAbi($abi)) {
-        $this->abi = $params['abi'];
-      }
-      else {
-        // Construct ABI from Hex.
-        if ($this->hasHexPrefix($val)) {
-          $this->abi = $this->getAbiFromHexVal($val, $big_int->is_negative);
-        }
-        else {
-          // Construct ABI from Number.
-          $this->abi = $this->getAbiFromNumber($big_int);
+        if ($this->abi !== $params['abi']) {
+          throw new \InvalidArgumentException('Given ABI (' . $params['abi'] . ') does not match number given number: ' . $val);
         }
       }
       return $big_int;
@@ -111,57 +114,47 @@ class EthQ extends EthDataTypePrimitive {
    *
    * @param Math_BigInteger $number
    *   "0x" prefixed Hexadecimal value.
-   * @return string Abi type.
+   * @return string
+   *   Abi type.
    */
   protected function getAbiFromNumber(Math_BigInteger $number) {
-    $val = $number->toHex($number->is_negative);
-    $length = strlen($val);
-    $max = array_slice(array_values($this->intLengts), -1)[0];
-    while (!in_array($length, $this->intLengts)) {
-      $length++;
-      if ($length > $max) {
-        throw new \Exception('Can not decode Hex number: ' . $val);
+    $abi_l = NULL;
+    $negative = $number->is_negative;
+
+    if ($negative) {
+      $number = $number->multiply(new Math_BigInteger(-1));
+    }
+
+    foreach ($this->intLengts as $exp) {
+      // TODO
+
+      $max_for_exp = new Math_BigInteger(2);
+      $max_for_exp = $max_for_exp->bitwise_leftShift($exp-1);
+//      $x = 1;
+//      while ($x <= $exp - 1) {
+//        $max_for_exp = $max_for_exp->multiply(new Math_BigInteger(2));
+//        $x++;
+//      }
+
+      // Prevent overflow See: http://ethereum.stackexchange.com/a/7294/852.
+      $max_for_exp = $max_for_exp->subtract(new Math_BigInteger(1));
+
+      if ($number->compare($max_for_exp) <= 0) {
+        $abi_l = $exp;
+        break;
       }
     }
-    if ($number->is_negative) {
-      return 'int' . $length;
+    if (!$abi_l) {
+      throw new \InvalidArgumentException('NOT IN RANGE: ' . $number->toString() . ' > (u)int256');
+    }
+    if ($negative) {
+      return 'int' . $abi_l;
     }
     else {
       // Default to unsigned integer.
-      return 'uint' . $length;
+      return 'uint' . $abi_l;
     }
   }
-
-  /**
-   * getAbiFromHexVal().
-   *
-   * @param string $hexVal
-   *   "0x" prefixed Hexadecimal value.
-   * @param bool $is_negative
-   *   Set tr TRUE if number is negative.
-   *
-   * @return string Abi type.
-   */
-  protected function getAbiFromHexVal($hexVal, $is_negative = FALSE) {
-
-    if ($hexVal === '0x' || $hexVal === '0x0') {
-      $hexVal = '0x00000000';
-    }
-
-    $length = strlen($hexVal) - 2;
-
-    if (!in_array($length, $this->intLengts)) {
-      throw new \InvalidArgumentException('Invalid hex length for value : ' . $hexVal);
-    }
-    if ($is_negative) {
-      return 'int' . $length;
-    }
-    else {
-      // Default to unsigned integer.
-      return 'uint' . $length;
-    }
-  }
-
 
   /**
    * Validate ABI.
@@ -206,8 +199,6 @@ class EthQ extends EthDataTypePrimitive {
     }
   }
 
-
-
   /**
    * Implement hex value.
    */
@@ -217,8 +208,12 @@ class EthQ extends EthDataTypePrimitive {
     // Math_BigInteger->toHex( [Boolean $twos_compliment = false])
     $value = $this->value->toHex($this->value->is_negative);
 
+    if (strlen($value) > self::HEXPADDING) {
+      throw new \Exception('Values > (u)int32 not supported yet: ' . $value);
+    }
+
     // Calc padding.
-    $pad = $this->getLength() - strlen($value);
+    $pad = self::HEXPADDING - strlen($value);
 
     $fill = $this->value->is_negative ? 'f' : '0';
     $ret = '0x' . str_repeat($fill, $pad) . $value;
@@ -253,6 +248,19 @@ class EthQ extends EthDataTypePrimitive {
   }
 
   /**
+   * Check if number is large.
+   *
+   * @param Math_BigInteger $val
+   *   Math_BigInteger value.
+   *
+   * @return bool
+   *   Return TRUE if number > PHP_INT_MAX.
+   */
+  public function isLargeNumber(Math_BigInteger $val) {
+    return !((string) ((int) $val->toString()) === $val->toString());
+  }
+
+  /**
    * Implement Integer value.
    *
    * @return int|string
@@ -260,14 +268,22 @@ class EthQ extends EthDataTypePrimitive {
    *   If $val > PHP_INT_MAX we return a string containing the integer.
    */
   public function val() {
-
-    $val = $this->value->toString();
-    if ((string)((int) $val) === $val) {
-      return (int) $val;
+    if ($this->isLargeNumber($this->value)) {
+      return $this->value->toString();
     }
     else {
-      return $val;
+      return (int) $this->value->toString();
     }
   }
 
+  /**
+   * Implement Integer value.
+   *
+   * @return int|string
+   *   Return a PHP integer.
+   *   If $val > PHP_INT_MAX we return a string containing the integer.
+   */
+  public function getAbi() {
+    return $this->abi;
+  }
 }

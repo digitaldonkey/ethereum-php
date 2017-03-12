@@ -51,15 +51,19 @@ class SendTransaction extends EthDataType {
     }
 
 
+  public function getType() {
+    return 'SendTransaction';
+  }
+
   public function toArray() {
     $return = array();
-      (!is_null($this->from)) ? $return['from'] = $this->from->getHexVal() : NULL; 
-      (!is_null($this->data)) ? $return['data'] = $this->data->getHexVal() : NULL; 
-      (!is_null($this->to)) ? $return['to'] = $this->to->getHexVal() : NULL; 
-      (!is_null($this->gas)) ? $return['gas'] = $this->gas->getHexVal() : NULL; 
-      (!is_null($this->gasPrice)) ? $return['gasPrice'] = $this->gasPrice->getHexVal() : NULL; 
-      (!is_null($this->value)) ? $return['value'] = $this->value->getHexVal() : NULL; 
-      (!is_null($this->nonce)) ? $return['nonce'] = $this->nonce->getHexVal() : NULL; 
+      (!is_null($this->from)) ? $return['from'] = $this->from->hexVal() : NULL; 
+      (!is_null($this->data)) ? $return['data'] = $this->data->hexVal() : NULL; 
+      (!is_null($this->to)) ? $return['to'] = $this->to->hexVal() : NULL; 
+      (!is_null($this->gas)) ? $return['gas'] = $this->gas->hexVal() : NULL; 
+      (!is_null($this->gasPrice)) ? $return['gasPrice'] = $this->gasPrice->hexVal() : NULL; 
+      (!is_null($this->value)) ? $return['value'] = $this->value->hexVal() : NULL; 
+      (!is_null($this->nonce)) ? $return['nonce'] = $this->nonce->hexVal() : NULL; 
     return $return;
   }
 }

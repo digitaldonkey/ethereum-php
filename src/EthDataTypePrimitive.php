@@ -30,6 +30,8 @@ class EthDataTypePrimitive extends EthDataType {
     'Q|T' => 'EthBlockParam',
     // Either an array of DATA or a single bytes DATA with variable length.
     'Array|DATA' => 'EthData',
+    // Derived ABI types
+    'bool' => 'EthB',
   );
 
   /**
@@ -111,6 +113,21 @@ class EthDataTypePrimitive extends EthDataType {
     else {
       throw new \Exception('Validation of ' . $this->getType() . ' not implemented yet.');
     }
+  }
+
+  /**
+   * Turn value into Expected value.
+   *
+   * @param string $abi
+   *   Expected Abi type.
+   *
+   * @return object
+   *   Return object of the expected data type.
+   */
+  public function convertTo($abi) {
+    $class = '\Ethereum\\' . $this->typeMap($abi);
+    $obj = new $class($this->hexVal());
+    return $obj;
   }
 
 }

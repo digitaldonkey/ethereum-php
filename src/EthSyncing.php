@@ -31,11 +31,15 @@ class EthSyncing extends EthDataType {
     }
 
 
+  public function getType() {
+    return 'EthSyncing';
+  }
+
   public function toArray() {
     $return = array();
-      (!is_null($this->startingBlock)) ? $return['startingBlock'] = $this->startingBlock->getHexVal() : NULL; 
-      (!is_null($this->currentBlock)) ? $return['currentBlock'] = $this->currentBlock->getHexVal() : NULL; 
-      (!is_null($this->highestBlock)) ? $return['highestBlock'] = $this->highestBlock->getHexVal() : NULL; 
+      (!is_null($this->startingBlock)) ? $return['startingBlock'] = $this->startingBlock->hexVal() : NULL; 
+      (!is_null($this->currentBlock)) ? $return['currentBlock'] = $this->currentBlock->hexVal() : NULL; 
+      (!is_null($this->highestBlock)) ? $return['highestBlock'] = $this->highestBlock->hexVal() : NULL; 
     return $return;
   }
 }

@@ -56,16 +56,20 @@ class Receipt extends EthDataType {
     }
 
 
+  public function getType() {
+    return 'Receipt';
+  }
+
   public function toArray() {
     $return = array();
-      (!is_null($this->transactionHash)) ? $return['transactionHash'] = $this->transactionHash->getHexVal() : NULL; 
-      (!is_null($this->transactionIndex)) ? $return['transactionIndex'] = $this->transactionIndex->getHexVal() : NULL; 
-      (!is_null($this->blockHash)) ? $return['blockHash'] = $this->blockHash->getHexVal() : NULL; 
-      (!is_null($this->blockNumber)) ? $return['blockNumber'] = $this->blockNumber->getHexVal() : NULL; 
-      (!is_null($this->cumulativeGasUsed)) ? $return['cumulativeGasUsed'] = $this->cumulativeGasUsed->getHexVal() : NULL; 
-      (!is_null($this->gasUsed)) ? $return['gasUsed'] = $this->gasUsed->getHexVal() : NULL; 
-      (!is_null($this->contractAddress)) ? $return['contractAddress'] = $this->contractAddress->getHexVal() : NULL; 
-      (!is_null($this->logs)) ? $return['logs'] = $this->logs->getHexVal() : NULL; 
+      (!is_null($this->transactionHash)) ? $return['transactionHash'] = $this->transactionHash->hexVal() : NULL; 
+      (!is_null($this->transactionIndex)) ? $return['transactionIndex'] = $this->transactionIndex->hexVal() : NULL; 
+      (!is_null($this->blockHash)) ? $return['blockHash'] = $this->blockHash->hexVal() : NULL; 
+      (!is_null($this->blockNumber)) ? $return['blockNumber'] = $this->blockNumber->hexVal() : NULL; 
+      (!is_null($this->cumulativeGasUsed)) ? $return['cumulativeGasUsed'] = $this->cumulativeGasUsed->hexVal() : NULL; 
+      (!is_null($this->gasUsed)) ? $return['gasUsed'] = $this->gasUsed->hexVal() : NULL; 
+      (!is_null($this->contractAddress)) ? $return['contractAddress'] = $this->contractAddress->hexVal() : NULL; 
+      (!is_null($this->logs)) ? $return['logs'] = $this->logs->hexVal() : NULL; 
     return $return;
   }
 }

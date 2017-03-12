@@ -56,13 +56,17 @@ foreach ($schema['objects'] as $obj_name => $params) {
     "",
     $setters,
     "",
+    "  public function getType() {",
+    "    return '$obj_name';",
+    "  }",
+    "",
     "  public function toArray() {",
     $return_array,
     "  }",
     "}",
   );
 
-  file_put_contents ( TAGETPATH . '/Eth' . ucfirst($obj_name) . '.generated.php',  implode("\n",$data));
+  file_put_contents ( TAGETPATH . '/' . ucfirst($obj_name) . '.php',  implode("\n",$data));
 
   echo "<hr />";
 
@@ -110,7 +114,7 @@ function makeReturnArray(Array $input) {
 
   // Required params first.
   foreach ($input['params'] as $name => $type) {
-    $array .= '      (!is_null($this->' . $name .')) ? $return[' . "'$name'" . '] = $this->' . $name . "->getHexVal() : NULL; \n";
+    $array .= '      (!is_null($this->' . $name .')) ? $return[' . "'$name'" . '] = $this->' . $name . "->hexVal() : NULL; \n";
   }
 
   $array .= '    return $return;';
