@@ -18,12 +18,14 @@ class SHHFilter extends EthDataType {
     $this->to = $to; 
   }
 
-    public function setTopics( $value){
-      $this->topics = $value;
-    }
-    public function setTo(EthD $value){
-      $this->to = $value;
-    }
+  public function setTopics(EthD $value){
+    $this->topics = $value;
+  }
+
+  public function setTo(EthD $value){
+    $this->to = $value;
+  }
+
 
 
   public function getType() {
@@ -32,8 +34,17 @@ class SHHFilter extends EthDataType {
 
   public function toArray() {
     $return = array();
-      (!is_null($this->topics)) ? $return['topics'] = $this->topics->hexVal() : NULL; 
+      (!is_null($this->topics)) ? $return['topics'] = EthereumStatic::valueArray($this->topics, 'D') : array(); 
       (!is_null($this->to)) ? $return['to'] = $this->to->hexVal() : NULL; 
     return $return;
+  }
+ /**
+  * Returns a name => type array.
+  */
+  public static function getTypeArray() {
+    return array( 
+      'topics' => 'EthD',
+      'to' => 'EthD',
+    );
   }
 }

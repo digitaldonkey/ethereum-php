@@ -56,7 +56,7 @@ class EthBlockParam extends EthD20 {
   }
 
   /**
-   * Return unprefixed bin value.
+   * Return un-prefixed bin value.
    *
    * @return int|string
    *   Return a PHP integer.
@@ -68,6 +68,22 @@ class EthBlockParam extends EthD20 {
     }
     else {
       return substr($this->value, 2);
+    }
+  }
+
+  /**
+   * Return hex value or tag.
+   *
+   * @return int|string
+   *   Return a PHP integer.
+   *   If $val > PHP_INT_MAX we return a string containing the integer.
+   */
+  public function hexVal() {
+    if (in_array($this->value, $this::TAGS)) {
+      return $this->value;
+    }
+    else {
+      return $this->value;
     }
   }
 

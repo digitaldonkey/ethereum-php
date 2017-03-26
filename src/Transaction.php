@@ -36,39 +36,50 @@ class Transaction extends EthDataType {
     $this->input = $input; 
   }
 
-    public function setHash(EthD32 $value){
-      $this->hash = $value;
-    }
-    public function setNonce(EthQ $value){
-      $this->nonce = $value;
-    }
-    public function setBlockHash(EthD32 $value){
-      $this->blockHash = $value;
-    }
-    public function setBlockNumber(EthQ $value){
-      $this->blockNumber = $value;
-    }
-    public function setTransactionIndex(EthQ $value){
-      $this->transactionIndex = $value;
-    }
-    public function setFrom(EthD20 $value){
-      $this->from = $value;
-    }
-    public function setTo(EthD20 $value){
-      $this->to = $value;
-    }
-    public function setValue(EthQ $value){
-      $this->value = $value;
-    }
-    public function setGasPrice(EthQ $value){
-      $this->gasPrice = $value;
-    }
-    public function setGas(EthQ $value){
-      $this->gas = $value;
-    }
-    public function setInput(EthD $value){
-      $this->input = $value;
-    }
+  public function setHash(EthD32 $value){
+    $this->hash = $value;
+  }
+
+  public function setNonce(EthQ $value){
+    $this->nonce = $value;
+  }
+
+  public function setBlockHash(EthD32 $value){
+    $this->blockHash = $value;
+  }
+
+  public function setBlockNumber(EthQ $value){
+    $this->blockNumber = $value;
+  }
+
+  public function setTransactionIndex(EthQ $value){
+    $this->transactionIndex = $value;
+  }
+
+  public function setFrom(EthD20 $value){
+    $this->from = $value;
+  }
+
+  public function setTo(EthD20 $value){
+    $this->to = $value;
+  }
+
+  public function setValue(EthQ $value){
+    $this->value = $value;
+  }
+
+  public function setGasPrice(EthQ $value){
+    $this->gasPrice = $value;
+  }
+
+  public function setGas(EthQ $value){
+    $this->gas = $value;
+  }
+
+  public function setInput(EthD $value){
+    $this->input = $value;
+  }
+
 
 
   public function getType() {
@@ -89,5 +100,23 @@ class Transaction extends EthDataType {
       (!is_null($this->gas)) ? $return['gas'] = $this->gas->hexVal() : NULL; 
       (!is_null($this->input)) ? $return['input'] = $this->input->hexVal() : NULL; 
     return $return;
+  }
+ /**
+  * Returns a name => type array.
+  */
+  public static function getTypeArray() {
+    return array( 
+      'hash' => 'EthD32',
+      'nonce' => 'EthQ',
+      'blockHash' => 'EthD32',
+      'blockNumber' => 'EthQ',
+      'transactionIndex' => 'EthQ',
+      'from' => 'EthD20',
+      'to' => 'EthD20',
+      'value' => 'EthQ',
+      'gasPrice' => 'EthQ',
+      'gas' => 'EthQ',
+      'input' => 'EthD',
+    );
   }
 }

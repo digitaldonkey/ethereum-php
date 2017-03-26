@@ -32,33 +32,42 @@ class FilterChange extends EthDataType {
     $this->topics = $topics; 
   }
 
-    public function setRemoved(EthB $value){
-      $this->removed = $value;
-    }
-    public function setLogIndex(EthQ $value){
-      $this->logIndex = $value;
-    }
-    public function setTransactionIndex(EthQ $value){
-      $this->transactionIndex = $value;
-    }
-    public function setTransactionHash(EthD32 $value){
-      $this->transactionHash = $value;
-    }
-    public function setBlockHash(EthD32 $value){
-      $this->blockHash = $value;
-    }
-    public function setBlockNumber(EthQ $value){
-      $this->blockNumber = $value;
-    }
-    public function setAddress(EthD20 $value){
-      $this->address = $value;
-    }
-    public function setData(EthData $value){
-      $this->data = $value;
-    }
-    public function setTopics( $value){
-      $this->topics = $value;
-    }
+  public function setRemoved(EthB $value){
+    $this->removed = $value;
+  }
+
+  public function setLogIndex(EthQ $value){
+    $this->logIndex = $value;
+  }
+
+  public function setTransactionIndex(EthQ $value){
+    $this->transactionIndex = $value;
+  }
+
+  public function setTransactionHash(EthD32 $value){
+    $this->transactionHash = $value;
+  }
+
+  public function setBlockHash(EthD32 $value){
+    $this->blockHash = $value;
+  }
+
+  public function setBlockNumber(EthQ $value){
+    $this->blockNumber = $value;
+  }
+
+  public function setAddress(EthD20 $value){
+    $this->address = $value;
+  }
+
+  public function setData(EthData $value){
+    $this->data = $value;
+  }
+
+  public function setTopics(EthD $value){
+    $this->topics = $value;
+  }
+
 
 
   public function getType() {
@@ -75,7 +84,23 @@ class FilterChange extends EthDataType {
       (!is_null($this->blockNumber)) ? $return['blockNumber'] = $this->blockNumber->hexVal() : NULL; 
       (!is_null($this->address)) ? $return['address'] = $this->address->hexVal() : NULL; 
       (!is_null($this->data)) ? $return['data'] = $this->data->hexVal() : NULL; 
-      (!is_null($this->topics)) ? $return['topics'] = $this->topics->hexVal() : NULL; 
+      (!is_null($this->topics)) ? $return['topics'] = EthereumStatic::valueArray($this->topics, 'D') : array(); 
     return $return;
+  }
+ /**
+  * Returns a name => type array.
+  */
+  public static function getTypeArray() {
+    return array( 
+      'removed' => 'EthB',
+      'logIndex' => 'EthQ',
+      'transactionIndex' => 'EthQ',
+      'transactionHash' => 'EthD32',
+      'blockHash' => 'EthD32',
+      'blockNumber' => 'EthQ',
+      'address' => 'EthD20',
+      'data' => 'EthData',
+      'topics' => 'EthD',
+    );
   }
 }

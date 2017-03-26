@@ -30,30 +30,38 @@ class Receipt extends EthDataType {
     $this->logs = $logs; 
   }
 
-    public function setTransactionHash(EthD32 $value){
-      $this->transactionHash = $value;
-    }
-    public function setTransactionIndex(EthQ $value){
-      $this->transactionIndex = $value;
-    }
-    public function setBlockHash(EthD32 $value){
-      $this->blockHash = $value;
-    }
-    public function setBlockNumber(EthQ $value){
-      $this->blockNumber = $value;
-    }
-    public function setCumulativeGasUsed(EthQ $value){
-      $this->cumulativeGasUsed = $value;
-    }
-    public function setGasUsed(EthQ $value){
-      $this->gasUsed = $value;
-    }
-    public function setContractAddress(EthD20 $value){
-      $this->contractAddress = $value;
-    }
-    public function setLogs( $value){
-      $this->logs = $value;
-    }
+  public function setTransactionHash(EthD32 $value){
+    $this->transactionHash = $value;
+  }
+
+  public function setTransactionIndex(EthQ $value){
+    $this->transactionIndex = $value;
+  }
+
+  public function setBlockHash(EthD32 $value){
+    $this->blockHash = $value;
+  }
+
+  public function setBlockNumber(EthQ $value){
+    $this->blockNumber = $value;
+  }
+
+  public function setCumulativeGasUsed(EthQ $value){
+    $this->cumulativeGasUsed = $value;
+  }
+
+  public function setGasUsed(EthQ $value){
+    $this->gasUsed = $value;
+  }
+
+  public function setContractAddress(EthD20 $value){
+    $this->contractAddress = $value;
+  }
+
+  public function setLogs(Array $value){
+    $this->logs = $value;
+  }
+
 
 
   public function getType() {
@@ -69,7 +77,22 @@ class Receipt extends EthDataType {
       (!is_null($this->cumulativeGasUsed)) ? $return['cumulativeGasUsed'] = $this->cumulativeGasUsed->hexVal() : NULL; 
       (!is_null($this->gasUsed)) ? $return['gasUsed'] = $this->gasUsed->hexVal() : NULL; 
       (!is_null($this->contractAddress)) ? $return['contractAddress'] = $this->contractAddress->hexVal() : NULL; 
-      (!is_null($this->logs)) ? $return['logs'] = $this->logs->hexVal() : NULL; 
+      (!is_null($this->logs)) ? $return['logs'] = EthereumStatic::valueArray($this->logs, 'FilterChange') : array(); 
     return $return;
+  }
+ /**
+  * Returns a name => type array.
+  */
+  public static function getTypeArray() {
+    return array( 
+      'transactionHash' => 'EthD32',
+      'transactionIndex' => 'EthQ',
+      'blockHash' => 'EthD32',
+      'blockNumber' => 'EthQ',
+      'cumulativeGasUsed' => 'EthQ',
+      'gasUsed' => 'EthQ',
+      'contractAddress' => 'EthD20',
+      'logs' => '',
+    );
   }
 }

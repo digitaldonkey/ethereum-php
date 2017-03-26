@@ -1,14 +1,23 @@
 <?php
 
+/**
+ * This is used to create consistent data type classes.
+ *
+ * Disabled, because only required for development.
+ */
+header("HTTP/1.1 401 Unauthorized");
+exit;
+
 define('TAGETPATH', './src');
 
 require_once './includes.inc.php';
 
 use Ethereum\EthDataTypePrimitive;
+use Ethereum\EthDataType;
 
 foreach ($schema['objects'] as $obj_name => $params) {
 
-  echo "<h3>" .  $obj_name ."</h3>";
+  echo "<h3>" . $obj_name . "</h3>";
 
   $required = $params['__required'];
   unset($params['__required']);
@@ -21,23 +30,18 @@ foreach ($schema['objects'] as $obj_name => $params) {
 
   $return_array = makeReturnArray($ordered_params);
 
-
-
   $properties = makeProperties($ordered_params);
 
+  printMe('Arguments', $ordered_params['params']);
+  printMe('Required', $required);
+  printMe('Properties', $properties);
+  printMe('Constructor', "__construct(" . $constructor . ")");
+  printMe('ConstructorContent', $constructor_content);
+  printMe('Set&lt;PROPERTY&gt;', $setters);
+  printMe('Return Array', $return_array);
+  printMe('Type Array', makeTypeArray($ordered_params));
 
-
-  printMe ('Arguments', $ordered_params['params']);
-  printMe ('Required', $required);
-  printMe ('Properties', $properties);
-  printMe ('Constructor', "__construct(" . $constructor . ")");
-  printMe ('ConstructorContent', $constructor_content);
-  printMe ('Set&lt;PROPERTY&gt;', $setters);
-  printMe ('Return Array', $return_array);
-
-
-
-  $data = array (
+  $data = array(
     "<?php\n",
     "namespace Ethereum;",
     "",
@@ -63,44 +67,31 @@ foreach ($schema['objects'] as $obj_name => $params) {
     "  public function toArray() {",
     $return_array,
     "  }",
+    makeTypeArray($ordered_params),
     "}",
   );
-
-  file_put_contents ( TAGETPATH . '/' . ucfirst($obj_name) . '.php',  implode("\n",$data));
-
+  file_put_contents(TAGETPATH . '/' . ucfirst($obj_name) . '.php', implode("\n", $data));
   echo "<hr />";
-
-
 }
-
-// echo "<h1>SCHEMA</h1>";
-// var_dump($schema);
-
-
 
 /**
  * Create set_<PROPERTY> functions content.
  *
- * @param Array $input -
+ * @param array $input
  *   ['params' => ['name'=> Type, 'name'=> Type ...],
  *    'required' => ['name', 'name' ...] ]
  */
-function makeSetFunctions(Array $input) {
+function makeSetFunctions(array $input) {
 
   $functions = '';
   // Required params first.
   foreach ($input['params'] as $name => $type) {
-
-    // TODO ARRAY HANDLING MISSING!
-
-    $functions .= '    public function set' . ucfirst($name) . '(' . EthDataTypePrimitive::MAP[$type] .' $value){' . "\n";
-    $functions .= '      $this->' . $name . ' = $value;' . "\n";
-    $functions .=     "    }\n";
+    $functions .= '  public function set' . ucfirst($name) . '(' . EthDataType::getTypeClass($type, TRUE) . ' $value){' . "\n";
+    $functions .= '    $this->' . $name . ' = $value;' . "\n";
+    $functions .= "  }\n\n";
   }
   return $functions;
 }
-
-
 
 /**
  * Create return array.
@@ -114,7 +105,14 @@ function makeReturnArray(Array $input) {
 
   // Required params first.
   foreach ($input['params'] as $name => $type) {
-    $array .= '      (!is_null($this->' . $name .')) ? $return[' . "'$name'" . '] = $this->' . $name . "->hexVal() : NULL; \n";
+
+    if (is_array($type)) {
+      $array .= '      (!is_null($this->' . $name . ')) ? $return[' . "'$name'" . '] = EthereumStatic::valueArray($this->' . $name . ", '" . $type[0] . "') : array(); \n";
+    }
+    else {
+      $array .= '      (!is_null($this->' . $name .')) ? $return[' . "'$name'" . '] = $this->' . $name . "->hexVal() : NULL; \n";
+    }
+
   }
 
   $array .= '    return $return;';
@@ -136,6 +134,33 @@ function makeConstructorContent(Array $input) {
     $properties .= '    $this->' . $name . " = $$name;  \n";
   }
   return substr($properties, 0, -2);
+}
+
+
+/**
+ * Create Constructor from array.
+ *
+ * @param Array $input
+ *   ['params' => ['name'=> Type, 'name'=> Type ...],
+ *    'required' => ['name', 'name' ...] ]
+ */
+function makeTypeArray(Array $input) {
+  $data[] = " /**";
+  $data[] = "  * Returns a name => type array.";
+  $data[] = "  */";
+  $data[] = '  public static function getTypeArray() {';
+  $data[] = '    return array( ';
+  foreach ($input['params'] as $name => $type) {
+    if (is_array($type)) {
+      $data[] = "      '" . $name . "' => '" . EthDataTypePrimitive::typeMap($type[0]) . "',";
+    }
+    else {
+      $data[] = "      '" . $name . "' => '" . EthDataTypePrimitive::typeMap($type) . "',";
+    }
+  }
+  $data[] = '    );';
+  $data[] = '  }';
+  return implode("\n", $data);
 }
 
 
@@ -176,7 +201,7 @@ function makeConstructor(Array $input) {
       }
     }
     else {
-      $constructor .= 'Array ' . ' $' . $name;
+      $constructor .= 'array ' . ' $' . $name;
       if (!in_array($name, $input['required'])) {
         $constructor .= ' = NULL';
       }

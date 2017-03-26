@@ -52,63 +52,82 @@ class Block extends EthDataType {
     $this->uncles = $uncles; 
   }
 
-    public function setNumber(EthQ $value){
-      $this->number = $value;
-    }
-    public function setHash(EthD32 $value){
-      $this->hash = $value;
-    }
-    public function setParentHash(EthD32 $value){
-      $this->parentHash = $value;
-    }
-    public function setNonce(EthD $value){
-      $this->nonce = $value;
-    }
-    public function setSha3Uncles(EthD $value){
-      $this->sha3Uncles = $value;
-    }
-    public function setLogsBloom(EthD $value){
-      $this->logsBloom = $value;
-    }
-    public function setTransactionsRoot(EthD $value){
-      $this->transactionsRoot = $value;
-    }
-    public function setStateRoot(EthD $value){
-      $this->stateRoot = $value;
-    }
-    public function setReceiptsRoot(EthD $value){
-      $this->receiptsRoot = $value;
-    }
-    public function setMiner(EthD $value){
-      $this->miner = $value;
-    }
-    public function setDifficulty(EthQ $value){
-      $this->difficulty = $value;
-    }
-    public function setTotalDifficulty(EthQ $value){
-      $this->totalDifficulty = $value;
-    }
-    public function setExtraData(EthD $value){
-      $this->extraData = $value;
-    }
-    public function setSize(EthQ $value){
-      $this->size = $value;
-    }
-    public function setGasLimit(EthQ $value){
-      $this->gasLimit = $value;
-    }
-    public function setGasUsed(EthQ $value){
-      $this->gasUsed = $value;
-    }
-    public function setTimestamp(EthQ $value){
-      $this->timestamp = $value;
-    }
-    public function setTransactions( $value){
-      $this->transactions = $value;
-    }
-    public function setUncles( $value){
-      $this->uncles = $value;
-    }
+  public function setNumber(EthQ $value){
+    $this->number = $value;
+  }
+
+  public function setHash(EthD32 $value){
+    $this->hash = $value;
+  }
+
+  public function setParentHash(EthD32 $value){
+    $this->parentHash = $value;
+  }
+
+  public function setNonce(EthD $value){
+    $this->nonce = $value;
+  }
+
+  public function setSha3Uncles(EthD $value){
+    $this->sha3Uncles = $value;
+  }
+
+  public function setLogsBloom(EthD $value){
+    $this->logsBloom = $value;
+  }
+
+  public function setTransactionsRoot(EthD $value){
+    $this->transactionsRoot = $value;
+  }
+
+  public function setStateRoot(EthD $value){
+    $this->stateRoot = $value;
+  }
+
+  public function setReceiptsRoot(EthD $value){
+    $this->receiptsRoot = $value;
+  }
+
+  public function setMiner(EthD $value){
+    $this->miner = $value;
+  }
+
+  public function setDifficulty(EthQ $value){
+    $this->difficulty = $value;
+  }
+
+  public function setTotalDifficulty(EthQ $value){
+    $this->totalDifficulty = $value;
+  }
+
+  public function setExtraData(EthD $value){
+    $this->extraData = $value;
+  }
+
+  public function setSize(EthQ $value){
+    $this->size = $value;
+  }
+
+  public function setGasLimit(EthQ $value){
+    $this->gasLimit = $value;
+  }
+
+  public function setGasUsed(EthQ $value){
+    $this->gasUsed = $value;
+  }
+
+  public function setTimestamp(EthQ $value){
+    $this->timestamp = $value;
+  }
+
+  public function setTransactions(Transaction $value){
+    $this->transactions = $value;
+  }
+
+  public function setUncles(EthD $value){
+    $this->uncles = $value;
+  }
+
 
 
   public function getType() {
@@ -134,8 +153,34 @@ class Block extends EthDataType {
       (!is_null($this->gasLimit)) ? $return['gasLimit'] = $this->gasLimit->hexVal() : NULL; 
       (!is_null($this->gasUsed)) ? $return['gasUsed'] = $this->gasUsed->hexVal() : NULL; 
       (!is_null($this->timestamp)) ? $return['timestamp'] = $this->timestamp->hexVal() : NULL; 
-      (!is_null($this->transactions)) ? $return['transactions'] = $this->transactions->hexVal() : NULL; 
-      (!is_null($this->uncles)) ? $return['uncles'] = $this->uncles->hexVal() : NULL; 
+      (!is_null($this->transactions)) ? $return['transactions'] = EthereumStatic::valueArray($this->transactions, 'DATA|Transaction') : array(); 
+      (!is_null($this->uncles)) ? $return['uncles'] = EthereumStatic::valueArray($this->uncles, 'D') : array(); 
     return $return;
+  }
+ /**
+  * Returns a name => type array.
+  */
+  public static function getTypeArray() {
+    return array( 
+      'number' => 'EthQ',
+      'hash' => 'EthD32',
+      'parentHash' => 'EthD32',
+      'nonce' => 'EthD',
+      'sha3Uncles' => 'EthD',
+      'logsBloom' => 'EthD',
+      'transactionsRoot' => 'EthD',
+      'stateRoot' => 'EthD',
+      'receiptsRoot' => 'EthD',
+      'miner' => 'EthD',
+      'difficulty' => 'EthQ',
+      'totalDifficulty' => 'EthQ',
+      'extraData' => 'EthD',
+      'size' => 'EthQ',
+      'gasLimit' => 'EthQ',
+      'gasUsed' => 'EthQ',
+      'timestamp' => 'EthQ',
+      'transactions' => 'Transaction',
+      'uncles' => 'EthD',
+    );
   }
 }

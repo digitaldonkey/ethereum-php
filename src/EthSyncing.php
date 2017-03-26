@@ -20,15 +20,18 @@ class EthSyncing extends EthDataType {
     $this->highestBlock = $highestBlock; 
   }
 
-    public function setStartingBlock(EthQ $value){
-      $this->startingBlock = $value;
-    }
-    public function setCurrentBlock(EthQ $value){
-      $this->currentBlock = $value;
-    }
-    public function setHighestBlock(EthQ $value){
-      $this->highestBlock = $value;
-    }
+  public function setStartingBlock(EthQ $value){
+    $this->startingBlock = $value;
+  }
+
+  public function setCurrentBlock(EthQ $value){
+    $this->currentBlock = $value;
+  }
+
+  public function setHighestBlock(EthQ $value){
+    $this->highestBlock = $value;
+  }
+
 
 
   public function getType() {
@@ -41,5 +44,15 @@ class EthSyncing extends EthDataType {
       (!is_null($this->currentBlock)) ? $return['currentBlock'] = $this->currentBlock->hexVal() : NULL; 
       (!is_null($this->highestBlock)) ? $return['highestBlock'] = $this->highestBlock->hexVal() : NULL; 
     return $return;
+  }
+ /**
+  * Returns a name => type array.
+  */
+  public static function getTypeArray() {
+    return array( 
+      'startingBlock' => 'EthQ',
+      'currentBlock' => 'EthQ',
+      'highestBlock' => 'EthQ',
+    );
   }
 }

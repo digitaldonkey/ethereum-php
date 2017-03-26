@@ -32,6 +32,11 @@ class EthDataTypePrimitive extends EthDataType {
     'Array|DATA' => 'EthData',
     // Derived ABI types
     'bool' => 'EthB',
+    // WORKAROUND? Some clients may return an Data Array. Works on testrpc.
+    'Boolean|EthSyncing' => 'EthB',
+    // WORKAROUND? Some clients may return an Data Array. Works on testrpc.
+    'DATA|Transaction' => 'Transaction',
+    // TODO DATA OR Transaction ???
   );
 
   /**
@@ -47,10 +52,32 @@ class EthDataTypePrimitive extends EthDataType {
   }
 
   /**
-   * Constructor.
+   * Check if Type is a primitive type.
+   *
+   * @return bool
+   *   True if data type is primitive.
+   */
+  public static function isPrimitive() {
+    return TRUE;
+  }
+
+  /**
+   * Map types.
+   *
+   * @param string $type
+   *   Schema name of data type.
+   *
+   * @return string|bool
+   *   Class name of data type or NULL if not exists.
    */
   public static function typeMap($type) {
-    return self::MAP[$type];
+    $map = self::MAP;
+    if (isset($map[$type])) {
+      return $map[$type];
+    }
+    else {
+      return NULL;
+    }
   }
 
   /**

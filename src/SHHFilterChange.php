@@ -32,33 +32,42 @@ class SHHFilterChange extends EthDataType {
     $this->workProved = $workProved; 
   }
 
-    public function setHash(EthD $value){
-      $this->hash = $value;
-    }
-    public function setFrom(EthD $value){
-      $this->from = $value;
-    }
-    public function setTo(EthD $value){
-      $this->to = $value;
-    }
-    public function setExpiry(EthQ $value){
-      $this->expiry = $value;
-    }
-    public function setTtl(EthQ $value){
-      $this->ttl = $value;
-    }
-    public function setSent(EthQ $value){
-      $this->sent = $value;
-    }
-    public function setTopics( $value){
-      $this->topics = $value;
-    }
-    public function setPayload(EthD $value){
-      $this->payload = $value;
-    }
-    public function setWorkProved(EthQ $value){
-      $this->workProved = $value;
-    }
+  public function setHash(EthD $value){
+    $this->hash = $value;
+  }
+
+  public function setFrom(EthD $value){
+    $this->from = $value;
+  }
+
+  public function setTo(EthD $value){
+    $this->to = $value;
+  }
+
+  public function setExpiry(EthQ $value){
+    $this->expiry = $value;
+  }
+
+  public function setTtl(EthQ $value){
+    $this->ttl = $value;
+  }
+
+  public function setSent(EthQ $value){
+    $this->sent = $value;
+  }
+
+  public function setTopics(EthD $value){
+    $this->topics = $value;
+  }
+
+  public function setPayload(EthD $value){
+    $this->payload = $value;
+  }
+
+  public function setWorkProved(EthQ $value){
+    $this->workProved = $value;
+  }
+
 
 
   public function getType() {
@@ -73,9 +82,25 @@ class SHHFilterChange extends EthDataType {
       (!is_null($this->expiry)) ? $return['expiry'] = $this->expiry->hexVal() : NULL; 
       (!is_null($this->ttl)) ? $return['ttl'] = $this->ttl->hexVal() : NULL; 
       (!is_null($this->sent)) ? $return['sent'] = $this->sent->hexVal() : NULL; 
-      (!is_null($this->topics)) ? $return['topics'] = $this->topics->hexVal() : NULL; 
+      (!is_null($this->topics)) ? $return['topics'] = EthereumStatic::valueArray($this->topics, 'D') : array(); 
       (!is_null($this->payload)) ? $return['payload'] = $this->payload->hexVal() : NULL; 
       (!is_null($this->workProved)) ? $return['workProved'] = $this->workProved->hexVal() : NULL; 
     return $return;
+  }
+ /**
+  * Returns a name => type array.
+  */
+  public static function getTypeArray() {
+    return array( 
+      'hash' => 'EthD',
+      'from' => 'EthD',
+      'to' => 'EthD',
+      'expiry' => 'EthQ',
+      'ttl' => 'EthQ',
+      'sent' => 'EthQ',
+      'topics' => 'EthD',
+      'payload' => 'EthD',
+      'workProved' => 'EthQ',
+    );
   }
 }

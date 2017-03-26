@@ -25,6 +25,16 @@ class EthDataType extends EthereumStatic {
 //  }
 
   /**
+   * Check if Type is a primitive type.
+   *
+   * @return bool
+   *   True if data type is primitive.
+   */
+  public static function isPrimitive() {
+    return FALSE;
+  }
+
+  /**
    * Get hexadecimal representation of $value.
    */
   public function getProperty($property = 'value') {
@@ -54,6 +64,49 @@ class EthDataType extends EthereumStatic {
     else {
       throw new \Exception('Validation of ' . __METHOD__ . ' not implemented yet.');
     }
+  }
+
+
+  /**
+   * Determine type class name for primitive and complex data types.
+   *
+   * @param array|string $type
+   *   Type containing Schema name.
+   * @param bool $typed_constructor
+   *   If true this function will return "array" for types of array(<type>),
+   *   instead of <type>.
+   *
+   * @return string
+   *   Class name of type.
+   *
+   * @throws \Exception
+   *   If something is wrong.
+   */
+  public static function getTypeClass($type, $typed_constructor = FALSE) {
+
+    if (!is_array($type)) {
+      $primitive_type = EthDataTypePrimitive::typeMap($type);
+    }
+    else {
+      $primitive_type = EthDataTypePrimitive::typeMap($type[0]);
+    }
+
+    if ($primitive_type) {
+      $type_class = $primitive_type;
+    }
+    else {
+      // Sadly arrayOf <type> is not supported by PHP.
+      if ($typed_constructor) {
+        $type_class = is_array($type) ? 'Array' : $type;
+      }
+      else {
+        $type_class = is_array($type) ? $type[0] : $type;
+      }
+    }
+    if (!$type_class) {
+      throw new \Exception('Could not determine type class at getTypeClass()');
+    }
+    return $type_class;
   }
 
 }

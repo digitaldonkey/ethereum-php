@@ -129,12 +129,7 @@ class EthQ extends EthD {
       // TODO
 
       $max_for_exp = new Math_BigInteger(2);
-      $max_for_exp = $max_for_exp->bitwise_leftShift($exp-1);
-//      $x = 1;
-//      while ($x <= $exp - 1) {
-//        $max_for_exp = $max_for_exp->multiply(new Math_BigInteger(2));
-//        $x++;
-//      }
+      $max_for_exp = $max_for_exp->bitwise_leftShift($exp - 1);
 
       // Prevent overflow See: http://ethereum.stackexchange.com/a/7294/852.
       $max_for_exp = $max_for_exp->subtract(new Math_BigInteger(1));
@@ -286,4 +281,5 @@ class EthQ extends EthD {
   public function getAbi() {
     return $this->abi;
   }
+
 }

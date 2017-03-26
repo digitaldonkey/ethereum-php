@@ -2,39 +2,97 @@
 
 namespace Ethereum;
 
-use Behat\Mink\Exception\Exception;
-//use \Moontoast\Math\BigNumber as BigNumber;
-use Math_BigInteger as Integer;
-
 /**
  * Static helper functions for Ethereum JsonRPC API for PHP.
  */
 class EthereumStatic {
 
   /**
-   * ENCODE a HEX.
+   * Determine type class name for primitive and complex data types.
    *
-   * See:
-   * https://github.com/ethereum/wiki/wiki/JSON-RPC#hex-value-encoding.
+   * @param string $class_name
+   *   Type to construct from associative Array.
+   * @param array $values
+   *   Associative value array.
    *
-   * @param string|int $input
-   *   Value to be hex encoded.
+   * @return Object
+   *   Object of type $class_name.
    *
-   * @return string
-   *   Encoded integer or String value.
+   * @throws \Exception
+   *   If something is wrong.
    */
-  public static function encodeHex($input) {
+  public static function arrayToComplexType($class_name, array $values) {
+    $return = array();
 
-    if (is_numeric($input)) {
-      $hex_str = EthereumStatic::large_dechex($input);
+    $class_values = array();
+    $type_map = $class_name::getTypeArray();
+
+    foreach ($type_map as $name => $val_class) {
+      if (isset($values[$name])) {
+        $val_class = '\\Ethereum\\' . $val_class;
+        if (is_array($values[$name])) {
+          $sub_values = array();
+          foreach ($values[$name] as $sub_val) {
+            $sub_values[] = self::arrayToComplexType($val_class, $sub_val);
+          }
+          $class_values[] = $sub_values;
+        }
+        else {
+          $class_values[] = new $val_class($values[$name]);
+        }
+      }
+      else {
+        // In order to create a proper constructor we need null values too.
+        $class_values[] = NULL;
+      }
     }
-    elseif (is_string($input)) {
-      $hex_str = EthereumStatic::strToHex($input);
+    $return = new $class_name(...$class_values);
+
+    return $return;
+  }
+
+  /**
+   * Create value array.
+   *
+   * @param array $values
+   *   Array of values of a uinique data type.
+   * @param string $typeClass
+   *   Class name for the data type.
+   *
+   * @return array
+   *   Array of value objects of the given type.
+   */
+  public static function valueArray(array $values, $typeClass) {
+    $return = array();
+    foreach ($values as $i => $val) {
+      if (is_array($val)) {
+        $return[$i] = self::arrayToComplexType($typeClass, $val);
+      }
+      $return[$i] = new $typeClass($val);
     }
-    else {
-      throw new \InvalidArgumentException($input . ' is not a string or number.');
+    return $return;
+  }
+
+  /**
+   * Is valid function.
+   *
+   * TODO: This is a pretty basic solid function verification.
+   *
+   * @param string $input
+   *   Function ABI as string.
+   *   See: https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI.
+   *
+   * @return bool
+   *   True if it might be a valid solidity function.
+   */
+  public static function isValidFunction($input) {
+    // Check for function and Params.
+    // See: https://regex101.com/r/437FZz/1/
+    $regex = '/^[a-zA-Z]*[\(]{1}(([\w\d]*)|([\w\d]*\s[\w\d]*){1}(\,\s[\w\d]*\s[\w\d]*)+)[\)]{1}$/';
+    if (is_string($input) && preg_match($regex, $input) === 1) {
+      return TRUE;
     }
-    return '0x' . $hex_str;
+    return FALSE;
   }
 
   /**
@@ -43,45 +101,11 @@ class EthereumStatic {
    * See:
    * https://github.com/ethereum/wiki/wiki/JSON-RPC#hex-value-encoding.
    *
-   * Problem: signed values
-   * Ethereum uses the "two's complement signed integer"
-   * where -1 === PHP_INT_MAX (32/64 bits depending on system).
-   * See: https://en.wikipedia.org/wiki/Two%27s_complement
+   * This is now handled by Math_BigInteger
+   * https://pear.php.net/package/Math_BigInteger/docs/latest/Math_BigInteger/Math_BigInteger.html.
    *
-   * Read about the challenges in PHP implementation:
-   * https://devzone.zend.com/3443/phps-remarkable-hexadecimals.
-   *
-   *
-   * @param string $input
-   *   String convert to number.
-   *
-   * @throws \InvalidArgumentException
-   *   If the provided argument not a HEX number.
-   *
-   * @return int
-   *   Decoded number.
+   * See class EthQ.
    */
-  public static function decodeHexNumber($input) {
-
-    if (!EthereumStatic::isValidHexQuantity($input)) {
-      throw new \InvalidArgumentException($input . ' is not a valid quantity.');
-    }
-    $hex_number = self::removeHexPrefix($input);
-
-    // Large Integer?
-    // How may bits?
-    // http://stackoverflow.com/questions/16124059/trying-to-read-a-twos-complement-16bit-into-a-signed-decimal
-
-    die ('TODO');
-
-    $dec = 0;
-    $len = strlen($hex_number);
-    for ($i = 1; $i <= $len; $i++) {
-      $dec = bcadd($dec, bcmul(strval(hexdec($hex_number[$i - 1])), bcpow('16', strval($len - $i))));
-    }
-    $dec = (float) $dec;
-    return $dec;
-  }
 
   /**
    * Tests string for valid hex quantity.
@@ -233,36 +257,6 @@ class EthereumStatic {
    * Converts Hex to string.
    *
    * @param string $string
-   *   Hex string to be converted.
-   *
-   * @return string
-   *   If address can't be decoded.
-   *
-   * @throws \Exception
-   *   If string is not a formally valid address.
-   */
-  public static function unPadHex($string) {
-
-    if (!self::hasHexPrefix($string)) {
-      $string = '0x' . $string;
-    }
-    // Remove leading zeros.
-    // See: https://regex101.com/r/O2Rpei/1
-    $matches = array();
-    if (preg_match('/^0x[0]*([1-9,a-f][0-9,a-f]*)$/is', $string, $matches)) {
-      $address = '0x' . $matches[1];
-      // Throws an Exception if not valid.
-      if (self::isValidAddress($address, TRUE)) {
-        return $address;
-      }
-    }
-    return NULL;
-  }
-
-  /**
-   * Converts Hex to string.
-   *
-   * @param string $string
    *   Hex string to be converted to UTF-8.
    *
    * @return string
@@ -277,7 +271,6 @@ class EthereumStatic {
     }
     $string = substr($string, strlen('0x'));
     $utf8 = '';
-
 
     $letters = str_split($string, 2);
     foreach ($letters as $letter) {
@@ -313,38 +306,5 @@ class EthereumStatic {
     //      $utf8 .= chr(hexdec($string[$i].$string[$i+1]));
     //    }
   }
-
-//  /**
-//   * Converts float number to Hex.
-//   *
-//   * @param float $dec
-//   *   Float umber to be converted to HEX.
-//   *
-//   * @return string
-//   *   String with hexadecimal representation.
-//   */
-//  public static function large_dechex($dec) {
-//
-//    // Convert Float to "large integer".
-//
-////    $uuid = BigNumber::convertToBase10($dec, 10);
-//
-//    $bn = new BigNumber($dec);
-//
-////    var_dump($bn->getValue());
-////    var_dump($bn->convertToBase(16));
-////
-////    //    $dec = sprintf('%.0f', $dec);
-////    //$dec = bcmod("$x", $dec);
-////    var_dump($dec);
-//
-//    $hex = '';
-//    do {
-//      $last = bcmod($dec, 16);
-//      $hex = dechex($last).$hex;
-//      $dec = bcdiv(bcsub($dec, $last), 16);
-//    } while($dec>0);
-//    return $hex;
-//  }
 
 }

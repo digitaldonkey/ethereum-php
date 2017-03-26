@@ -28,27 +28,34 @@ class CallTransaction extends EthDataType {
     $this->nonce = $nonce; 
   }
 
-    public function setTo(EthD20 $value){
-      $this->to = $value;
-    }
-    public function setFrom(EthD20 $value){
-      $this->from = $value;
-    }
-    public function setGas(EthQ $value){
-      $this->gas = $value;
-    }
-    public function setGasPrice(EthQ $value){
-      $this->gasPrice = $value;
-    }
-    public function setValue(EthQ $value){
-      $this->value = $value;
-    }
-    public function setData(EthD $value){
-      $this->data = $value;
-    }
-    public function setNonce(EthQ $value){
-      $this->nonce = $value;
-    }
+  public function setTo(EthD20 $value){
+    $this->to = $value;
+  }
+
+  public function setFrom(EthD20 $value){
+    $this->from = $value;
+  }
+
+  public function setGas(EthQ $value){
+    $this->gas = $value;
+  }
+
+  public function setGasPrice(EthQ $value){
+    $this->gasPrice = $value;
+  }
+
+  public function setValue(EthQ $value){
+    $this->value = $value;
+  }
+
+  public function setData(EthD $value){
+    $this->data = $value;
+  }
+
+  public function setNonce(EthQ $value){
+    $this->nonce = $value;
+  }
+
 
 
   public function getType() {
@@ -65,5 +72,19 @@ class CallTransaction extends EthDataType {
       (!is_null($this->data)) ? $return['data'] = $this->data->hexVal() : NULL; 
       (!is_null($this->nonce)) ? $return['nonce'] = $this->nonce->hexVal() : NULL; 
     return $return;
+  }
+ /**
+  * Returns a name => type array.
+  */
+  public static function getTypeArray() {
+    return array( 
+      'to' => 'EthD20',
+      'from' => 'EthD20',
+      'gas' => 'EthQ',
+      'gasPrice' => 'EthQ',
+      'value' => 'EthQ',
+      'data' => 'EthD',
+      'nonce' => 'EthQ',
+    );
   }
 }
