@@ -6,7 +6,8 @@
  * Disabled, because only required for development.
  */
 header("HTTP/1.1 401 Unauthorized");
-exit;
+die ('Access denied');
+
 
 define('TAGETPATH', './src');
 

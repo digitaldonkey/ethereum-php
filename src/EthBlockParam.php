@@ -7,7 +7,7 @@ namespace Ethereum;
  *
  * @see: https://github.com/ethereum/wiki/wiki/JSON-RPC#the-default-block-parameter.
  */
-class EthBlockParam extends EthD20 {
+class EthBlockParam extends EthQ {
 
   const TAGS = array(
     "latest",
@@ -30,8 +30,8 @@ class EthBlockParam extends EthD20 {
   /**
    * Implement validation.
    *
-   * @param string $val
-   *   "0x"prefixed hexadecimal byte value.
+   * @param string|int $val
+   *   Integer block number.
    * @param array $params
    *   Only $param['abi'] is relevant.
    *
@@ -41,16 +41,16 @@ class EthBlockParam extends EthD20 {
    * @return string.
    */
   public function validate($val, array $params) {
-
-    if (in_array($val, $this::TAGS)) {
+    $return = NULL;
+    if ($this->isTag($val)) {
       $return = $val;
     }
     else {
-      $return = $this->validateAddress($val, $params);
+      $return = parent::validate($val, $params);
     }
 
-    if (!$return) {
-      throw new \InvalidArgumentException('Can not decode hex binary: ' . $val);
+    if (is_null($return)) {
+      throw new \InvalidArgumentException('No valid block param: ' . $val);
     }
     return $return;
   }
@@ -63,27 +63,45 @@ class EthBlockParam extends EthD20 {
    *   If $val > PHP_INT_MAX we return a string containing the integer.
    */
   public function val() {
-    if (in_array($this->value, $this::TAGS)) {
+    if ($this->isTag()) {
       return $this->value;
     }
     else {
-      return substr($this->value, 2);
+      return intval($this->value->toString());
     }
   }
 
   /**
-   * Return hex value or tag.
+   * Check if value is a block-tag.
+   *
+   * @param $val
+   *   Value to check. Assuming $this->value if not given.
+   * @return bool
+   *   True if given value or $this->value is a tag.
+   */
+  protected function isTag($val = FALSE) {
+    if (!$val) {
+      $val = $this->value;
+    }
+    return (!is_int($val) && in_array($val, self::TAGS));
+  }
+
+  /**
+   * Return hex encoded block number or tag.
    *
    * @return int|string
    *   Return a PHP integer.
    *   If $val > PHP_INT_MAX we return a string containing the integer.
    */
   public function hexVal() {
-    if (in_array($this->value, $this::TAGS)) {
+    if ($this->isTag()) {
       return $this->value;
     }
     else {
-      return $this->value;
+      $val = intval($this->value->toString());
+      $val = ($val === 0) ? $val : $this->value->toHex(FALSE);
+      // Unpaded positive Hex value.
+      return $this->ensureHexPrefix($val);
     }
   }
 
