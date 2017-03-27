@@ -1,6 +1,6 @@
 {
   "name": "digitaldonkey/ethereum-php",
-  "description": "A library for integrating PHP with Ethereum.",
+  "description": "A library integrating Ethereum with typed PHP.",
   "require": {
     "php": ">=5.6",
     "graze/guzzle-jsonrpc": "~3.0",

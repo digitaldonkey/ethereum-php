@@ -3,16 +3,16 @@
 namespace Ethereum;
 
 use Graze\GuzzleHttp\JsonRpc\Client as RpcClient;
-use Ethereum\EthDataTypePrimitive;
-use Ethereum\EthD;
-use Ethereum\EthD20;
-use Ethereum\EthD32;
 use Ethereum\EthS;
-use Ethereum\EthQ;
-use Ethereum\EthB;
-use Ethereum\EthBlockParam;
-use Ethereum\EthData;
-use Drupal\Core\Render;
+use Ethereum\EthDataTypePrimitive;
+
+//use Ethereum\EthD;
+//use Ethereum\EthD20;
+//use Ethereum\EthD32;
+//use Ethereum\EthQ;
+//use Ethereum\EthB;
+//use Ethereum\EthBlockParam;
+//use Ethereum\EthData;
 
 /**
  * Ethereum JsonRPC API for PHP.
