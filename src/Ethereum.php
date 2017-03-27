@@ -49,6 +49,7 @@ class Ethereum extends EthereumStatic {
   public function __construct($url) {
 
     $this->client = RpcClient::factory($url, array(
+      // Debug JsonRPC requests.
       'debug' => FALSE,
     ));
 
@@ -238,7 +239,7 @@ class Ethereum extends EthereumStatic {
       throw new \Exception('Return type not implemented yet.');
     }
 
-    if (!$return) {
+    if (!$return && !is_array($return)) {
       throw new \Exception('Expected ' . $return_type_class . ' at ' . $method . ' (), couldn not be decoded. Value was: ' . print_r($value, TRUE));
     }
     return $return;
@@ -265,7 +266,16 @@ class Ethereum extends EthereumStatic {
       return $this->request($method, $params);
     }
     catch (\Exception $e) {
-      throw $e;
+      if ($e->getCode() === 405) {
+        return array(
+          'error' => TRUE,
+          'code' => 405,
+          'message' => $e->getMessage(),
+        );
+      }
+      else {
+        throw $e;
+      }
     }
   }
 
