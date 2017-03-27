@@ -6,13 +6,6 @@ use Graze\GuzzleHttp\JsonRpc\Client as RpcClient;
 use Ethereum\EthS;
 use Ethereum\EthDataTypePrimitive;
 
-//use Ethereum\EthD;
-//use Ethereum\EthD20;
-//use Ethereum\EthD32;
-//use Ethereum\EthQ;
-//use Ethereum\EthB;
-//use Ethereum\EthBlockParam;
-//use Ethereum\EthData;
 
 /**
  * Ethereum JsonRPC API for PHP.
@@ -106,9 +99,13 @@ class Ethereum extends EthereumStatic {
             }
             else {
 
-              // Add hex value.
-              if ($arg->isPrimitive()) {
+              // Add value. Inconsistently booleans are not hexEncoded if they
+              // are not data like in eth_getBlockByHash().
+              if ($arg->isPrimitive() && $arg->getType() !== 'EthB') {
                 $request_params[] = $arg->hexVal();
+              }
+              elseif ($arg->isPrimitive() && $arg->getType() === 'EthB') {
+                $request_params[] = $arg->val();
               }
               else {
                 $request_params[] = $arg->toArray();
