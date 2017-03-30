@@ -21,15 +21,30 @@ class EthSyncing extends EthDataType {
   }
 
   public function setStartingBlock(EthQ $value){
-    $this->startingBlock = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->startingBlock = $value;
+    }
+    else {
+      $this->startingBlock = new EthQ($value);
+    }
   }
 
   public function setCurrentBlock(EthQ $value){
-    $this->currentBlock = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->currentBlock = $value;
+    }
+    else {
+      $this->currentBlock = new EthQ($value);
+    }
   }
 
   public function setHighestBlock(EthQ $value){
-    $this->highestBlock = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->highestBlock = $value;
+    }
+    else {
+      $this->highestBlock = new EthQ($value);
+    }
   }
 
 

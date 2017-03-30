@@ -20,7 +20,7 @@ class FilterChange extends EthDataType {
   /**
    * Constructor.
    */
-  public function __construct(EthB $removed = NULL, EthQ $logIndex = NULL, EthQ $transactionIndex = NULL, EthD32 $transactionHash = NULL, EthD32 $blockHash = NULL, EthQ $blockNumber = NULL, EthD20 $address = NULL, EthData $data = NULL, Array  $topics = NULL) {
+  public function __construct(EthB $removed = NULL, EthQ $logIndex = NULL, EthQ $transactionIndex = NULL, EthD32 $transactionHash = NULL, EthD32 $blockHash = NULL, EthQ $blockNumber = NULL, EthD20 $address = NULL, EthData $data = NULL, array  $topics = NULL) {
     $this->removed = $removed;  
     $this->logIndex = $logIndex;  
     $this->transactionIndex = $transactionIndex;  
@@ -33,39 +33,84 @@ class FilterChange extends EthDataType {
   }
 
   public function setRemoved(EthB $value){
-    $this->removed = $value;
+    if (is_object($value) && is_a($value, 'EthB')) {
+      $this->removed = $value;
+    }
+    else {
+      $this->removed = new EthB($value);
+    }
   }
 
   public function setLogIndex(EthQ $value){
-    $this->logIndex = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->logIndex = $value;
+    }
+    else {
+      $this->logIndex = new EthQ($value);
+    }
   }
 
   public function setTransactionIndex(EthQ $value){
-    $this->transactionIndex = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->transactionIndex = $value;
+    }
+    else {
+      $this->transactionIndex = new EthQ($value);
+    }
   }
 
   public function setTransactionHash(EthD32 $value){
-    $this->transactionHash = $value;
+    if (is_object($value) && is_a($value, 'EthD32')) {
+      $this->transactionHash = $value;
+    }
+    else {
+      $this->transactionHash = new EthD32($value);
+    }
   }
 
   public function setBlockHash(EthD32 $value){
-    $this->blockHash = $value;
+    if (is_object($value) && is_a($value, 'EthD32')) {
+      $this->blockHash = $value;
+    }
+    else {
+      $this->blockHash = new EthD32($value);
+    }
   }
 
   public function setBlockNumber(EthQ $value){
-    $this->blockNumber = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->blockNumber = $value;
+    }
+    else {
+      $this->blockNumber = new EthQ($value);
+    }
   }
 
   public function setAddress(EthD20 $value){
-    $this->address = $value;
+    if (is_object($value) && is_a($value, 'EthD20')) {
+      $this->address = $value;
+    }
+    else {
+      $this->address = new EthD20($value);
+    }
   }
 
   public function setData(EthData $value){
-    $this->data = $value;
+    if (is_object($value) && is_a($value, 'EthData')) {
+      $this->data = $value;
+    }
+    else {
+      $this->data = new EthData($value);
+    }
   }
 
   public function setTopics(EthD $value){
-    $this->topics = $value;
+    if (is_object($value) && is_a($value, 'EthD')) {
+      $this->topics = $value;
+    }
+    else {
+      $this->topics = new EthD($value);
+    }
   }
 
 

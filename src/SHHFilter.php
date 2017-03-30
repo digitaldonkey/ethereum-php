@@ -13,17 +13,27 @@ class SHHFilter extends EthDataType {
   /**
    * Constructor.
    */
-  public function __construct(Array  $topics, EthD $to = NULL) {
+  public function __construct(array  $topics, EthD $to = NULL) {
     $this->topics = $topics;  
     $this->to = $to; 
   }
 
   public function setTopics(EthD $value){
-    $this->topics = $value;
+    if (is_object($value) && is_a($value, 'EthD')) {
+      $this->topics = $value;
+    }
+    else {
+      $this->topics = new EthD($value);
+    }
   }
 
   public function setTo(EthD $value){
-    $this->to = $value;
+    if (is_object($value) && is_a($value, 'EthD')) {
+      $this->to = $value;
+    }
+    else {
+      $this->to = new EthD($value);
+    }
   }
 
 

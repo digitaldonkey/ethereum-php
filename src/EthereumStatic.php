@@ -33,7 +33,14 @@ class EthereumStatic {
         if (is_array($values[$name])) {
           $sub_values = array();
           foreach ($values[$name] as $sub_val) {
-            $sub_values[] = self::arrayToComplexType($val_class, $sub_val);
+            // Work around testrpc giving not back an array.
+            if (is_array($sub_val)) {
+              $sub_values[] = self::arrayToComplexType($val_class, $sub_val);
+            }
+            else {
+              $sub_values[] = array($sub_val);
+            }
+
           }
           $class_values[] = $sub_values;
         }
@@ -49,6 +56,17 @@ class EthereumStatic {
     $return = new $class_name(...$class_values);
 
     return $return;
+  }
+
+  /**
+   * Get valid number lengths.
+   *
+   * @return array
+   *   Array of valid integer lengths.
+   */
+  public static function getValidLengths() {
+    $valid_lengths = "8;16;24;32;40;48;56;64;72;80;88;96;104;112;120;128;136;144;152;160;168;176;184;192;200;208;216;224;232;240;248;256";
+    return explode(';', $valid_lengths);
   }
 
   /**

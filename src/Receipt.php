@@ -19,7 +19,7 @@ class Receipt extends EthDataType {
   /**
    * Constructor.
    */
-  public function __construct(EthD32 $transactionHash = NULL, EthQ $transactionIndex = NULL, EthD32 $blockHash = NULL, EthQ $blockNumber = NULL, EthQ $cumulativeGasUsed = NULL, EthQ $gasUsed = NULL, EthD20 $contractAddress = NULL, Array  $logs = NULL) {
+  public function __construct(EthD32 $transactionHash = NULL, EthQ $transactionIndex = NULL, EthD32 $blockHash = NULL, EthQ $blockNumber = NULL, EthQ $cumulativeGasUsed = NULL, EthQ $gasUsed = NULL, EthD20 $contractAddress = NULL, array  $logs = NULL) {
     $this->transactionHash = $transactionHash;  
     $this->transactionIndex = $transactionIndex;  
     $this->blockHash = $blockHash;  
@@ -31,35 +31,75 @@ class Receipt extends EthDataType {
   }
 
   public function setTransactionHash(EthD32 $value){
-    $this->transactionHash = $value;
+    if (is_object($value) && is_a($value, 'EthD32')) {
+      $this->transactionHash = $value;
+    }
+    else {
+      $this->transactionHash = new EthD32($value);
+    }
   }
 
   public function setTransactionIndex(EthQ $value){
-    $this->transactionIndex = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->transactionIndex = $value;
+    }
+    else {
+      $this->transactionIndex = new EthQ($value);
+    }
   }
 
   public function setBlockHash(EthD32 $value){
-    $this->blockHash = $value;
+    if (is_object($value) && is_a($value, 'EthD32')) {
+      $this->blockHash = $value;
+    }
+    else {
+      $this->blockHash = new EthD32($value);
+    }
   }
 
   public function setBlockNumber(EthQ $value){
-    $this->blockNumber = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->blockNumber = $value;
+    }
+    else {
+      $this->blockNumber = new EthQ($value);
+    }
   }
 
   public function setCumulativeGasUsed(EthQ $value){
-    $this->cumulativeGasUsed = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->cumulativeGasUsed = $value;
+    }
+    else {
+      $this->cumulativeGasUsed = new EthQ($value);
+    }
   }
 
   public function setGasUsed(EthQ $value){
-    $this->gasUsed = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->gasUsed = $value;
+    }
+    else {
+      $this->gasUsed = new EthQ($value);
+    }
   }
 
   public function setContractAddress(EthD20 $value){
-    $this->contractAddress = $value;
+    if (is_object($value) && is_a($value, 'EthD20')) {
+      $this->contractAddress = $value;
+    }
+    else {
+      $this->contractAddress = new EthD20($value);
+    }
   }
 
   public function setLogs(Array $value){
-    $this->logs = $value;
+    if (is_object($value) && is_a($value, 'Array')) {
+      $this->logs = $value;
+    }
+    else {
+      $this->logs = new Array($value);
+    }
   }
 
 

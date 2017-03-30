@@ -15,7 +15,7 @@ class Filter extends EthDataType {
   /**
    * Constructor.
    */
-  public function __construct(EthBlockParam $fromBlock = NULL, EthBlockParam $toBlock = NULL, EthData $address = NULL, Array  $topics = NULL) {
+  public function __construct(EthBlockParam $fromBlock = NULL, EthBlockParam $toBlock = NULL, EthData $address = NULL, array  $topics = NULL) {
     $this->fromBlock = $fromBlock;  
     $this->toBlock = $toBlock;  
     $this->address = $address;  
@@ -23,19 +23,39 @@ class Filter extends EthDataType {
   }
 
   public function setFromBlock(EthBlockParam $value){
-    $this->fromBlock = $value;
+    if (is_object($value) && is_a($value, 'EthBlockParam')) {
+      $this->fromBlock = $value;
+    }
+    else {
+      $this->fromBlock = new EthBlockParam($value);
+    }
   }
 
   public function setToBlock(EthBlockParam $value){
-    $this->toBlock = $value;
+    if (is_object($value) && is_a($value, 'EthBlockParam')) {
+      $this->toBlock = $value;
+    }
+    else {
+      $this->toBlock = new EthBlockParam($value);
+    }
   }
 
   public function setAddress(EthData $value){
-    $this->address = $value;
+    if (is_object($value) && is_a($value, 'EthData')) {
+      $this->address = $value;
+    }
+    else {
+      $this->address = new EthData($value);
+    }
   }
 
   public function setTopics(EthD $value){
-    $this->topics = $value;
+    if (is_object($value) && is_a($value, 'EthD')) {
+      $this->topics = $value;
+    }
+    else {
+      $this->topics = new EthD($value);
+    }
   }
 
 

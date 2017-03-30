@@ -17,7 +17,7 @@ class SHHPost extends EthDataType {
   /**
    * Constructor.
    */
-  public function __construct(Array  $topics, EthD $payload, EthQ $priority, EthQ $ttl, EthD $from = NULL, EthD $to = NULL) {
+  public function __construct(array  $topics, EthD $payload, EthQ $priority, EthQ $ttl, EthD $from = NULL, EthD $to = NULL) {
     $this->topics = $topics;  
     $this->payload = $payload;  
     $this->priority = $priority;  
@@ -27,27 +27,57 @@ class SHHPost extends EthDataType {
   }
 
   public function setTopics(EthD $value){
-    $this->topics = $value;
+    if (is_object($value) && is_a($value, 'EthD')) {
+      $this->topics = $value;
+    }
+    else {
+      $this->topics = new EthD($value);
+    }
   }
 
   public function setPayload(EthD $value){
-    $this->payload = $value;
+    if (is_object($value) && is_a($value, 'EthD')) {
+      $this->payload = $value;
+    }
+    else {
+      $this->payload = new EthD($value);
+    }
   }
 
   public function setPriority(EthQ $value){
-    $this->priority = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->priority = $value;
+    }
+    else {
+      $this->priority = new EthQ($value);
+    }
   }
 
   public function setTtl(EthQ $value){
-    $this->ttl = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->ttl = $value;
+    }
+    else {
+      $this->ttl = new EthQ($value);
+    }
   }
 
   public function setFrom(EthD $value){
-    $this->from = $value;
+    if (is_object($value) && is_a($value, 'EthD')) {
+      $this->from = $value;
+    }
+    else {
+      $this->from = new EthD($value);
+    }
   }
 
   public function setTo(EthD $value){
-    $this->to = $value;
+    if (is_object($value) && is_a($value, 'EthD')) {
+      $this->to = $value;
+    }
+    else {
+      $this->to = new EthD($value);
+    }
   }
 
 

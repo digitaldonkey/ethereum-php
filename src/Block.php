@@ -30,7 +30,7 @@ class Block extends EthDataType {
   /**
    * Constructor.
    */
-  public function __construct(EthQ $number = NULL, EthD32 $hash = NULL, EthD32 $parentHash = NULL, EthD $nonce = NULL, EthD $sha3Uncles = NULL, EthD $logsBloom = NULL, EthD $transactionsRoot = NULL, EthD $stateRoot = NULL, EthD $receiptsRoot = NULL, EthD $miner = NULL, EthQ $difficulty = NULL, EthQ $totalDifficulty = NULL, EthD $extraData = NULL, EthQ $size = NULL, EthQ $gasLimit = NULL, EthQ $gasUsed = NULL, EthQ $timestamp = NULL, Array  $transactions = NULL, Array  $uncles = NULL) {
+  public function __construct(EthQ $number = NULL, EthD32 $hash = NULL, EthD32 $parentHash = NULL, EthD $nonce = NULL, EthD $sha3Uncles = NULL, EthD $logsBloom = NULL, EthD $transactionsRoot = NULL, EthD $stateRoot = NULL, EthD $receiptsRoot = NULL, EthD $miner = NULL, EthQ $difficulty = NULL, EthQ $totalDifficulty = NULL, EthD $extraData = NULL, EthQ $size = NULL, EthQ $gasLimit = NULL, EthQ $gasUsed = NULL, EthQ $timestamp = NULL, array  $transactions = NULL, array  $uncles = NULL) {
     $this->number = $number;  
     $this->hash = $hash;  
     $this->parentHash = $parentHash;  
@@ -53,79 +53,174 @@ class Block extends EthDataType {
   }
 
   public function setNumber(EthQ $value){
-    $this->number = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->number = $value;
+    }
+    else {
+      $this->number = new EthQ($value);
+    }
   }
 
   public function setHash(EthD32 $value){
-    $this->hash = $value;
+    if (is_object($value) && is_a($value, 'EthD32')) {
+      $this->hash = $value;
+    }
+    else {
+      $this->hash = new EthD32($value);
+    }
   }
 
   public function setParentHash(EthD32 $value){
-    $this->parentHash = $value;
+    if (is_object($value) && is_a($value, 'EthD32')) {
+      $this->parentHash = $value;
+    }
+    else {
+      $this->parentHash = new EthD32($value);
+    }
   }
 
   public function setNonce(EthD $value){
-    $this->nonce = $value;
+    if (is_object($value) && is_a($value, 'EthD')) {
+      $this->nonce = $value;
+    }
+    else {
+      $this->nonce = new EthD($value);
+    }
   }
 
   public function setSha3Uncles(EthD $value){
-    $this->sha3Uncles = $value;
+    if (is_object($value) && is_a($value, 'EthD')) {
+      $this->sha3Uncles = $value;
+    }
+    else {
+      $this->sha3Uncles = new EthD($value);
+    }
   }
 
   public function setLogsBloom(EthD $value){
-    $this->logsBloom = $value;
+    if (is_object($value) && is_a($value, 'EthD')) {
+      $this->logsBloom = $value;
+    }
+    else {
+      $this->logsBloom = new EthD($value);
+    }
   }
 
   public function setTransactionsRoot(EthD $value){
-    $this->transactionsRoot = $value;
+    if (is_object($value) && is_a($value, 'EthD')) {
+      $this->transactionsRoot = $value;
+    }
+    else {
+      $this->transactionsRoot = new EthD($value);
+    }
   }
 
   public function setStateRoot(EthD $value){
-    $this->stateRoot = $value;
+    if (is_object($value) && is_a($value, 'EthD')) {
+      $this->stateRoot = $value;
+    }
+    else {
+      $this->stateRoot = new EthD($value);
+    }
   }
 
   public function setReceiptsRoot(EthD $value){
-    $this->receiptsRoot = $value;
+    if (is_object($value) && is_a($value, 'EthD')) {
+      $this->receiptsRoot = $value;
+    }
+    else {
+      $this->receiptsRoot = new EthD($value);
+    }
   }
 
   public function setMiner(EthD $value){
-    $this->miner = $value;
+    if (is_object($value) && is_a($value, 'EthD')) {
+      $this->miner = $value;
+    }
+    else {
+      $this->miner = new EthD($value);
+    }
   }
 
   public function setDifficulty(EthQ $value){
-    $this->difficulty = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->difficulty = $value;
+    }
+    else {
+      $this->difficulty = new EthQ($value);
+    }
   }
 
   public function setTotalDifficulty(EthQ $value){
-    $this->totalDifficulty = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->totalDifficulty = $value;
+    }
+    else {
+      $this->totalDifficulty = new EthQ($value);
+    }
   }
 
   public function setExtraData(EthD $value){
-    $this->extraData = $value;
+    if (is_object($value) && is_a($value, 'EthD')) {
+      $this->extraData = $value;
+    }
+    else {
+      $this->extraData = new EthD($value);
+    }
   }
 
   public function setSize(EthQ $value){
-    $this->size = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->size = $value;
+    }
+    else {
+      $this->size = new EthQ($value);
+    }
   }
 
   public function setGasLimit(EthQ $value){
-    $this->gasLimit = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->gasLimit = $value;
+    }
+    else {
+      $this->gasLimit = new EthQ($value);
+    }
   }
 
   public function setGasUsed(EthQ $value){
-    $this->gasUsed = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->gasUsed = $value;
+    }
+    else {
+      $this->gasUsed = new EthQ($value);
+    }
   }
 
   public function setTimestamp(EthQ $value){
-    $this->timestamp = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->timestamp = $value;
+    }
+    else {
+      $this->timestamp = new EthQ($value);
+    }
   }
 
   public function setTransactions(Transaction $value){
-    $this->transactions = $value;
+    if (is_object($value) && is_a($value, 'Transaction')) {
+      $this->transactions = $value;
+    }
+    else {
+      $this->transactions = new Transaction($value);
+    }
   }
 
   public function setUncles(EthD $value){
-    $this->uncles = $value;
+    if (is_object($value) && is_a($value, 'EthD')) {
+      $this->uncles = $value;
+    }
+    else {
+      $this->uncles = new EthD($value);
+    }
   }
 
 

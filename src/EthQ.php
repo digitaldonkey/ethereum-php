@@ -13,7 +13,6 @@ class EthQ extends EthD {
 
   // Validation properties.
   protected $intTypes = array('int', 'uint');
-  protected $intLengts = array();
 
   // Property types.
   // $value will be a Math_BigInteger type.
@@ -34,9 +33,6 @@ class EthQ extends EthD {
    *   Array with optional parameters. Add Abi type $params['abi'] = 'unint8'.
    */
   public function __construct($val, array $params = array()) {
-    // Valid types.
-    $valid_lengths = "8;16;24;32;40;48;56;64;72;80;88;96;104;112;120;128;136;144;152;160;168;176;184;192;200;208;216;224;232;240;248;256";
-    $this->intLengts = explode(';', $valid_lengths);
     parent::__construct($val, $params);
   }
 
@@ -125,8 +121,7 @@ class EthQ extends EthD {
       $number = $number->multiply(new Math_BigInteger(-1));
     }
 
-    foreach ($this->intLengts as $exp) {
-      // TODO
+    foreach ($this->getValidLengths() as $exp) {
 
       $max_for_exp = new Math_BigInteger(2);
       $max_for_exp = $max_for_exp->bitwise_leftShift($exp - 1);
@@ -166,7 +161,7 @@ class EthQ extends EthD {
    */
   protected function validateAbi($abi) {
     $abiObj = $this->splitAbi($abi);
-    $valid_length = in_array($abiObj->intLength, $this->intLengts);
+    $valid_length = in_array($abiObj->intLength, $this->getValidLengths());
     $valid_type = in_array($abiObj->intType, $this->intTypes);
     if (!($valid_length || $valid_type)) {
       throw new \InvalidArgumentException('Can not validate ABI: ' . $abi);

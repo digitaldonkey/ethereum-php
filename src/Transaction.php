@@ -37,47 +37,102 @@ class Transaction extends EthDataType {
   }
 
   public function setHash(EthD32 $value){
-    $this->hash = $value;
+    if (is_object($value) && is_a($value, 'EthD32')) {
+      $this->hash = $value;
+    }
+    else {
+      $this->hash = new EthD32($value);
+    }
   }
 
   public function setNonce(EthQ $value){
-    $this->nonce = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->nonce = $value;
+    }
+    else {
+      $this->nonce = new EthQ($value);
+    }
   }
 
   public function setBlockHash(EthD32 $value){
-    $this->blockHash = $value;
+    if (is_object($value) && is_a($value, 'EthD32')) {
+      $this->blockHash = $value;
+    }
+    else {
+      $this->blockHash = new EthD32($value);
+    }
   }
 
   public function setBlockNumber(EthQ $value){
-    $this->blockNumber = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->blockNumber = $value;
+    }
+    else {
+      $this->blockNumber = new EthQ($value);
+    }
   }
 
   public function setTransactionIndex(EthQ $value){
-    $this->transactionIndex = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->transactionIndex = $value;
+    }
+    else {
+      $this->transactionIndex = new EthQ($value);
+    }
   }
 
   public function setFrom(EthD20 $value){
-    $this->from = $value;
+    if (is_object($value) && is_a($value, 'EthD20')) {
+      $this->from = $value;
+    }
+    else {
+      $this->from = new EthD20($value);
+    }
   }
 
   public function setTo(EthD20 $value){
-    $this->to = $value;
+    if (is_object($value) && is_a($value, 'EthD20')) {
+      $this->to = $value;
+    }
+    else {
+      $this->to = new EthD20($value);
+    }
   }
 
   public function setValue(EthQ $value){
-    $this->value = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->value = $value;
+    }
+    else {
+      $this->value = new EthQ($value);
+    }
   }
 
   public function setGasPrice(EthQ $value){
-    $this->gasPrice = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->gasPrice = $value;
+    }
+    else {
+      $this->gasPrice = new EthQ($value);
+    }
   }
 
   public function setGas(EthQ $value){
-    $this->gas = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->gas = $value;
+    }
+    else {
+      $this->gas = new EthQ($value);
+    }
   }
 
   public function setInput(EthD $value){
-    $this->input = $value;
+    if (is_object($value) && is_a($value, 'EthD')) {
+      $this->input = $value;
+    }
+    else {
+      $this->input = new EthD($value);
+    }
   }
 
 

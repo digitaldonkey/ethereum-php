@@ -29,31 +29,66 @@ class CallTransaction extends EthDataType {
   }
 
   public function setTo(EthD20 $value){
-    $this->to = $value;
+    if (is_object($value) && is_a($value, 'EthD20')) {
+      $this->to = $value;
+    }
+    else {
+      $this->to = new EthD20($value);
+    }
   }
 
   public function setFrom(EthD20 $value){
-    $this->from = $value;
+    if (is_object($value) && is_a($value, 'EthD20')) {
+      $this->from = $value;
+    }
+    else {
+      $this->from = new EthD20($value);
+    }
   }
 
   public function setGas(EthQ $value){
-    $this->gas = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->gas = $value;
+    }
+    else {
+      $this->gas = new EthQ($value);
+    }
   }
 
   public function setGasPrice(EthQ $value){
-    $this->gasPrice = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->gasPrice = $value;
+    }
+    else {
+      $this->gasPrice = new EthQ($value);
+    }
   }
 
   public function setValue(EthQ $value){
-    $this->value = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->value = $value;
+    }
+    else {
+      $this->value = new EthQ($value);
+    }
   }
 
   public function setData(EthD $value){
-    $this->data = $value;
+    if (is_object($value) && is_a($value, 'EthD')) {
+      $this->data = $value;
+    }
+    else {
+      $this->data = new EthD($value);
+    }
   }
 
   public function setNonce(EthQ $value){
-    $this->nonce = $value;
+    if (is_object($value) && is_a($value, 'EthQ')) {
+      $this->nonce = $value;
+    }
+    else {
+      $this->nonce = new EthQ($value);
+    }
   }
 
 

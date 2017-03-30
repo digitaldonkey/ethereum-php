@@ -88,7 +88,12 @@ function makeSetFunctions(array $input) {
   // Required params first.
   foreach ($input['params'] as $name => $type) {
     $functions .= '  public function set' . ucfirst($name) . '(' . EthDataType::getTypeClass($type, TRUE) . ' $value){' . "\n";
-    $functions .= '    $this->' . $name . ' = $value;' . "\n";
+    $functions .= '    if (is_object($value) && is_a($value, \'' . EthDataType::getTypeClass($type, TRUE) . "')) {\n";
+    $functions .= '      $this->' . $name . ' = $value;' . "\n";
+    $functions .= '    }' . "\n";
+    $functions .= '    else {' . "\n";
+    $functions .= '      $this->' . $name . ' = new ' . EthDataType::getTypeClass($type, TRUE) . '($value);' . "\n";
+    $functions .= '    }' . "\n";
     $functions .= "  }\n\n";
   }
   return $functions;

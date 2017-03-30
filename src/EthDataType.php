@@ -36,10 +36,35 @@ class EthDataType extends EthereumStatic {
 
   /**
    * Get hexadecimal representation of $value.
+   *
+   * @param string $property
+   *   Name of the property.
+   * @param bool $hexval
+   *   Set to TRUE to get the hexadecimal value.
+   *
+   * @throws \Exception
+   *   If something is wrong.
+   *
+   * @return string|int
+   *   The property value.*
    */
-  public function getProperty($property = 'value') {
+  public function getProperty($property = 'value', $hex_val = FALSE) {
+
     if (property_exists($this, $property)) {
-      return $this->$property;
+
+      if (is_object($this->$property)) {
+        return ($hex_val) ? $this->$property->hexval() : $this->$property->val();
+      }
+
+      if (is_array($this->$property)) {
+        $return = array();
+        foreach ($this->$property as $item) {
+          if (is_object($item)) {
+            $return[] = ($hex_val) ? $item->hexval() : $item->val();
+          }
+        }
+        return $return;
+      }
     }
     else {
       throw new \InvalidArgumentException("Property '$property' does not exist.");

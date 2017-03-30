@@ -236,7 +236,13 @@ class Ethereum extends EthereumStatic {
       $return = $this->arrayToComplexType($class_name, $value);
     }
     elseif (!$is_primitive) {
-      throw new \Exception('Return type not implemented yet.');
+      // Returning empty of type.
+      // Fixes get unknown block by number.
+      //
+      // TODO WHAT IF TYPE HAS REQUIRED VALUES
+      // Should there be a default implementation for non existent types?
+      // Like a Null Object? Should EthDataTypes have a test if they are valid?
+      $return = new $class_name();
     }
 
     if (!$return && !is_array($return)) {
