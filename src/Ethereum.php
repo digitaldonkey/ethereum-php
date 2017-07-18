@@ -4,6 +4,8 @@ namespace Ethereum;
 
 use Graze\GuzzleHttp\JsonRpc\Client as RpcClient;
 use Ethereum\EthS;
+use Ethereum\EthD20;
+use Ethereum\EthD32;
 use Ethereum\EthDataTypePrimitive;
 
 
@@ -47,6 +49,8 @@ class Ethereum extends EthereumStatic {
    *   Provide debug info.
    */
   public function __construct($url) {
+
+    // define('ETHEREUM_KECCAK_EXEC', '/opt/local/bin/keccak   --ethereum --string "#VALUE#"');
 
     $this->client = RpcClient::factory($url, array(
       // Debug JsonRPC requests.
@@ -186,8 +190,13 @@ class Ethereum extends EthereumStatic {
 
   /**
    * Method call wrapper.
+   *
+   *
    */
   public function __call($method, $args) {
+
+    // TODO CONSIDER IF NOT EXITST? To overwrite Functions locally?
+    // Would be also good for web3_sha3(). But we might rename...
 
     if(is_callable($this->methods[$method])) {
       return call_user_func_array($this->methods[$method], $args);
@@ -309,6 +318,157 @@ class Ethereum extends EthereumStatic {
     else {
       throw new \InvalidArgumentException("No valid (solidity) signature string provided.");
     }
+  }
+
+  /**
+   * Keccak hash function.
+   *
+   * Ethereum JsonRPC provides web3.sha3(), but  making a JsonRPC call for that
+   * seems costly. We define a hook here to allow local hashing.
+   *
+   * To use a external hash tool define ETHEREUM_KECCAK_EXEC in you app.
+   * define(
+   *   'ETHEREUM_KECCAK_EXEC',
+   *   '/opt/local/keccak   --ethereum --string "#VALUE#"'
+   * );
+   * Also shell_exec requires PHP Save Mode to be Off.
+   *
+   * You may use https://github.com/gvanas/KeccakCodePackage
+   * See: https://github.com/gvanas/KeccakCodePackage/issues/33
+   *
+   * Note:
+   * The first 64 letters of the return value have to be the hash.
+   *
+   * Unlike web3's sha3 method suggests Ethereum is NOT using SHA3-256 standard
+   * implementation (the NIST SHA3-256 became a standard later), but Keccak256.
+   * Is is the pure Keccak[r=1088, c=512] implementation.
+   *
+   * @param string $string
+   *   String to hash.
+   *
+   * @return string
+   *   Keccak256 of the provided string.
+   *
+   * @throws \Exception
+   *   If keccak hash does not match formal conditions.
+   */
+  public function phpKeccak256($string) {
+    $return = NULL;
+
+    if (defined('ETHEREUM_KECCAK_EXEC')) {
+      $call = str_replace('#VALUE#', $string, ETHEREUM_KECCAK_EXEC);
+      $return = $this->ensureHexPrefix(substr(shell_exec($call), 0, 64));
+    }
+    else {
+      $ret = $this->web3_sha3(new EthS($string));
+      $return = $ret->hexVal();
+    }
+
+    // Formal verification: Prefix + 64 Hex chars.
+    if (!$return || strlen($return) !== 66 || !ctype_xdigit($this->removeHexPrefix($return))) {
+      throw new \Exception('keccak256 returns a wrong value.');
+    }
+    return $return;
+  }
+
+
+  /**
+   * PersonalEcRecover function.
+   *
+   * @param string $message
+   *   UTF-8 text without prefix.
+   * @param EthD $signature
+   *   Hex value of the Message Signature.
+   * @param EthD20 $public_key
+   *   Hex version of the Public key (Ethereum Address).
+   *
+   * @return bool
+   *   Returns TRUE if Public Key matches the signature.
+   *
+   * @throws \Exception
+   *   If keccak hash does not match formal conditions.
+   */
+  public function personalEcRecover($message, EthD $signature, EthD20 $public_key) {
+    $message_hash = $this->phpKeccak256($this->personalSignAddHeader($message));
+    $address = $this->phpEcRecover(new EthD32($message_hash), $signature);
+  }
+
+  /**
+   * EcRecover - Elliptic Curve Signature Verification.
+   *
+   * This function ecRecover is a wrapper to a solidity function (ececover).
+   * See:
+   * http://solidity.readthedocs.io/en/latest/miscellaneous.html?highlight=ecrecover
+   *
+   * Using this ecRecover-wrapper it is the recommended to use ecrecover in
+   * order to  provide future performance improvements.
+   *
+   * EC recovery doses not require any blockchain interaction, it's just
+   * freaky math. Considering libraries, PHP extensions or command
+   * line C or node implementations.
+   *
+   * @param string $message_hash.
+   *   Keccak-256 of message in hex
+   *
+   * @return string
+   *   Keccak256 of the provided string.
+   *
+   * @throws \Exception
+   *   If keccak hash does not match formal conditions.
+   */
+  public function phpEcRecover(EthD32 $message_hash, EthQ $v, EthD32 $r, EthD32 $s) {
+    $return = NULL;
+
+    define('ETHEREUM_ECRECOVER', '/opt/local/bin/ecrecover #m# #v# #r# #s#');
+    // Elliptic Curve recovery
+    // Can be implemented in various ways. Currently under investigation.
+    // The last option however is using a JsonRPC call.
+    if (defined('ETHEREUM_ECRECOVER')) {
+      $call = str_replace(
+        array('#m#', '#v#', '#r#', '#s#'),
+        array($message_hash->hexVal(), $v->hexVal(), $r->hexVal(), $s->hexVal()),
+        ETHEREUM_ECRECOVER
+      );
+      $address = new EthD20($this->ensureHexPrefix(substr(shell_exec($call), 0, 42)));
+    }
+    else {
+      // $address = $this->ecrecovery($message_hash, $v, $r, $s);
+      // $this->contractEcRecover($message, EthD $signature, EthD20 $public_key)
+      throw new \Exception('EC verifications on contract level is not implemented yet.');
+    }
+
+    // Formal verification: Prefix + 64 Hex chars.
+    if (!is_a($address, 'Ethereum\EthD20')) {
+      throw new \Exception('ecRecover returns a wrong value.');
+    }
+    return $address->hexVal();
+  }
+
+
+  /**
+   * Contract based EcRecover.
+   *
+   * @param string $message
+   *   UTF-8 text without prefix.
+   * @param EthD $signature
+   *   Hex value of the Message Signature.
+   * @param EthD20 $public_key
+   *   Hex version of the Public key (Ethereum Address).
+   *
+   * @return bool
+   *   Returns TRUE if Public Key matches the signature.
+   *
+   * @throws \Exception
+   *   If keccak hash does not match formal conditions.
+   */
+  public function contractEcRecover($message, EthD $signature, EthD20 $public_key) {
+    $contract_addr = '0x3bbb367afe5075e0461f535d6ed2a640822edb1c';
+
+//    77d32e94 ecrecovery(bytes32,bytes)
+//    39cdde32 ecverify(bytes32,bytes,address)
+
+    $message_hash = $this->phpKeccak256($this->personalSignAddHeader($message));
+    $address = $this->phpEcRecover(new EthD32($message_hash), $signature);
   }
 
   /**

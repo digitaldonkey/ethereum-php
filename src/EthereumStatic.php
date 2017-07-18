@@ -2,6 +2,9 @@
 
 namespace Ethereum;
 
+use Ethereum\EthD32;
+use Ethereum\EthQ;
+
 /**
  * Static helper functions for Ethereum JsonRPC API for PHP.
  */
@@ -269,6 +272,50 @@ class EthereumStatic {
   public static function strToHex($string) {
     $hex = unpack('H*', $string);
     return '0x' . array_shift($hex);
+  }
+
+  /**
+   * Ethereum personal_sign message header.
+   *
+   * @param string $message
+   *   Message to be prefixed.
+   *
+   * @return string
+   *   prefixed message.
+   */
+  public static function personalSignAddHeader($message) {
+    // MUST be double quotes.
+    return "\x19Ethereum Signed Message:\n" . strlen($message) . $message;
+  }
+
+  /**
+   * Parse signature.
+   *
+   * @param EthD $signature
+   *   Message to be prefixed.
+   *
+   * @return array
+   *   Signature as r, s, v parameters to use with ecRecover
+   */
+  public static function parseSignature(EthD $signature) {
+
+    $r = new EthD32(substr($signature->hexVal(), 0, 66));
+    $s = new EthD32(self::ensureHexPrefix(substr($signature->hexVal(), 66, 64)));
+    $v = new EthQ(self::ensureHexPrefix(substr($signature->hexVal(), 130, 2)));
+
+    // Parameter v need to be 27 or 28.
+    // See: https://ethereum.stackexchange.com/questions/1777/workflow-on-signing-a-string-with-private-key-followed-by-signature-verificatio/1794#1794
+    if (!(intval($v->val()) === 27 || intval($v->val()) === 28)) {
+      $v = new EthQ($v->val() + 27);
+    }
+    if (!(intval($v->val()) === 27 || intval($v->val()) === 28)) {
+      throw new \Exception('Can not decode v value.');
+    }
+    return array(
+      'r' => $r,
+      's' => $s,
+      'v' => $v,
+    );
   }
 
   /**
