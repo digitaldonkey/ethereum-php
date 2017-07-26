@@ -149,17 +149,16 @@ class Ethereum extends EthereumStatic {
         $return_type = $param_definition[1];
         $this->debug('Return value type', $return_type);
 
-        $is_primitive = (bool) EthDataTypePrimitive::typeMap($return_type);
-
         if (is_array($return_type)) {
           $return_type_class = array(EthDataTypePrimitive::typeMap($return_type[0]));
-        }
-        elseif ($is_primitive) {
-          $return_type_class = EthDataTypePrimitive::typeMap($return_type);
-        }
-        else {
-          // Return Complex type.
-          $return_type_class = $return_type;
+        } else {
+          $is_primitive = (bool) EthDataTypePrimitive::typeMap($return_type);
+          if ($is_primitive) {
+            $return_type_class = EthDataTypePrimitive::typeMap($return_type);
+          } else {
+            // Return Complex type.
+            $return_type_class = $return_type;
+          }
         }
         $this->debug('Return value Class name ', $return_type_class);
 
