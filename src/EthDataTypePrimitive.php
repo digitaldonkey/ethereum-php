@@ -39,14 +39,15 @@ class EthDataTypePrimitive extends EthDataType {
     // TODO DATA OR Transaction ???
   );
 
-  /**
-   * Constructor.
-   *
-   * @param string|int $val
-   *   Hexadecimal or number value.
-   * @param array $params
-   *   Array with optional parameters. Add Abi type $params['abi'] = 'unint8'.
-   */
+    /**
+     * Constructor.
+     *
+     * @param string|int $val
+     *   Hexadecimal or number value.
+     * @param array      $params
+     *   Array with optional parameters. Add Abi type $params['abi'] = 'unint8'.
+     * @throws \Exception
+     */
   public function __construct($val, array $params = array()) {
     $this->setValue($val, $params);
   }
@@ -101,15 +102,16 @@ class EthDataTypePrimitive extends EthDataType {
     }
   }
 
-  /**
-   * Get type of data instance.
-   *
-   * @param bool $schema
-   *   If Schema is TRUE the schema name will be returned.
-   *
-   * @return string
-   *   Returns the CLass name of the type or The schema name if $schema is TRUE.
-   */
+    /**
+     * Get type of data instance.
+     *
+     * @param bool $schema
+     *   If Schema is TRUE the schema name will be returned.
+     *
+     * @return string
+     *   Returns the CLass name of the type or The schema name if $schema is TRUE.
+     * @throws \Exception
+     */
   public function getType($schema = FALSE) {
     $class_name = get_called_class();
     if (substr($class_name, 0, strlen(__NAMESPACE__)) === __NAMESPACE__) {
