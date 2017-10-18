@@ -17,5 +17,8 @@
       "name": "Thorsten Krug",
       "email": "thorsten.krug@consensys.net"
     }
-  ]
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "^5.7.9 || ^6.4.3"
+  }
 }
