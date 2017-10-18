@@ -189,9 +189,10 @@ class EthQ extends EthD {
     }
   }
 
-  /**
-   * Implement hex value.
-   */
+    /**
+     * Implement hex value.
+     * @throws \Exception
+     */
   public function hexVal() {
 
     // Ethereum requires two's complement.
