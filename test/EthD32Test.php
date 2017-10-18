@@ -9,9 +9,10 @@ use PHPUnit\Framework\TestCase;
  */
 class EthereumStaticTestEthD32 extends TestCase {
 
-  /**
-   * Testing quantities.
-   */
+    /**
+     * Testing quantities.
+     * @throws Exception
+     */
   public function testEthD32__simple() {
 
     $x = new EthD32('0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd');
