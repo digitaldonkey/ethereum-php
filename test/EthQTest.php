@@ -2,11 +2,12 @@
 
 
 use Ethereum\EthQ;
+use PHPUnit\Framework\TestCase;
 
 /**
  *
  */
-class EthereumStaticTestEthQ extends \PHPUnit_Framework_TestCase {
+class EthereumStaticTestEthQ extends TestCase {
 
   /**
    * Testing quantities.

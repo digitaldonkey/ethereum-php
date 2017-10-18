@@ -2,11 +2,12 @@
 
 
 use Ethereum\EthS;
+use PHPUnit\Framework\TestCase;
 
 /**
  *
  */
-class EthereumStaticTestEthS extends \PHPUnit_Framework_TestCase {
+class EthereumStaticTestEthS extends TestCase {
 
   /**
    * This test is bases data by http://codebeautify.org/hex-string-converter.

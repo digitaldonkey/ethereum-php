@@ -2,11 +2,12 @@
 
 
 use Ethereum\EthBlockParam;
+use PHPUnit\Framework\TestCase;
 
 /**
  *
  */
-class EthereumStaticTestEthBlockParam extends \PHPUnit_Framework_TestCase {
+class EthereumStaticTestEthBlockParam extends TestCase {
 
   /**
    * Testing quantities.

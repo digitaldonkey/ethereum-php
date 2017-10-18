@@ -2,15 +2,17 @@
 
 namespace Ethereum;
 use Ethereum\EthereumStatic;
+use PHPUnit\Framework\TestCase;
 
 /**
  *
  */
-class EthereumStaticTest extends \PHPUnit_Framework_TestCase {
+class EthereumStaticTest extends TestCase {
 
-  /**
-   * This test is bases data by http://codebeautify.org/hex-string-converter.
-   */
+    /**
+     * This test is bases data by http://codebeautify.org/hex-string-converter.
+     * @throws \Exception
+     */
   public function testHexToStr() {
 
     $str = EthereumStatic::hexToStr('0x' . '48656c6c6f20576f726c64');
