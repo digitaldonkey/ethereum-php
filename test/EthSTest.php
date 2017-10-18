@@ -9,9 +9,10 @@ use PHPUnit\Framework\TestCase;
  */
 class EthereumStaticTestEthS extends TestCase {
 
-  /**
-   * This test is bases data by http://codebeautify.org/hex-string-converter.
-   */
+    /**
+     * This test is bases data by http://codebeautify.org/hex-string-converter.
+     * @throws Exception
+     */
   public function testEthS__types() {
 
     $x = new EthS('Hello World');
