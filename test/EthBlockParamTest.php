@@ -2,15 +2,17 @@
 
 
 use Ethereum\EthBlockParam;
+use PHPUnit\Framework\TestCase;
 
 /**
  *
  */
-class EthereumStaticTestEthBlockParam extends \PHPUnit_Framework_TestCase {
+class EthereumStaticTestEthBlockParam extends TestCase {
 
-  /**
-   * Testing quantities.
-   */
+    /**
+     * Testing quantities.
+     * @throws Exception
+     */
   public function testEthBlockParam__address() {
 
     $x = new EthBlockParam('0x3facfa472e86e3edaeaa837f6ba038ac01f7f539');

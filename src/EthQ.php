@@ -17,6 +17,9 @@ class EthQ extends EthD {
   // Property types.
   // $value will be a Math_BigInteger type.
   // Visibility public, so you can interact with Math_BigInteger.
+    /**
+     * @var Math_BigInteger
+     */
   public $value;
   protected $abi;
 
@@ -24,14 +27,15 @@ class EthQ extends EthD {
   // See:https://github.com/ethereum/wiki/wiki/RLP
   const HEXPADDING = 64;
 
-  /**
-   * Overriding constructor.
-   *
-   * @param string|int $val
-   *   Hexadecimal or number value.
-   * @param array $params
-   *   Array with optional parameters. Add Abi type $params['abi'] = 'unint8'.
-   */
+    /**
+     * Overriding constructor.
+     *
+     * @param string|int $val
+     *   Hexadecimal or number value.
+     * @param array      $params
+     *   Array with optional parameters. Add Abi type $params['abi'] = 'unint8'.
+     * @throws \Exception
+     */
   public function __construct($val, array $params = array()) {
     parent::__construct($val, $params);
   }
@@ -189,9 +193,10 @@ class EthQ extends EthD {
     }
   }
 
-  /**
-   * Implement hex value.
-   */
+    /**
+     * Implement hex value.
+     * @throws \Exception
+     */
   public function hexVal() {
 
     // Ethereum requires two's complement.

@@ -10,9 +10,11 @@ class SHHFilter extends EthDataType {
   protected $topics;
   protected $to;
 
-  /**
-   * Constructor.
-   */
+    /**
+     * Constructor.
+     * @param array     $topics
+     * @param EthD|null $to
+     */
   public function __construct(array  $topics, EthD $to = NULL) {
     $this->topics = $topics;  
     $this->to = $to; 
@@ -42,7 +44,11 @@ class SHHFilter extends EthDataType {
     return 'SHHFilter';
   }
 
-  public function toArray() {
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function toArray() {
     $return = array();
       (!is_null($this->topics)) ? $return['topics'] = EthereumStatic::valueArray($this->topics, 'D') : array(); 
       (!is_null($this->to)) ? $return['to'] = $this->to->hexVal() : NULL; 

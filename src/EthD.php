@@ -64,7 +64,7 @@ class EthD extends EthDataTypePrimitive {
   /**
    * Return unprefixed bin value.
    *
-   * @return int|string
+   * @return int|string|\Math_BigInteger
    *   Return a PHP integer.
    *   If $val > PHP_INT_MAX we return a string containing the integer.
    */

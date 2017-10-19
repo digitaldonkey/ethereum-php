@@ -11,9 +11,12 @@ class EthSyncing extends EthDataType {
   protected $currentBlock;
   protected $highestBlock;
 
-  /**
-   * Constructor.
-   */
+    /**
+     * Constructor.
+     * @param EthQ|null $startingBlock
+     * @param EthQ|null $currentBlock
+     * @param EthQ|null $highestBlock
+     */
   public function __construct(EthQ $startingBlock = NULL, EthQ $currentBlock = NULL, EthQ $highestBlock = NULL) {
     $this->startingBlock = $startingBlock;  
     $this->currentBlock = $currentBlock;  
@@ -53,7 +56,11 @@ class EthSyncing extends EthDataType {
     return 'EthSyncing';
   }
 
-  public function toArray() {
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function toArray() {
     $return = array();
       (!is_null($this->startingBlock)) ? $return['startingBlock'] = $this->startingBlock->hexVal() : NULL; 
       (!is_null($this->currentBlock)) ? $return['currentBlock'] = $this->currentBlock->hexVal() : NULL; 

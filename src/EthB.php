@@ -2,7 +2,7 @@
 
 namespace Ethereum;
 
-//use Math_BigInteger;
+use \Math_BigInteger;
 
 /**
  * Boolean data.

@@ -15,9 +15,16 @@ class SendTransaction extends EthDataType {
   protected $value;
   protected $nonce;
 
-  /**
-   * Constructor.
-   */
+    /**
+     * Constructor.
+     * @param EthD20      $from
+     * @param EthD        $data
+     * @param EthD20|null $to
+     * @param EthQ|null   $gas
+     * @param EthQ|null   $gasPrice
+     * @param EthQ|null   $value
+     * @param EthQ|null   $nonce
+     */
   public function __construct(EthD20 $from, EthD $data, EthD20 $to = NULL, EthQ $gas = NULL, EthQ $gasPrice = NULL, EthQ $value = NULL, EthQ $nonce = NULL) {
     $this->from = $from;  
     $this->data = $data;  
@@ -97,7 +104,11 @@ class SendTransaction extends EthDataType {
     return 'SendTransaction';
   }
 
-  public function toArray() {
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function toArray() {
     $return = array();
       (!is_null($this->from)) ? $return['from'] = $this->from->hexVal() : NULL; 
       (!is_null($this->data)) ? $return['data'] = $this->data->hexVal() : NULL; 

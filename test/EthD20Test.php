@@ -2,15 +2,17 @@
 
 
 use Ethereum\EthD20;
+use PHPUnit\Framework\TestCase;
 
 /**
  *
  */
-class EthereumStaticTestEthD20 extends \PHPUnit_Framework_TestCase {
+class EthereumStaticTestEthD20 extends TestCase {
 
-  /**
-   * Testing quantities.
-   */
+    /**
+     * Testing quantities.
+     * @throws Exception
+     */
   public function testEthD20__simple() {
 
     $x = new EthD20('0x3facfa472e86e3edaeaa837f6ba038ac01f7f539');

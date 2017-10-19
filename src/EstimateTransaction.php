@@ -15,9 +15,16 @@ class EstimateTransaction extends EthDataType {
   protected $data;
   protected $nonce;
 
-  /**
-   * Constructor.
-   */
+    /**
+     * Constructor.
+     * @param EthD20|null $from
+     * @param EthD20|null $to
+     * @param EthQ|null   $gas
+     * @param EthQ|null   $gasPrice
+     * @param EthQ|null   $value
+     * @param EthD|null   $data
+     * @param EthQ|null   $nonce
+     */
   public function __construct(EthD20 $from = NULL, EthD20 $to = NULL, EthQ $gas = NULL, EthQ $gasPrice = NULL, EthQ $value = NULL, EthD $data = NULL, EthQ $nonce = NULL) {
     $this->from = $from;  
     $this->to = $to;  
@@ -97,7 +104,11 @@ class EstimateTransaction extends EthDataType {
     return 'EstimateTransaction';
   }
 
-  public function toArray() {
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function toArray() {
     $return = array();
       (!is_null($this->from)) ? $return['from'] = $this->from->hexVal() : NULL; 
       (!is_null($this->to)) ? $return['to'] = $this->to->hexVal() : NULL; 

@@ -15,14 +15,15 @@ class EthBlockParam extends EthQ {
     "pending",
   );
 
-  /**
-   * Constructor.
-   *
-   * @param string|int $val
-   *   Hexadecimal or number value.
-   * @param array $params
-   *   Array with optional parameters. Add Abi type $params['abi'] = 'unint8'.
-   */
+    /**
+     * Constructor.
+     *
+     * @param string|int $val
+     *   Hexadecimal or number value.
+     * @param array      $params
+     *   Array with optional parameters. Add Abi type $params['abi'] = 'unint8'.
+     * @throws \Exception
+     */
   public function __construct($val = 'latest', array $params = array()) {
     parent::__construct($val, $params);
   }
@@ -58,7 +59,7 @@ class EthBlockParam extends EthQ {
   /**
    * Return un-prefixed bin value.
    *
-   * @return int|string
+   * @return int|string|\Math_BigInteger
    *   Return a PHP integer.
    *   If $val > PHP_INT_MAX we return a string containing the integer.
    */
@@ -89,7 +90,7 @@ class EthBlockParam extends EthQ {
   /**
    * Return hex encoded block number or tag.
    *
-   * @return int|string
+   * @return int|string|\Math_BigInteger
    *   Return a PHP integer.
    *   If $val > PHP_INT_MAX we return a string containing the integer.
    */
@@ -105,9 +106,10 @@ class EthBlockParam extends EthQ {
     }
   }
 
-  /**
-   * Call EthD20 validation to validate Address.
-   */
+    /**
+     * Call EthD20 validation to validate Address.
+     * @throws \Exception
+     */
   protected function validateAddress($val, array $params) {
     return parent::validate($val, $params);
   }

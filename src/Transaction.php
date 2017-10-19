@@ -19,9 +19,20 @@ class Transaction extends EthDataType {
   protected $gas;
   protected $input;
 
-  /**
-   * Constructor.
-   */
+    /**
+     * Constructor.
+     * @param EthD32|null $hash
+     * @param EthQ|null   $nonce
+     * @param EthD32|null $blockHash
+     * @param EthQ|null   $blockNumber
+     * @param EthQ|null   $transactionIndex
+     * @param EthD20|null $from
+     * @param EthD20|null $to
+     * @param EthQ|null   $value
+     * @param EthQ|null   $gasPrice
+     * @param EthQ|null   $gas
+     * @param EthD|null   $input
+     */
   public function __construct(EthD32 $hash = NULL, EthQ $nonce = NULL, EthD32 $blockHash = NULL, EthQ $blockNumber = NULL, EthQ $transactionIndex = NULL, EthD20 $from = NULL, EthD20 $to = NULL, EthQ $value = NULL, EthQ $gasPrice = NULL, EthQ $gas = NULL, EthD $input = NULL) {
     $this->hash = $hash;  
     $this->nonce = $nonce;  
@@ -145,7 +156,11 @@ class Transaction extends EthDataType {
     return 'Transaction';
   }
 
-  public function toArray() {
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function toArray() {
     $return = array();
       (!is_null($this->hash)) ? $return['hash'] = $this->hash->hexVal() : NULL; 
       (!is_null($this->nonce)) ? $return['nonce'] = $this->nonce->hexVal() : NULL; 
