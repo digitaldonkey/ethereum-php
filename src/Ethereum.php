@@ -49,8 +49,8 @@ class Ethereum extends EthereumStatic
             'debug' => false,
         ]);
 
-        $schema_path = substr(__DIR__, 0, -strlen('src')) . 'ethjs-schema.json';
-        $this->definition = json_decode(file_get_contents($schema_path), true);;
+        $schema_path = __DIR__ . '/../resources/ethjs-schema.json';
+        $this->definition = json_decode(file_get_contents($schema_path), true);
 
         foreach ($this->definition['methods'] as $name => $params) {
             ${$name} = function () {
@@ -340,5 +340,15 @@ class Ethereum extends EthereumStatic
         $this->debugHtml .= $return;
 
         return $return;
+    }
+
+    /**
+     * Retrieve the definition array
+     *
+     * @return array|mixed
+     */
+    public function getDefinition()
+    {
+        return $this->definition;
     }
 }
