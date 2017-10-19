@@ -39,13 +39,13 @@ class EthDataType extends EthereumStatic {
    *
    * @param string $property
    *   Name of the property.
-   * @param bool $hexval
+   * @param bool $hex_val
    *   Set to TRUE to get the hexadecimal value.
    *
    * @throws \Exception
    *   If something is wrong.
    *
-   * @return string|int
+   * @return string|int|array
    *   The property value.*
    */
   public function getProperty($property = 'value', $hex_val = FALSE) {
@@ -77,7 +77,7 @@ class EthDataType extends EthereumStatic {
    * @param mixed $val
    *   Value to set.
    * @param array $params
-   *   Array with optional keyed arguements.
+   *   Array with optional keyed arguments.
    *
    * @throws \Exception
    *   If validation is not implemented for type.

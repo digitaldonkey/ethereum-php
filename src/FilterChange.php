@@ -17,9 +17,18 @@ class FilterChange extends EthDataType {
   protected $data;
   protected $topics;
 
-  /**
-   * Constructor.
-   */
+    /**
+     * Constructor.
+     * @param EthB|null    $removed
+     * @param EthQ|null    $logIndex
+     * @param EthQ|null    $transactionIndex
+     * @param EthD32|null  $transactionHash
+     * @param EthD32|null  $blockHash
+     * @param EthQ|null    $blockNumber
+     * @param EthD20|null  $address
+     * @param EthData|null $data
+     * @param array|null   $topics
+     */
   public function __construct(EthB $removed = NULL, EthQ $logIndex = NULL, EthQ $transactionIndex = NULL, EthD32 $transactionHash = NULL, EthD32 $blockHash = NULL, EthQ $blockNumber = NULL, EthD20 $address = NULL, EthData $data = NULL, array  $topics = NULL) {
     $this->removed = $removed;  
     $this->logIndex = $logIndex;  
@@ -119,7 +128,11 @@ class FilterChange extends EthDataType {
     return 'FilterChange';
   }
 
-  public function toArray() {
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function toArray() {
     $return = array();
       (!is_null($this->removed)) ? $return['removed'] = $this->removed->hexVal() : NULL; 
       (!is_null($this->logIndex)) ? $return['logIndex'] = $this->logIndex->hexVal() : NULL; 

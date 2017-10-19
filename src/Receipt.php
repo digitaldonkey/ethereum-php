@@ -16,9 +16,17 @@ class Receipt extends EthDataType {
   protected $contractAddress;
   protected $logs;
 
-  /**
-   * Constructor.
-   */
+    /**
+     * Constructor.
+     * @param EthD32|null $transactionHash
+     * @param EthQ|null   $transactionIndex
+     * @param EthD32|null $blockHash
+     * @param EthQ|null   $blockNumber
+     * @param EthQ|null   $cumulativeGasUsed
+     * @param EthQ|null   $gasUsed
+     * @param EthD20|null $contractAddress
+     * @param array|null  $logs
+     */
   public function __construct(EthD32 $transactionHash = NULL, EthQ $transactionIndex = NULL, EthD32 $blockHash = NULL, EthQ $blockNumber = NULL, EthQ $cumulativeGasUsed = NULL, EthQ $gasUsed = NULL, EthD20 $contractAddress = NULL, array  $logs = NULL) {
     $this->transactionHash = $transactionHash;  
     $this->transactionIndex = $transactionIndex;  
@@ -108,7 +116,11 @@ class Receipt extends EthDataType {
     return 'Receipt';
   }
 
-  public function toArray() {
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function toArray() {
     $return = array();
       (!is_null($this->transactionHash)) ? $return['transactionHash'] = $this->transactionHash->hexVal() : NULL; 
       (!is_null($this->transactionIndex)) ? $return['transactionIndex'] = $this->transactionIndex->hexVal() : NULL; 

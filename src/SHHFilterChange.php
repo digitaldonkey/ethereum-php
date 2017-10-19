@@ -17,9 +17,18 @@ class SHHFilterChange extends EthDataType {
   protected $payload;
   protected $workProved;
 
-  /**
-   * Constructor.
-   */
+    /**
+     * Constructor.
+     * @param EthD|null  $hash
+     * @param EthD|null  $from
+     * @param EthD|null  $to
+     * @param EthQ|null  $expiry
+     * @param EthQ|null  $ttl
+     * @param EthQ|null  $sent
+     * @param array|null $topics
+     * @param EthD|null  $payload
+     * @param EthQ|null  $workProved
+     */
   public function __construct(EthD $hash = NULL, EthD $from = NULL, EthD $to = NULL, EthQ $expiry = NULL, EthQ $ttl = NULL, EthQ $sent = NULL, array  $topics = NULL, EthD $payload = NULL, EthQ $workProved = NULL) {
     $this->hash = $hash;  
     $this->from = $from;  
@@ -119,7 +128,11 @@ class SHHFilterChange extends EthDataType {
     return 'SHHFilterChange';
   }
 
-  public function toArray() {
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function toArray() {
     $return = array();
       (!is_null($this->hash)) ? $return['hash'] = $this->hash->hexVal() : NULL; 
       (!is_null($this->from)) ? $return['from'] = $this->from->hexVal() : NULL; 

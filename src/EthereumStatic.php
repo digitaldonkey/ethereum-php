@@ -15,7 +15,7 @@ class EthereumStatic {
    * @param array $values
    *   Associative value array.
    *
-   * @return Object
+   * @return object|array
    *   Object of type $class_name.
    *
    * @throws \Exception
@@ -69,17 +69,18 @@ class EthereumStatic {
     return explode(';', $valid_lengths);
   }
 
-  /**
-   * Create value array.
-   *
-   * @param array $values
-   *   Array of values of a uinique data type.
-   * @param string $typeClass
-   *   Class name for the data type.
-   *
-   * @return array
-   *   Array of value objects of the given type.
-   */
+    /**
+     * Create value array.
+     *
+     * @param array  $values
+     *   Array of values of a uinique data type.
+     * @param string $typeClass
+     *   Class name for the data type.
+     *
+     * @return array
+     *   Array of value objects of the given type.
+     * @throws \Exception
+     */
   public static function valueArray(array $values, $typeClass) {
     $return = array();
     foreach ($values as $i => $val) {

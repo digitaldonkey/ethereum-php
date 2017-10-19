@@ -7,9 +7,10 @@ namespace Ethereum;
  */
 class EthS extends EthD {
 
-  /**
-   * Implement validation.
-   */
+    /**
+     * Implement validation.
+     * @throws \Exception
+     */
   public function validate($val, array $params) {
     $return = NULL;
     if ($this->hasHexPrefix($val)) {

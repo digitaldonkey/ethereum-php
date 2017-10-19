@@ -14,9 +14,15 @@ class SHHPost extends EthDataType {
   protected $from;
   protected $to;
 
-  /**
-   * Constructor.
-   */
+    /**
+     * Constructor.
+     * @param array     $topics
+     * @param EthD      $payload
+     * @param EthQ      $priority
+     * @param EthQ      $ttl
+     * @param EthD|null $from
+     * @param EthD|null $to
+     */
   public function __construct(array  $topics, EthD $payload, EthQ $priority, EthQ $ttl, EthD $from = NULL, EthD $to = NULL) {
     $this->topics = $topics;  
     $this->payload = $payload;  
@@ -86,7 +92,11 @@ class SHHPost extends EthDataType {
     return 'SHHPost';
   }
 
-  public function toArray() {
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function toArray() {
     $return = array();
       (!is_null($this->topics)) ? $return['topics'] = EthereumStatic::valueArray($this->topics, 'D') : array(); 
       (!is_null($this->payload)) ? $return['payload'] = $this->payload->hexVal() : NULL; 

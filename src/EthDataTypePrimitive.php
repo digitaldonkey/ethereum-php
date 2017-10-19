@@ -126,15 +126,15 @@ class EthDataTypePrimitive extends EthDataType {
     }
   }
 
-  /**
-   * Validation is implemented in subclasses.
-   *
-   * @param mixed $val
-   *   Value to set.
-   *
-   * @throws \Exception
-   *   If validation is not implemented for type.
-   */
+    /**
+     * Validation is implemented in subclasses.
+     *
+     * @param mixed $val
+     *   Value to set.
+     *
+     * @param array $params
+     * @throws \Exception If validation is not implemented for type.
+     */
   public function setValue($val, array $params = array()) {
     if (method_exists($this, 'validate')) {
       $this->value = $this->validate($val, $params);

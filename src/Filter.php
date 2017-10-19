@@ -12,9 +12,13 @@ class Filter extends EthDataType {
   protected $address;
   protected $topics;
 
-  /**
-   * Constructor.
-   */
+    /**
+     * Constructor.
+     * @param EthBlockParam|null $fromBlock
+     * @param EthBlockParam|null $toBlock
+     * @param EthData|null       $address
+     * @param array|null         $topics
+     */
   public function __construct(EthBlockParam $fromBlock = NULL, EthBlockParam $toBlock = NULL, EthData $address = NULL, array  $topics = NULL) {
     $this->fromBlock = $fromBlock;  
     $this->toBlock = $toBlock;  
@@ -64,7 +68,11 @@ class Filter extends EthDataType {
     return 'Filter';
   }
 
-  public function toArray() {
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function toArray() {
     $return = array();
       (!is_null($this->fromBlock)) ? $return['fromBlock'] = $this->fromBlock->hexVal() : NULL; 
       (!is_null($this->toBlock)) ? $return['toBlock'] = $this->toBlock->hexVal() : NULL; 
