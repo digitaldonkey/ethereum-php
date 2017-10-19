@@ -88,7 +88,11 @@ class SendTransaction extends EthDataType
         }
     }
 
-    public function setValue(EthQ $value)
+    /**
+     * @param EthQ  $value
+     * @param array $params
+     */
+    public function setValue($value, array $params = [])
     {
         if (is_object($value) && is_a($value, 'EthQ')) {
             $this->value = $value;

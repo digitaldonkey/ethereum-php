@@ -79,7 +79,11 @@ class EstimateTransaction extends EthDataType
         }
     }
 
-    public function setValue(EthQ $value)
+    /**
+     * @param EthQ  $value
+     * @param array $params
+     */
+    public function setValue($value, array $params = [])
     {
         if (is_object($value) && is_a($value, 'EthQ')) {
             $this->value = $value;
@@ -136,13 +140,13 @@ class EstimateTransaction extends EthDataType
     public static function getTypeArray()
     {
         return [
-            'from' => 'EthD20',
-            'to' => 'EthD20',
-            'gas' => 'EthQ',
+            'from'     => 'EthD20',
+            'to'       => 'EthD20',
+            'gas'      => 'EthQ',
             'gasPrice' => 'EthQ',
-            'value' => 'EthQ',
-            'data' => 'EthD',
-            'nonce' => 'EthQ',
+            'value'    => 'EthQ',
+            'data'     => 'EthD',
+            'nonce'    => 'EthQ',
         ];
     }
 }
