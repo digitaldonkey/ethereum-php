@@ -15,7 +15,7 @@ define('TAGETPATH', './src');
 
 require_once 'vendor/autoload.php';
 
-$schema = json_decode(file_get_contents("./ethjs-schema.json"), true);
+$schema = json_decode(file_get_contents(__DIR__ . "/resources/ethjs-schema.json"), true);
 
 foreach ($schema['objects'] as $obj_name => $params) {
 
