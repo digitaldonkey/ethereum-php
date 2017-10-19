@@ -6,11 +6,13 @@
 header("HTTP/1.1 401 Unauthorized");
 exit;
 
+use Ethereum\EthDataTypePrimitive;
+
 define('TAGETPATH', './test');
 
 require_once 'vendor/autoload.php';
 
-use Ethereum\EthDataTypePrimitive;
+$schema = json_decode(file_get_contents("./ethjs-schema.json"), true);
 
 foreach ($schema['methods'] as $method_name => $params) {
 
