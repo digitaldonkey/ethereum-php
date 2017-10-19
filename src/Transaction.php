@@ -110,11 +110,7 @@ class Transaction extends EthDataType {
     }
   }
 
-    /**
-     * @param EthQ $value
-     * @param array $params
-     */
-    public function setValue($value, array $params = []){
+  public function setValue(EthQ $value){
     if (is_object($value) && is_a($value, 'EthQ')) {
       $this->value = $value;
     }
