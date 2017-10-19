@@ -159,11 +159,9 @@ class Ethereum extends EthereumStatic
                 $this->debug('Final request params', $request_params);
                 $value = $this->etherRequest($method, $request_params);
 
-                // Workaround varying client implementations.
-                $workaround_file = substr(__DIR__, 0, -3) . 'workarounds/' . $method . '.php';
-                if (file_exists($workaround_file)) {
-                    require_once $workaround_file;
-                    $value = call_user_func('eth_workaround_' . $method, $value);
+                $functionName = 'eth_workaround_' . $method;
+                if (function_exists($functionName)) {
+                    $value = call_user_func($functionName, $value);
                 }
 
                 $return = $this->createReturnValue($value, $return_type_class, $method);
