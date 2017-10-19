@@ -27,9 +27,28 @@ class Block extends EthDataType {
   protected $transactions;
   protected $uncles;
 
-  /**
-   * Constructor.
-   */
+    /**
+     * Constructor.
+     * @param EthQ|null   $number
+     * @param EthD32|null $hash
+     * @param EthD32|null $parentHash
+     * @param EthD|null   $nonce
+     * @param EthD|null   $sha3Uncles
+     * @param EthD|null   $logsBloom
+     * @param EthD|null   $transactionsRoot
+     * @param EthD|null   $stateRoot
+     * @param EthD|null   $receiptsRoot
+     * @param EthD|null   $miner
+     * @param EthQ|null   $difficulty
+     * @param EthQ|null   $totalDifficulty
+     * @param EthD|null   $extraData
+     * @param EthQ|null   $size
+     * @param EthQ|null   $gasLimit
+     * @param EthQ|null   $gasUsed
+     * @param EthQ|null   $timestamp
+     * @param array|null  $transactions
+     * @param array|null  $uncles
+     */
   public function __construct(EthQ $number = NULL, EthD32 $hash = NULL, EthD32 $parentHash = NULL, EthD $nonce = NULL, EthD $sha3Uncles = NULL, EthD $logsBloom = NULL, EthD $transactionsRoot = NULL, EthD $stateRoot = NULL, EthD $receiptsRoot = NULL, EthD $miner = NULL, EthQ $difficulty = NULL, EthQ $totalDifficulty = NULL, EthD $extraData = NULL, EthQ $size = NULL, EthQ $gasLimit = NULL, EthQ $gasUsed = NULL, EthQ $timestamp = NULL, array  $transactions = NULL, array  $uncles = NULL) {
     $this->number = $number;  
     $this->hash = $hash;  
@@ -229,7 +248,11 @@ class Block extends EthDataType {
     return 'Block';
   }
 
-  public function toArray() {
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function toArray() {
     $return = array();
       (!is_null($this->number)) ? $return['number'] = $this->number->hexVal() : NULL; 
       (!is_null($this->hash)) ? $return['hash'] = $this->hash->hexVal() : NULL; 
@@ -252,6 +275,7 @@ class Block extends EthDataType {
       (!is_null($this->uncles)) ? $return['uncles'] = EthereumStatic::valueArray($this->uncles, 'D') : array(); 
     return $return;
   }
+
  /**
   * Returns a name => type array.
   */
