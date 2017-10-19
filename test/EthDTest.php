@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 /**
  *
  */
-class EthereumStaticTestEthD extends TestCase {
+class EthDTest extends TestCase {
 
     /**
      * Testing quantities.

@@ -4,10 +4,7 @@
 use Ethereum\EthBlockParam;
 use PHPUnit\Framework\TestCase;
 
-/**
- *
- */
-class EthereumStaticTestEthBlockParam extends TestCase {
+class EthBlockParamTest extends TestCase {
 
     /**
      * Testing quantities.

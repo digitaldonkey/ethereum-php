@@ -5,10 +5,7 @@ use Ethereum\EthQ;
 use Ethereum\EthB;
 use PHPUnit\Framework\TestCase;
 
-/**
- *
- */
-class EthereumStaticTestEthB extends TestCase {
+class EthBTest extends TestCase {
 
     /**
      * Testing quantities.

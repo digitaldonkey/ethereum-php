@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 /**
  *
  */
-class EthereumStaticTestEthS extends TestCase {
+class EthSTest extends TestCase {
 
     /**
      * This test is bases data by http://codebeautify.org/hex-string-converter.
