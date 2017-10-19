@@ -6,7 +6,7 @@ use Ethereum\EthQ;
 use Ethereum\Filter;
 use Ethereum\Transaction;
 
-require_once 'vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 $quantity = new EthQ('0x0000000000000000000000000000001');
 printMe ('Setting and getting 1 at EthQ()', $quantity->hexVal());

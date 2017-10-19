@@ -13,9 +13,9 @@ use Ethereum\EthDataTypePrimitive;
 
 define('TAGETPATH', './src');
 
-require_once 'vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
-$schema = json_decode(file_get_contents(__DIR__ . "/resources/ethjs-schema.json"), true);
+$schema = json_decode(file_get_contents(__DIR__ . "/../resources/ethjs-schema.json"), true);
 
 foreach ($schema['objects'] as $obj_name => $params) {
 

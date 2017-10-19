@@ -2,7 +2,7 @@
 
 use Ethereum\Ethereum;
 
-require_once 'vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 $ethereum = new Ethereum('http://localhost:8545');
 
