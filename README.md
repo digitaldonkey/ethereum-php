@@ -1,4 +1,6 @@
-# PHP interface to Ethereum JSON-RPC API
+# ethereum-php
+
+A PHP interface to the Ethereum JSON-RPC API.
 
 ### Usage
 
