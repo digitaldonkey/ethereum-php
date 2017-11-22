@@ -14,7 +14,7 @@ class EthereumStaticTestEthBlockParam extends \PHPUnit_Framework_TestCase {
   public function testEthBlockParam__address() {
 
     $x = new EthBlockParam('0x3facfa472e86e3edaeaa837f6ba038ac01f7f539');
-    $this->assertSame($x->val(), '3facfa472e86e3edaeaa837f6ba038ac01f7f539');
+    $this->assertSame($x->val(), '363523949029425027178585641663023053417725031737');
     $this->assertSame($x->hexVal(), '0x3facfa472e86e3edaeaa837f6ba038ac01f7f539');
 
     $this->assertSame($x->getType($schema = FALSE), "EthBlockParam");

@@ -67,7 +67,7 @@ class EthBlockParam extends EthQ {
       return $this->value;
     }
     else {
-      return intval($this->value->toString());
+      return $this->value->toString();
     }
   }
 
