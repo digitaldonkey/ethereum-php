@@ -1,11 +1,24 @@
 # PHP interface to Ethereum JSON-RPC API
 
-### Usage
+### Install the library in a composer file
+
 
 ```
-composer require ...
+{
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/digitaldonkey/ethereum-php.git"
+    }
+  ],
+  "require": {
+    "digitaldonkey/ethereum-php": "dev-master",
+  }
+}
 
 ```
+This is the important part of [composer.json](https://github.com/digitaldonkey/ethereum/blob/8.x-1.x/composer.json) in [Drupal Ethereum Module](https://drupal.org/project/ethereum).
+
 
 #### Extend
 
@@ -29,10 +42,11 @@ class EthereumController extends ControllerBase {
 ```
 
 #### Use
+
 ```
     try {
       $eth = new EthereumController();
-      $eth->client->eth_protocolVersion();
+      echo $eth->client->eth_protocolVersion();
     }
     catch (\Exception $exception) {
       die ("Unable to connect.");
@@ -41,4 +55,6 @@ class EthereumController extends ControllerBase {
 ```
 
 ### Documentation
-For documentation see the [Ethereum RPC](http://ethereum.gitbooks.io/frontier-guide/content/rpc.html) documentation.
+For reference see the [Ethereum RPC documentation](https://github.com/ethereum/wiki/wiki/JSON-RPC) and for data encoding [RLP ddcumentation](https://github.com/ethereum/wiki/wiki/RLP) in [Ethereum Wiki](https://github.com/ethereum/wiki). 
+
+There is also a more readyble [Ethereum Frontier Guide](http://ethereum.gitbooks.io/frontier-guide/content/rpc.html) version.
