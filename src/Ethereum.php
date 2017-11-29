@@ -18,6 +18,8 @@ use Ethereum\EthDataTypePrimitive;
  *
  * Ethereum class is based on ethjs-schema by Nick Dodson.
  *   https://github.com/digitaldonkey/ethjs-schema
+ *
+ * @method Ethereum myFactory({'core'})
  */
 class Ethereum extends EthereumStatic {
 
