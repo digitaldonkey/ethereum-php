@@ -12,7 +12,10 @@
   "autoload": {
     "psr-4": {
       "Ethereum\\": "src/"
-    }
+    },
+    "files": [
+      "src/helpers/helpers.php"
+    ]
   },
   "license": "MIT",
   "authors": [

@@ -5,69 +5,80 @@ namespace Ethereum;
 /**
  * Implement data type EthSyncing.
  */
-class EthSyncing extends EthDataType {
+class EthSyncing extends EthDataType
+{
+    protected $startingBlock;
+    protected $currentBlock;
+    protected $highestBlock;
 
-  protected $startingBlock;
-  protected $currentBlock;
-  protected $highestBlock;
-
-  /**
-   * Constructor.
-   */
-  public function __construct(EthQ $startingBlock = NULL, EthQ $currentBlock = NULL, EthQ $highestBlock = NULL) {
-    $this->startingBlock = $startingBlock;  
-    $this->currentBlock = $currentBlock;  
-    $this->highestBlock = $highestBlock; 
-  }
-
-  public function setStartingBlock(EthQ $value){
-    if (is_object($value) && is_a($value, 'EthQ')) {
-      $this->startingBlock = $value;
+    /**
+     * Constructor.
+     * @param EthQ|null $startingBlock
+     * @param EthQ|null $currentBlock
+     * @param EthQ|null $highestBlock
+     */
+    public function __construct(EthQ $startingBlock = null, EthQ $currentBlock = null, EthQ $highestBlock = null)
+    {
+        $this->startingBlock = $startingBlock;
+        $this->currentBlock = $currentBlock;
+        $this->highestBlock = $highestBlock;
     }
-    else {
-      $this->startingBlock = new EthQ($value);
+
+    public function setStartingBlock(EthQ $value)
+    {
+        if (is_object($value) && is_a($value, 'EthQ')) {
+            $this->startingBlock = $value;
+        } else {
+            $this->startingBlock = new EthQ($value);
+        }
     }
-  }
 
-  public function setCurrentBlock(EthQ $value){
-    if (is_object($value) && is_a($value, 'EthQ')) {
-      $this->currentBlock = $value;
+    public function setCurrentBlock(EthQ $value)
+    {
+        if (is_object($value) && is_a($value, 'EthQ')) {
+            $this->currentBlock = $value;
+        } else {
+            $this->currentBlock = new EthQ($value);
+        }
     }
-    else {
-      $this->currentBlock = new EthQ($value);
+
+    public function setHighestBlock(EthQ $value)
+    {
+        if (is_object($value) && is_a($value, 'EthQ')) {
+            $this->highestBlock = $value;
+        } else {
+            $this->highestBlock = new EthQ($value);
+        }
     }
-  }
 
-  public function setHighestBlock(EthQ $value){
-    if (is_object($value) && is_a($value, 'EthQ')) {
-      $this->highestBlock = $value;
+    public function getType()
+    {
+        return 'EthSyncing';
     }
-    else {
-      $this->highestBlock = new EthQ($value);
+
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function toArray()
+    {
+        $return = [];
+        (!is_null($this->startingBlock)) ? $return['startingBlock'] = $this->startingBlock->hexVal() : null;
+        (!is_null($this->currentBlock)) ? $return['currentBlock'] = $this->currentBlock->hexVal() : null;
+        (!is_null($this->highestBlock)) ? $return['highestBlock'] = $this->highestBlock->hexVal() : null;
+
+        return $return;
     }
-  }
 
-
-
-  public function getType() {
-    return 'EthSyncing';
-  }
-
-  public function toArray() {
-    $return = array();
-      (!is_null($this->startingBlock)) ? $return['startingBlock'] = $this->startingBlock->hexVal() : NULL; 
-      (!is_null($this->currentBlock)) ? $return['currentBlock'] = $this->currentBlock->hexVal() : NULL; 
-      (!is_null($this->highestBlock)) ? $return['highestBlock'] = $this->highestBlock->hexVal() : NULL; 
-    return $return;
-  }
- /**
-  * Returns a name => type array.
-  */
-  public static function getTypeArray() {
-    return array( 
-      'startingBlock' => 'EthQ',
-      'currentBlock' => 'EthQ',
-      'highestBlock' => 'EthQ',
-    );
-  }
+    /**
+     * Returns a name => type array.
+     */
+    public static function getTypeArray()
+    {
+        return [
+            'startingBlock' => 'EthQ',
+            'currentBlock'  => 'EthQ',
+            'highestBlock'  => 'EthQ',
+        ];
+    }
 }

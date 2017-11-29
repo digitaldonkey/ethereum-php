@@ -5,147 +5,173 @@ namespace Ethereum;
 /**
  * Implement data type SHHMessage.
  */
-class SHHMessage extends EthDataType {
+class SHHMessage extends EthDataType
+{
+    protected $hash;
+    protected $from;
+    protected $to;
+    protected $expiry;
+    protected $ttl;
+    protected $sent;
+    protected $topics;
+    protected $payload;
+    protected $workProved;
 
-  protected $hash;
-  protected $from;
-  protected $to;
-  protected $expiry;
-  protected $ttl;
-  protected $sent;
-  protected $topics;
-  protected $payload;
-  protected $workProved;
+    /**
+     * Constructor.
+     * @param EthD|null  $hash
+     * @param EthD|null  $from
+     * @param EthD|null  $to
+     * @param EthQ|null  $expiry
+     * @param EthQ|null  $ttl
+     * @param EthQ|null  $sent
+     * @param array|null $topics
+     * @param EthD|null  $payload
+     * @param EthQ|null  $workProved
+     */
+    public function __construct(
+        EthD $hash = null,
+        EthD $from = null,
+        EthD $to = null,
+        EthQ $expiry = null,
+        EthQ $ttl = null,
+        EthQ $sent = null,
+        array $topics = null,
+        EthD $payload = null,
+        EthQ $workProved = null
+    ) {
+        $this->hash = $hash;
+        $this->from = $from;
+        $this->to = $to;
+        $this->expiry = $expiry;
+        $this->ttl = $ttl;
+        $this->sent = $sent;
+        $this->topics = $topics;
+        $this->payload = $payload;
+        $this->workProved = $workProved;
+    }
 
-  /**
-   * Constructor.
-   */
-  public function __construct(EthD $hash = NULL, EthD $from = NULL, EthD $to = NULL, EthQ $expiry = NULL, EthQ $ttl = NULL, EthQ $sent = NULL, array  $topics = NULL, EthD $payload = NULL, EthQ $workProved = NULL) {
-    $this->hash = $hash;  
-    $this->from = $from;  
-    $this->to = $to;  
-    $this->expiry = $expiry;  
-    $this->ttl = $ttl;  
-    $this->sent = $sent;  
-    $this->topics = $topics;  
-    $this->payload = $payload;  
-    $this->workProved = $workProved; 
-  }
+    public function setHash(EthD $value)
+    {
+        if (is_object($value) && is_a($value, 'EthD')) {
+            $this->hash = $value;
+        } else {
+            $this->hash = new EthD($value);
+        }
+    }
 
-  public function setHash(EthD $value){
-    if (is_object($value) && is_a($value, 'EthD')) {
-      $this->hash = $value;
+    public function setFrom(EthD $value)
+    {
+        if (is_object($value) && is_a($value, 'EthD')) {
+            $this->from = $value;
+        } else {
+            $this->from = new EthD($value);
+        }
     }
-    else {
-      $this->hash = new EthD($value);
-    }
-  }
 
-  public function setFrom(EthD $value){
-    if (is_object($value) && is_a($value, 'EthD')) {
-      $this->from = $value;
+    public function setTo(EthD $value)
+    {
+        if (is_object($value) && is_a($value, 'EthD')) {
+            $this->to = $value;
+        } else {
+            $this->to = new EthD($value);
+        }
     }
-    else {
-      $this->from = new EthD($value);
-    }
-  }
 
-  public function setTo(EthD $value){
-    if (is_object($value) && is_a($value, 'EthD')) {
-      $this->to = $value;
+    public function setExpiry(EthQ $value)
+    {
+        if (is_object($value) && is_a($value, 'EthQ')) {
+            $this->expiry = $value;
+        } else {
+            $this->expiry = new EthQ($value);
+        }
     }
-    else {
-      $this->to = new EthD($value);
-    }
-  }
 
-  public function setExpiry(EthQ $value){
-    if (is_object($value) && is_a($value, 'EthQ')) {
-      $this->expiry = $value;
+    public function setTtl(EthQ $value)
+    {
+        if (is_object($value) && is_a($value, 'EthQ')) {
+            $this->ttl = $value;
+        } else {
+            $this->ttl = new EthQ($value);
+        }
     }
-    else {
-      $this->expiry = new EthQ($value);
-    }
-  }
 
-  public function setTtl(EthQ $value){
-    if (is_object($value) && is_a($value, 'EthQ')) {
-      $this->ttl = $value;
+    public function setSent(EthQ $value)
+    {
+        if (is_object($value) && is_a($value, 'EthQ')) {
+            $this->sent = $value;
+        } else {
+            $this->sent = new EthQ($value);
+        }
     }
-    else {
-      $this->ttl = new EthQ($value);
-    }
-  }
 
-  public function setSent(EthQ $value){
-    if (is_object($value) && is_a($value, 'EthQ')) {
-      $this->sent = $value;
+    public function setTopics(EthD $value)
+    {
+        if (is_object($value) && is_a($value, 'EthD')) {
+            $this->topics = $value;
+        } else {
+            $this->topics = new EthD($value);
+        }
     }
-    else {
-      $this->sent = new EthQ($value);
-    }
-  }
 
-  public function setTopics(EthD $value){
-    if (is_object($value) && is_a($value, 'EthD')) {
-      $this->topics = $value;
+    public function setPayload(EthD $value)
+    {
+        if (is_object($value) && is_a($value, 'EthD')) {
+            $this->payload = $value;
+        } else {
+            $this->payload = new EthD($value);
+        }
     }
-    else {
-      $this->topics = new EthD($value);
+
+    public function setWorkProved(EthQ $value)
+    {
+        if (is_object($value) && is_a($value, 'EthQ')) {
+            $this->workProved = $value;
+        } else {
+            $this->workProved = new EthQ($value);
+        }
     }
-  }
 
-  public function setPayload(EthD $value){
-    if (is_object($value) && is_a($value, 'EthD')) {
-      $this->payload = $value;
+    public function getType()
+    {
+        return 'SHHMessage';
     }
-    else {
-      $this->payload = new EthD($value);
+
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function toArray()
+    {
+        $return = [];
+        (!is_null($this->hash)) ? $return['hash'] = $this->hash->hexVal() : null;
+        (!is_null($this->from)) ? $return['from'] = $this->from->hexVal() : null;
+        (!is_null($this->to)) ? $return['to'] = $this->to->hexVal() : null;
+        (!is_null($this->expiry)) ? $return['expiry'] = $this->expiry->hexVal() : null;
+        (!is_null($this->ttl)) ? $return['ttl'] = $this->ttl->hexVal() : null;
+        (!is_null($this->sent)) ? $return['sent'] = $this->sent->hexVal() : null;
+        (!is_null($this->topics)) ? $return['topics'] = EthereumStatic::valueArray($this->topics, 'D') : [];
+        (!is_null($this->payload)) ? $return['payload'] = $this->payload->hexVal() : null;
+        (!is_null($this->workProved)) ? $return['workProved'] = $this->workProved->hexVal() : null;
+
+        return $return;
     }
-  }
 
-  public function setWorkProved(EthQ $value){
-    if (is_object($value) && is_a($value, 'EthQ')) {
-      $this->workProved = $value;
+    /**
+     * Returns a name => type array.
+     */
+    public static function getTypeArray()
+    {
+        return [
+            'hash'       => 'EthD',
+            'from'       => 'EthD',
+            'to'         => 'EthD',
+            'expiry'     => 'EthQ',
+            'ttl'        => 'EthQ',
+            'sent'       => 'EthQ',
+            'topics'     => 'EthD',
+            'payload'    => 'EthD',
+            'workProved' => 'EthQ',
+        ];
     }
-    else {
-      $this->workProved = new EthQ($value);
-    }
-  }
-
-
-
-  public function getType() {
-    return 'SHHMessage';
-  }
-
-  public function toArray() {
-    $return = array();
-      (!is_null($this->hash)) ? $return['hash'] = $this->hash->hexVal() : NULL; 
-      (!is_null($this->from)) ? $return['from'] = $this->from->hexVal() : NULL; 
-      (!is_null($this->to)) ? $return['to'] = $this->to->hexVal() : NULL; 
-      (!is_null($this->expiry)) ? $return['expiry'] = $this->expiry->hexVal() : NULL; 
-      (!is_null($this->ttl)) ? $return['ttl'] = $this->ttl->hexVal() : NULL; 
-      (!is_null($this->sent)) ? $return['sent'] = $this->sent->hexVal() : NULL; 
-      (!is_null($this->topics)) ? $return['topics'] = EthereumStatic::valueArray($this->topics, 'D') : array(); 
-      (!is_null($this->payload)) ? $return['payload'] = $this->payload->hexVal() : NULL; 
-      (!is_null($this->workProved)) ? $return['workProved'] = $this->workProved->hexVal() : NULL; 
-    return $return;
-  }
- /**
-  * Returns a name => type array.
-  */
-  public static function getTypeArray() {
-    return array( 
-      'hash' => 'EthD',
-      'from' => 'EthD',
-      'to' => 'EthD',
-      'expiry' => 'EthQ',
-      'ttl' => 'EthQ',
-      'sent' => 'EthQ',
-      'topics' => 'EthD',
-      'payload' => 'EthD',
-      'workProved' => 'EthQ',
-    );
-  }
 }
