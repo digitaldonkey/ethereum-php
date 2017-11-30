@@ -4,6 +4,8 @@ namespace Ethereum;
 
 /**
  * String data.
+ *
+ * @ingroup datatypes
  */
 class EthS extends EthD
 {

@@ -10,6 +10,8 @@ class EthD extends EthDataTypePrimitive
     /**
      * Implement validation.
      *
+     * @ingroup datatypes
+     *
      * @param string $val
      *   "0x"prefixed hexadecimal byte value.
      * @param array  $params

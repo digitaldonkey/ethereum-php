@@ -1,6 +1,16 @@
 <?php
 
 /**
+ * @file
+ * Generate Method tests.
+ *
+ * We generating from resources/ethjs-schema.json -> objects.
+ *
+ * @ingroup generators
+ */
+
+
+/**
  * Actually this is not working. Just leave it for reference.
  */
 header("HTTP/1.1 401 Unauthorized");

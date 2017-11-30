@@ -3,7 +3,16 @@
 namespace Ethereum;
 
 /**
+ * @defgroup datatypes Data Types
+ *
+ * All data types in Ethereum-PHP are derived from EthDataType.
+ */
+
+/**
  * Base Class for all Data types.
+ *
+ * @ingroup datatypes
+ *
  */
 class EthDataType extends EthereumStatic
 {

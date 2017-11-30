@@ -8,6 +8,8 @@ use Math_BigInteger;
 
 /**
  * Numeric data.
+ *
+ * @ingroup datatypes
  */
 class EthQ extends EthD
 {
@@ -18,7 +20,7 @@ class EthQ extends EthD
     // $value will be a Math_BigInteger type.
     // Visibility public, so you can interact with Math_BigInteger.
     /**
-     * @var Math_BigInteger
+     * @var \Math_BigInteger
      */
     public $value;
     protected $abi;

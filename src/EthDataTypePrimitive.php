@@ -6,6 +6,8 @@ namespace Ethereum;
  * Basic Ethereum data types.
  *
  * @see: https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI#types
+ *
+ * @ingroup datatypes
  */
 class EthDataTypePrimitive extends EthDataType
 {

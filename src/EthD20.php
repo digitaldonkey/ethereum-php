@@ -5,6 +5,8 @@ namespace Ethereum;
 /**
  * Byte data, length 20.
  *
+ * @ingroup datatypes
+ *
  * Represents 40 hex characters, 160 bits. E.g Ethereum Address.
  */
 class EthD20 extends EthD

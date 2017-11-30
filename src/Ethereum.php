@@ -4,19 +4,35 @@ namespace Ethereum;
 
 use Graze\GuzzleHttp\JsonRpc\Client as RpcClient;
 
+
+/**
+ * @defgroup client Ethereum Client
+ *
+ * %Ethereum JsonRPC client.
+ */
+
+/**
+ * %Ethereum JsonRPC API for PHP.
+ *
+ * @page ethClient %Ethereum JsonRPC Client
+ *
+ * @ref client \Ethereum\Ethereum is the starting point to communicate with any %Ethereum client (like [Geth](https://geth.ethereum.org/),
+ * [Parity](https://github.com/paritytech/parity/releases/tag/v1.8.3), [TestRPC](https://github.com/trufflesuite/ganache-cli), [Quorum](https://www.jpmorgan.com/global/Quorum) ...).
+ *
+ * @ref Ethereum1.Class1 Class List view
+ *
+ * Implements %Ethereum JsonRPC API for PHP
+ *   https://github.com/ethereum/wiki/wiki/JSON-RPC.
+ *
+ *
+ */
+
+
 /**
  * Ethereum JsonRPC API for PHP.
  *
- * Implements Ethereum JsonRPC API for PHP
- *   https://github.com/ethereum/wiki/wiki/JSON-RPC.
+ * @ingroup client
  *
- * This part of the Drupal Ethereum Module:
- * https://groups.drupal.org/ethereum
- *
- * Ethereum class is based on ethjs-schema by Nick Dodson.
- *   https://github.com/digitaldonkey/ethjs-schema
- *
- * @method Ethereum myFactory({'core'})
  */
 class Ethereum extends EthereumStatic
 {
@@ -25,6 +41,15 @@ class Ethereum extends EthereumStatic
     protected $id = 0;
     public $client;
     public $debugHtml = '';
+
+
+    /** \fn public string myFunction(string c,integer n)
+     *  \brief A member function.
+     *  \param c a character.
+     *  \param n an integer.
+     *  \exception std::out_of_range parameter is out of range.
+     *  \return a character pointer.
+     */
 
     /**
      * Constructing Ethereum Class.
@@ -92,22 +117,28 @@ class Ethereum extends EthereumStatic
                     // Validate arguments.
                     foreach ($args as $i => $arg) {
 
-                        if ($argument_class_names[$i] !== $arg->getType()) {
+                      if (is_subclass_of ($arg,'EthDataType')) {
+                          if ($argument_class_names[$i] !== $arg->getType()) {
                             throw new \InvalidArgumentException("Argument $i is "
-                                                                . $arg->getType()
-                                                                . " but expected $argument_class_names[$i] in $method().");
-                        } else {
+                              . $arg->getType()
+                              . " but expected $argument_class_names[$i] in $method().");
+                          } else {
 
                             // Add value. Inconsistently booleans are not hexEncoded if they
                             // are not data like in eth_getBlockByHash().
                             if ($arg->isPrimitive() && $arg->getType() !== 'EthB') {
-                                $request_params[] = $arg->hexVal();
+                              $request_params[] = $arg->hexVal();
                             } elseif ($arg->isPrimitive() && $arg->getType() === 'EthB') {
-                                $request_params[] = $arg->val();
+                              $request_params[] = $arg->val();
                             } else {
-                                $request_params[] = $arg->toArray();
+                              $request_params[] = $arg->toArray();
                             }
-                        }
+                          }
+                      }
+                      else
+                      {
+                          throw new \InvalidArgumentException('Arg ' . $i . ' is not a EthDataType.');
+                      }
                     }
                 }
 
@@ -205,7 +236,7 @@ class Ethereum extends EthereumStatic
      *
      * @throws \Exception
      */
-    public function createReturnValue($value, $return_type_class, $method)
+    private function createReturnValue($value, $return_type_class, $method)
     {
         $return = null;
 
