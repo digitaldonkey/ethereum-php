@@ -1,14 +1,19 @@
 <?php
-
+namespace Ethereum;
 
 use Ethereum\EthBlockParam;
 use Ethereum\EthTest;
 
+/**
+ * EthBlockParamTest
+ *
+ * @ingroup tests
+ */
 class EthBlockParamTest extends EthTest
 {
     /**
      * Testing quantities.
-     * @throws Exception
+     * @throws \Exception
      */
     public function testEthBlockParam__address()
     {

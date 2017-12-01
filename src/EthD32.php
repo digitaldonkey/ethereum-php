@@ -5,7 +5,7 @@ namespace Ethereum;
 /**
  * Byte data, length 32.
  *
- * @ingroup datatypes
+ * @ingroup dataTypesPrimitive
  *
  * Represents 64 hex characters, 256 bits. Eg. TX hash.
  */

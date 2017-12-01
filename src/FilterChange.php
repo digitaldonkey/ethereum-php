@@ -9,7 +9,7 @@ namespace Ethereum;
  *
  * File is **generated** from resources/ethjs-schema.json using the generator in public/make_datatypes.php.
  *
- * @ingroup datatypes
+ * @ingroup dataTypesComplex
  *
  */
 class FilterChange extends EthDataType {

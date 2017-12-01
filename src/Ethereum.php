@@ -14,12 +14,12 @@ use Graze\GuzzleHttp\JsonRpc\Client as RpcClient;
 /**
  * %Ethereum JsonRPC API for PHP.
  *
- * @page ethClient %Ethereum JsonRPC Client
+ * @page ethClient JsonRPC Client
  *
- * @ref client \Ethereum\Ethereum is the starting point to communicate with any %Ethereum client (like [Geth](https://geth.ethereum.org/),
+ * Ethereum::Ethereum is the starting point to communicate with any %Ethereum client (like [Geth](https://geth.ethereum.org/),
  * [Parity](https://github.com/paritytech/parity/releases/tag/v1.8.3), [TestRPC](https://github.com/trufflesuite/ganache-cli), [Quorum](https://www.jpmorgan.com/global/Quorum) ...).
  *
- * @ref Ethereum1.Class1 Class List view
+ * You might check the hierarchical [class list](hierarchy.html) to get an easy overview about the available Data structures.
  *
  * Implements %Ethereum JsonRPC API for PHP
  *   https://github.com/ethereum/wiki/wiki/JSON-RPC.
@@ -68,7 +68,7 @@ class Ethereum extends EthereumStatic
      *   Connection to Ethereum node. E.g:
      *   http://localhost:8545 or https://mainnet.infura.io/drupal.
      */
-    public function __construct($url)
+    public function __construct($url = 'http://localhost:8545')
     {
 
         $this->client = RpcClient::factory($url, [

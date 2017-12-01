@@ -1,4 +1,4 @@
-# Ethereum-PHP API documentation
+# API documentation
 
 This PHP library provides a typed PHP7 interface to Ethereum JSON-RPC API.
 

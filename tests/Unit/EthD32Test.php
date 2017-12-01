@@ -1,16 +1,18 @@
 <?php
-
-
+namespace Ethereum;
 use Ethereum\EthD32;
 use Ethereum\EthTest;
+
 /**
+ * EthD32Test
  *
+ * @ingroup tests
  */
 class EthD32Test extends EthTest
 {
     /**
      * Testing quantities.
-     * @throws Exception
+     * @throws \Exception
      */
     public function testEthD32__simple()
     {
@@ -47,7 +49,7 @@ class EthD32Test extends EthTest
 
     public function testEthQ__notHexPrefixed()
     {
-        $this->setExpectedException(Exception::class);
+        $this->expectException(\InvalidArgumentException::class);
         new EthD32('f79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd');
     }
 

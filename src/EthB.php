@@ -12,7 +12,7 @@ class EthB extends EthQ
     /**
      * Implement validation.
      *
-     * @ingroup datatypes
+     * @ingroup dataTypesPrimitive
      *
      * @param string|number $val
      *   "0x"prefixed hexadecimal or number value.

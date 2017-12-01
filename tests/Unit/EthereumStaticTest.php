@@ -1,10 +1,11 @@
 <?php
-
 namespace Ethereum;
-
 use Ethereum\EthTest;
+
 /**
+ * EthereumStaticTest
  *
+ * @ingroup tests
  */
 class EthereumStaticTest extends EthTest
 {

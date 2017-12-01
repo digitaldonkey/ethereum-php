@@ -71,7 +71,7 @@ foreach ($schema['objects'] as $obj_name => $params) {
         " *",
         " * File is **generated** from resources/ethjs-schema.json using the generator in public/make_datatypes.php.",
         " *",
-        " * @ingroup datatypes",
+        " * @ingroup dataTypesComplex",
         " *",
         " */",
         "class $obj_name extends EthDataType {",

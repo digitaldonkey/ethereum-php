@@ -5,7 +5,7 @@ namespace Ethereum;
 /**
  * Byte data, length 20.
  *
- * @ingroup datatypes
+ * @ingroup dataTypesPrimitive
  *
  * Represents 40 hex characters, 160 bits. E.g Ethereum Address.
  */

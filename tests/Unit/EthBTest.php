@@ -1,11 +1,12 @@
 <?php
-
-
+namespace Ethereum;
 use Ethereum\EthB;
 use Ethereum\EthTest;
 
 /**
+ * EthereumStaticTestEthB
  *
+ * @ingroup tests
  */
 class EthereumStaticTestEthB extends EthTest {
 
@@ -96,7 +97,7 @@ class EthereumStaticTestEthB extends EthTest {
 //{
 //    /**
 //     * Testing quantities.
-//     * @throws Exception
+//     * @throws \Exception
 //     */
 //    public function testEthB__int_with_abi()
 //    {
@@ -109,7 +110,7 @@ class EthereumStaticTestEthB extends EthTest {
 //>>>>>>> c05a182b196a13cc25590d1806213795f0be32ee:test/EthBTest.php
 //
 //    /**
-//     * @throws Exception
+//     * @throws \Exception
 //     */
 //    public function testEthB__int()
 //    {
@@ -119,7 +120,7 @@ class EthereumStaticTestEthB extends EthTest {
 //    }
 //
 //    /**
-//     * @throws Exception
+//     * @throws \Exception
 //     */
 //    public function testEthB__int_null()
 //    {
@@ -130,7 +131,7 @@ class EthereumStaticTestEthB extends EthTest {
 //
 //
 //    /**
-//     * @throws Exception
+//     * @throws \Exception
 //     */
 //    public function testEthB__bool_true()
 //    {
@@ -142,7 +143,7 @@ class EthereumStaticTestEthB extends EthTest {
 //    }
 //
 //    /**
-//     * @throws Exception
+//     * @throws \Exception
 //     */
 //    public function testEthB__bool_false()
 //    {
@@ -152,7 +153,7 @@ class EthereumStaticTestEthB extends EthTest {
 //    }
 //
 //    /**
-//     * @throws Exception
+//     * @throws \Exception
 //     */
 //    public function testEthB__hex_false()
 //    {
@@ -162,7 +163,7 @@ class EthereumStaticTestEthB extends EthTest {
 //    }
 //
 //    /**
-//     * @throws Exception
+//     * @throws \Exception
 //     */
 //    public function testEthB__hex_TRUE()
 //    {

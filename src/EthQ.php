@@ -9,7 +9,7 @@ use Math_BigInteger;
 /**
  * Numeric data.
  *
- * @ingroup datatypes
+ * @ingroup dataTypesPrimitive
  */
 class EthQ extends EthD
 {

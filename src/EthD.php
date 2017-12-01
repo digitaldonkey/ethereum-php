@@ -3,14 +3,18 @@
 namespace Ethereum;
 
 /**
- * Byte data.
+ * Any byte data
+ *
+ * Can be data, lists, arrays.
+ *
+ * @ingroup dataTypesPrimitive
  */
 class EthD extends EthDataTypePrimitive
 {
     /**
      * Implement validation.
      *
-     * @ingroup datatypes
+     * @ingroup dataTypesPrimitive
      *
      * @param string $val
      *   "0x"prefixed hexadecimal byte value.

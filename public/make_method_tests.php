@@ -13,12 +13,12 @@
 /**
  * Actually this is not working. Just leave it for reference.
  */
-header("HTTP/1.1 401 Unauthorized");
-exit;
+//header("HTTP/1.1 401 Unauthorized");
+//exit;
 
 use Ethereum\EthDataTypePrimitive;
 
-define('TAGETPATH', './test');
+define('TAGETPATH', '../tests/Unit/');
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -69,19 +69,22 @@ foreach ($schema['methods'] as $method_name => $params) {
 //  printMe ('Set&lt;PROPERTY&gt;', $setters);
 //  printMe ('Return Array', $return_array);
 
-
     $data = [
         "<?php\n",
         // TODO THIS DOSN'T WORK: Drupal Namespace not recognized.
-        "use Drupal\\ethereum\\Controller\\EthereumController;\n",
+        "namespace Ethereum;",
+        "use Ethereum\EthTest;",
+        "use Ethereum\Ethereum;\n",
         "/**",
         " * Test for $method_name.",
+        " * @ingroup tests",
         " */",
-        "class " . $class_name . "Test extends \\PHPUnit_Framework_TestCase {\n",
+        "class " . $class_name . "Test extends EthTest {\n",
         makeConstructor(),
         "",
         "  /**",
-        "   * Testing.",
+        "   * Testing. $method_name",
+        "   * @ingroup tests",
         "   */",
         "  public function test" . $class_name . "Initial() {\n",
         makeTestUnparameterised(),
@@ -89,7 +92,9 @@ foreach ($schema['methods'] as $method_name => $params) {
         "}",
     ];
 
-    file_put_contents(TAGETPATH . '/' . $class_name . 'Test.generated.php', implode("\n", $data));
+    $filename = TAGETPATH . '/' . $class_name . 'Test.generatedTest.php';
+    file_put_contents($filename, implode("\n", $data));
+    chmod($filename, 0664);
 
     echo "<hr />";
 
@@ -128,7 +133,8 @@ function makeConstructor()
 {
     $val[] = '  protected $controller;' . "\n";
     $val[] = '  public function __construct(){';
-    $val[] = '    $this->controller = new EthereumController();';
+    $val[] = '    parent::__construct();';
+    $val[] = '    $this->controller = new Ethereum();';
     $val[] = '  }';
 
     // Required params first.

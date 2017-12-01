@@ -1,16 +1,18 @@
 <?php
-
-
+namespace Ethereum;
 use Ethereum\EthS;
 use Ethereum\EthTest;
+
 /**
+ * EthQTest
  *
+ * @ingroup tests
  */
 class EthSTest extends EthTest
 {
     /**
      * This test is bases data by http://codebeautify.org/hex-string-converter.
-     * @throws Exception
+     * @throws \Exception
      */
     public function testEthS__types()
     {

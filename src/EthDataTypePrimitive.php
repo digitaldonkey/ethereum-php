@@ -7,7 +7,7 @@ namespace Ethereum;
  *
  * @see: https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI#types
  *
- * @ingroup datatypes
+ * @ingroup dataTypesPrimitive
  */
 class EthDataTypePrimitive extends EthDataType
 {

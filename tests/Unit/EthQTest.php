@@ -1,10 +1,12 @@
 <?php
-
-
+namespace Ethereum;
 use Ethereum\EthQ;
 use Ethereum\EthTest;
+
 /**
+ * EthQTest
  *
+ * @ingroup tests
  */
 class EthQTest extends EthTest
 {
@@ -13,7 +15,7 @@ class EthQTest extends EthTest
      *
      * This test is bases data by
      * http://www.binaryhexconverter.com/decimal-to-hex-converter.
-     * @throws Exception
+     * @throws \Exception
      */
     public function testEthQ__simple()
     {
@@ -25,7 +27,7 @@ class EthQTest extends EthTest
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testEthQ__zero()
     {
@@ -44,7 +46,7 @@ class EthQTest extends EthTest
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testEthQ__one()
     {
@@ -60,7 +62,7 @@ class EthQTest extends EthTest
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testEthQ__random()
     {
@@ -70,7 +72,7 @@ class EthQTest extends EthTest
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testEthQ__negative()
     {
@@ -91,7 +93,7 @@ class EthQTest extends EthTest
     // Given ABI.
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testEthQ__given_abi8()
     {
@@ -101,7 +103,7 @@ class EthQTest extends EthTest
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testEthQ__abi16()
     {
@@ -111,7 +113,7 @@ class EthQTest extends EthTest
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testEthQ__abi8()
     {
@@ -122,7 +124,7 @@ class EthQTest extends EthTest
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testEthQ__abi8_plus1()
     {
@@ -133,7 +135,7 @@ class EthQTest extends EthTest
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testEthQ__abi8_neg()
     {
@@ -144,7 +146,7 @@ class EthQTest extends EthTest
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testEthQ__abi8_neg_plus1()
     {
@@ -155,7 +157,7 @@ class EthQTest extends EthTest
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function testEthQ__abi256()
     {
@@ -167,13 +169,13 @@ class EthQTest extends EthTest
     // Made TO FAIL
     public function testEthQ__given_abi8_should_be_wrong()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         new EthQ(9999, ['abi' => 'uint8']);
     }
 
     public function testEthQ__abi256_plus1()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         new EthQ('115792089237316000000000000000000000000000000000000000000000000000000000000000115792089237316000000000000000000000000000000000000000000000000000000000000000');
     }
 }
