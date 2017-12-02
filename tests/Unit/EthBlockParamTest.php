@@ -13,7 +13,7 @@ class EthBlockParamTest extends EthTest
 {
     /**
      * Testing quantities.
-     * @throws \Exception
+     * @throw Exception
      */
     public function testEthBlockParam__address()
     {

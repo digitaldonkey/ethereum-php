@@ -14,7 +14,7 @@ class EthD20Test extends EthTest
 {
     /**
      * Testing quantities.
-     * @throws \Exception
+     * @throw Exception
      */
     public function testEthD20__simple()
     {

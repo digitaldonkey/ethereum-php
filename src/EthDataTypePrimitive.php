@@ -48,7 +48,7 @@ class EthDataTypePrimitive extends EthDataType
      *   Hexadecimal or number value.
      * @param array      $params
      *   Array with optional parameters. Add Abi type $params['abi'] = 'unint8'.
-     * @throws \Exception
+     * @throw Exception
      */
     public function __construct($val, array $params = [])
     {
@@ -94,7 +94,7 @@ class EthDataTypePrimitive extends EthDataType
      * @return string
      *    Schema name of the type.
      *
-     * @throws \Exception
+     * @throw Exception
      */
     public static function reverseTypeMap($class_name)
     {
@@ -114,7 +114,7 @@ class EthDataTypePrimitive extends EthDataType
      *
      * @return string
      *   Returns the CLass name of the type or The schema name if $schema is TRUE.
-     * @throws \Exception
+     * @throw Exception
      */
     public function getType($schema = false)
     {
@@ -137,7 +137,7 @@ class EthDataTypePrimitive extends EthDataType
      *   Value to set.
      *
      * @param array $params
-     * @throws \Exception If validation is not implemented for type.
+     * @throw Exception If validation is not implemented for type.
      */
     public function setValue($val, array $params = [])
     {

@@ -40,16 +40,7 @@ class Ethereum extends EthereumStatic
     private $methods;
     protected $id = 0;
     public $client;
-    public $debugHtml = '';
-
-
-    /** \fn public string myFunction(string c,integer n)
-     *  \brief A member function.
-     *  \param c a character.
-     *  \param n an integer.
-     *  \exception std::out_of_range parameter is out of range.
-     *  \return a character pointer.
-     */
+    protected $debugHtml = '';
 
     /**
      * Constructing Ethereum Class.
@@ -70,6 +61,9 @@ class Ethereum extends EthereumStatic
      */
     public function __construct($url = 'http://localhost:8545')
     {
+
+        // TODO: It would be great if doxygen just documents the magic methods.
+        // require_once ('helpers/ethMethodsDoc.php');
 
         $this->client = RpcClient::factory($url, [
             // Debug JsonRPC requests.
@@ -234,7 +228,7 @@ class Ethereum extends EthereumStatic
      * @return object|array
      *   Expected object.
      *
-     * @throws \Exception
+     * @throw Exception
      */
     private function createReturnValue($value, $return_type_class, $method)
     {
@@ -298,7 +292,7 @@ class Ethereum extends EthereumStatic
 
     /**
      * Ethereum request.
-     * @throws \Exception
+     * @throw Exception
      */
     public function etherRequest($method, $params = [])
     {

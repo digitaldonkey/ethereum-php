@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['make_5fdatatypes_2ephp',['make_datatypes.php',['../d3/d0f/make__datatypes_8php.html',1,'']]],
-  ['make_5fmethod_5fdoc_2ephp',['make_method_doc.php',['../d6/d0f/make__method__doc_8php.html',1,'']]],
-  ['make_5fmethod_5ftests_2ephp',['make_method_tests.php',['../dc/d41/make__method__tests_8php.html',1,'']]]
+  ['readme_2emd',['README.md',['../d9/dd6/_r_e_a_d_m_e_8md.html',1,'']]],
+  ['receipt_2ephp',['Receipt.php',['../de/ddb/_receipt_8php.html',1,'']]]
 ];

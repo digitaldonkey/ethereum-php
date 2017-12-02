@@ -13,12 +13,12 @@
 /**
  * Actually this is not working. Just leave it for reference.
  */
-//header("HTTP/1.1 401 Unauthorized");
-//exit;
+// header("HTTP/1.1 401 Unauthorized");
+// die('ACCESS DENIED');
 
 use Ethereum\EthDataTypePrimitive;
 
-define('TAGETPATH', '../tests/Unit/');
+define('TARGET_PATH', '../tests/Unit/');
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -92,7 +92,7 @@ foreach ($schema['methods'] as $method_name => $params) {
         "}",
     ];
 
-    $filename = TAGETPATH . '/' . $class_name . 'Test.generatedTest.php';
+    $filename = TARGET_PATH . '/' . $class_name . 'Test.generatedTest.php';
     file_put_contents($filename, implode("\n", $data));
     chmod($filename, 0664);
 

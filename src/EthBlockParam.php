@@ -1,6 +1,7 @@
 <?php
 
 namespace Ethereum;
+use Math_BigInteger;
 
 /**
  * Default block parameter.
@@ -22,7 +23,7 @@ class EthBlockParam extends EthQ
      *   Hexadecimal or number value.
      * @param array      $params
      *   Array with optional parameters. Add Abi type $params['abi'] = 'unint8'.
-     * @throws \Exception
+     * @throw InvalidArgumentException
      */
     public function __construct($val = 'latest', array $params = [])
     {
@@ -37,8 +38,7 @@ class EthBlockParam extends EthQ
      * @param array      $params
      *   Only $param['abi'] is relevant.
      *
-     * @throws \Exception
-     *   If things are wrong.
+     * @throw InvalidArgumentException Value is not a valid block param
      *
      * @return string.
      */
@@ -61,7 +61,7 @@ class EthBlockParam extends EthQ
     /**
      * Return un-prefixed bin value.
      *
-     * @return int|string|\Math_BigInteger
+     * @return int|string|Math_BigInteger
      *   Return a PHP integer.
      *   If $val > PHP_INT_MAX we return a string containing the integer.
      */
@@ -94,7 +94,7 @@ class EthBlockParam extends EthQ
     /**
      * Return hex encoded block number or tag.
      *
-     * @return int|string|\Math_BigInteger
+     * @return int|string|Math_BigInteger
      *   Return a PHP integer.
      *   If $val > PHP_INT_MAX we return a string containing the integer.
      */
@@ -113,7 +113,7 @@ class EthBlockParam extends EthQ
 
     /**
      * Call EthD20 validation to validate Address.
-     * @throws \Exception
+     * @throw InvalidArgumentException
      */
     protected function validateAddress($val, array $params)
     {

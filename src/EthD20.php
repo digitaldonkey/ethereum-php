@@ -17,7 +17,7 @@ class EthD20 extends EthD
      * @param string $val
      *   Hexadecimal "0x"prefixed  byte value.
      *
-     * @throws \Exception
+     * @throw Exception
      *   If things are wrong.
      *
      * @return string
@@ -42,7 +42,7 @@ class EthD20 extends EthD
      * @return string
      *   If address can't be decoded.
      *
-     * @throws \Exception
+     * @throw Exception
      *   If string is not a formally valid address.
      */
     public static function unPadEnsureLength($string)

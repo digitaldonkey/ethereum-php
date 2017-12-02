@@ -18,7 +18,7 @@ class EthereumStatic
      * @return object|array
      *   Object of type $class_name.
      *
-     * @throws \Exception
+     * @throw Exception
      *   If something is wrong.
      */
     public static function arrayToComplexType($class_name, array $values)
@@ -79,7 +79,7 @@ class EthereumStatic
      *
      * @return array
      *   Array of value objects of the given type.
-     * @throws \Exception
+     * @throw Exception
      */
     public static function valueArray(array $values, $typeClass)
     {
@@ -298,7 +298,7 @@ class EthereumStatic
      * @return string
      *   String value.
      *
-     * @throws \Exception
+     * @throw Exception
      */
     public static function hexToStr($string)
     {

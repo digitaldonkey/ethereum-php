@@ -245,7 +245,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><p>Default block parameter.</p>
 <dl class="section see"><dt>See also</dt><dd>: <a href="https://github.com/ethereum/wiki/wiki/JSON-RPC#the-default-block-parameter">https://github.com/ethereum/wiki/wiki/JSON-RPC#the-default-block-parameter</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d5a/_eth_block_param_8php_source.html#l00010">10</a> of file <a class="el" href="../../d2/d5a/_eth_block_param_8php_source.html">EthBlockParam.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d5a/_eth_block_param_8php_source.html#l00011">11</a> of file <a class="el" href="../../d2/d5a/_eth_block_param_8php_source.html">EthBlockParam.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2cfbd86a8c54f07f80d8b8200879cc79"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2cfbd86a8c54f07f80d8b8200879cc79">&#9670;&nbsp;</a></span>__construct()</h2>
@@ -282,13 +282,13 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"></td><td></td></tr>
+    <tr><td class="paramname">InvalidArgumentException</td><td></td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/d5a/_eth_block_param_8php_source.html#l00027">27</a> of file <a class="el" href="../../d2/d5a/_eth_block_param_8php_source.html">EthBlockParam.php</a>.</p>
-<div class="fragment"><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    {</div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        parent::__construct($val, $params);</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    }</div></div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="../../d2/d5a/_eth_block_param_8php_source.html#l00028">28</a> of file <a class="el" href="../../d2/d5a/_eth_block_param_8php_source.html">EthBlockParam.php</a>.</p>
+<div class="fragment"><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    {</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        parent::__construct($val, $params);</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div></div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -307,12 +307,12 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Return hex encoded block number or tag.</p>
-<dl class="section return"><dt>Returns</dt><dd>int|string| Return a PHP integer. If $val &gt; PHP_INT_MAX we return a string containing the integer. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int|string|Math_BigInteger Return a PHP integer. If $val &gt; PHP_INT_MAX we return a string containing the integer. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d2/d5a/_eth_block_param_8php_source.html#l00101">101</a> of file <a class="el" href="../../d2/d5a/_eth_block_param_8php_source.html">EthBlockParam.php</a>.</p>
 <div class="fragment"><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    {</div><div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">if</span> ($this-&gt;<a class="code" href="../../d6/dfb/class_ethereum_1_1_eth_block_param.html#a5250cc4e5baaa1ccc5b3ebc869a67927">isTag</a>()) {</div><div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../dc/d69/class_ethereum_1_1_eth_q.html#a0f298096f322952a72a50f98a74c7b60">$this-&gt;value</a>;</div><div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        } <span class="keywordflow">else</span> {</div><div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            $val = intval($this-&gt;value-&gt;toString());</div><div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            $val = ($val === 0) ? $val : $this-&gt;value-&gt;toHex(<span class="keyword">false</span>);</div><div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div><div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            <span class="comment">// Unpaded positive Hex value.</span></div><div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            <span class="keywordflow">return</span> $this-&gt;<a class="code" href="../../d9/da8/class_ethereum_1_1_ethereum_static.html#a12832bf5fa297667ae922ec9b6e5d82b">ensureHexPrefix</a>($val);</div><div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        }</div><div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    }</div><div class="ttc" id="class_ethereum_1_1_ethereum_static_html_a12832bf5fa297667ae922ec9b6e5d82b"><div class="ttname"><a href="../../d9/da8/class_ethereum_1_1_ethereum_static.html#a12832bf5fa297667ae922ec9b6e5d82b">Ethereum\EthereumStatic\ensureHexPrefix</a></div><div class="ttdeci">static ensureHexPrefix($str)</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/da2/_ethereum_static_8php_source.html#l00267">EthereumStatic.php:267</a></div></div>
 <div class="ttc" id="class_ethereum_1_1_eth_block_param_html_a5250cc4e5baaa1ccc5b3ebc869a67927"><div class="ttname"><a href="../../d6/dfb/class_ethereum_1_1_eth_block_param.html#a5250cc4e5baaa1ccc5b3ebc869a67927">Ethereum\EthBlockParam\isTag</a></div><div class="ttdeci">isTag($val=false)</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d5a/_eth_block_param_8php_source.html#l00085">EthBlockParam.php:85</a></div></div>
-<div class="ttc" id="class_ethereum_1_1_eth_q_html_a0f298096f322952a72a50f98a74c7b60"><div class="ttname"><a href="../../dc/d69/class_ethereum_1_1_eth_q.html#a0f298096f322952a72a50f98a74c7b60">Ethereum\EthQ\$value</a></div><div class="ttdeci">$value</div><div class="ttdef"><b>Definition:</b> <a href="../../da/d06/_eth_q_8php_source.html#l00025">EthQ.php:25</a></div></div>
+<div class="ttc" id="class_ethereum_1_1_eth_q_html_a0f298096f322952a72a50f98a74c7b60"><div class="ttname"><a href="../../dc/d69/class_ethereum_1_1_eth_q.html#a0f298096f322952a72a50f98a74c7b60">Ethereum\EthQ\$value</a></div><div class="ttdeci">$value</div><div class="ttdef"><b>Definition:</b> <a href="../../da/d06/_eth_q_8php_source.html#l00026">EthQ.php:26</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -349,7 +349,7 @@ Additional Inherited Members</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>bool True if given value or $this-&gt;value is a tag. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d2/d5a/_eth_block_param_8php_source.html#l00085">85</a> of file <a class="el" href="../../d2/d5a/_eth_block_param_8php_source.html">EthBlockParam.php</a>.</p>
-<div class="fragment"><div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    {</div><div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">if</span> (!$val) {</div><div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            $val = <a class="code" href="../../dc/d69/class_ethereum_1_1_eth_q.html#a0f298096f322952a72a50f98a74c7b60">$this-&gt;value</a>;</div><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        }</div><div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div><div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">return</span> (!is_int($val) &amp;&amp; in_array($val, self::TAGS));</div><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div><div class="ttc" id="class_ethereum_1_1_eth_q_html_a0f298096f322952a72a50f98a74c7b60"><div class="ttname"><a href="../../dc/d69/class_ethereum_1_1_eth_q.html#a0f298096f322952a72a50f98a74c7b60">Ethereum\EthQ\$value</a></div><div class="ttdeci">$value</div><div class="ttdef"><b>Definition:</b> <a href="../../da/d06/_eth_q_8php_source.html#l00025">EthQ.php:25</a></div></div>
+<div class="fragment"><div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    {</div><div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">if</span> (!$val) {</div><div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            $val = <a class="code" href="../../dc/d69/class_ethereum_1_1_eth_q.html#a0f298096f322952a72a50f98a74c7b60">$this-&gt;value</a>;</div><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        }</div><div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div><div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">return</span> (!is_int($val) &amp;&amp; in_array($val, self::TAGS));</div><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div><div class="ttc" id="class_ethereum_1_1_eth_q_html_a0f298096f322952a72a50f98a74c7b60"><div class="ttname"><a href="../../dc/d69/class_ethereum_1_1_eth_q.html#a0f298096f322952a72a50f98a74c7b60">Ethereum\EthQ\$value</a></div><div class="ttdeci">$value</div><div class="ttdef"><b>Definition:</b> <a href="../../da/d06/_eth_q_8php_source.html#l00026">EthQ.php:26</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -368,11 +368,11 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Return un-prefixed bin value.</p>
-<dl class="section return"><dt>Returns</dt><dd>int|string| Return a PHP integer. If $val &gt; PHP_INT_MAX we return a string containing the integer. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int|string|Math_BigInteger Return a PHP integer. If $val &gt; PHP_INT_MAX we return a string containing the integer. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d2/d5a/_eth_block_param_8php_source.html#l00068">68</a> of file <a class="el" href="../../d2/d5a/_eth_block_param_8php_source.html">EthBlockParam.php</a>.</p>
 <div class="fragment"><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    {</div><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">if</span> ($this-&gt;<a class="code" href="../../d6/dfb/class_ethereum_1_1_eth_block_param.html#a5250cc4e5baaa1ccc5b3ebc869a67927">isTag</a>()) {</div><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../dc/d69/class_ethereum_1_1_eth_q.html#a0f298096f322952a72a50f98a74c7b60">$this-&gt;value</a>;</div><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        } <span class="keywordflow">else</span> {</div><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <span class="keywordflow">return</span> $this-&gt;value-&gt;toString();</div><div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        }</div><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div><div class="ttc" id="class_ethereum_1_1_eth_block_param_html_a5250cc4e5baaa1ccc5b3ebc869a67927"><div class="ttname"><a href="../../d6/dfb/class_ethereum_1_1_eth_block_param.html#a5250cc4e5baaa1ccc5b3ebc869a67927">Ethereum\EthBlockParam\isTag</a></div><div class="ttdeci">isTag($val=false)</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d5a/_eth_block_param_8php_source.html#l00085">EthBlockParam.php:85</a></div></div>
-<div class="ttc" id="class_ethereum_1_1_eth_q_html_a0f298096f322952a72a50f98a74c7b60"><div class="ttname"><a href="../../dc/d69/class_ethereum_1_1_eth_q.html#a0f298096f322952a72a50f98a74c7b60">Ethereum\EthQ\$value</a></div><div class="ttdeci">$value</div><div class="ttdef"><b>Definition:</b> <a href="../../da/d06/_eth_q_8php_source.html#l00025">EthQ.php:25</a></div></div>
+<div class="ttc" id="class_ethereum_1_1_eth_q_html_a0f298096f322952a72a50f98a74c7b60"><div class="ttname"><a href="../../dc/d69/class_ethereum_1_1_eth_q.html#a0f298096f322952a72a50f98a74c7b60">Ethereum\EthQ\$value</a></div><div class="ttdeci">$value</div><div class="ttdef"><b>Definition:</b> <a href="../../da/d06/_eth_q_8php_source.html#l00026">EthQ.php:26</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -411,10 +411,11 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"></td><td></td></tr>
+    <tr><td class="paramname">InvalidArgumentException</td><td>Value is not a valid block param</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>string. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d2/d5a/_eth_block_param_8php_source.html#l00045">45</a> of file <a class="el" href="../../d2/d5a/_eth_block_param_8php_source.html">EthBlockParam.php</a>.</p>
 <div class="fragment"><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    {</div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        $return = null;</div><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">if</span> ($this-&gt;<a class="code" href="../../d6/dfb/class_ethereum_1_1_eth_block_param.html#a5250cc4e5baaa1ccc5b3ebc869a67927">isTag</a>($val)) {</div><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            $return = $val;</div><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        } <span class="keywordflow">else</span> {</div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            $return = parent::validate($val, $params);</div><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        }</div><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">if</span> (is_null($return)) {</div><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keywordflow">throw</span> new \InvalidArgumentException(<span class="stringliteral">&#39;No valid block param: &#39;</span> . $val);</div><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        }</div><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">return</span> $return;</div><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div><div class="ttc" id="class_ethereum_1_1_eth_block_param_html_a5250cc4e5baaa1ccc5b3ebc869a67927"><div class="ttname"><a href="../../d6/dfb/class_ethereum_1_1_eth_block_param.html#a5250cc4e5baaa1ccc5b3ebc869a67927">Ethereum\EthBlockParam\isTag</a></div><div class="ttdeci">isTag($val=false)</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d5a/_eth_block_param_8php_source.html#l00085">EthBlockParam.php:85</a></div></div>
@@ -456,7 +457,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Call <a class="el" href="../../d2/dec/class_ethereum_1_1_eth_d20.html">EthD20</a> validation to validate Address. </p><dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"></td><td></td></tr>
+    <tr><td class="paramname">InvalidArgumentException</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -478,7 +479,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= [</div><div class="line">        <span class="stringliteral">&quot;latest&quot;</span>,</div><div class="line">        <span class="stringliteral">&quot;earliest&quot;</span>,</div><div class="line">        <span class="stringliteral">&quot;pending&quot;</span>,</div><div class="line">    ]</div></div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="../../d2/d5a/_eth_block_param_8php_source.html#l00012">12</a> of file <a class="el" href="../../d2/d5a/_eth_block_param_8php_source.html">EthBlockParam.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/d5a/_eth_block_param_8php_source.html#l00013">13</a> of file <a class="el" href="../../d2/d5a/_eth_block_param_8php_source.html">EthBlockParam.php</a>.</p>
 
 </div>
 </div>

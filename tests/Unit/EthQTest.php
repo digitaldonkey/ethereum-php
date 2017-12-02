@@ -15,7 +15,7 @@ class EthQTest extends EthTest
      *
      * This test is bases data by
      * http://www.binaryhexconverter.com/decimal-to-hex-converter.
-     * @throws \Exception
+     * @throw Exception
      */
     public function testEthQ__simple()
     {
@@ -27,7 +27,7 @@ class EthQTest extends EthTest
     }
 
     /**
-     * @throws \Exception
+     * @throw Exception
      */
     public function testEthQ__zero()
     {
@@ -46,7 +46,7 @@ class EthQTest extends EthTest
     }
 
     /**
-     * @throws \Exception
+     * @throw Exception
      */
     public function testEthQ__one()
     {
@@ -62,7 +62,7 @@ class EthQTest extends EthTest
     }
 
     /**
-     * @throws \Exception
+     * @throw Exception
      */
     public function testEthQ__random()
     {
@@ -72,7 +72,7 @@ class EthQTest extends EthTest
     }
 
     /**
-     * @throws \Exception
+     * @throw Exception
      */
     public function testEthQ__negative()
     {
@@ -93,7 +93,7 @@ class EthQTest extends EthTest
     // Given ABI.
 
     /**
-     * @throws \Exception
+     * @throw Exception
      */
     public function testEthQ__given_abi8()
     {
@@ -103,7 +103,7 @@ class EthQTest extends EthTest
     }
 
     /**
-     * @throws \Exception
+     * @throw Exception
      */
     public function testEthQ__abi16()
     {
@@ -113,7 +113,7 @@ class EthQTest extends EthTest
     }
 
     /**
-     * @throws \Exception
+     * @throw Exception
      */
     public function testEthQ__abi8()
     {
@@ -124,7 +124,7 @@ class EthQTest extends EthTest
     }
 
     /**
-     * @throws \Exception
+     * @throw Exception
      */
     public function testEthQ__abi8_plus1()
     {
@@ -135,7 +135,7 @@ class EthQTest extends EthTest
     }
 
     /**
-     * @throws \Exception
+     * @throw Exception
      */
     public function testEthQ__abi8_neg()
     {
@@ -146,7 +146,7 @@ class EthQTest extends EthTest
     }
 
     /**
-     * @throws \Exception
+     * @throw Exception
      */
     public function testEthQ__abi8_neg_plus1()
     {
@@ -157,7 +157,7 @@ class EthQTest extends EthTest
     }
 
     /**
-     * @throws \Exception
+     * @throw Exception
      */
     public function testEthQ__abi256()
     {

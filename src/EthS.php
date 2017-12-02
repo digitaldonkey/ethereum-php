@@ -11,7 +11,7 @@ class EthS extends EthD
 {
     /**
      * Implement validation.
-     * @throws \Exception
+     * @throw Exception
      */
     public function validate($val, array $params)
     {

@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['netlisteningtest_2egeneratedtest_2ephp',['NetListeningTest.generatedTest.php',['../d2/d71/_net_listening_test_8generated_test_8php.html',1,'']]],
-  ['netpeercounttest_2egeneratedtest_2ephp',['NetPeerCountTest.generatedTest.php',['../dc/de6/_net_peer_count_test_8generated_test_8php.html',1,'']]],
-  ['netversiontest_2egeneratedtest_2ephp',['NetVersionTest.generatedTest.php',['../d0/d3b/_net_version_test_8generated_test_8php.html',1,'']]]
+  ['sendtransaction_2ephp',['SendTransaction.php',['../da/d5c/_send_transaction_8php.html',1,'']]],
+  ['shhfilter_2ephp',['SHHFilter.php',['../d1/ddf/_s_h_h_filter_8php.html',1,'']]],
+  ['shhfilterchange_2ephp',['SHHFilterChange.php',['../d8/d65/_s_h_h_filter_change_8php.html',1,'']]],
+  ['shhmessage_2ephp',['SHHMessage.php',['../da/d44/_s_h_h_message_8php.html',1,'']]],
+  ['shhpost_2ephp',['SHHPost.php',['../d5/dce/_s_h_h_post_8php.html',1,'']]]
 ];

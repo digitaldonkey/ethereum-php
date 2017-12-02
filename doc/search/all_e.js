@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['primitive_20types',['Primitive Types',['../db/da0/group__data_types_primitive.html',1,'']]],
-  ['personalecrecovertest',['PersonalEcRecoverTest',['../d8/d33/class_ethereum_1_1_personal_ec_recover_test.html',1,'Ethereum']]],
-  ['personalecrecovertest_2egeneratedtest_2ephp',['PersonalEcRecoverTest.generatedTest.php',['../da/d50/_personal_ec_recover_test_8generated_test_8php.html',1,'']]],
-  ['personalsigntest',['PersonalSignTest',['../df/d88/class_ethereum_1_1_personal_sign_test.html',1,'Ethereum']]],
-  ['personalsigntest_2egeneratedtest_2ephp',['PersonalSignTest.generatedTest.php',['../d6/de8/_personal_sign_test_8generated_test_8php.html',1,'']]],
-  ['printme',['printMe',['../df/d41/helpers_8php.html#ab002abbb6cae3bdbcf6374a34d83a6b8',1,'helpers.php']]]
+  ['readme_2emd',['README.md',['../d9/dd6/_r_e_a_d_m_e_8md.html',1,'']]],
+  ['receipt',['Receipt',['../dd/dc3/class_ethereum_1_1_receipt.html',1,'Ethereum']]],
+  ['receipt_2ephp',['Receipt.php',['../de/ddb/_receipt_8php.html',1,'']]],
+  ['removehexprefix',['removeHexPrefix',['../d9/da8/class_ethereum_1_1_ethereum_static.html#a31c73adc793cac230708578f609126f6',1,'Ethereum::EthereumStatic']]],
+  ['reorderparams',['reorderParams',['../d3/d0f/make__datatypes_8php.html#ae52dedc4f8c142fd7388d9c6e3494380',1,'make_datatypes.php']]],
+  ['request',['request',['../d8/d74/class_ethereum_1_1_ethereum.html#a02c4910dea52a44ddb5aea9f50aaa6d0',1,'Ethereum::Ethereum']]],
+  ['reversetypemap',['reverseTypeMap',['../de/d0a/class_ethereum_1_1_eth_data_type_primitive.html#a7e407a3ac15aaa34906f468c6a54f205',1,'Ethereum::EthDataTypePrimitive']]]
 ];

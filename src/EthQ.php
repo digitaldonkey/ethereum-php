@@ -1,6 +1,7 @@
 <?php
 
 namespace Ethereum;
+use InvalidArgumentException;
 
 // Math_BigInteger
 // https://pear.php.net/package/Math_BigInteger/docs/latest/Math_BigInteger/Math_BigInteger.html.
@@ -20,7 +21,7 @@ class EthQ extends EthD
     // $value will be a Math_BigInteger type.
     // Visibility public, so you can interact with Math_BigInteger.
     /**
-     * @var \Math_BigInteger
+     * @var Math_BigInteger
      */
     public $value;
     protected $abi;
@@ -36,7 +37,7 @@ class EthQ extends EthD
      *   Hexadecimal or number value.
      * @param array      $params
      *   Array with optional parameters. Add Abi type $params['abi'] = 'unint8'.
-     * @throws \Exception
+     * @throw Exception
      */
     public function __construct($val, array $params = [])
     {
@@ -51,7 +52,7 @@ class EthQ extends EthD
      * @param array         $params
      *   Only $param['abi'] is relevant.
      *
-     * @throws \Exception
+     * @throw Exception
      *   If things are wrong.
      *
      * @return Math_BigInteger.
@@ -162,7 +163,7 @@ class EthQ extends EthD
      * @param string $abi
      *   Valid Abi for number. E.g uint8, int160 ...
      *
-     * @throws \InvalidArgumentException
+     * @throw InvalidArgumentException
      *   If Abi don't match definition.
      *
      * @return bool TRUE if abi matches definition.
@@ -201,7 +202,7 @@ class EthQ extends EthD
 
     /**
      * Implement hex value.
-     * @throws \Exception
+     * @throw Exception
      */
     public function hexVal()
     {

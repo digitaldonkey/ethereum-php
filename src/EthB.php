@@ -19,7 +19,7 @@ class EthB extends EthQ
      * @param array         $params
      *   Only $param['abi'] is relevant.
      *
-     * @throws \Exception
+     * @throw InvalidArgumentException Can not decode int value.
      *   If things are wrong.
      *
      * @return Math_BigInteger.

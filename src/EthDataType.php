@@ -1,6 +1,7 @@
 <?php
 
 namespace Ethereum;
+use Exception;
 
 /**
  * @defgroup dataTypes Data Types
@@ -68,7 +69,7 @@ class EthDataType extends EthereumStatic
      * @param bool   $hex_val
      *   Set to TRUE to get the hexadecimal value.
      *
-     * @throws \Exception
+     * @throw Exception
      *   If something is wrong.
      *
      * @return string|int|array
@@ -106,7 +107,7 @@ class EthDataType extends EthereumStatic
      * @param array $params
      *   Array with optional keyed arguments.
      *
-     * @throws \Exception
+     * @throw Exception
      *   If validation is not implemented for type.
      */
     public function setValue($val, array $params = [])
@@ -124,14 +125,13 @@ class EthDataType extends EthereumStatic
      * @param array|string $type
      *   Type containing Schema name.
      * @param bool         $typed_constructor
-     *   If true this function will return "array" for types of array(<type>),
-     *   instead of <type>.
+     *   If true this function will return "array" for types of array($type),
+     *   instead of $type.
      *
      * @return string
      *   Class name of type.
      *
-     * @throws \Exception
-     *   If something is wrong.
+     * @throws Exception Could not determine type class
      */
     public static function getTypeClass($type, $typed_constructor = false)
     {
@@ -153,7 +153,7 @@ class EthDataType extends EthereumStatic
             }
         }
         if (!$type_class) {
-            throw new \Exception('Could not determine type class at getTypeClass()');
+            throw new Exception('Could not determine type class at getTypeClass()');
         }
 
         return $type_class;

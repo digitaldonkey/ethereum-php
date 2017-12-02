@@ -53,7 +53,7 @@ class EthFilter extends EthDataType
 
     /**
      * @return array
-     * @throws \Exception
+     * @throw Exception
      */
     public function toArray()
     {

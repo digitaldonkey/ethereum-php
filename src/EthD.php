@@ -1,6 +1,7 @@
 <?php
 
 namespace Ethereum;
+use Math_BigInteger;
 
 /**
  * Any byte data
@@ -21,8 +22,7 @@ class EthD extends EthDataTypePrimitive
      * @param array  $params
      *   Only $param['abi'] is relevant.
      *
-     * @throws \Exception
-     *   If things are wrong.
+     * @throw InvalidArgumentException Can not decode hex binary
      *
      * @return string.
      */
@@ -53,7 +53,7 @@ class EthD extends EthDataTypePrimitive
      * @return bool
      *   Return TRUE if value contains only Hex digits.
      *
-     * @throws \InvalidArgumentException
+     * @throw InvalidArgumentException
      *   If value contains non Hexadecimal characters.
      */
     public function validateHexString($val)
@@ -69,9 +69,9 @@ class EthD extends EthDataTypePrimitive
     }
 
     /**
-     * Return unprefixed bin value.
+     * Return un-prefixed bin value.
      *
-     * @return int|string|\Math_BigInteger
+     * @return int|string|Math_BigInteger
      *   Return a PHP integer.
      *   If $val > PHP_INT_MAX we return a string containing the integer.
      */

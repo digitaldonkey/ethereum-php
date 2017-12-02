@@ -11,7 +11,7 @@ class EthereumStaticTest extends EthTest
 {
     /**
      * This test is bases data by http://codebeautify.org/hex-string-converter.
-     * @throws \Exception
+     * @throw Exception
      */
     public function testHexToStr()
     {

@@ -193,7 +193,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><p>Any byte data</p>
 <p>Can be data, lists, arrays. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d3/dde/_eth_d_8php_source.html#l00012">12</a> of file <a class="el" href="../../d3/dde/_eth_d_8php_source.html">EthD.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/dde/_eth_d_8php_source.html#l00013">13</a> of file <a class="el" href="../../d3/dde/_eth_d_8php_source.html">EthD.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a06b58726bbc8324a2dfb0f730943363e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a06b58726bbc8324a2dfb0f730943363e">&#9670;&nbsp;</a></span>hexVal()</h2>
@@ -231,8 +231,8 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Return unprefixed bin value.</p>
-<dl class="section return"><dt>Returns</dt><dd>int|string| Return a PHP integer. If $val &gt; PHP_INT_MAX we return a string containing the integer. </dd></dl>
+<p>Return un-prefixed bin value.</p>
+<dl class="section return"><dt>Returns</dt><dd>int|string|Math_BigInteger Return a PHP integer. If $val &gt; PHP_INT_MAX we return a string containing the integer. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="../../d3/dde/_eth_d_8php_source.html#l00078">78</a> of file <a class="el" href="../../d3/dde/_eth_d_8php_source.html">EthD.php</a>.</p>
 <div class="fragment"><div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    {</div><div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">return</span> substr($this-&gt;value, 2);</div><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div></div><!-- fragment -->
@@ -263,7 +263,7 @@ Additional Inherited Members</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>bool Return TRUE if value contains only Hex digits.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"></td><td></td></tr>
+    <tr><td class="paramname">InvalidArgumentException</td><td>If value contains non Hexadecimal characters. </td></tr>
   </table>
   </dd>
 </dl>

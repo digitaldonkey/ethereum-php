@@ -12,7 +12,7 @@ class EthD32Test extends EthTest
 {
     /**
      * Testing quantities.
-     * @throws \Exception
+     * @throw Exception
      */
     public function testEthD32__simple()
     {

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Generate Method tests.
+ * Generate Doc blocks for the [PHP magic Methods](php.net/manual/en/language.oop5.magic.php) in use.
  *
  * We generating from resources/ethjs-schema.json -> objects.
  *
@@ -11,18 +11,33 @@
 
 
 /**
- * Actually this is not working. Just leave it for reference.
+ * TODO: DOCUMENT THE PHP MAGIC METHODS.
+ * This might be a solution, but it would only work in PhpDocumentator.
+ * Doxygen refuses to print documentation for functions not defined in code.
+ *
+ * AND there are some more errors here on array(<type>) returns.
  */
-//header("HTTP/1.1 401 Unauthorized");
-//exit;
+
+/**
+ * Better disable access in production.
+ */
+
+// Target for generated doc blocks.
+define('TARGET_PATH', '../src/helpers/ethMethodsDoc.php');
+
+header("HTTP/1.1 401 Unauthorized");
+die('ACCESS DENIED');
+
 
 use Ethereum\EthDataTypePrimitive;
-
-define('TAGETPATH', './test');
-
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $schema = json_decode(file_get_contents(__DIR__ . "/../resources/ethjs-schema.json"), true);
+
+$data = [
+    "<?php\n\n",
+];
+
 
 foreach ($schema['methods'] as $method_name => $params) {
 
@@ -52,52 +67,23 @@ foreach ($schema['methods'] as $method_name => $params) {
     $return_type = $params[1];
     printMe('Return value type', $return_type);
 
-
-//  $constructor_content = makeConstructorContent($ordered_params);
-//  $setters = makeSetFunctions($ordered_params);
-//
-//  $return_array = makeReturnArray($ordered_params);
-//
-//
-//
-//  $properties = makeProperties($ordered_params);
-
-
-//  printMe ('Properties', $properties);
-//  printMe ('Constructor', "__construct(" . $constructor . ")");
-//  printMe ('ConstructorContent', $constructor_content);
-//  printMe ('Set&lt;PROPERTY&gt;', $setters);
-//  printMe ('Return Array', $return_array);
-
-
-    $data = [
-        "<?php\n",
-        // TODO THIS DOSN'T WORK: Drupal Namespace not recognized.
-        "use Drupal\\ethereum\\Controller\\EthereumController;\n",
+    $method_data = [
         "/**",
-        " * Test for $method_name.",
-        " */",
-        "class " . $class_name . "Test extends \\PHPUnit_Framework_TestCase {\n",
-        makeConstructor(),
-        "",
-        "  /**",
-        "   * Testing.",
-        "   */",
-        "  public function test" . $class_name . "Initial() {\n",
-        makeTestUnparameterised(),
-        "  }",
-        "}",
+        " * @fn public $return_type $method_name()",
+        " * @brief $class_name",
+        " * @details See [Ethereum Wiki](https://github.com/ethereum/wiki/wiki/JSON-RPC#" . strtolower($method_name) . ")",
     ];
+    foreach ($argument_class_names as $param) {
+        $method_data[] = " * @param " . $param;
+    }
+    $method_data[] = " * @return " . EthDataTypePrimitive::typeMap($return_type);
+    $method_data[] = " */\n\n";
 
-    file_put_contents(TAGETPATH . '/' . $class_name . 'Test.generated.php', implode("\n", $data));
-
+    $data = array_merge($data, $method_data);
     echo "<hr />";
-
-
 }
-
-// echo "<h1>SCHEMA</h1>";
-// var_dump($schema);
+file_put_contents(TARGET_PATH , implode("\n", $data));
+chmod(TARGET_PATH, 0664);
 
 
 /**
@@ -117,38 +103,4 @@ function makeClassName($input)
     }
 
     return $return;
-}
-
-
-/**
- * Create constructor content.
- *
- */
-function makeConstructor()
-{
-    $val[] = '  protected $controller;' . "\n";
-    $val[] = '  public function __construct(){';
-    $val[] = '    $this->controller = new EthereumController();';
-    $val[] = '  }';
-
-    // Required params first.
-
-    return implode("\n", $val);
-}
-
-/**
- * Create test for unparameterised call.
- *
- */
-function makeTestUnparameterised()
-{
-    global $valid_arguments, $method_name, $return_type;
-    if (count($valid_arguments) == 0) {
-        $val[] = '    $x = $this->controller->client->' . $method_name . '();';
-        $val[] = '    $this->assertEquals($x->getType($schema = TRUE), "' . $return_type . '");';
-
-        return implode("\n", $val);
-    } else {
-        return "";
-    }
 }
