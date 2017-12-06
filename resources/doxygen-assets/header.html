@@ -21,30 +21,59 @@ $extrastylesheet
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
 
 <!--BEGIN TITLEAREA-->
-<div id="titlearea">
-  <!--BEGIN PROJECT_LOGO-->
-  <div id="projectlogo"><img alt="Logo" src="$relpath^$projectlogo"/></div>
-  <!--END PROJECT_LOGO-->
-  <!--BEGIN PROJECT_NAME-->
-  <div id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">$projectname
-   <!--BEGIN PROJECT_NUMBER-->&#160;<span id="projectnumber">$projectnumber</span><!--END PROJECT_NUMBER-->
-   </div>
-   <!--BEGIN PROJECT_BRIEF--><div id="projectbrief">$projectbrief</div><!--END PROJECT_BRIEF-->
-  </div>
-  <!--END PROJECT_NAME-->
-  <!--BEGIN !PROJECT_NAME-->
-   <!--BEGIN PROJECT_BRIEF-->
-    <div style="padding-left: 0.5em;">
-    <div id="projectbrief">$projectbrief</div>
+<div id="titlearea" class="branding">
+    <div class="branding-title">
+        <!--BEGIN PROJECT_LOGO-->
+        <div class="logo"><img alt="Logo" src="$relpath^$projectlogo"/></div>
+        <!--END PROJECT_LOGO-->
+        <!--BEGIN PROJECT_NAME-->
+        <div id="projectalign" class="title">
+            <div id="projectname">$projectname
+                <!--BEGIN PROJECT_NUMBER-->&#160;<span id="projectnumber">$projectnumber</span><!--END PROJECT_NUMBER-->
+            </div>
+            <!--BEGIN PROJECT_BRIEF--><div id="projectbrief">$projectbrief</div><!--END PROJECT_BRIEF-->
+        </div>
+        <!--END PROJECT_NAME-->
+        <!--BEGIN !PROJECT_NAME-->
+        <!--BEGIN PROJECT_BRIEF-->
+        <div>
+            <div id="projectbrief">$projectbrief</div>
+        </div>
+        <!--END PROJECT_BRIEF-->
+        <!--END !PROJECT_NAME-->
     </div>
-   <!--END PROJECT_BRIEF-->
-  <!--END !PROJECT_NAME-->
-  <!--BEGIN DISABLE_INDEX-->
-   <!--BEGIN SEARCHENGINE-->
-   <div>$searchbox</div>
-   <!--END SEARCHENGINE-->
-  <!--END DISABLE_INDEX-->
+
+    <div class="branding-nav">
+        <div class="version-selector">
+            <label for="version-selector">Select version</label>
+            <div id="version-selector" class="version-selector--wrapper">
+                <select class='version-selector--select'>
+                    <option value='d0'>d0</option>
+                    <option value='d1'>d1</option>
+                    <option value='d2'>d2</option>
+                    <option value='d3'>d3</option>
+                    <option value='d4'>d4</option>
+                    <option value='d5'>d5</option>
+                    <option value='d6'>d6</option>
+                    <option value='d7'>d7</option>
+                    <option value='d8'>d8</option>
+                    <option value='d9'>d9</option>
+                    <option value='da'>da</option>
+                    <option value='db'>db</option>
+                    <option value='dc'>dc</option>
+                    <option value='dd'>dd</option>
+                    <option value='de'>de</option>
+                    <option value='df'>df</option>
+                    <option value='search'>search</option>
+                </select>
+            </div>
+        </div>
+        <!--BEGIN DISABLE_INDEX-->
+        <!--BEGIN SEARCHENGINE-->
+        <div class="search">$searchbox</div>
+        <!--END SEARCHENGINE-->
+        <!--END DISABLE_INDEX-->
+    </div>
 </div>
 <!--END TITLEAREA-->
 <!-- end header part -->
