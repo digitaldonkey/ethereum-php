@@ -1,6 +1,8 @@
 # Getting started
 
-PHP interface to Ethereum JSON-RPC API
+Ethereum-PHP is a typed PHP-7 interface to [Ethereum JSON-RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC).
+
+Check out the latest [API documentation](http://ethereum-php.org/dev/).
 
 ### Install the library in a composer file
 
