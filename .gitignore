@@ -1,2 +1,9 @@
 vendor
 composer.lock
+
+# General OSX
+# See: https://github.com/github/gitignore/blob/master/Global/macOS.gitignore
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
