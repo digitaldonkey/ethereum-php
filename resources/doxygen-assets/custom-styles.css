@@ -78,3 +78,8 @@ select::-ms-expand {
 .hide-in-apidoc {
     display: none;
 }
+
+/* Code-blocks */
+div.fragment {
+    padding: .5em;
+}
