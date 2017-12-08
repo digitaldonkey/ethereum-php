@@ -73,3 +73,8 @@ select::-ms-expand {
     position: relative;
 }
 /* END custom header styles */
+
+/* Helper for API Documentation. */
+.hide-in-apidoc {
+    display: none;
+}
