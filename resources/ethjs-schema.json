@@ -8,7 +8,7 @@
     "personal_sign": [["D20", "D", "S"], "D", 2],
     "personal_ecRecover": [["D", "D"], "D20", 2],
     "eth_protocolVersion": [[], "S"],
-    "eth_syncing": [[], "Boolean|EthSyncing"],
+    "eth_syncing": [[], "B|EthSyncing"],
     "eth_coinbase": [[], "D20"],
     "eth_mining": [[], "B"],
     "eth_hashrate": [[], "Q"],

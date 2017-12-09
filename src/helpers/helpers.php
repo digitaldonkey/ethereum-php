@@ -1,6 +1,16 @@
 <?php
 
 /**
+ * @file
+ * Workarounds for specific Ethereum clients.
+ *
+ * Some client return not exactly what you expect. Hopefully the clients will get fixed and we can remove the workarounds over time.
+ *
+ * TODO: This file should be names workarounds.
+ */
+
+
+/**
  * Workaround for eth_protocolVersion().
  *
  * In some cases Ethereum Clients (like geth, parity etc.) have differing
@@ -48,22 +58,5 @@ function eth_workaround_net_listening($val)
         return '0x0000000000000000000000000000000000000000000000000000000000000001';
     } else {
         return $val;
-    }
-}
-
-/**
- * printMe().
- */
-function printMe($title, $content = null)
-{
-    echo "<p><b>" . $title . "</b></p>";
-    if ($content) {
-        echo '<pre style="background: Azure">';
-        if (is_array($content)) {
-            print_r($content);
-        } else {
-            echo($content);
-        }
-        echo "</pre>";
     }
 }

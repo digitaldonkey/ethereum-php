@@ -1,4 +1,23 @@
 <?php
+/**
+ * @file
+ * Some legacy to review.
+ *
+ * @ingroup tests
+ */
+
+/**
+ * @var bool ACCESS Deny public access to this generator.
+ */
+define('IS_PUBLIC', FALSE);
+
+/**
+ * Better disable access in production.
+ */
+if (!IS_PUBLIC) {
+    header("HTTP/1.1 401 Unauthorized");
+    die('ACCESS DENIED');
+}
 
 use Ethereum\EthBlockParam;
 use Ethereum\EthD32;

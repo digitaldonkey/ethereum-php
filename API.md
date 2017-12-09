@@ -7,6 +7,11 @@ In order to keep this API up do date it is build schema based.
 
 * Ethereum Methods are based on ethereum-schema->methods. Implemented in Ethereum class.
 * Complex Data types are generated  ethereum-schema->objects. Generated with public/make_datatypes.php
+* Changes to resources/eth-schema.json->objects require to regenerate the datatypes. See: public/make_datatypes.php
+* Changes to resources/eth-schema.json->methods currently don't require regeneration.
+    * public/make_method_readme.php regenerates the .... readme.
+    * public/make_method_docComments.php regenerates src/helpers/ethMethodsDoc.php, which only generates comments.
+    * public/make_method_tests.php generates empty test classes only.
 
 ### Testing
 
