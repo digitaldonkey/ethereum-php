@@ -1,11 +1,11 @@
 <?php
 
 namespace Ethereum;
+
+/* @see https://pear.php.net/package/Math_BigInteger/docs/latest/Math_BigInteger/Math_BigInteger.html Math_BigInteger documentation */
+use Math_BigInteger;
 use InvalidArgumentException;
 
-// Math_BigInteger
-// https://pear.php.net/package/Math_BigInteger/docs/latest/Math_BigInteger/Math_BigInteger.html.
-use Math_BigInteger;
 
 /**
  * Numeric data.
@@ -17,13 +17,13 @@ class EthQ extends EthD
     // Validation properties.
     protected $intTypes = ['int', 'uint'];
 
-    // Property types.
-    // $value will be a Math_BigInteger type.
-    // Visibility public, so you can interact with Math_BigInteger.
-    /**
-     * @var Math_BigInteger
-     */
+    // @var $value Math_BigInteger Math big integer pear library.
     public $value;
+
+    /**
+     * @var string $abi Abi of the content.
+     * @see https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI Ethereeum Abi documentation
+     */
     protected $abi;
 
     // Non not RLP encoded values have a hex padding length of 64 (strlen).

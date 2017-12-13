@@ -2,12 +2,21 @@
 
 namespace Ethereum;
 use Exception;
-
+use Ethereum\EthDataTypeInterface;
+use Ethereum\EthDataTypePrimitive;
+use Ethereum\Ethereum;
 /**
  * @defgroup dataTypes Data Types
  *
  * All data types in Ethereum-PHP are derived from EthDataType.
  */
+
+/**
+ * @defgroup interfaces Interfaces
+ *
+ * All Interfaces.
+ */
+
 
 /**
  * @defgroup dataTypesPrimitive Primitive Types
@@ -31,24 +40,8 @@ use Exception;
  * @ingroup dataTypes
  *
  */
-class EthDataType extends EthereumStatic
+abstract class EthDataType extends EthereumStatic implements EthDataTypeInterface
 {
-//  /**
-//   * Validate and set $value.
-//   *
-//   * @param mixed $value
-//   *   Input value.
-//   * @param string $property
-//   *   Property to set.
-//   */
-//  public function set($value, $property = 'value') {
-//    if (property_exists($this, $property)) {
-//      call_user_func(array($this, 'set' . ucfirst($property)), $value);
-//    }
-//    else {
-//      throw new \InvalidArgumentException("Property '$property' does not exist.");
-//    }
-//  }
 
     /**
      * Check if Type is a primitive type.
@@ -70,7 +63,7 @@ class EthDataType extends EthereumStatic
      *   Set to TRUE to get the hexadecimal value.
      *
      * @throw Exception
-     *   If something is wrong.
+     *   If property does not exist.
      *
      * @return string|int|array
      *   The property value.*
@@ -107,7 +100,7 @@ class EthDataType extends EthereumStatic
      * @param array $params
      *   Array with optional keyed arguments.
      *
-     * @throw Exception
+     * @throws Exception
      *   If validation is not implemented for type.
      */
     public function setValue($val, array $params = [])
@@ -115,7 +108,7 @@ class EthDataType extends EthereumStatic
         if (method_exists($this, 'validate')) {
             $this->value = $this->validate($val, $params);
         } else {
-            throw new \Exception('Validation of ' . __METHOD__ . ' not implemented yet.');
+            throw new Exception('Validation of ' . __METHOD__ . ' not implemented yet.');
         }
     }
 
@@ -138,24 +131,37 @@ class EthDataType extends EthereumStatic
 
         if (!is_array($type)) {
             $primitive_type = EthDataTypePrimitive::typeMap($type);
-        } else {
+        }
+        else {
             $primitive_type = EthDataTypePrimitive::typeMap($type[0]);
         }
 
         if ($primitive_type) {
             $type_class = $primitive_type;
-        } else {
+        }
+        else {
             // Sadly arrayOf <type> is not supported by PHP.
             if ($typed_constructor) {
-                $type_class = is_array($type) ? 'Array' : $type;
-            } else {
+                $type_class = is_array($type) ? 'array' : $type;
+            }
+            else {
                 $type_class = is_array($type) ? $type[0] : $type;
             }
         }
+
         if (!$type_class) {
             throw new Exception('Could not determine type class at getTypeClass()');
         }
 
         return $type_class;
     }
+
+    public static function getTypeClasses() {
+        $schema = Ethereum::getDefinition();
+        return array_merge(
+            EthDataTypePrimitive::getPrimitiveTypes(),
+            array_keys($schema['objects'])
+        );
+    }
 }
+

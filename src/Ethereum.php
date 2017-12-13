@@ -3,7 +3,10 @@
 namespace Ethereum;
 
 use Graze\GuzzleHttp\JsonRpc\Client as RpcClient;
-
+use Ethereum\JsonRpcInterface;
+use Ethereum\EthMethods;
+use Ethereum\EthDataType;
+use Exception;
 
 /**
  * @defgroup client Ethereum Client
@@ -27,18 +30,23 @@ use Graze\GuzzleHttp\JsonRpc\Client as RpcClient;
  *
  */
 
+/** @noinspection PhpUndefinedMethodInspection */
 
 /**
  * Ethereum JsonRPC API for PHP.
  *
  * @ingroup client
  *
+ * @noinspection PhpUndefinedMethodInspection
  */
-class Ethereum extends EthereumStatic
+class Ethereum extends EthereumStatic implements JsonRpcInterface
 {
+
+    use EthMethods;
+
     private $definition;
     private $methods;
-    protected $id = 0;
+    private $id = 0;
     public $client;
     protected $debugHtml = '';
 
@@ -62,16 +70,12 @@ class Ethereum extends EthereumStatic
     public function __construct($url = 'http://localhost:8545')
     {
 
-        // TODO: It would be great if doxygen just documents the magic methods.
-        // require_once ('helpers/ethMethodsDoc.php');
-
         $this->client = RpcClient::factory($url, [
             // Debug JsonRPC requests.
             'debug' => false,
         ]);
 
-        $schema_path = __DIR__ . '/../resources/ethjs-schema.json';
-        $this->definition = json_decode(file_get_contents($schema_path), true);
+        $this->definition = self::getDefinition();
 
         foreach ($this->definition['methods'] as $name => $params) {
             ${$name} = function () {
@@ -110,24 +114,28 @@ class Ethereum extends EthereumStatic
 
                     // Validate arguments.
                     foreach ($args as $i => $arg) {
-
-                      if (is_subclass_of ($arg,'EthDataType')) {
-                          if ($argument_class_names[$i] !== $arg->getType()) {
-                            throw new \InvalidArgumentException("Argument $i is "
-                              . $arg->getType()
-                              . " but expected $argument_class_names[$i] in $method().");
-                          } else {
-
-                            // Add value. Inconsistently booleans are not hexEncoded if they
-                            // are not data like in eth_getBlockByHash().
-                            if ($arg->isPrimitive() && $arg->getType() !== 'EthB') {
-                              $request_params[] = $arg->hexVal();
-                            } elseif ($arg->isPrimitive() && $arg->getType() === 'EthB') {
-                              $request_params[] = $arg->val();
-                            } else {
-                              $request_params[] = $arg->toArray();
+                        if (is_subclass_of ($arg,'Ethereum\EthDataType')) {
+                            // Former $arg->getType has been removed.
+                            // Getting the basename of the class.
+                            $argType = basename(str_replace('\\', '/', get_class($arg)));
+                            if ($argument_class_names[$i] !== $argType) {
+                                throw new \InvalidArgumentException("Argument $i is "
+                                  . $argType
+                                  . " but expected $argument_class_names[$i] in $method().");
+                                }
+                                else {
+                                // Add value. Inconsistently booleans are not hexEncoded if they
+                                // are not data like in eth_getBlockByHash().
+                                if ($arg->isPrimitive() && $argType !== 'EthB') {
+                                    $request_params[] = $arg->hexVal();
+                                }
+                                elseif ($arg->isPrimitive() && $argType === 'EthB') {
+                                    $request_params[] = $arg->val();
+                                }
+                                else {
+                                    $request_params[] = $arg->toArray();
+                                }
                             }
-                          }
                       }
                       else
                       {
@@ -220,15 +228,15 @@ class Ethereum extends EthereumStatic
      *
      * @param string|array $value
      *   Returned value from JsonRPC request.
-     * @param string       $return_type_class
+     * @param string $return_type_class
      *   Class name of the expected return type.
-     * @param string       $method
+     * @param string $method
      *   Method name for error messages.
      *
-     * @return object|array
-     *   Expected object.
+     * @return array|object Expected object.
+     * Expected object.
      *
-     * @throw Exception
+     * @throws Exception
      */
     private function createReturnValue($value, $return_type_class, $method)
     {
@@ -263,7 +271,7 @@ class Ethereum extends EthereumStatic
         }
 
         if (!$return && !is_array($return)) {
-            throw new \Exception('Expected '
+            throw new Exception('Expected '
                                  . $return_type_class
                                  . ' at '
                                  . $method
@@ -370,12 +378,16 @@ class Ethereum extends EthereumStatic
     }
 
     /**
-     * Retrieve the definition array
+     * Retrieve the Ethereum JsonRPC API definition.
      *
-     * @return array|mixed
+     * Normally the content of the file resources/ethjs-schema.json.
+     *
+     * @return array
      */
-    public function getDefinition()
+    public static function getDefinition()
     {
-        return $this->definition;
+        $schema_path = __DIR__ . '/../resources/ethjs-schema.json';
+        return json_decode(file_get_contents($schema_path), true);
     }
+
 }

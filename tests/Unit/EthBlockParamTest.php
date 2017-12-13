@@ -26,8 +26,7 @@ class EthBlockParamTest extends EthTest
         $x = new EthBlockParam('0x3facfa472e86e3edaeaa837f6ba038ac01f7f539');
         $this->assertSame($x->val(), '363523949029425027178585641663023053417725031737');
         $this->assertSame($x->hexVal(), '0x3facfa472e86e3edaeaa837f6ba038ac01f7f539');
-        $this->assertSame($x->getType($schema = false), "EthBlockParam");
-        $this->assertSame($x->getType($schema = true), "Q|T");
+        $this->assertSame($x->getSchemaType(), "Q|T");
     }
 
     public function testEthBlockParam__tagLatest()

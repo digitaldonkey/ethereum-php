@@ -17,8 +17,7 @@ class EthereumStaticTestEthB extends EthTest {
    */
   public function testEthB__int_with_abi() {
     $x = new EthB(1, array('abi' => 'bool'));
-    $this->assertSame($x->getType($schema = FALSE), "EthB");
-    $this->assertSame($x->getType($schema = TRUE), "B");
+    $this->assertSame($x->getSchemaType(), "B");
     $this->assertSame($x->hexVal(), '0x0000000000000000000000000000000000000000000000000000000000000001');
     $this->assertSame($x->val(), TRUE);
   }
@@ -102,8 +101,8 @@ class EthereumStaticTestEthB extends EthTest {
 //    public function testEthB__int_with_abi()
 //    {
 //        $x = new EthB(1, ['abi' => 'bool']);
-//        $this->assertSame($x->getType($schema = false), "EthB");
-//        $this->assertSame($x->getType($schema = true), "B");
+//        $this->assertSame($x->getType(), "EthB");
+//        $this->assertSame($x->getSchemaType(), "B");
 //        $this->assertSame($x->hexVal(), '0x0000000000000000000000000000000000000000000000000000000000000001');
 //        $this->assertSame($x->val(), true);
 //    }

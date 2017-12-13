@@ -22,8 +22,7 @@ class EthQTest extends EthTest
         $x = new EthQ(999);
         $this->assertSame($x->val(), 999);
         $this->assertSame($x->hexVal(), '0x00000000000000000000000000000000000000000000000000000000000003e7');
-        $this->assertSame($x->getType($schema = false), "EthQ");
-        $this->assertSame($x->getType($schema = true), "Q");
+        $this->assertSame($x->getSchemaType(), "Q");
     }
 
     /**

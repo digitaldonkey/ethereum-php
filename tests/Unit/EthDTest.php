@@ -20,9 +20,7 @@ class EthDTest extends EthTest
         $x = new EthD('0x4f1116b6e1a6e963efffa30c0a8541075cc51c45');
         $this->assertSame($x->val(), '4f1116b6e1a6e963efffa30c0a8541075cc51c45');
         $this->assertSame($x->hexVal(), '0x4f1116b6e1a6e963efffa30c0a8541075cc51c45');
-
-        $this->assertSame($x->getType($schema = false), "EthD");
-        $this->assertSame($x->getType($schema = true), "D");
+        $this->assertSame($x->getSchemaType(), "D");
     }
 
     // Made to Fail.

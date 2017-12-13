@@ -1,11 +1,12 @@
 <?php
 
 namespace Ethereum;
+use Exception;
 
 /**
  * Static helper functions for Ethereum JsonRPC API for PHP.
  */
-class EthereumStatic
+abstract class EthereumStatic
 {
     /**
      * Determine type class name for primitive and complex data types.
@@ -24,8 +25,11 @@ class EthereumStatic
     public static function arrayToComplexType($class_name, array $values)
     {
         $return = [];
-
         $class_values = [];
+        if (!substr($class_name, 1,8) === __NAMESPACE__) {
+            $class_name = __NAMESPACE__  . "\\$class_name";
+        }
+
         $type_map = $class_name::getTypeArray();
 
         foreach ($type_map as $name => $val_class) {
@@ -72,8 +76,10 @@ class EthereumStatic
     /**
      * Create value array.
      *
+     * Turns a array('0x56789...', ...) into array(EthD32(0x56789...), ...)
+     *
      * @param array  $values
-     *   Array of values of a uinique data type.
+     *   Array of values of a unique data type.
      * @param string $typeClass
      *   Class name for the data type.
      *
@@ -84,6 +90,7 @@ class EthereumStatic
     public static function valueArray(array $values, $typeClass)
     {
         $return = [];
+        $typeClass = '\Ethereum\\' . $typeClass;
         foreach ($values as $i => $val) {
             if (is_array($val)) {
                 $return[$i] = self::arrayToComplexType($typeClass, $val);
@@ -170,7 +177,7 @@ class EthereumStatic
      * @return bool
      *   TRUE if string is a Valid Hex value or FALSE.
      */
-    public function isValidHexData($str)
+    public static function isValidHexData($str)
     {
 
         // Always ensure 0x prefix.
@@ -298,13 +305,13 @@ class EthereumStatic
      * @return string
      *   String value.
      *
-     * @throw Exception
+     * @throws Exception
      */
     public static function hexToStr($string)
     {
 
         if (!self::hasHexPrefix($string)) {
-            throw new \Exception('String is missing Hex prefix "0x" : ' . $string);
+            throw new Exception('String is missing Hex prefix "0x" : ' . $string);
         }
         $string = substr($string, strlen('0x'));
         $utf8 = '';

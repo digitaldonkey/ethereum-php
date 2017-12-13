@@ -19,9 +19,7 @@ class EthSTest extends EthTest
 
         $x = new EthS('Hello World');
         $this->assertEquals($x->val(), "Hello World");
-
-        $this->assertEquals($x->getType($schema = false), "EthS");
-        $this->assertEquals($x->getType($schema = true), "S");
+        $this->assertEquals($x->getSchemaType(), "S");
     }
 
     public function testEthS__hexToString()

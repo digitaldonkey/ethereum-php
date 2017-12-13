@@ -5,13 +5,42 @@
 In order to keep this API up do date it is build schema based.
 (resources/ethjs-schema.json)
 
-* Ethereum Methods are based on ethereum-schema->methods. Implemented in Ethereum class.
-* Complex Data types are generated  ethereum-schema->objects. Generated with public/make_datatypes.php
-* Changes to resources/eth-schema.json->objects require to regenerate the datatypes. See: public/make_datatypes.php
-* Changes to resources/eth-schema.json->methods currently don't require regeneration.
-    * public/make_method_readme.php regenerates the .... readme.
-    * public/make_method_docComments.php regenerates src/helpers/ethMethodsDoc.php, which only generates comments.
-    * public/make_method_tests.php generates empty test classes only.
+Ethereum **JsonRPC Methods** are on ethereum-schema->methods. Implemented in Ethereum class.
+Check out the JsonRpcInterface.
+
+To regenerate src/EthMethods.php and src/JsonRpcInterface.php run
+
+```
+composer run-script generate-methods
+```
+
+
+**Complex Data types**
+are generated  ethereum-schema->objects.
+Currently these are:
+
+```
+EthSyncing
+SendTransaction
+EstimateTransaction
+CallTransaction
+Block
+Transaction
+Receipt
+Filter
+FilterChange
+SHHPost
+SHHFilter
+SHHFilterChange
+SHHMessage
+```
+
+To regenerate run
+
+```
+composer run-script generate-complex-datatypes
+```
+
 
 ### Testing
 

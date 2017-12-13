@@ -22,9 +22,7 @@ class EthD20Test extends EthTest
         $x = new EthD20('0x3facfa472e86e3edaeaa837f6ba038ac01f7f539');
         $this->assertSame($x->val(), '3facfa472e86e3edaeaa837f6ba038ac01f7f539');
         $this->assertSame($x->hexVal(), '0x3facfa472e86e3edaeaa837f6ba038ac01f7f539');
-
-        $this->assertSame($x->getType($schema = false), "EthD20");
-        $this->assertSame($x->getType($schema = true), "D20");
+        $this->assertSame($x->getSchemaType(), "D20");
     }
 
     // Made to Fail.

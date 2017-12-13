@@ -68,7 +68,7 @@ class EthD extends EthDataTypePrimitive
         return true;
     }
 
-    /**
+    /**math
      * Return un-prefixed bin value.
      *
      * @return int|string|Math_BigInteger

@@ -7,7 +7,7 @@ DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = "Ethereum PHP"
 PROJECT_NUMBER         =
 PROJECT_BRIEF          = "PHP interface to Ethereum JSON-RPC API."
-PROJECT_LOGO           = "./resources/doxygen-assets/ethereum-php-logo.jpg"
+PROJECT_LOGO           = "./doxygen-assets/ethereum-php-logo.jpg"
 OUTPUT_DIRECTORY       = "./doc"
 CREATE_SUBDIRS         = YES
 ALLOW_UNICODE_NAMES    = NO
@@ -37,7 +37,7 @@ MULTILINE_CPP_IS_BRIEF = NO
 INHERIT_DOCS           = YES
 SEPARATE_MEMBER_PAGES  = NO
 TAB_SIZE               = 2
-ALIASES                = "method=\"\fn \par\""
+ALIASES = todo="\xrefitem reminders \"Reminder\" \"Reminders\""
 TCL_SUBST              =
 OPTIMIZE_OUTPUT_FOR_C  = NO
 OPTIMIZE_OUTPUT_JAVA   = NO
@@ -112,12 +112,13 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # Configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  =  ./README.md ./resources/doxygen-assets/EthereumMethods.md ./src ./tests ./public ./API.md
+INPUT                  =  ./README.md ./src ./tests ./scripts ./resources ./public ./tests ./API.md
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.php \
                          *.inc \
                          *.markdown \
-                         *.md
+                         *.md \
+                         ethjs-schema.json
 RECURSIVE              = YES
 EXCLUDE                =
 EXCLUDE_SYMLINKS       = NO
@@ -142,10 +143,9 @@ REFERENCED_BY_RELATION = YES
 REFERENCES_RELATION    = YES
 REFERENCES_LINK_SOURCE = YES
 SOURCE_TOOLTIPS        = YES
-USE_HTAGS              = YES
+USE_HTAGS              = NO
 VERBATIM_HEADERS       = YES
-# CLANG_ASSISTED_PARSING = NO
-# CLANG_OPTIONS          =
+
 #---------------------------------------------------------------------------
 # Configuration options related to the alphabetical class index
 #---------------------------------------------------------------------------
@@ -158,10 +158,10 @@ IGNORE_PREFIX          =
 GENERATE_HTML          = YES
 HTML_OUTPUT            = .
 HTML_FILE_EXTENSION    = .html
-HTML_HEADER            = ./resources/doxygen-assets/header.html
+HTML_HEADER            = ./doxygen-assets/header.html
 HTML_FOOTER            =
 HTML_STYLESHEET        =
-HTML_EXTRA_STYLESHEET  = ./resources/doxygen-assets/custom-styles.css
+HTML_EXTRA_STYLESHEET  = ./doxygen-assets/custom-styles.css
 HTML_EXTRA_FILES       =
 HTML_COLORSTYLE_HUE    = 226
 HTML_COLORSTYLE_SAT    = 30
@@ -290,7 +290,7 @@ SKIP_FUNCTION_MACROS   = YES
 #---------------------------------------------------------------------------
 TAGFILES               =
 GENERATE_TAGFILE       =
-ALLEXTERNALS           = NO
+ALLEXTERNALS           = YES
 EXTERNAL_GROUPS        = YES
 EXTERNAL_PAGES         = YES
 PERL_PATH              = /usr/bin/perl

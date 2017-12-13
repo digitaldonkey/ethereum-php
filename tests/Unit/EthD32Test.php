@@ -20,9 +20,7 @@ class EthD32Test extends EthTest
         $x = new EthD32('0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd');
         $this->assertSame($x->val(), 'f79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd');
         $this->assertSame($x->hexVal(), '0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd');
-
-        $this->assertSame($x->getType($schema = false), "EthD32");
-        $this->assertSame($x->getType($schema = true), "D32");
+        $this->assertSame($x->getSchemaType(), "D32");
     }
 
     // Made to Fail.

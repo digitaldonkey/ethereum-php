@@ -22,7 +22,7 @@ class EthB extends EthQ
      * @throw InvalidArgumentException Can not decode int value.
      *   If things are wrong.
      *
-     * @return Math_BigInteger.
+     * @return Math_BigInteger
      *   Math_BigInteger value.
      */
     public function validate($val, array $params)

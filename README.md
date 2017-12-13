@@ -50,7 +50,7 @@ This library is read-only for now. this means you can retrieve information store
 In order to *write* to the blockchain you need a to sign transactions with a private key. I discourage using a unlocked Ethereum client, as a hacker of your website would be able to spend your eth.
 
 
-![architecture diagram](https://raw.githubusercontent.com/digitaldonkey/ethereum-php/dev/resources/doxygen-assets/ArchitectureDiagrammCS6.png "Drupal Ethereum architecture")
+![architecture diagram](https://raw.githubusercontent.com/digitaldonkey/ethereum-php/dev/doxygen-assets/ArchitectureDiagrammCS6.png "Drupal Ethereum architecture")
 
 ### Documentation
 
