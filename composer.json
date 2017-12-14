@@ -23,7 +23,7 @@
       "Ethereum\\": "src/"
     },
     "files": [
-      "src/helpers/helpers.php"
+      "src/helpers/ethereum-client-workaround-helpers.php"
     ]
   },
   "license": "MIT",

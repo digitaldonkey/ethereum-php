@@ -5,8 +5,6 @@
  * Workarounds for specific Ethereum clients.
  *
  * Some client return not exactly what you expect. Hopefully the clients will get fixed and we can remove the workarounds over time.
- *
- * TODO: This file should be names workarounds.
  */
 
 

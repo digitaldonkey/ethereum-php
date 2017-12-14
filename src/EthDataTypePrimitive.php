@@ -39,7 +39,7 @@ class EthDataTypePrimitive extends EthDataType
         'B|EthSyncing' => 'EthB',
         // WORKAROUND? Some clients may return an Data Array. Works on testrpc.
         'DATA|Transaction'   => 'Transaction',
-        // TODO DATA OR Transaction ???
+        /// @todo DATA OR Transaction ???
     ];
 
     public static function getPrimitiveTypes() {

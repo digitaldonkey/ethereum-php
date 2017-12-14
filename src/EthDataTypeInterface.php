@@ -10,8 +10,6 @@
 namespace Ethereum;
 use Exception;
 
-// TODO Validate interface completeness.
-
 interface EthDataTypeInterface
 {
 

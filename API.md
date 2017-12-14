@@ -65,9 +65,11 @@ There is a onlin version of this API documentation at [http://ethereum-php.org/d
 
 ### Credits
 
-Development of Ethereum-PHP library is sponsored by [ConsenSys](https://consensys.net).
+Ethereum-PHP library is part of the [Drupal Ethereum Module](https://www.drupal.org/project/ethereum).
 
-Ethereum-PHP library is part of the [Drupal Ethereum Module](https://groups.drupal.org/ethereum).
+**Many thanks to...**
 
-%Ethereum class is based on [ethjs-schema](https://github.com/digitaldonkey/ethjs-schema) by Nick Dodson.
+* [ConsenSys](https://consensys.net) for sponsoring the Development of Ethereum-PHP library and Drupal module.
+* Nick Dodson and Dan Finlay for therir work on [ethjs-schema](https://github.com/digitaldonkey/ethjs-schema). This API is based on it.
+* Jim Wigginton for the [Math_BigInteger](https://pear.php.net/package/Math_BigInteger/docs/latest/Math_BigInteger/Math_BigInteger.html) pear package.
 

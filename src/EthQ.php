@@ -76,9 +76,8 @@ class EthQ extends EthD
             // But it will trigger negative if we have the highest number
             // a of current hex length.
 
-            // TODO
-            // This is WRONG We need to check for RLP
-            // SEE: https://github.com/ethereum/wiki/wiki/RLP
+            /// @todo This is wrong. We need to check for RLP.
+            /// @see https://github.com/ethereum/wiki/wiki/RLP
             if (!$abi && strlen($val) >= 10 && $val[2] === 'f') {
                 $big_int = new Math_BigInteger($val, -16);
                 $big_int->is_negative = true;

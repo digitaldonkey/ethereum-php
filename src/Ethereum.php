@@ -19,25 +19,20 @@ use Exception;
  *
  * @page ethClient JsonRPC Client
  *
- * Ethereum::Ethereum is the starting point to communicate with any %Ethereum client (like [Geth](https://geth.ethereum.org/),
- * [Parity](https://github.com/paritytech/parity/releases/tag/v1.8.3), [TestRPC](https://github.com/trufflesuite/ganache-cli), [Quorum](https://www.jpmorgan.com/global/Quorum) ...).
+ * Ethereum::Ethereum is the starting point to communicate with any %Ethereum client (like [Geth](https://geth.ethereum.org/), [Parity](https://github.com/paritytech/parity/releases/tag/v1.8.3), [TestRPC](https://github.com/trufflesuite/ganache-cli), [Quorum](https://www.jpmorgan.com/global/Quorum) ...).
  *
- * You might check the hierarchical [class list](hierarchy.html) to get an easy overview about the available Data structures.
+ * Implements %Ethereum JsonRPC API for PHP. Read more about it at the [Ethereum-wiki](https://github.com/ethereum/wiki/wiki/JSON-RPC).
  *
- * Implements %Ethereum JsonRPC API for PHP
- *   https://github.com/ethereum/wiki/wiki/JSON-RPC.
+ * To get started you might check the hierarchical [class list](hierarchy.html) to get an easy overview about the available Data structures.
  *
+ * JsonRpcInterface
  *
  */
-
-/** @noinspection PhpUndefinedMethodInspection */
 
 /**
  * Ethereum JsonRPC API for PHP.
  *
  * @ingroup client
- *
- * @noinspection PhpUndefinedMethodInspection
  */
 class Ethereum extends EthereumStatic implements JsonRpcInterface
 {
@@ -114,6 +109,8 @@ class Ethereum extends EthereumStatic implements JsonRpcInterface
 
                     // Validate arguments.
                     foreach ($args as $i => $arg) {
+                        /* @var EthDataType $arg */
+
                         if (is_subclass_of ($arg,'Ethereum\EthDataType')) {
                             // Former $arg->getType has been removed.
                             // Getting the basename of the class.
@@ -261,11 +258,12 @@ class Ethereum extends EthereumStatic implements JsonRpcInterface
         // Complex array types.
         if (!$is_primitive && !$array_val && is_array($value)) {
             $return = $this->arrayToComplexType($class_name, $value);
-        } elseif (!$is_primitive) {
+        }
+        elseif (!$is_primitive) {
             // Returning empty of type.
             // Fixes get unknown block by number.
-            //
-            // TODO WHAT IF TYPE HAS REQUIRED VALUES
+
+            /// @todo What if type class has required values in constructor?
             // Should there be a default implementation for non existent types?
             // Like a Null Object? Should EthDataTypes have a test if they are valid?
             $return = new $class_name();

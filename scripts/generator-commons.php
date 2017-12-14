@@ -87,7 +87,7 @@ function addUseStatement ($type, &$useStatements) {
 
             // Special case for eth_syncing which returns Object or false.
             if (strpos($type, '|')) {
-                // TODO This is actually very weired in the Schema: We have an "or" in Return values.
+                // @todo This is actually very weired in the Schema: We have an "or" in Return values.
                 // For now we just include both types, but this requires deeper investigation how to handle that.
                 foreach (explode('|', $type) as $t) {
                     if (!in_array($t, $useStatements)) {

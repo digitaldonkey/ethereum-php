@@ -7,7 +7,7 @@ namespace Ethereum;
  *
  * Some Complex types base on EthData.
  *
- * TODO Investigate if this is type is not necessary, we might be more specific in schema definition.
+ * @todo Investigate if this is type is not necessary, we might be more specific in schema definition.
  * We might update the schema to more specific data types. E.g Block address might be a EthD20.
  *
  * @ingroup dataTypes

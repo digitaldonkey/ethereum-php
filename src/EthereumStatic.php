@@ -106,7 +106,7 @@ abstract class EthereumStatic
     /**
      * Is valid function.
      *
-     * TODO: This is a pretty basic solid function verification.
+     * @todo Pretty basic solidity function verification might need improvement.
      *
      * @param string $input
      *   Function ABI as string.
