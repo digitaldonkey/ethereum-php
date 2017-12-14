@@ -16,7 +16,7 @@ class EthDataTypeTest extends EthTest
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        $this->allTypes = EthDataType::getTypeClasses();
+        $this->allTypes = EthDataType::getAllTypeClasses();
     }
 
     /**

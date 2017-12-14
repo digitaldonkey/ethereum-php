@@ -5,20 +5,12 @@ use Ethereum\EthBlockParam;
 use Ethereum\EthB;
 use Ethereum\EthS;
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
 /**
  * @var bool IS_PUBLIC Deny public access to this generator.
  */
 define('IS_PUBLIC', TRUE);
 
-/**
- * Better disable access in production.
- */
-if (!IS_PUBLIC) {
-    header("HTTP/1.1 401 Unauthorized");
-    die('ACCESS DENIED');
-}
+require_once __DIR__ . '/examples.inc.php';
 
 /**
  * @var array $hosts Iterate over multiple hosts.
@@ -54,18 +46,19 @@ foreach($hosts as $url)
  *
  * This page provides a overview about Ethereum functions and usage.
  *
+ * @param Ethereum $eth Etherum client instance.
+ * @return array array of two HTML strings.
  */
 function status($eth) {
-    $rows = array();
+    $rows = [];
+
     $rows[] = ['<b>JsonRPC standard Methods</b>', 'Read more about <a href="https://github.com/ethereum/wiki/wiki/JSON-RPC">Ethereum JsonRPC-API</a> implementation.'];
     $rows[] = ["Client version (web3_clientVersion)", $eth->web3_clientVersion()->val()];
     $rows[] = ["Listening (net_listening)", $eth->net_listening()->val() ? '✔' : '✘'];
     $rows[] = ["Peers (net_peerCount)", $eth->net_peerCount()->val()];
     $rows[] = ["Protocol version (eth_protocolVersion)", $eth->eth_protocolVersion()->val()];
     $rows[] = ["Network version (net_version)", $eth->net_version()->val()];
-
-    // TODO  Uncaught Error: Class '\Ethereum\B|EthSyncing' not found
-    // $rows[] = ["Syncing (eth_syncing)", $eth->eth_syncing()->val() ? '✔' : '✘'];
+    $rows[] = ["Syncing (eth_syncing)", $eth->eth_syncing()->val() ? '✔' : '✘'];
 
     // Mining and Hashrate.
     $rows[] = ["Mining (eth_mining)", $eth->eth_mining()->val() ? '✔' : '✘'];
@@ -124,35 +117,27 @@ function status($eth) {
         $coin_base = 'No coinbase available at this network node.';
     }
 
-    // TODO this does not work.. Maybe https://github.com/digitaldonkey/ethereum-php/pull/2/files.
-//    $rows[] = ["Coinbase (eth_coinbase)", $coin_base];
-//    $address = array();
-//    foreach ($eth->eth_accounts() as $addr) {
-//        $address[] = $addr->hexVal();
-//    }
-//  $rows[] = ["Accounts (eth_accounts)", implode(', ', $address)];
+    $rows[] = ["Coinbase (eth_coinbase)", $coin_base];
+    $address = ['No accounts available.'];
+    $accounts = $eth->eth_accounts();
+    if (count($accounts)) {
+        $address = [];
+        foreach ($eth->eth_accounts() as $addr) {
+            $address[] = $addr->hexVal();
+        }
+    }
+    $rows[] = ["Accounts (eth_accounts)", implode(', ', $address)];
 
     // More.
     $rows[] = [
         "web3_sha3('Hello World')",
         $eth->web3_sha3(new EthS('Hello World'))->hexVal(),
     ];
-//
+
     // NON standard JsonRPC-API Methods below.
     $rows[] = ['<b>Non standard methods</b>', 'PHP Ethereum controller API provides additional methods. They are part of the <a href="https://github.com/digitaldonkey/ethereum-php">Ethereum PHP library</a>, but not part of JsonRPC-API standard.'];
+
     $rows[] = ["getMethodSignature('validateUserByHash(bytes32)')", $eth->getMethodSignature('validateUserByHash(bytes32)')];
 
     return $rows;
-}
-
-
-function printTable($rows) {
-    echo "<table>";
-    foreach ($rows as $row){
-        echo "<tr style='border: 1px solid lightgray'>";
-        echo    "<td style='border: 1px solid lightgray'>" . $row[0] . "</td>";
-        echo    "<td style='border: 1px solid lightgray'>" . $row[1] . "</td>";
-        echo "</tr>";
-    }
- echo "</table>";
 }

@@ -90,7 +90,9 @@ abstract class EthereumStatic
     public static function valueArray(array $values, $typeClass)
     {
         $return = [];
-        $typeClass = '\Ethereum\\' . $typeClass;
+        if (!class_exists($typeClass)) {
+            $typeClass = '\\' . __NAMESPACE__  . '\\' . $typeClass;
+        }
         foreach ($values as $i => $val) {
             if (is_array($val)) {
                 $return[$i] = self::arrayToComplexType($typeClass, $val);

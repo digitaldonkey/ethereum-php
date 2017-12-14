@@ -156,7 +156,13 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
         return $type_class;
     }
 
-    public static function getTypeClasses() {
+
+    /**
+     * Returns array of all existing data type class names.
+     *
+     * @return array Array with names of all type classes.
+     */
+    public static function getAllTypeClasses() {
         $schema = Ethereum::getDefinition();
         return array_merge(
             EthDataTypePrimitive::getPrimitiveTypes(),

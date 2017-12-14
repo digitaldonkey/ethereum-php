@@ -80,7 +80,7 @@ class EthDataTypePrimitive extends EthDataType
      * @return string|bool
      *   Class name of data type or NULL if not exists.
      */
-    public static function typeMap($type)
+    public static function typeMap(string $type)
     {
         $map = self::MAP;
         if (isset($map[$type])) {

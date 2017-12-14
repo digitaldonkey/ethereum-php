@@ -178,7 +178,7 @@ class Ethereum extends EthereumStatic implements JsonRpcInterface
                 $return_type = $param_definition[1];
                 $this->debug('Return value type', $return_type);
 
-                $is_primitive = (bool)EthDataTypePrimitive::typeMap($return_type);
+                $is_primitive = (is_array($return_type)) ? (bool)EthDataTypePrimitive::typeMap($return_type[0]) : (bool)EthDataTypePrimitive::typeMap($return_type);
 
                 if (is_array($return_type)) {
                     $return_type_class = [EthDataTypePrimitive::typeMap($return_type[0])];
@@ -194,6 +194,7 @@ class Ethereum extends EthereumStatic implements JsonRpcInterface
                 $this->debug('Final request params', $request_params);
                 $value = $this->etherRequest($method, $request_params);
 
+                // Fix client specific flaws in src/helpers/helpers.php.
                 $functionName = 'eth_workaround_' . $method;
                 if (function_exists($functionName)) {
                     $value = call_user_func($functionName, $value);

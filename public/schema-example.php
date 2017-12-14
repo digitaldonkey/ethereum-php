@@ -7,20 +7,12 @@
 use Ethereum\Ethereum;
 use Ethereum\EthDataType;
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
 /**
- * @var bool ACCESS Deny public access to this generator.
+ * @var bool IS_PUBLIC Deny public access to this generator.
  */
 define('IS_PUBLIC', TRUE);
 
-/**
- * Better disable access in production.
- */
-if (!IS_PUBLIC) {
-    header("HTTP/1.1 401 Unauthorized");
-    die('ACCESS DENIED');
-}
+require_once __DIR__ . '/examples.inc.php';
 
 /**
  * @var array $schema Decoded ethjs-schema.
