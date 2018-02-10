@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ruleset name="Laravel Standards">
+
+    <description>Coding Standards for Ethereum-PHP</description>
+
+    <file>src</file>
+    <file>public</file>
+    <file>resources</file>
+    <file>tests</file>
+
+    <!--
+       You can hard-code ignore patterns directly into your
+       custom standard so you don't have to specify the
+       patterns on the command line.
+    -->
+    <exclude-pattern>*/*.xml</exclude-pattern>
+    <exclude-pattern>*/autoload.php</exclude-pattern>
+    <exclude-pattern>*/docs/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+
+    <!--
+       You can hard-code command line values into your custom standard.
+       Note that this does not work for the command line values:
+       -v[v][v], -l, -d, -sniffs and -standard
+
+       The following tags are equivalent to the command line arguments:
+       -p
+    -->
+    <arg name="report" value="summary"/>
+    <arg name="colors"/>
+    <arg value="p"/>
+
+    <!--
+       You can hard-code custom php.ini settings into your custom standard.
+       The following tag sets the memory limit to 64M.
+    -->
+    <ini name="memory_limit" value="256M"/>
+
+    <!--
+       Include all sniffs in the PEAR standard. Note that the
+       path to the standard does not have to be specified as the
+       PEAR standard exists inside the PHP_CodeSniffer install
+       directory.
+    -->
+    <rule ref="PSR2"/>
+
+</ruleset>

@@ -1,35 +1,38 @@
 <?php
-
-
+namespace Ethereum;
 use Ethereum\EthS;
+use Ethereum\EthTest;
 
 /**
+ * EthQTest
  *
+ * @ingroup tests
  */
-class EthereumStaticTestEthS extends \PHPUnit_Framework_TestCase {
+class EthSTest extends EthTest
+{
+    /**
+     * This test is bases data by http://codebeautify.org/hex-string-converter.
+     * @throw Exception
+     */
+    public function testEthS__types()
+    {
 
-  /**
-   * This test is bases data by http://codebeautify.org/hex-string-converter.
-   */
-  public function testEthS__types() {
+        $x = new EthS('Hello World');
+        $this->assertEquals($x->val(), "Hello World");
+        $this->assertEquals($x->getSchemaType(), "S");
+    }
 
-    $x = new EthS('Hello World');
-    $this->assertEquals($x->val(), "Hello World");
+    public function testEthS__hexToString()
+    {
 
-    $this->assertEquals($x->getType($schema = FALSE), "EthS");
-    $this->assertEquals($x->getType($schema = TRUE), "S");
-  }
+        $x = new EthS('0x48656c6c6f20576f726c64');
+        $this->assertEquals($x->val(), "Hello World");
+    }
 
-  public function testEthS__hexToString() {
+    public function testEthS__stringToHex()
+    {
 
-    $x = new EthS('0x48656c6c6f20576f726c64');
-    $this->assertEquals($x->val(), "Hello World");
-  }
-
-  public function testEthS__stringToHex() {
-
-    $x = new EthS("Hello World");
-    $this->assertEquals($x->hexVal(), '0x48656c6c6f20576f726c64');
-  }
-
+        $x = new EthS("Hello World");
+        $this->assertEquals($x->hexVal(), '0x48656c6c6f20576f726c64');
+    }
 }
