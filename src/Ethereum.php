@@ -8,8 +8,6 @@ use Ethereum\EthMethods;
 use Ethereum\EthDataType;
 use Exception;
 
-require_once __DIR__ . '/helpers/ethereum-client-workaround-helpers.php';
-
 /**
  * @defgroup client Ethereum Client
  *
@@ -66,8 +64,11 @@ class Ethereum extends EthereumStatic implements JsonRpcInterface
      */
     public function __construct($url = 'http://localhost:8545')
     {
+      // Require the workaround helpers, as autoload files in composer
+      //   doesn't work as expected.
+      require_once __DIR__ . '/helpers/ethereum-client-workaround-helpers.php';
 
-        $this->client = RpcClient::factory($url, [
+      $this->client = RpcClient::factory($url, [
             // Debug JsonRPC requests.
             'debug' => false,
         ]);
