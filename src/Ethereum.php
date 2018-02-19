@@ -8,6 +8,8 @@ use Ethereum\EthMethods;
 use Ethereum\EthDataType;
 use Exception;
 
+require_once __DIR__ . '/helpers/ethereum-client-workaround-helpers.php';
+
 /**
  * @defgroup client Ethereum Client
  *
