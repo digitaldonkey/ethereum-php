@@ -43,7 +43,7 @@ class Ethereum extends EthereumStatic implements JsonRpcInterface
     private $methods;
     private $id = 0;
     public $client;
-    protected $debugHtml = '';
+    public $debugHtml = '';
 
     /**
      * Constructing Ethereum Class.
