@@ -1,4 +1,4 @@
-# Doxyfile 1.8.13
+# Doxyfile 1.8.7
 
 #---------------------------------------------------------------------------
 # Project related configuration options
@@ -7,7 +7,7 @@ DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = "Ethereum PHP"
 PROJECT_NUMBER         =
 PROJECT_BRIEF          = "PHP interface to Ethereum JSON-RPC API."
-PROJECT_LOGO           = "./resources/doxygen-assets/ethereum-php-logo.jpg"
+PROJECT_LOGO           = "./doxygen-assets/ethereum-php-logo.jpg"
 OUTPUT_DIRECTORY       = "./doc"
 CREATE_SUBDIRS         = YES
 ALLOW_UNICODE_NAMES    = NO
@@ -37,7 +37,7 @@ MULTILINE_CPP_IS_BRIEF = NO
 INHERIT_DOCS           = YES
 SEPARATE_MEMBER_PAGES  = NO
 TAB_SIZE               = 2
-ALIASES                = "method=\"\fn \par\""
+ALIASES =
 TCL_SUBST              =
 OPTIMIZE_OUTPUT_FOR_C  = NO
 OPTIMIZE_OUTPUT_JAVA   = NO
@@ -112,12 +112,13 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # Configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  =  ./README.md ./API.md ./src ./tests ./public
+INPUT                  =  ./README.md ./src ./tests ./scripts ./resources ./public ./tests ./API.md
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.php \
                          *.inc \
                          *.markdown \
-                         *.md
+                         *.md \
+                         ethjs-schema.json
 RECURSIVE              = YES
 EXCLUDE                =
 EXCLUDE_SYMLINKS       = NO
@@ -136,7 +137,7 @@ USE_MDFILE_AS_MAINPAGE = ./README.md
 # Configuration options related to source browsing
 #---------------------------------------------------------------------------
 SOURCE_BROWSER         = YES
-INLINE_SOURCES         = YES
+INLINE_SOURCES         = NO
 STRIP_CODE_COMMENTS    = YES
 REFERENCED_BY_RELATION = YES
 REFERENCES_RELATION    = YES
@@ -144,12 +145,11 @@ REFERENCES_LINK_SOURCE = YES
 SOURCE_TOOLTIPS        = YES
 USE_HTAGS              = NO
 VERBATIM_HEADERS       = YES
-# CLANG_ASSISTED_PARSING = NO
-# CLANG_OPTIONS          =
+
 #---------------------------------------------------------------------------
 # Configuration options related to the alphabetical class index
 #---------------------------------------------------------------------------
-ALPHABETICAL_INDEX     = YES
+ALPHABETICAL_INDEX     = NO
 COLS_IN_ALPHA_INDEX    = 5
 IGNORE_PREFIX          =
 #---------------------------------------------------------------------------
@@ -158,16 +158,17 @@ IGNORE_PREFIX          =
 GENERATE_HTML          = YES
 HTML_OUTPUT            = .
 HTML_FILE_EXTENSION    = .html
-HTML_HEADER            = ./resources/doxygen-assets/header.html
+HTML_HEADER            = ./doxygen-assets/header.html
 HTML_FOOTER            =
 HTML_STYLESHEET        =
-HTML_EXTRA_STYLESHEET  = ./resources/doxygen-assets/custom-styles.css
+HTML_EXTRA_STYLESHEET  = ./doxygen-assets/custom-styles.css
 HTML_EXTRA_FILES       =
 HTML_COLORSTYLE_HUE    = 226
 HTML_COLORSTYLE_SAT    = 30
 HTML_COLORSTYLE_GAMMA  = 41
 HTML_TIMESTAMP         = NO
-HTML_DYNAMIC_SECTIONS  = NO
+# Dynamic html
+HTML_DYNAMIC_SECTIONS  = YES
 HTML_INDEX_NUM_ENTRIES = 100
 GENERATE_DOCSET        = NO
 DOCSET_FEEDNAME        = "Doxygen generated docs"
@@ -289,7 +290,7 @@ SKIP_FUNCTION_MACROS   = YES
 #---------------------------------------------------------------------------
 TAGFILES               =
 GENERATE_TAGFILE       =
-ALLEXTERNALS           = NO
+ALLEXTERNALS           = YES
 EXTERNAL_GROUPS        = YES
 EXTERNAL_PAGES         = YES
 PERL_PATH              = /usr/bin/perl
@@ -300,7 +301,7 @@ CLASS_DIAGRAMS         = YES
 MSCGEN_PATH            =
 DIA_PATH               =
 HIDE_UNDOC_RELATIONS   = YES
-HAVE_DOT               = NO
+HAVE_DOT               = YES
 DOT_NUM_THREADS        = 0
 DOT_FONTNAME           = Helvetica
 DOT_FONTSIZE           = 10
@@ -313,12 +314,12 @@ UML_LIMIT_NUM_FIELDS   = 10
 TEMPLATE_RELATIONS     = NO
 INCLUDE_GRAPH          = YES
 INCLUDED_BY_GRAPH      = YES
-CALL_GRAPH             = NO
-CALLER_GRAPH           = NO
+CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
 GRAPHICAL_HIERARCHY    = YES
 DIRECTORY_GRAPH        = YES
 DOT_IMAGE_FORMAT       = png
-INTERACTIVE_SVG        = NO
+INTERACTIVE_SVG        = YES
 DOT_PATH               =
 DOTFILE_DIRS           =
 MSCFILE_DIRS           =

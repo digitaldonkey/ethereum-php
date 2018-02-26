@@ -1,63 +1,65 @@
 <?php
-
-
+namespace Ethereum;
 use Ethereum\EthD32;
+use Ethereum\EthTest;
 
 /**
+ * EthD32Test
  *
+ * @ingroup tests
  */
-class EthereumStaticTestEthD32 extends \PHPUnit_Framework_TestCase {
+class EthD32Test extends EthTest
+{
+    /**
+     * Testing quantities.
+     * @throw Exception
+     */
+    public function testEthD32__simple()
+    {
 
-  /**
-   * Testing quantities.
-   */
-  public function testEthD32__simple() {
-
-    $x = new EthD32('0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd');
-    $this->assertSame($x->val(), 'f79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd');
-    $this->assertSame($x->hexVal(), '0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd');
-
-    $this->assertSame($x->getType($schema = FALSE), "EthD32");
-    $this->assertSame($x->getType($schema = TRUE), "D32");
-  }
-
-  // Made to Fail.
-  public function testEthQ__invalidLengthTooLong() {
-    try {
-      new EthD32('0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd86');
-      $this->fail("Expected exception '" . $exception_message_expected . "' not thrown");
+        $x = new EthD32('0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd');
+        $this->assertSame($x->val(), 'f79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd');
+        $this->assertSame($x->hexVal(), '0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd');
+        $this->assertSame($x->getSchemaType(), "D32");
     }
-    catch (\Exception $exception) {
-      $this->assertTrue(strpos($exception->getMessage(), "Invalid length") !== FALSE);
-    }
-  }
 
-  public function testEthQ__invalidLengthShort() {
-
-    try {
-      new EthD32('0x0');
-      $this->fail("Expected exception '" . $exception_message_expected . "' not thrown");
+    // Made to Fail.
+    public function testEthQ__invalidLengthTooLong()
+    {
+        try {
+            new EthD32('0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd86');
+            $this->fail("Expected exception '" . $exception_message_expected . "' not thrown");
+        } catch (\Exception $exception) {
+            $this->assertTrue(strpos($exception->getMessage(), "Invalid length") !== false);
+        }
     }
-    catch (\Exception $exception) {
-      $this->assertTrue(strpos($exception->getMessage(), "Invalid length") !== FALSE);
-    }
-  }
 
-  public function testEthQ__notHexPrefixed() {
-    $this->setExpectedException(Exception::class);
-    new EthD32('f79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd');
-  }
+    public function testEthQ__invalidLengthShort()
+    {
 
-  public function testEthQ__notHex() {
-    try {
-      $val = '0xyz116b6e1a6e963efffa30c0a8541075cc51c45';
-      $exception_message_expected = 'A non well formed hex value encountered: ' . $val;
-      new EthD32($val);
-      $this->fail("Expected exception '" . $exception_message_expected . "' not thrown");
+        try {
+            new EthD32('0x0');
+            $this->fail("Expected exception '" . $exception_message_expected . "' not thrown");
+        } catch (\Exception $exception) {
+            $this->assertTrue(strpos($exception->getMessage(), "Invalid length") !== false);
+        }
     }
-    catch (\Exception $exception) {
-      $this->assertEquals($exception->getMessage(), $exception_message_expected);
-    }
-  }
 
+    public function testEthQ__notHexPrefixed()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        new EthD32('f79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd');
+    }
+
+    public function testEthQ__notHex()
+    {
+        try {
+            $val = '0xyz116b6e1a6e963efffa30c0a8541075cc51c45';
+            $exception_message_expected = 'A non well formed hex value encountered: ' . $val;
+            new EthD32($val);
+            $this->fail("Expected exception '" . $exception_message_expected . "' not thrown");
+        } catch (\Exception $exception) {
+            $this->assertEquals($exception->getMessage(), $exception_message_expected);
+        }
+    }
 }

@@ -1,133 +1,182 @@
 <?php
-
-
+namespace Ethereum;
 use Ethereum\EthQ;
+use Ethereum\EthTest;
 
 /**
+ * EthQTest
  *
+ * @ingroup tests
  */
-class EthereumStaticTestEthQ extends \PHPUnit_Framework_TestCase {
+class EthQTest extends EthTest
+{
+    /**
+     * Testing quantities.
+     *
+     * This test is bases data by
+     * http://www.binaryhexconverter.com/decimal-to-hex-converter.
+     * @throw Exception
+     */
+    public function testEthQ__simple()
+    {
+        $x = new EthQ(999);
+        $this->assertSame($x->val(), 999);
+        $this->assertSame($x->hexVal(), '0x00000000000000000000000000000000000000000000000000000000000003e7');
+        $this->assertSame($x->getSchemaType(), "Q");
+    }
 
-  /**
-   * Testing quantities.
-   *
-   * This test is bases data by
-   * http://www.binaryhexconverter.com/decimal-to-hex-converter.
-   */
-  public function testEthQ__simple() {
-    $x = new EthQ(999);
-    $this->assertSame($x->val(), 999);
-    $this->assertSame($x->hexVal(), '0x00000000000000000000000000000000000000000000000000000000000003e7');
-    $this->assertSame($x->getType($schema = FALSE), "EthQ");
-    $this->assertSame($x->getType($schema = TRUE), "Q");
-  }
+    /**
+     * @throw Exception
+     */
+    public function testEthQ__zero()
+    {
 
-  public function testEthQ__zero() {
+        $hex_null_short = new EthQ('0x');
+        $this->assertSame($hex_null_short->val(), 0);
+        $this->assertSame($hex_null_short->hexVal(), '0x0000000000000000000000000000000000000000000000000000000000000000');
 
-    $hex_null_short = new EthQ('0x');
-    $this->assertSame($hex_null_short->val(), 0);
-    $this->assertSame($hex_null_short->hexVal(), '0x0000000000000000000000000000000000000000000000000000000000000000');
+        $hex_null = new EthQ('0x0');
+        $this->assertSame($hex_null->val(), 0);
+        $this->assertSame($hex_null->hexVal(), '0x0000000000000000000000000000000000000000000000000000000000000000');
 
-    $hex_null = new EthQ('0x0');
-    $this->assertSame($hex_null->val(), 0);
-    $this->assertSame($hex_null->hexVal(), '0x0000000000000000000000000000000000000000000000000000000000000000');
+        $int_null = new EthQ(0);
+        $this->assertSame($int_null->val(), 0);
+        $this->assertSame($int_null->hexVal(), '0x0000000000000000000000000000000000000000000000000000000000000000');
+    }
 
-    $int_null = new EthQ(0);
-    $this->assertSame($int_null->val(), 0);
-    $this->assertSame($int_null->hexVal(), '0x0000000000000000000000000000000000000000000000000000000000000000');
-  }
+    /**
+     * @throw Exception
+     */
+    public function testEthQ__one()
+    {
 
-  public function testEthQ__one() {
+        $hex_one = new EthQ('0x0000000000000000000000000000000000000000000000000000000000000001');
+        $this->assertSame($hex_one->val(), 1);
+        $this->assertSame($hex_one->hexVal(), '0x0000000000000000000000000000000000000000000000000000000000000001');
 
-    $hex_one = new EthQ('0x0000000000000000000000000000000000000000000000000000000000000001');
-    $this->assertSame($hex_one->val(), 1);
-    $this->assertSame($hex_one->hexVal(), '0x0000000000000000000000000000000000000000000000000000000000000001');
+        $int_one = new EthQ(1);
+        $this->assertSame($int_one->val(), 1);
+        $this->assertSame($int_one->hexVal(), '0x0000000000000000000000000000000000000000000000000000000000000001');
 
-    $int_one = new EthQ(1);
-    $this->assertSame($int_one->val(), 1);
-    $this->assertSame($int_one->hexVal(), '0x0000000000000000000000000000000000000000000000000000000000000001');
+    }
 
-  }
+    /**
+     * @throw Exception
+     */
+    public function testEthQ__random()
+    {
+        $hex_number = new EthQ('0x000003e7');
+        $this->assertSame($hex_number->val(), 999);
+        $this->assertSame($hex_number->hexVal(), '0x00000000000000000000000000000000000000000000000000000000000003e7');
+    }
 
-  public function testEthQ__random() {
-    $hex_number = new EthQ('0x000003e7');
-    $this->assertSame($hex_number->val(), 999);
-    $this->assertSame($hex_number->hexVal(), '0x00000000000000000000000000000000000000000000000000000000000003e7');
-  }
+    /**
+     * @throw Exception
+     */
+    public function testEthQ__negative()
+    {
 
-  public function testEthQ__negative() {
+        $x = new EthQ(-999);
+        $this->assertSame($x->val(), -999);
+        $this->assertSame($x->hexVal(), '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
 
-    $x = new EthQ(-999);
-    $this->assertSame($x->val(), -999);
-    $this->assertSame($x->hexVal(), '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
+        $y = new EthQ('0xfffffffffffffc19');
+        $this->assertSame($y->val(), -999);
+        $this->assertSame($y->hexVal(), '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
 
-    $y = new EthQ('0xfffffffffffffc19');
-    $this->assertSame($y->val(), -999);
-    $this->assertSame($y->hexVal(), '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
+        $z = new EthQ('0xfffffc19');
+        $this->assertSame($z->hexVal(), '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
+        $this->assertSame($z->val(), -999);
+    }
 
-      $z = new EthQ('0xfffffc19');
-      $this->assertSame($z->hexVal(), '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
-      $this->assertSame($z->val(), -999);
-  }
+    // Given ABI.
 
-  // Given ABI.
-  public function testEthQ__given_abi8() {
-    $x = new EthQ('0x000000000000000000000000000000000000000000000000000000000000270f', array('abi' => 'uint16'));
-    $this->assertSame($x->val(), 9999);
-    $this->assertSame($x->hexVal(), '0x000000000000000000000000000000000000000000000000000000000000270f');
-  }
+    /**
+     * @throw Exception
+     */
+    public function testEthQ__given_abi8()
+    {
+        $x = new EthQ('0x000000000000000000000000000000000000000000000000000000000000270f', ['abi' => 'uint16']);
+        $this->assertSame($x->val(), 9999);
+        $this->assertSame($x->hexVal(), '0x000000000000000000000000000000000000000000000000000000000000270f');
+    }
 
-  public function testEthQ__abi16() {
-    $x = new EthQ('0x0000270f', array('abi' => 'uint16'));
-    $this->assertSame((int) $x->val(), 9999);
-    $this->assertSame($x->hexVal(), '0x000000000000000000000000000000000000000000000000000000000000270f');
-  }
+    /**
+     * @throw Exception
+     */
+    public function testEthQ__abi16()
+    {
+        $x = new EthQ('0x0000270f', ['abi' => 'uint16']);
+        $this->assertSame((int)$x->val(), 9999);
+        $this->assertSame($x->hexVal(), '0x000000000000000000000000000000000000000000000000000000000000270f');
+    }
 
-  public function testEthQ__abi8() {
-    $x = new EthQ(255);
-    $this->assertSame($x->val(), 255);
-    $this->assertSame($x->hexVal(), '0x00000000000000000000000000000000000000000000000000000000000000ff');
-    $this->assertSame($x->getAbi(), 'uint8');
-  }
+    /**
+     * @throw Exception
+     */
+    public function testEthQ__abi8()
+    {
+        $x = new EthQ(255);
+        $this->assertSame($x->val(), 255);
+        $this->assertSame($x->hexVal(), '0x00000000000000000000000000000000000000000000000000000000000000ff');
+        $this->assertSame($x->getAbi(), 'uint8');
+    }
 
-  public function testEthQ__abi8_plus1() {
-    $x = new EthQ(256);
-    $this->assertSame($x->val(), 256);
-    $this->assertSame($x->hexVal(), '0x0000000000000000000000000000000000000000000000000000000000000100');
-    $this->assertSame($x->getAbi(), 'uint16');
-  }
+    /**
+     * @throw Exception
+     */
+    public function testEthQ__abi8_plus1()
+    {
+        $x = new EthQ(256);
+        $this->assertSame($x->val(), 256);
+        $this->assertSame($x->hexVal(), '0x0000000000000000000000000000000000000000000000000000000000000100');
+        $this->assertSame($x->getAbi(), 'uint16');
+    }
 
-  public function testEthQ__abi8_neg() {
-    $x = new EthQ(-255);
-    $this->assertSame($x->val(), -255);
-    $this->assertSame($x->hexVal(), '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff01');
-    $this->assertSame($x->getAbi(), 'int8');
-  }
+    /**
+     * @throw Exception
+     */
+    public function testEthQ__abi8_neg()
+    {
+        $x = new EthQ(-255);
+        $this->assertSame($x->val(), -255);
+        $this->assertSame($x->hexVal(), '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff01');
+        $this->assertSame($x->getAbi(), 'int8');
+    }
 
-  public function testEthQ__abi8_neg_plus1() {
-    $x = new EthQ(-256);
-    $this->assertSame($x->val(), -256);
-    $this->assertSame($x->hexVal(), '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00');
-    $this->assertSame($x->getAbi(), 'int16');
-  }
+    /**
+     * @throw Exception
+     */
+    public function testEthQ__abi8_neg_plus1()
+    {
+        $x = new EthQ(-256);
+        $this->assertSame($x->val(), -256);
+        $this->assertSame($x->hexVal(), '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00');
+        $this->assertSame($x->getAbi(), 'int16');
+    }
 
-  public function testEthQ__abi256() {
-    $x = new EthQ('115792089237316000000000000000000000000000000000000000000000000000000000000000');
-    $this->assertSame($x->val(), '115792089237316000000000000000000000000000000000000000000000000000000000000000');
-    $this->assertSame($x->hexVal(), '0xffffffffffff86633a9e8f1256d61ed5325ebf2a4b4366ba0000000000000000');
-  }
+    /**
+     * @throw Exception
+     */
+    public function testEthQ__abi256()
+    {
+        $x = new EthQ('115792089237316000000000000000000000000000000000000000000000000000000000000000');
+        $this->assertSame($x->val(), '115792089237316000000000000000000000000000000000000000000000000000000000000000');
+        $this->assertSame($x->hexVal(), '0xffffffffffff86633a9e8f1256d61ed5325ebf2a4b4366ba0000000000000000');
+    }
 
-  // Made TO FAIL
-  public function testEthQ__given_abi8_should_be_wrong() {
-    $this->setExpectedException(InvalidArgumentException::class);
-    new EthQ(9999, array('abi' => 'uint8'));
-  }
+    // Made TO FAIL
+    public function testEthQ__given_abi8_should_be_wrong()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        new EthQ(9999, ['abi' => 'uint8']);
+    }
 
-  public function testEthQ__abi256_plus1() {
-    $this->setExpectedException(InvalidArgumentException::class);
-    new EthQ('115792089237316000000000000000000000000000000000000000000000000000000000000000115792089237316000000000000000000000000000000000000000000000000000000000000000');
-  }
-
+    public function testEthQ__abi256_plus1()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        new EthQ('115792089237316000000000000000000000000000000000000000000000000000000000000000115792089237316000000000000000000000000000000000000000000000000000000000000000');
+    }
 }
 
 
