@@ -7,11 +7,12 @@ namespace Ethereum;
  *
  * Some Complex types base on EthData.
  *
- * @todo Investigate if this is type is not necessary, we might be more specific in schema definition.
- * We might update the schema to more specific data types. E.g Block address might be a EthD20.
+ * @todo This should implement dynamic types.
  *
  * @ingroup dataTypes
  */
 class EthData extends EthD
 {
+
+
 }

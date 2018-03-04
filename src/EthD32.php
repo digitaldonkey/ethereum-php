@@ -9,7 +9,7 @@ namespace Ethereum;
  *
  * Represents 64 hex characters, 256 bits. Eg. TX hash.
  */
-class EthD32 extends EthD
+class EthD32 extends EthData
 {
     /**
      * Implement validation.
@@ -21,7 +21,7 @@ class EthD32 extends EthD
      *   If things are wrong.
      *
      * @return string
-     *   Validated D20 value.
+     *   Validated D20 HEX value.
      */
     public function validateLength($val)
     {

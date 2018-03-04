@@ -3,7 +3,7 @@
 namespace Ethereum;
 use Exception;
 use Ethereum\EthDataTypeInterface;
-use Ethereum\EthDataTypePrimitive;
+use Ethereum\EthD;
 use Ethereum\Ethereum;
 /**
  * @defgroup dataTypes Data Types
@@ -21,7 +21,7 @@ use Ethereum\Ethereum;
 /**
  * @defgroup dataTypesPrimitive Primitive Types
  *
- * All data primitive types in Ethereum-PHP are derived from EthDataTypePrimitive.
+ * All data primitive types in Ethereum-PHP are derived from EthD.
  *
  * @ingroup dataTypes
  */
@@ -97,6 +97,7 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
      *
      * @param mixed $val
      *   Value to set.
+     *
      * @param array $params
      *   Array with optional keyed arguments.
      *
@@ -130,10 +131,10 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
     {
 
         if (!is_array($type)) {
-            $primitive_type = EthDataTypePrimitive::typeMap($type);
+            $primitive_type = EthD::typeMap($type);
         }
         else {
-            $primitive_type = EthDataTypePrimitive::typeMap($type[0]);
+            $primitive_type = EthD::typeMap($type[0]);
         }
 
         if ($primitive_type) {
@@ -165,7 +166,7 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
     public static function getAllTypeClasses() {
         $schema = Ethereum::getDefinition();
         return array_merge(
-            EthDataTypePrimitive::getPrimitiveTypes(),
+            EthD::getPrimitiveTypes(),
             array_keys($schema['objects'])
         );
     }
