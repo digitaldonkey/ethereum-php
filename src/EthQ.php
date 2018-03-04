@@ -4,7 +4,6 @@ namespace Ethereum;
 
 /* @see https://pear.php.net/package/Math_BigInteger/docs/latest/Math_BigInteger/Math_BigInteger.html Math_BigInteger documentation */
 use Math_BigInteger;
-use InvalidArgumentException;
 
 
 /**
@@ -35,7 +34,7 @@ class EthQ extends EthD
      *
      * @param string|int $val
      *   Hexadecimal or number value.
-     * @param array      $params
+     * @param array $params
      *   Array with optional parameters. Add Abi type $params['abi'] = 'unint8'.
      * @throw Exception
      */
@@ -49,7 +48,7 @@ class EthQ extends EthD
      *
      * @param string|number $val
      *   "0x"prefixed hexadecimal or number value.
-     * @param array         $params
+     * @param array $params
      *   Only $param['abi'] is relevant.
      *
      * @throw Exception
@@ -96,17 +95,21 @@ class EthQ extends EthD
         if ($big_int && is_a($big_int, 'Math_BigInteger')) {
 
             $this->abi = $this->getAbiFromNumber($big_int);
+            if ($abi) {
+                // Will throw if ABI param is formally incorrect.
+                $this->validateAbi($abi);
 
-            // Check for valid ABI type. If exists, generate it.
-            if ($abi && $this->validateAbi($abi)) {
-                if ($this->abi !== $params['abi']) {
-                    throw new \InvalidArgumentException('Given ABI ('
-                                                        . $params['abi']
-                                                        . ') does not match number given number: '
-                                                        . $val);
+                if ($this->abi !== $abi) {
+
+                    // Check if calculated ABI is a subset of the given API Param.
+                    if ($this->getLength($this->abi) < $this->getLength($abi)) {
+                        $this->abi = $abi;
+                    } else {
+                        throw new \InvalidArgumentException(
+                          'Given ABI (' . $abi . ') does not match number given number: ' . $val);
+                    }
                 }
             }
-
             return $big_int;
         } else {
             throw new \InvalidArgumentException('Can not decode Hex number: ' . $val);
@@ -175,7 +178,6 @@ class EthQ extends EthD
         if (!($valid_length || $valid_type)) {
             throw new \InvalidArgumentException('Can not validate ABI: ' . $abi);
         }
-
         return true;
     }
 
@@ -190,9 +192,9 @@ class EthQ extends EthD
         // See: https://regex101.com/r/3XYumB/1
         if (preg_match('/^(u?int)(\d{1,3})$/', $abi, $matches)) {
             return (object)[
-                'abi'       => $abi,
-                'intType'   => $matches[1],
-                'intLength' => $matches[2],
+              'abi' => $abi,
+              'intType' => $matches[1],
+              'intLength' => $matches[2],
             ];
         } else {
             throw new \InvalidArgumentException('Could not decode ABI for: ' . $abi);
@@ -226,9 +228,9 @@ class EthQ extends EthD
     /**
      * Implement getLength().
      */
-    public function getLength()
+    public function getLength($abi)
     {
-        $type = $this->splitAbi($this->abi);
+        $type = $this->splitAbi($abi);
 
         return $type->intLength;
     }
