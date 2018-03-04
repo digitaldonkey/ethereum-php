@@ -131,7 +131,8 @@ function status($eth) {
     // More.
     $rows[] = [
         "web3_sha3('Hello World')",
-        $eth->web3_sha3(new EthS('Hello World'))->hexVal(),
+        // Using the API would be: $eth->web3_sha3(new EthS('Hello World'))->hexVal(),
+        $eth->sha3('Hello World'),
     ];
 
     // NON standard JsonRPC-API Methods below.

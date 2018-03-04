@@ -339,7 +339,7 @@ class Ethereum extends EthereumStatic implements JsonRpcInterface
     public function getMethodSignature($input)
     {
         if ($this->isValidFunction($input)) {
-            $keccac = $this->web3_sha3(new EthS($input));
+            $keccac = self::sha3($input);
 
             // The signature is 4bytes of the methods keccac hash. E.g: "0x00000000".
             return substr($keccac->hexVal(), 0, 10);
