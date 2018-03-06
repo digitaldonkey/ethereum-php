@@ -23,30 +23,29 @@ class EthD extends EthDataType
     */
     private const SCHEMA_MAP = [
         // Bytes data.
-      'D'                  => 'EthD',
+        'D' => 'EthD',
         // Bytes data, length 20
         // 40 hex characters, 160 bits. E.g Ethereum Address.
-      'D20'                => 'EthD20',
+        'D20' => 'EthD20',
         // Bytes data, length 32
         // 64 hex characters, 256 bits. Eg. TX hash.
-      'D32'                => 'EthD32',
+        'D32' => 'EthD32',
         // Number quantity.
-      'Q'                  => 'EthQ',
+        'Q'  => 'EthQ',
         // Boolean.
-      'B'                  => 'EthB',
+        'B' => 'EthB',
         // String data.
-      'S'                  => 'EthS',
+        'S' => 'EthS',
         // Default block parameter: Address/D20 or tag [latest|earliest|pending].
-      'Q|T'                => 'EthBlockParam',
+        'Q|T' => 'EthBlockParam',
         // Either an array of DATA or a single bytes DATA with variable length.
-      'Array|DATA'         => 'EthData',
+        'Array|DATA' => 'EthData',
         // Derived ABI types
-      'bool'               => 'EthB',
+        'bool' => 'EthB',
         // WORKAROUND? Some clients may return an Data Array. Works on testrpc.
-      'B|EthSyncing' => 'EthB',
+        'B|EthSyncing' => 'EthB',
         // WORKAROUND? Some clients may return an Data Array. Works on testrpc.
-      'DATA|Transaction'   => 'Transaction',
-        // @todo DATA OR Transaction ???
+        'DATA|Transaction' => 'Transaction',
     ];
 
 
@@ -145,7 +144,8 @@ class EthD extends EthDataType
      * @param $abiType
      * @throws Exception
      */
-    public function convertByAbiArray($abiType) {
+    public function convertByAbiArray($abiType)
+    {
         // @todo Array and complex types.
         throw new Exception('Requested ABI type is not implemented yet.' . $abiType);
     }
@@ -211,13 +211,14 @@ class EthD extends EthDataType
 
 
     /**
-     * Get an Array of all Data type classes.
+     * Get an Array of all EthD based data types.
      *
-     * @todo This is incomplete.
+     * @todo Implement all EthD data types.
      *
      * @return array
      */
-    public static function getPrimitiveTypes() {
+    public static function getPrimitiveTypes()
+    {
         return ['EthD', 'EthD20', 'EthD32', 'EthQ', 'EthB', 'EthS'];
     }
 
@@ -318,7 +319,8 @@ class EthD extends EthDataType
      * @return array
      *   Return object of the expected data type.
      */
-    public static function getTypeArray() {
+    public static function getTypeArray()
+    {
         return array(
           'value' => get_class(),
         );
