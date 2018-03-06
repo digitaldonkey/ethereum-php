@@ -46,7 +46,7 @@ class EthD extends EthDataType
       'B|EthSyncing' => 'EthB',
         // WORKAROUND? Some clients may return an Data Array. Works on testrpc.
       'DATA|Transaction'   => 'Transaction',
-        /// @todo DATA OR Transaction ???
+        // @todo DATA OR Transaction ???
     ];
 
 
@@ -186,7 +186,7 @@ class EthD extends EthDataType
     /**
      * Validate hex string for Hex letters.
      *
-     * TODO This might be moved to EthereumStatic.
+     * @todo This might be moved to EthereumStatic.
      *
      * @param string $val
      *   Prefixed Hexadecimal String.
@@ -213,7 +213,7 @@ class EthD extends EthDataType
     /**
      * Get an Array of all Data type classes.
      *
-     * TODO This is incomplete.
+     * @todo This is incomplete.
      *
      * @return array
      */

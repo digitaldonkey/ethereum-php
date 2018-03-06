@@ -18,7 +18,7 @@ class EthS extends EthD
         $return = null;
 
         // We are actually validating not much, just make sure it is a string.
-        // TODO: Me might require to fail on non-UTF8 chars.
+        // @todo Me might require to fail on non-UTF8 chars.
         if ($this->hasHexPrefix($val))
         {
             // Hex encoded string.

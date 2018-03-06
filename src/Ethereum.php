@@ -266,7 +266,7 @@ class Ethereum extends EthereumStatic implements JsonRpcInterface
             // Returning empty of type.
             // Fixes get unknown block by number.
 
-            /// @todo What if type class has required values in constructor?
+            // @todo What if type class has required values in constructor?
             // Should there be a default implementation for non existent types?
             // Like a Null Object? Should EthDataTypes have a test if they are valid?
             $return = new $class_name();

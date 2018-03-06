@@ -61,6 +61,10 @@ doxygen Doxyfile
 
 There is a onlin version of this API documentation at [http://ethereum-php.org/dev](http://ethereum-php.org/dev)
 
+Doxygen script does some preprocessing which requires GNU-sed on OSX
+``` brew install gnu-sed --with-default-names```
+See: https://stackoverflow.com/a/27834828/308533
+
 ### Other files
 
 ### Credits

@@ -6,6 +6,8 @@ use kornrunner\Keccak;
 
 /**
  * Static helper functions for Ethereum JsonRPC API for PHP.
+ *
+ * @todo DOXYGEN todo does not work consistently. Not all todo's are picked up.
  */
 abstract class EthereumStatic
 {
