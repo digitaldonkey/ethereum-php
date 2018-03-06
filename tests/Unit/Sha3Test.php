@@ -46,7 +46,6 @@ class Sha3Test extends EthTest {
      */
     public function testManyStrings($text, $sha3)
     {
-        $X = FALSE;
         $this->assertSame($sha3, EthereumStatic::sha3($text));
     }
 

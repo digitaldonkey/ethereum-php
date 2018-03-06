@@ -75,9 +75,10 @@ class EthQ extends EthD
             // But it will trigger negative if we have the highest number
             // a of current hex length.
 
-            /// @todo This is wrong. We need to check for RLP.
+            /// @todo This might be wrong. We need to check for RLP.
             /// @see https://github.com/ethereum/wiki/wiki/RLP
-            if (!$abi && strlen($val) >= 10 && $val[2] === 'f') {
+
+            if (strlen($val) >= 10 && $val[2] === 'f') {
                 $big_int = new Math_BigInteger($val, -16);
                 $big_int->is_negative = true;
             } else {
@@ -172,7 +173,7 @@ class EthQ extends EthD
      */
     protected function validateAbi($abi)
     {
-        $abiObj = $this->splitAbi($abi);
+        $abiObj = $this->splitAbi($this->abiAliases($abi));
         $valid_length = in_array($abiObj->intLength, $this->getValidLengths());
         $valid_type = in_array($abiObj->intType, $this->intTypes);
         if (!($valid_length || $valid_type)) {
@@ -181,6 +182,22 @@ class EthQ extends EthD
         return true;
     }
 
+    /**
+     * @param $abi
+     * @return string
+     *   ABI with converted aliases.
+     */
+    private function abiAliases($abi) {
+        $X = FALSE;
+        // uint, int: synonyms for uint256, int256 respectively.
+        if ($abi === 'int') {
+            $abi = 'int256';
+        }
+        if ($abi === 'uint') {
+            $abi = 'uint256';
+        }
+        return $abi;
+    }
 
     /**
      * Split abi type into length and intType.
@@ -190,7 +207,7 @@ class EthQ extends EthD
         $matches = [];
         $valid = null;
         // See: https://regex101.com/r/3XYumB/1
-        if (preg_match('/^(u?int)(\d{1,3})$/', $abi, $matches)) {
+        if (preg_match('/^(u?int)(\d{1,3})$/', $this->abiAliases($abi), $matches)) {
             return (object)[
               'abi' => $abi,
               'intType' => $matches[1],

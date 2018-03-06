@@ -321,33 +321,6 @@ class Ethereum extends EthereumStatic implements JsonRpcInterface
         }
     }
 
-
-    /**
-     * Get signature of a solidity method.
-     *
-     * Returns hash of the Smart contract method - it's signature.
-     *
-     * See:
-     * https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI#function-selector
-     *
-     * @param string $input
-     *   Method signature.
-     *
-     * @return string
-     *   Hash of the method signature.
-     */
-    public function getMethodSignature($input)
-    {
-        if ($this->isValidFunction($input)) {
-            $keccac = self::sha3($input);
-
-            // The signature is 4bytes of the methods keccac hash. E.g: "0x00000000".
-            return substr($keccac->hexVal(), 0, 10);
-        } else {
-            throw new \InvalidArgumentException("No valid (solidity) signature string provided.");
-        }
-    }
-
     /**
      * Debug Helper.
      *
@@ -377,19 +350,6 @@ class Ethereum extends EthereumStatic implements JsonRpcInterface
         $this->debugHtml .= $return;
 
         return $return;
-    }
-
-    /**
-     * Retrieve the Ethereum JsonRPC API definition.
-     *
-     * Normally the content of the file resources/ethjs-schema.json.
-     *
-     * @return array
-     */
-    public static function getDefinition()
-    {
-        $schema_path = __DIR__ . '/../resources/ethjs-schema.json';
-        return json_decode(file_get_contents($schema_path), true);
     }
 
 }

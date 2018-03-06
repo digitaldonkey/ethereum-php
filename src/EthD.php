@@ -1,7 +1,7 @@
 <?php
 
 namespace Ethereum;
-use Math_BigInteger;
+use Exception;
 
 /**
  * Basic Ethereum data types.
@@ -16,7 +16,12 @@ class EthD extends EthDataType
 
     protected $value;
 
-    private const MAP = [
+    /**
+     * @const SCHEMA_MAP
+     *   Mapping EthJs schema types to respective PHP classes.
+     *   @see resources/ethjs-schema.json
+    */
+    private const SCHEMA_MAP = [
         // Bytes data.
       'D'                  => 'EthD',
         // Bytes data, length 20
@@ -46,29 +51,33 @@ class EthD extends EthDataType
 
 
     /**
-     * @var Mapping ABI types to PHP classes.
+     * @const ABI_MAP
+     *   Mapping ABI types to PHP classes.
+     *   @see https://solidity.readthedocs.io/en/develop/abi-spec.html
      */
-    private const abiMap = [
-        // Bytes data.
-      'uint'                  => 'EthD',
-        // Bytes data, length 20
-        // 40 hex characters, 160 bits. E.g Ethereum Address.
-      'int'                => 'EthD20',
-        // Bytes data, length 32
-        // 64 hex characters, 256 bits. Eg. TX hash.
-      'address'                => 'EthD32',
-        // Number quantity.
-      'bool'                  => 'EthQ',
-        // Boolean.
-      'fixed'                  => 'EthB',
-        // String data.
-      'ufixed'                  => 'EthS',
-        // Default block parameter: Address/D20 or tag [latest|earliest|pending].
-      'bytes'                => 'EthBlockParam',
-        // Either an array of DATA or a single bytes DATA with variable length.
-      'function'         => 'EthData',
-        // Derived ABI types
-      'string'               => 'EthB',
+    private const ABI_MAP = [
+        // The following elementary types exist:
+        'uint' => 'EthQ',
+        'int' => 'EthQ',
+        'address' => 'EthD20',
+        'bool' => 'EthB',
+
+         // Fixed signed fixed-point decimal number of M bits, 8 <= M <= 256
+         // @todo fixed-point decimal number not implemented.
+         // 'fixed' => 'EthB',
+         // 'ufixed' => 'EthS',
+
+        // Small bytes Should work
+        //  bytes<M>: binary type of M bytes, 0 < M <= 32
+        // @todo Dynamic sized byte sequence is not yet implemented.
+        'bytes' => 'EthD',
+
+        'string' => 'EthB',
+
+        // @todo Function not implemented.
+        // An address (20 bytes) followed by a function selector (4 bytes).
+        // Encoded identical to bytes24
+        // 'function'         => 'EthData',
     ];
 
     /**
@@ -80,12 +89,67 @@ class EthD extends EthDataType
      * @param array $params
      *   Array with optional parameters. Add Abi type $params['abi'] = 'unint8'.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct($val, array $params = [])
     {
         $this->setValue($val, $params);
     }
+
+
+    /**
+     *
+     * Convert EthD value into ABI expected value.
+     *
+     * @param string $abiType
+     *   Expected Abi type.
+     *
+     * @throws Exception
+     *    If conversation is not implemented for ABI type.
+     *
+     * @return object
+     *   Return object of the expected data type and the value.
+     */
+    public function convertByAbi($abiType)
+    {
+
+        // T[k] for any dynamic T and any k > 0
+        if (strpos($abiType, '[' )) {
+            $this->convertByAbiArray($abiType);
+        }
+
+        // (T1,...,Tk) if any Ti is dynamic for 1 <= i <= k
+        if (strpos($abiType, '(' )) {
+            $this->convertByAbiArray($abiType);
+        }
+
+        // Exact types (e.g: book, address)
+        if (isset(self::ABI_MAP[$abiType])) {
+            $class = '\Ethereum\\' . self::ABI_MAP[$abiType];
+            return new $class($this->hexVal(),['abi' => $abiType]);
+        }
+
+        // Int types (int*, uint*)
+        $arr = [];
+        preg_match("/^(?'type'[u]?int)([\d]*)$/", $abiType, $arr);
+        // @see https://regex101.com/r/7JHrKG/1
+        if (isset(self::ABI_MAP[$arr['type']])) {
+            $class = '\Ethereum\\' . self::ABI_MAP[$arr['type']];
+            return new $class($this->hexVal(),['abi' => $abiType]);
+        }
+
+        throw new Exception('Can not convert to unknown type ' . $abiType);
+    }
+
+    /**
+     * @param $abiType
+     * @throws Exception
+     */
+    public function convertByAbiArray($abiType) {
+        // @todo Array and complex types.
+        throw new Exception('Requested ABI type is not implemented yet.' . $abiType);
+    }
+
 
 
     /**
@@ -169,7 +233,7 @@ class EthD extends EthDataType
     }
 
     /**
-     * Map types.
+     * SCHEMA_MAP types.
      *
      * @param string $type
      *   Schema name of data type.
@@ -179,7 +243,7 @@ class EthD extends EthDataType
      */
     public static function typeMap(string $type)
     {
-        $map = self::MAP;
+        $map = self::SCHEMA_MAP;
         if (isset($map[$type])) {
             return $map[$type];
         } else {
@@ -188,7 +252,7 @@ class EthD extends EthDataType
     }
 
     /**
-     * ReverseTypeMap().
+     * Reverse type SCHEMA_MAP (SCHEMA_MAP)
      *
      * @param string $class_name
      *   Classname of the type.
@@ -196,15 +260,15 @@ class EthD extends EthDataType
      * @return string
      *    Schema name of the type.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public static function reverseTypeMap($class_name)
     {
-        $schema_type = array_search($class_name, self::MAP);
+        $schema_type = array_search($class_name, self::SCHEMA_MAP);
         if (is_string($schema_type)) {
             return $schema_type;
         } else {
-            throw new \Exception('Could not determine data type.');
+            throw new Exception('Could not determine data type.');
         }
     }
 
@@ -213,7 +277,8 @@ class EthD extends EthDataType
      *
      * @return string
      *   Returns the CLass name of the type or The schema name if $schema is TRUE.
-     * @throw Exception
+     *
+     * @throws Exception
      */
     public static function getSchemaType()
     {
@@ -228,17 +293,20 @@ class EthD extends EthDataType
     /**
      * Turn value into Expected value.
      *
-     * @param string $abiType
+     * @depreciated
+     *   This function will be removed ans should not be used.
+     *   Pleas switch toconvertByAbi($abiType).
+     *
+     * @param string $type
      *   Expected Abi type.
      *
      * @return object
      *   Return object of the expected data type.
      */
-    public function convertTo($abiType)
+    public function convertTo($type)
     {
-        $class = '\Ethereum\\' . $this->typeMap($abiType);
+        $class = '\Ethereum\\' . $this->typeMap($type);
         $obj = new $class($this->hexVal());
-
         return $obj;
     }
 

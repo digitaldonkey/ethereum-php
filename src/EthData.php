@@ -7,12 +7,9 @@ namespace Ethereum;
  *
  * Some Complex types base on EthData.
  *
- * @todo This should implement dynamic types.
- *
  * @ingroup dataTypes
  */
 class EthData extends EthD
 {
-
-
+    // @todo This should implement dynamic types.
 }

@@ -10,6 +10,34 @@ use kornrunner\Keccak;
 abstract class EthereumStatic
 {
     /**
+     * Get signature of a solidity method.
+     *
+     * Returns hash of the Smart contract method - it's signature.
+     *
+     * See:
+     * https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI#function-selector
+     *
+     * @param string $input
+     *   Method signature.
+     *
+     * @return string
+     *   Hash of the method signature.
+     */
+    public static function getMethodSignature($input)
+    {
+        if (self::isValidFunction($input))
+        {
+            // The signature is 4bytes of the methods keccac hash. E.g: "0x00000000".
+            return substr(self::sha3($input), 0, 10);
+        }
+        else
+        {
+            throw new \InvalidArgumentException("No valid (solidity) signature string provided.");
+        }
+    }
+
+
+    /**
      * Determine type class name for primitive and complex data types.
      *
      * @param string $class_name
@@ -110,9 +138,6 @@ abstract class EthereumStatic
      * This is a a local version of web3_sha3() based on
      *   https://github.com/kornrunner/php-keccak
      *
-     * TODO Resolve licence issues.
-     * https://github.com/kornrunner/php-keccak/issues/2
-     *
      * Ethereum JsonRPC provides web3.sha3(), but  making a JsonRPC call for that
      * seems costly.
      *
@@ -173,6 +198,19 @@ abstract class EthereumStatic
         }
 
         return false;
+    }
+
+    /**
+     * Retrieve the Ethereum JsonRPC API definition.
+     *
+     * Normally the content of the file resources/ethjs-schema.json.
+     *
+     * @return array
+     */
+    public static function getDefinition()
+    {
+        $schema_path = __DIR__ . '/../resources/ethjs-schema.json';
+        return json_decode(file_get_contents($schema_path), true);
     }
 
     /**
