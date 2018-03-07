@@ -53,6 +53,8 @@ To *write* to the blockchain you need a to sign transactions with a private key 
 
 ### Documentation
 
+The API documentation is available at [ethereum-php.org](http://ethereum-php.org/).
+
 For reference see the [Ethereum RPC documentation](https://github.com/ethereum/wiki/wiki/JSON-RPC) and for data encoding [RLP dcumentation](https://github.com/ethereum/wiki/wiki/RLP) in [Ethereum Wiki](https://github.com/ethereum/wiki).
 
 There is also a more readable [Ethereum Frontier Guide](http://ethereum.gitbooks.io/frontier-guide/content/rpc.html) version.

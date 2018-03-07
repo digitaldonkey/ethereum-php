@@ -352,4 +352,85 @@ class Ethereum extends EthereumStatic implements Web3Interface
         return $return;
     }
 
+    /**
+     * Determine type class name for primitive and complex data types.
+     *
+     * @param string $class_name
+     *   Type to construct from associative Array.
+     * @param array  $values
+     *   Associative value array.
+     *
+     * @return object|array
+     *   Object of type $class_name.
+     *
+     * @throw Exception
+     *   If something is wrong.
+     */
+    protected static function arrayToComplexType($class_name, array $values)
+    {
+        $return = [];
+        $class_values = [];
+        if (!substr($class_name, 1,8) === __NAMESPACE__) {
+            $class_name = __NAMESPACE__  . "\\$class_name";
+        }
+
+        $type_map = $class_name::getTypeArray();
+
+        foreach ($type_map as $name => $val_class) {
+            if (isset($values[$name])) {
+                $val_class = '\\Ethereum\\DataType' . $val_class;
+                if (is_array($values[$name])) {
+                    $sub_values = [];
+                    foreach ($values[$name] as $sub_val) {
+
+                        // Work around testrpc giving not back an array.
+                        if (is_array($sub_val)) {
+                            $sub_values[] = self::arrayToComplexType($val_class, $sub_val);
+                        } else {
+                            $sub_values[] = [$sub_val];
+                        }
+                    }
+                    $class_values[] = $sub_values;
+                } else {
+                    $class_values[] = new $val_class($values[$name]);
+                }
+            } else {
+                // In order to create a proper constructor we need null values too.
+                $class_values[] = null;
+            }
+        }
+        $return = new $class_name(...$class_values);
+
+        return $return;
+    }
+
+    /**
+     * Create value array.
+     *
+     * Turns a array('0x56789...', ...) into array(EthD32(0x56789...), ...)
+     *
+     * @param array  $values
+     *   Array of values of a unique data type.
+     * @param string $typeClass
+     *   Class name for the data type.
+     *
+     * @return array
+     *   Array of value objects of the given type.
+     * @throw Exception
+     */
+    public static function valueArray(array $values, $typeClass)
+    {
+        $return = [];
+        if (!class_exists($typeClass)) {
+            $typeClass = '\\' . __NAMESPACE__  . '\\DataType\\' . $typeClass;
+        }
+        foreach ($values as $i => $val) {
+            if (is_array($val)) {
+                $return[$i] = self::arrayToComplexType($typeClass, $val);
+            }
+            $return[$i] = new $typeClass($val);
+        }
+
+        return $return;
+    }
 }

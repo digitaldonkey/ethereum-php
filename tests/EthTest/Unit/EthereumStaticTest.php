@@ -58,7 +58,7 @@ class EthereumStaticTest extends TestStatic
             '0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbac0'
         ];
         $this->assertEquals(
-            EthereumStatic::valueArray($values, 'EthD32'),
+            Ethereum::valueArray($values, 'EthD32'),
             array(
                 new EthD32('0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd'),
                 new EthD32('0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbac0'),
