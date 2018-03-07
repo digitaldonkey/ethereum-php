@@ -1,6 +1,6 @@
 <?php
 namespace Ethereum;
-use Ethereum\EthTest;
+use Ethereum\TestStatic;
 use Ethereum\DataType\EthD32;
 
 /**
@@ -8,7 +8,7 @@ use Ethereum\DataType\EthD32;
  *
  * @ingroup staticTests
  */
-class EthereumStaticTest extends EthTest
+class EthereumStaticTest extends TestStatic
 {
     /**
      * This test is bases data by http://codebeautify.org/hex-string-converter.

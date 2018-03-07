@@ -8,7 +8,7 @@
  */
 namespace Ethereum;
 
-use Ethereum\EthTest;
+use Ethereum\TestStatic;
 
 /**
  * @defgroup ethereumTests EthereumClientTest
@@ -61,7 +61,7 @@ use Ethereum\EthTest;
  *  "address": "0x345ca3e014aaf5dca488057592ee47305d9b3e10"
  *  },
  */
-abstract class EthTestContract extends EthTest {
+abstract class TestEthClient extends TestStatic {
 
     /**
      * %Ethereum Test Base class

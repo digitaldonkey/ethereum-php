@@ -26,10 +26,10 @@
   "sourceMap": "25:126:1:-;;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "25:126:1:-;;;;;;;;;;;;;;;;;;;;;;;;58:91;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;114:4;141:1;137;:5;130:12;;58:91;;;:::o",
   "source": "pragma solidity 0.4.19;\n\ncontract SmartContractTest {\n    function multiplyWithSeven (uint a) public pure returns(uint) {\n        return a * 7;\n    }\n}\n",
-  "sourcePath": "/Users/tho/htdocs/ConsenSys/DrupalEthereum/FeatureWeb3Provider/drupal/vendor/digitaldonkey/ethereum-php/tests/EthTestContracts/test_contracts/contracts/SmartContractTest.sol",
+  "sourcePath": "/Users/tho/htdocs/ConsenSys/DrupalEthereum/FeatureWeb3Provider/drupal/vendor/digitaldonkey/ethereum-php/tests/TestEthClient/test_contracts/contracts/SmartContractTest.sol",
   "ast": {
     "attributes": {
-      "absolutePath": "/Users/tho/htdocs/ConsenSys/DrupalEthereum/FeatureWeb3Provider/drupal/vendor/digitaldonkey/ethereum-php/tests/EthTestContracts/test_contracts/contracts/SmartContractTest.sol",
+      "absolutePath": "/Users/tho/htdocs/ConsenSys/DrupalEthereum/FeatureWeb3Provider/drupal/vendor/digitaldonkey/ethereum-php/tests/TestEthClient/test_contracts/contracts/SmartContractTest.sol",
       "exportedSymbols": {
         "SmartContractTest": [
           71

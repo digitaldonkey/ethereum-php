@@ -5,8 +5,8 @@
     <testsuite name="EthereumPhp">
       <directory>tests/EthTest/Unit</directory>
     </testsuite>
-    <testsuite name="EthereumPhpContracts">
-      <directory>tests/EthTestContracts/Unit</directory>
+    <testsuite name="TestEthClient">
+      <directory>tests/TestEthClient/Unit</directory>
     </testsuite>
   </testsuites>
   <php>

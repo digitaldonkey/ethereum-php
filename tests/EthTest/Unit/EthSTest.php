@@ -1,14 +1,14 @@
 <?php
 namespace Ethereum;
 use Ethereum\DataType\EthS;
-use Ethereum\EthTest;
+use Ethereum\TestStatic;
 
 /**
  * EthQTest
  *
  * @ingroup staticTests
  */
-class EthSTest extends EthTest
+class EthSTest extends TestStatic
 {
     /**
      * This test is bases data by http://codebeautify.org/hex-string-converter.

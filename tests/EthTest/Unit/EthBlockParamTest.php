@@ -2,14 +2,14 @@
 namespace Ethereum;
 
 use Ethereum\DataType\EthBlockParam;
-use Ethereum\EthTest;
+use Ethereum\TestStatic;
 
 /**
  * EthBlockParamTest
  *
  * @ingroup staticTests
  */
-class EthBlockParamTest extends EthTest
+class EthBlockParamTest extends TestStatic
 {
     /**
      * Testing quantities.

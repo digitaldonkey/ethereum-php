@@ -28,4 +28,4 @@ if (!class_exists('\PHPUnit_Framework_TestCase') && class_exists('\PHPUnit\Frame
  *
  * @ingroup staticTests
  */
-abstract class EthTest extends \PHPUnit_Framework_TestCase {}
+abstract class TestStatic extends \PHPUnit_Framework_TestCase {}

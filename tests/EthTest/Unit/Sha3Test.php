@@ -1,7 +1,7 @@
 <?php
 namespace Ethereum;
 use Ethereum\DataType\EthS;
-use Ethereum\EthTest;
+use Ethereum\TestStatic;
 use kornrunner\Keccak;
 
 /**
@@ -9,7 +9,7 @@ use kornrunner\Keccak;
  *
  * @ingroup staticTests
  */
-class Sha3Test extends EthTestContract {
+class Sha3Test extends TestEthClient {
 
     public function kessacStringProvider() {
         // UTF8 text, Kessac256

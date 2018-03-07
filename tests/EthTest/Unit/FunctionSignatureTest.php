@@ -1,14 +1,14 @@
 <?php
 namespace Ethereum;
 use Ethereum\DataType\EthS;
-use Ethereum\EthTestContract;
+use Ethereum\TestStaticContract;
 
 /**
  * EthQTest
  *
  * @ingroup staticTests
  */
-class FunctionSignatureTest extends EthTest
+class FunctionSignatureTest extends TestStatic
 {
     public function functionSignatureProvider() {
         // UTF8 text, Kessac256

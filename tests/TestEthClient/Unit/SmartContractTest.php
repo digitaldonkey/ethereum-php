@@ -8,7 +8,7 @@ use Ethereum\DataType\EthQ;
  *
  * @ingroup ethereumTests
  */
-class SmartContractTest extends EthTestContract
+class SmartContractTest extends TestEthClient
 {
 
     public function testCreateClass()
@@ -24,7 +24,7 @@ class SmartContractTest extends EthTestContract
         $contractName = 'SmartContractTest';
 
         $data = json_decode(file_get_contents(
-            getcwd() . '/tests/EthTestContracts/test_contracts/build/contracts/'
+            getcwd() . '/tests/TestEthClient/test_contracts/build/contracts/'
             . $contractName . '.json'
         ));
 

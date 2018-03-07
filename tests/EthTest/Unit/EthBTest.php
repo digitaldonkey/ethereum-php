@@ -1,14 +1,14 @@
 <?php
 namespace Ethereum;
 use Ethereum\DataType\EthB;
-use Ethereum\EthTest;
+use Ethereum\TestStatic;
 
 /**
  * EthereumStaticTestEthB
  *
  * @ingroup staticTests
  */
-class EthereumStaticTestEthB extends EthTest {
+class EthereumStaticTestEthB extends TestStatic {
 
   /**
    * Init with ABI.

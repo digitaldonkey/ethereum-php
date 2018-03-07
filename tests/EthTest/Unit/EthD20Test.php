@@ -2,7 +2,7 @@
 namespace Ethereum;
 
 use Ethereum\DataType\EthD20;
-use Ethereum\EthTest;
+use Ethereum\TestStatic;
 
 
 /**
@@ -10,7 +10,7 @@ use Ethereum\EthTest;
  *
  * @ingroup staticTests
  */
-class EthD20Test extends EthTest
+class EthD20Test extends TestStatic
 {
     /**
      * Testing quantities.
