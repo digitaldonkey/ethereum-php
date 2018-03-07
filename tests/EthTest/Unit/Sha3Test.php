@@ -49,23 +49,23 @@ class Sha3Test extends TestEthClient {
         $this->assertSame($sha3, EthereumStatic::sha3($text));
     }
 
-    /**
-     * @param $text
-     * @param $sha3
-     * @throws \Exception
-     * @dataProvider kessacStringProvider
-     */
-    public function testManyWithEthereumSha3($text, $sha3)
-    {
-        if (defined('SERVER_URL')) {
-            $eth = new Ethereum(SERVER_URL);
-            $val = new EthS($text);
-            $x = $eth->web3_sha3($val);
-            $this->assertSame($sha3, $x->hexVal());
-        }
-        else {
-            $this->markTestSkipped('Ethereum web3_sha3 can only be tested if SERVER_URL is defined.');
-        }
-
-    }
+//    /**
+//     * @param $text
+//     * @param $sha3
+//     * @throws \Exception
+//     * @dataProvider kessacStringProvider
+//     */
+//    public function testManyWithEthereumSha3($text, $sha3)
+//    {
+//        if (defined('SERVER_URL')) {
+//            $eth = new Ethereum(SERVER_URL);
+//            $val = new EthS($text);
+//            $x = $eth->web3_sha3($val);
+//            $this->assertSame($sha3, $x->hexVal());
+//        }
+//        else {
+//            $this->markTestSkipped('Ethereum web3_sha3 can only be tested if SERVER_URL is defined.');
+//        }
+//
+//    }
 }
