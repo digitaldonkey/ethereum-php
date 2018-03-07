@@ -7,7 +7,7 @@ use kornrunner\Keccak;
 /**
  * EthereumStaticTestEthB
  *
- * @ingroup tests
+ * @ingroup staticTests
  */
 class Sha3Test extends EthTestContract {
 

@@ -7,7 +7,7 @@ use Ethereum\EthTest;
 /**
  * EthBlockParamTest
  *
- * @ingroup tests
+ * @ingroup staticTests
  */
 class EthBlockParamTest extends EthTest
 {

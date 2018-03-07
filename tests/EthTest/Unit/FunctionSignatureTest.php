@@ -6,7 +6,7 @@ use Ethereum\EthTestContract;
 /**
  * EthQTest
  *
- * @ingroup tests
+ * @ingroup staticTests
  */
 class FunctionSignatureTest extends EthTest
 {

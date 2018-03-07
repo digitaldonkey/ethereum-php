@@ -7,7 +7,7 @@ use ReflectionClass;
 /**
  * EthDTest
  *
- * @ingroup tests
+ * @ingroup staticTests
  */
 class EthDTest extends EthTest
 {

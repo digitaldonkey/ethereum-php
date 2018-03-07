@@ -7,6 +7,14 @@ namespace Ethereum;
  * %Ethereum JsonRPC client tests.
  */
 
+/**
+ * @defgroup staticTests Static Tests
+ * @ingroup tests
+ *
+ * Testing anything which can be tested without %Ethereum running.
+ */
+
+
 // PHPUnit 6 introduced a breaking change that
 // removed PHPUnit_Framework_TestCase as a base class,
 // and replaced it with \PHPUnit\Framework\TestCase
@@ -18,6 +26,6 @@ if (!class_exists('\PHPUnit_Framework_TestCase') && class_exists('\PHPUnit\Frame
 /**
  * Abstract base class for Tests
  *
- * @ingroup tests
+ * @ingroup staticTests
  */
 abstract class EthTest extends \PHPUnit_Framework_TestCase {}

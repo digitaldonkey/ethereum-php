@@ -8,7 +8,7 @@ use Ethereum\EthTest;
 /**
  * EthD20Test
  *
- * @ingroup tests
+ * @ingroup staticTests
  */
 class EthD20Test extends EthTest
 {

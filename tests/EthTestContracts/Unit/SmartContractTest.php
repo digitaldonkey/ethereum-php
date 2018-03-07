@@ -6,7 +6,7 @@ use Ethereum\EthQ;
 /**
  * EthereumStaticTest
  *
- * @ingroup tests
+ * @ingroup ethereumTests
  */
 class SmartContractTest extends EthTestContract
 {

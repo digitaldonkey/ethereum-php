@@ -6,7 +6,7 @@ use Ethereum\EthTest;
 /**
  * EthD32Test
  *
- * @ingroup tests
+ * @ingroup staticTests
  */
 class EthD32Test extends EthTest
 {

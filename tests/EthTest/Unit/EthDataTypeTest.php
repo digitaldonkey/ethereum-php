@@ -6,7 +6,7 @@ use Ethereum\EthDataType;
 /**
  * EthereumStaticTest
  *
- * @ingroup tests
+ * @ingroup staticTests
  */
 class EthDataTypeTest extends EthTest
 {
