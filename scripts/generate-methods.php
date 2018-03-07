@@ -16,7 +16,7 @@ use gossi\codegen\model\PhpInterface;
 use gossi\codegen\model\PhpTrait;
 use gossi\codegen\model\PhpMethod;
 use gossi\codegen\model\PhpParameter;
-use Ethereum\EthD;
+use Ethereum\DataType\EthD;
 
 /**
  * @var array $conf Set up variables for the generated scripts.
@@ -99,7 +99,7 @@ EOF;
                 $methodParams[] = PhpParameter::create("arg" . ($i + 1))
                     ->setType($paramType);
                 // Add a use statement.
-                addUseStatement("Ethereum\\$paramType", $useStatements);
+                addUseStatement("Ethereum\\DataType\\$paramType", $useStatements);
             }
         }
 

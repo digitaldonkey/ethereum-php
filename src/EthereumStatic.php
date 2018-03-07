@@ -64,7 +64,7 @@ abstract class EthereumStatic
 
         foreach ($type_map as $name => $val_class) {
             if (isset($values[$name])) {
-                $val_class = '\\Ethereum\\' . $val_class;
+                $val_class = '\\Ethereum\\DataType' . $val_class;
                 if (is_array($values[$name])) {
                     $sub_values = [];
                     foreach ($values[$name] as $sub_val) {
@@ -122,7 +122,7 @@ abstract class EthereumStatic
     {
         $return = [];
         if (!class_exists($typeClass)) {
-            $typeClass = '\\' . __NAMESPACE__  . '\\' . $typeClass;
+            $typeClass = '\\' . __NAMESPACE__  . '\\DataType\\' . $typeClass;
         }
         foreach ($values as $i => $val) {
             if (is_array($val)) {

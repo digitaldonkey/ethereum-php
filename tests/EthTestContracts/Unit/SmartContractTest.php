@@ -1,7 +1,7 @@
 <?php
 namespace Ethereum;
 use Ethereum\SmartContract;
-use Ethereum\EthQ;
+use Ethereum\DataType\EthQ;
 
 /**
  * EthereumStaticTest

@@ -1,7 +1,7 @@
 <?php
 namespace Ethereum;
 
-use Ethereum\EthD20;
+use Ethereum\DataType\EthD20;
 use Ethereum\EthTest;
 
 

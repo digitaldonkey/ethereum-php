@@ -1,6 +1,6 @@
 <?php
 namespace Ethereum;
-use Ethereum\EthQ;
+use Ethereum\DataType\EthQ;
 use Ethereum\EthTest;
 
 /**

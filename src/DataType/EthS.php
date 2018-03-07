@@ -1,6 +1,6 @@
 <?php
 
-namespace Ethereum;
+namespace Ethereum\DataType;
 
 /**
  * String data.

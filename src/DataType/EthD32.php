@@ -1,6 +1,6 @@
 <?php
 
-namespace Ethereum;
+namespace Ethereum\DataType;
 
 /**
  * Byte data, length 32.

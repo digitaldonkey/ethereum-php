@@ -1,7 +1,7 @@
 <?php
 namespace Ethereum;
 
-use Ethereum\EthBlockParam;
+use Ethereum\DataType\EthBlockParam;
 use Ethereum\EthTest;
 
 /**

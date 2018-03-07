@@ -1,13 +1,13 @@
 <?php
 
-namespace Ethereum;
+namespace Ethereum\DataType;
 
 /**
  * Complex Array or byte data.
  *
  * Some Complex types base on EthData.
  *
- * @ingroup dataTypes
+ * @ingroup dataTypesPrimitive
  */
 class EthData extends EthD
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ethereum;
+namespace Ethereum\DataType;
 
 /* @see https://pear.php.net/package/Math_BigInteger/docs/latest/Math_BigInteger/Math_BigInteger.html Math_BigInteger documentation */
 use Math_BigInteger;

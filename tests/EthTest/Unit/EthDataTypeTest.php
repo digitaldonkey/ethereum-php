@@ -1,7 +1,7 @@
 <?php
 namespace Ethereum;
 use Ethereum\EthTest;
-use Ethereum\EthDataType;
+use Ethereum\DataType\EthDataType;
 
 /**
  * EthereumStaticTest

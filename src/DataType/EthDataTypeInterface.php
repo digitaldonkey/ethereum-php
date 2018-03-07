@@ -6,7 +6,7 @@
  * @ingroup interfaces
  */
 
-namespace Ethereum;
+namespace Ethereum\DataType;
 use Exception;
 
 interface EthDataTypeInterface

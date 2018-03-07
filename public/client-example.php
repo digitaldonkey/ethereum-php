@@ -1,9 +1,9 @@
 <?php
 
 use Ethereum\Ethereum;
-use Ethereum\EthBlockParam;
-use Ethereum\EthB;
-use Ethereum\EthS;
+use Ethereum\DataType\EthBlockParam;
+use Ethereum\DataType\EthB;
+use Ethereum\DataType\EthS;
 
 /**
  * @var bool IS_PUBLIC Deny public access to this generator.

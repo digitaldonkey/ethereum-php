@@ -1,6 +1,6 @@
 <?php
 namespace Ethereum;
-use Ethereum\EthS;
+use Ethereum\DataType\EthS;
 use Ethereum\EthTest;
 use kornrunner\Keccak;
 

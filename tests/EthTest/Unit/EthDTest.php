@@ -1,6 +1,6 @@
 <?php
 namespace Ethereum;
-use Ethereum\EthD;
+use Ethereum\DataType\EthD;
 use Ethereum\EthTest;
 use ReflectionClass;
 

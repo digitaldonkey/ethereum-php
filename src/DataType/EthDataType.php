@@ -1,9 +1,11 @@
 <?php
 
-namespace Ethereum;
+namespace Ethereum\DataType;
+
 use Exception;
-use Ethereum\EthDataTypeInterface;
-use Ethereum\EthD;
+use Ethereum\DataType\EthDataTypeInterface;
+use Ethereum\DataType\EthD;
+use Ethereum\EthereumStatic;
 use Ethereum\Ethereum;
 /**
  * @defgroup dataTypes Data Types

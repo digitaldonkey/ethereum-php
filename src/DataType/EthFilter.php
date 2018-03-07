@@ -1,6 +1,6 @@
 <?php
 
-namespace Ethereum;
+namespace Ethereum\DataType;
 
 /**
  * Implement data type Filter.

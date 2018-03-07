@@ -1,6 +1,6 @@
 <?php
 
-namespace Ethereum;
+namespace Ethereum\DataType;
 use Exception;
 
 /**
@@ -124,7 +124,7 @@ class EthD extends EthDataType
 
         // Exact types (e.g: book, address)
         if (isset(self::ABI_MAP[$abiType])) {
-            $class = '\Ethereum\\' . self::ABI_MAP[$abiType];
+            $class = '\Ethereum\\DataType\\' . self::ABI_MAP[$abiType];
             return new $class($this->hexVal(),['abi' => $abiType]);
         }
 
@@ -133,7 +133,7 @@ class EthD extends EthDataType
         preg_match("/^(?'type'[u]?int)([\d]*)$/", $abiType, $arr);
         // @see https://regex101.com/r/7JHrKG/1
         if (isset(self::ABI_MAP[$arr['type']])) {
-            $class = '\Ethereum\\' . self::ABI_MAP[$arr['type']];
+            $class = '\Ethereum\\DataType\\' . self::ABI_MAP[$arr['type']];
             return new $class($this->hexVal(),['abi' => $abiType]);
         }
 
@@ -306,7 +306,7 @@ class EthD extends EthDataType
      */
     public function convertTo($type)
     {
-        $class = '\Ethereum\\' . $this->typeMap($type);
+        $class = '\Ethereum\\DataType\\' . $this->typeMap($type);
         $obj = new $class($this->hexVal());
         return $obj;
     }

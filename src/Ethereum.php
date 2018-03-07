@@ -5,9 +5,9 @@ namespace Ethereum;
 use Graze\GuzzleHttp\JsonRpc\Client as RpcClient;
 use Ethereum\JsonRpcInterface;
 use Ethereum\EthMethods;
-use Ethereum\EthDataType;
+use Ethereum\DataType\EthDataType;
 use Exception;
-
+use Ethereum\DataType\EthD;
 /**
  * @defgroup client Ethereum Client
  *
@@ -114,7 +114,7 @@ class Ethereum extends EthereumStatic implements JsonRpcInterface
                     foreach ($args as $i => $arg) {
                         /* @var EthDataType $arg */
 
-                        if (is_subclass_of ($arg,'Ethereum\EthDataType')) {
+                        if (is_subclass_of ($arg,'Ethereum\DataType\EthDataType')) {
                             // Former $arg->getType has been removed.
                             // Getting the basename of the class.
                             $argType = basename(str_replace('\\', '/', get_class($arg)));
@@ -244,7 +244,7 @@ class Ethereum extends EthereumStatic implements JsonRpcInterface
         $return = null;
 
         // Get return value type.
-        $class_name = '\\Ethereum\\' . EthDataType::getTypeClass($return_type_class);
+        $class_name = '\\Ethereum\\DataType\\' . EthDataType::getTypeClass($return_type_class);
         // Is array ?
         $array_val = is_array($return_type_class);
         // Is primitive data type?
