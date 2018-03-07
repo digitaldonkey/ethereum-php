@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Generates interface EthMethods.
+ * Generates interface Web3Methods.
  *
  * Generating from resources/ethjs-schema.json -> objects.
  *

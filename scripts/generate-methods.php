@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Generates interface EthMethods.
+ * Generates interface Web3Methods.
  *
  * Generating from resources/ethjs-schema.json -> objects.
  *
@@ -23,16 +23,16 @@ use Ethereum\DataType\EthD;
  */
 $conf = [
     'interface' => [
-        'destination' => './src/JsonRpcInterface.php',
+        'destination' => './src/Web3Interface.php',
         'class' => 'PhpInterface',
-        'name' => 'JsonRpcInterface',
+        'name' => 'Web3Interface',
         'group' => "@ingroup generated\n * @ingroup interfaces"
 
     ],
     'trait' => [
-        'destination' => './src/EthMethods.php',
+        'destination' => './src/Web3Methods.php',
         'class' => 'PhpTrait',
-        'name' => 'EthMethods',
+        'name' => 'Web3Methods',
         'group' => '@ingroup generated'
     ]
 ];

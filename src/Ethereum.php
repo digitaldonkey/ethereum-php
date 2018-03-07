@@ -3,41 +3,41 @@
 namespace Ethereum;
 
 use Graze\GuzzleHttp\JsonRpc\Client as RpcClient;
-use Ethereum\JsonRpcInterface;
-use Ethereum\EthMethods;
+use Ethereum\Web3Interface;
+use Ethereum\Web3Methods;
 use Ethereum\DataType\EthDataType;
 use Exception;
 use Ethereum\DataType\EthD;
 /**
- * @defgroup client Ethereum Client
+ * @defgroup client Ethereum Web3 Client
  *
- * %Ethereum JsonRPC client.
+ * %Ethereum Web3 (JsonRPC) client.
  */
 
 /**
- * %Ethereum JsonRPC API for PHP.
+ * %Ethereum Web3 API for PHP.
  *
- * @page ethClient JsonRPC Client
+ * @page ethClient Web3 Client
  *
  * Ethereum::Ethereum is the starting point to communicate with any %Ethereum client (like [Geth](https://geth.ethereum.org/), [Parity](https://github.com/paritytech/parity/releases/tag/v1.8.3), [TestRPC](https://github.com/trufflesuite/ganache-cli), [Quorum](https://www.jpmorgan.com/global/Quorum) ...).
  *
- * Implements %Ethereum JsonRPC API for PHP. Read more about it at the [Ethereum-wiki](https://github.com/ethereum/wiki/wiki/JSON-RPC).
+ * Implements %Ethereum Web3 JsonRPC API for PHP. Read more about it at the [Ethereum-wiki](https://github.com/ethereum/wiki/wiki/JSON-RPC).
  *
  * To get started you might check the hierarchical [class list](hierarchy.html) to get an easy overview about the available Data structures.
  *
- * JsonRpcInterface
+ * Web3Interface
  *
  */
 
 /**
- * Ethereum JsonRPC API for PHP.
+ * Ethereum Web3 API for PHP.
  *
  * @ingroup client
  */
-class Ethereum extends EthereumStatic implements JsonRpcInterface
+class Ethereum extends EthereumStatic implements Web3Interface
 {
 
-    use EthMethods;
+    use Web3Methods;
 
     private $definition;
     private $methods;

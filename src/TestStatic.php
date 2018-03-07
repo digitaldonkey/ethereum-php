@@ -4,7 +4,7 @@ namespace Ethereum;
 /**
  * @defgroup tests Tests
  *
- * %Ethereum JsonRPC client tests.
+ * %Ethereum bas test class.
  */
 
 /**
