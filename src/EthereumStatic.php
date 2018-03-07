@@ -183,6 +183,10 @@ abstract class EthereumStatic
      *
      * @todo Pretty basic solidity function verification might need improvement.
      *
+     * "The signature is defined as the canonical expression of the basic prototype,
+     * i.e. the function name with the parenthesised list of parameter types."
+     * @see http://solidity.readthedocs.io/en/develop/abi-spec.html#function-selector
+     *
      * @param string $input
      *   Function ABI as string.
      *   See: https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI.
@@ -193,8 +197,8 @@ abstract class EthereumStatic
     public static function isValidFunction($input)
     {
         // Check for function and Params.
-        // See: https://regex101.com/r/437FZz/1/
-        $regex = '/^[a-zA-Z]*[\(]{1}(([\w\d]*)|([\w\d]*\s[\w\d]*){1}(\,\s[\w\d]*\s[\w\d]*)+)[\)]{1}$/';
+        // See: https://regex101.com/r/437FZz/4
+        $regex = '/^[a-zA-Z]*[\(]{1}(([\w\d\[\]*){1}(\,[\w\d\[\]]*[\w\d\[\]]*)*)[\)]{1}$/';
         if (is_string($input) && preg_match($regex, $input) === 1) {
             return true;
         }

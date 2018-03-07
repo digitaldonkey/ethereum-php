@@ -1,59 +1,165 @@
 <?php
 
 namespace Ethereum;
+
 use Exception;
-use Ethereum\EthS;
 
 /**
  * Static helper functions for Ethereum JsonRPC API for PHP.
  */
-abstract class SmartContractStatic
+class SmartContract
 {
-  /**
-   * Get valid number lengths.
-   *
-   * @param $abi string
-   *    Smart contract ABI json.
-   *
-   * @return string
-   *   Array of valid integer lengths.
-   */
-  public static function create($abi)
-  {
+
+    /**
+     * @var $abi
+     */
+    private $abi;
+
+    /**
+     * @var $abi
+     */
+    private $contractAddress;
+
+    /**
+     * @var $abi
+     */
+    private $eth;
 
 
-    $XXX = json_decode ($abi , FALSE ,  512 ,  0);
-
-//      try {
-//        $eth = new Ethereum($serverUrl);
-//
-//        // Try to connect.
-//        $parsed = $eth->eth_compileSolidity(new EthS($src));
-//
-//
-//        $X = FALSE;
-//
-//
-////        if (!is_string($networkVersion)) {
-////          throw new \Exception('eth_protocolVersion return is not valid.');
-////        }
-////
-////        if ($server->network_id !== '*' && $networkVersion !== $server->network_id) {
-////          throw new \Exception('Network ID does not match.');
-////        }
-//      }
-//      catch (\Exception $exception) {
-//        $return = [
-//          'message' => t(
-//            "Unable to connect to Server <b>"
-//            . $server->label  . "</b><br />"
-//            . $exception->getMessage() )
-//        ];
-//        $return['error'] = TRUE;
-//      }
+    /**
+     * Get valid number lengths.
+     *
+     * @param $abi array
+     *    Smart contract ABI.
+     *
+     * @param string $contractAddress
+     *    Address of the contract at the network given in $eth.
+     *
+     * @param Ethereum $eth
+     *    Ethe server class.
+     */
+    public function __construct($abi, $contractAddress, $eth)
+    {
+        $this->abi = $abi;
+        $this->eth = $eth;
+        $this->contractAddress = $contractAddress;
+    }
 
 
-    return '';
-  }
+    /**
+     *
+     * @todo Maybe we need a smarter default block param handling here.
+     *      Currently we can only call latest Block.
+     *
+     * @param string $methodName
+     *    Name of the Smart contract method you wish to call.
+     *
+     * @param $args
+     *    Arguments provided.
+     *
+     * @throws \Exception
+     *    If called method is not defined in ABI.
+     *
+     * @return object
+     *    Data type object implementing EthDataTypeInterface.
+     */
+    public function __call($methodName, $args)
+    {
+        $m = $this->getMethod($methodName);
+        $sign = $this->getMethodSignature($m);
+        $params = $this->getMethodParams($m, $args);
 
+        $call = new CallTransaction(
+          new EthD20($this->contractAddress),
+          NULL,
+          NULL,
+          NULL,
+          NULL,
+          new EthD($sign . $params)
+        );
+
+        $return = $this->eth->eth_call($call, new EthBlockParam());
+
+        if ($return->isPrimitive()) {
+            // Convert/validate return value.
+            $returnTypeAbi = $m->outputs[0]->type;
+            $return = $return->convertByAbi($returnTypeAbi);
+        }
+
+        // @todo Are complex types are all ready fine?
+        // The following would be fine, as implemented here. But not consistently tested yet.
+        // $block = $this->eth->eth_getBlockByHash(new EthD32('0x36999a8cecbb02a83e4ff0b233a76063d9db5258340389e24c80f22752ab108b'), new EthB(TRUE));
+
+        return $return;
+    }
+
+    /**
+     * @param $m
+     *    Method as returned from self::getMethod()
+     * @return string
+     *    Function signature. E.g: multiply(uint256).
+     */
+    private static function getMethodSignature($m)
+    {
+        $sign = $m->name . '(';
+        foreach ($m->inputs as $i => $item) {
+            $sign .= $item->type;
+            if ($i < count($m->inputs) - 1) {
+                $sign .= ',';
+            }
+        }
+        $sign .= ')';
+        return EthereumStatic::getMethodSignature($sign);
+    }
+
+
+    /**
+     * @param $m
+     * @param $values
+     * @return string
+     */
+    private static function getMethodParams($m, $values)
+    {
+        $params = '';
+        foreach ($values as $i => $val) {
+            $params .= EthereumStatic::removeHexPrefix($val->hexVal());
+        }
+        return $params;
+    }
+
+
+    /**
+     * @param $methodName string
+     *    Name of Method.
+     * @return Object
+     *    ABI Object
+     * @throws \Exception
+     *    If called method is not defined in ABI.
+     */
+    private function getMethod($methodName)
+    {
+        return $this->getMethodFromAbi($methodName, $this->abi);
+    }
+
+    /**
+     * @param $methodName
+     * @param $abi
+     * @return mixed
+     * @throws \Exception
+     *  If method does not exist.
+     */
+    public static function getMethodFromAbi($methodName, $abi){
+
+        foreach ($abi as $item) {
+
+            if (isset($item->name)
+                && isset($item->type)
+                && $item->type === 'function'
+                && $item->name === $methodName
+            ) {
+                return $item;
+            }
+        }
+        throw new Exception('Called undefined contract method: ' . $methodName);
+    }
 }

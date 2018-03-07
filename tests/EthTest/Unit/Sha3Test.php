@@ -9,7 +9,7 @@ use kornrunner\Keccak;
  *
  * @ingroup tests
  */
-class Sha3Test extends EthTest {
+class Sha3Test extends EthTestContract {
 
     public function kessacStringProvider() {
         // UTF8 text, Kessac256
@@ -57,9 +57,15 @@ class Sha3Test extends EthTest {
      */
     public function testManyWithEthereumSha3($text, $sha3)
     {
-        $eth = new Ethereum('http://localhost:7545');
-        $val = new EthS($text);
-        $x = $eth->web3_sha3($val);
-        $this->assertSame($sha3, $x->hexVal());
+        if (defined('SERVER_URL')) {
+            $eth = new Ethereum(SERVER_URL);
+            $val = new EthS($text);
+            $x = $eth->web3_sha3($val);
+            $this->assertSame($sha3, $x->hexVal());
+        }
+        else {
+            $this->markTestSkipped('Ethereum web3_sha3 can only be tested if SERVER_URL is defined.');
+        }
+
     }
 }

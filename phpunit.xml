@@ -3,7 +3,14 @@
 <phpunit bootstrap="vendor/autoload.php">
   <testsuites>
     <testsuite name="EthereumPhp">
-      <directory>tests/Unit</directory>
+      <directory>tests/EthTest/Unit</directory>
+    </testsuite>
+    <testsuite name="EthereumPhpContracts">
+      <directory>tests/EthTestContracts/Unit</directory>
     </testsuite>
   </testsuites>
+  <php>
+    <env name="SERVER_URL" value="http://localhost:7545"/>
+    <env name="NETWORK_ID" value="5777"/>
+  </php>
 </phpunit>
