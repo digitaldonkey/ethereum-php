@@ -16,7 +16,7 @@ use gossi\codegen\model\PhpInterface;
 use gossi\codegen\model\PhpTrait;
 use gossi\codegen\model\PhpMethod;
 use gossi\codegen\model\PhpParameter;
-use Ethereum\EthDataTypePrimitive;
+use Ethereum\EthD;
 
 /**
  * @var array $conf Set up variables for the generated scripts.
@@ -94,7 +94,7 @@ EOF;
 
             // Get argument definition Classes.
             foreach ($valid_params as $i => $type) {
-                $primitiveType = EthDataTypePrimitive::typeMap($type);
+                $primitiveType = EthD::typeMap($type);
                 $paramType = $primitiveType ? $primitiveType : $type;
                 $methodParams[] = PhpParameter::create("arg" . ($i + 1))
                     ->setType($paramType);
@@ -107,15 +107,15 @@ EOF;
         $returnType = $params[1];
         $returnTypeDescription = '';
         if (is_array($returnType)) {
-            if (EthDataTypePrimitive::typeMap($returnType[0])) {
-                $arrayOfType = EthDataTypePrimitive::typeMap($returnType[0]);
+            if (EthD::typeMap($returnType[0])) {
+                $arrayOfType = EthD::typeMap($returnType[0]);
             } else {
                 $arrayOfType = $returnType[0];
             }
             $returnType = "array";
             $returnTypeDescription = "  Array of " . $arrayOfType;
-        } else if (EthDataTypePrimitive::typeMap($returnType)) {
-            $returnType = EthDataTypePrimitive::typeMap($returnType);
+        } else if (EthD::typeMap($returnType)) {
+            $returnType = EthD::typeMap($returnType);
         }
 
         # printMe('Return type', $returnTypeDescription ? $returnTypeDescription : $returnType);

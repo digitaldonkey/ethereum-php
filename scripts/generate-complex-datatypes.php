@@ -16,7 +16,7 @@ use gossi\codegen\model\PhpMethod;
 use gossi\codegen\model\PhpClass;
 use gossi\codegen\model\PhpParameter;
 use gossi\codegen\model\PhpProperty;
-use Ethereum\EthDataTypePrimitive;
+use Ethereum\EthD;
 use Ethereum\EthDataType;
 
 
@@ -177,7 +177,7 @@ function makeConstructorParams(Array &$input)
         $description = null;
         $optionalValue = false;
         if (!is_array($type)) {
-            $type = EthDataTypePrimitive::typeMap($type);
+            $type = EthD::typeMap($type);
             if (!in_array($name, $input['required'])) {
                 $optionalValue = true;
             }
@@ -185,7 +185,7 @@ function makeConstructorParams(Array &$input)
             if (!in_array($name, $input['required'])) {
               $optionalValue = true;
             }
-            $subtype = EthDataTypePrimitive::typeMap($type[0]) ? EthDataTypePrimitive::typeMap($type[0]) : $type[0];
+            $subtype = EthD::typeMap($type[0]) ? EthD::typeMap($type[0]) : $type[0];
             $type = 'array';
             $description = 'Array of ' . $subtype;
         }
@@ -305,9 +305,9 @@ function makeTypeArrayBody(Array $input)
     $data[] = "return array( ";
     foreach ($input['params'] as $name => $type) {
         if (is_array($type)) {
-            $data[] = "\t'" . $name . "' => '" . EthDataTypePrimitive::typeMap($type[0]) . "',";
+            $data[] = "\t'" . $name . "' => '" . EthD::typeMap($type[0]) . "',";
         } else {
-            $data[] = "\t'" . $name . "' => '" . EthDataTypePrimitive::typeMap($type) . "',";
+            $data[] = "\t'" . $name . "' => '" . EthD::typeMap($type) . "',";
         }
     }
     $data[] = ");";
