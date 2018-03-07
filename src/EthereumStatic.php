@@ -27,8 +27,7 @@ abstract class EthereumStatic
      */
     public static function getMethodSignature($input)
     {
-        if (self::isValidFunction($input))
-        {
+        if (self::isValidFunction($input)) {
             // The signature is 4bytes of the methods keccac hash. E.g: "0x00000000".
             return substr(self::sha3($input), 0, 10);
         }
@@ -69,13 +68,13 @@ abstract class EthereumStatic
                 if (is_array($values[$name])) {
                     $sub_values = [];
                     foreach ($values[$name] as $sub_val) {
+
                         // Work around testrpc giving not back an array.
                         if (is_array($sub_val)) {
                             $sub_values[] = self::arrayToComplexType($val_class, $sub_val);
                         } else {
                             $sub_values[] = [$sub_val];
                         }
-
                     }
                     $class_values[] = $sub_values;
                 } else {
@@ -92,15 +91,16 @@ abstract class EthereumStatic
     }
 
     /**
-     * Get valid number lengths.
+     * Valid number lengths.
      *
+     * Array of valid M's, where
+     *    % 8 == 0 && 8 <= M <= 256
      * @return array
-     *   Array of valid integer lengths.
+     *   Array of valid integer lengths for (u)int and (u)fixed types.
      */
     public static function getValidLengths()
     {
         $valid_lengths = "8;16;24;32;40;48;56;64;72;80;88;96;104;112;120;128;136;144;152;160;168;176;184;192;200;208;216;224;232;240;248;256";
-
         return explode(';', $valid_lengths);
     }
 
@@ -156,14 +156,13 @@ abstract class EthereumStatic
      * @throws \Exception
      *   If keccak hash does not match formal conditions.
      */
-    public static function phpKeccak256($string)
+    private static function phpKeccak256($string)
     {
         $return = Keccak::hash($string, 256);
         $return = self::ensureHexPrefix($return);
 
         // Formal verification: Prefix + 64 Hex chars.
-        if (!$return || strlen($return) !== 66)
-        {
+        if (!$return || strlen($return) !== 66) {
             throw new \Exception('keccak256 returns a wrong value.');
         }
         return $return;
@@ -171,8 +170,20 @@ abstract class EthereumStatic
 
 
     /**
-     * Wrapper to phpKeccak256($string)
+     * Wrapper to phpKeccak256($string).
+     *
+     * Ethereum sha3 is not the same as the standardized sha3.
+     * @see: https://ethereum.stackexchange.com/questions/30369/difference-between-keccak256-and-sha3
+     *
+     * As web3js provides a sha3() method we have this wrapper for convenience.
+     *
      * @param $string
+     *   String to hash.
+     *
+     * @throws \Exception
+     *
+     * @return string
+     *    Hash of input.
      */
     public static function sha3($string) {
         return self::phpKeccak256($string);
@@ -192,7 +203,7 @@ abstract class EthereumStatic
      *   See: https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI.
      *
      * @return bool
-     *   True if it might be a valid solidity function.
+     *   True if it is a valid solidity function.
      */
     public static function isValidFunction($input)
     {

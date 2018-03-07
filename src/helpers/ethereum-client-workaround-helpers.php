@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Workarounds for specific Ethereum clients.

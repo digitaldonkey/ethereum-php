@@ -43,7 +43,7 @@ class EthD extends EthDataType
         // Derived ABI types
         'bool' => 'EthB',
         // WORKAROUND? Some clients may return an Data Array. Works on testrpc.
-        'B|EthSyncing' => 'EthB',
+        'B|EthSyncing' => 'EthB', // EthSyncing ?
         // WORKAROUND? Some clients may return an Data Array. Works on testrpc.
         'DATA|Transaction' => 'Transaction',
     ];

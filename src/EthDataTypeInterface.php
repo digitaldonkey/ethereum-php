@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Ethereum data type API.

@@ -19,26 +19,18 @@ class EthS extends EthD
 
         // We are actually validating not much, just make sure it is a string.
         // @todo Me might require to fail on non-UTF8 chars.
-        if ($this->hasHexPrefix($val))
-        {
+        if ($this->hasHexPrefix($val)) {
             // Hex encoded string.
             $return = $this->hexToStr($val);
-        }
-        elseif (is_string($val))
-        {
+        } elseif (is_string($val)) {
             $return = $val;
-        }
-        elseif (is_string(strval($val)))
-        {
+        } elseif (is_string(strval($val))) {
             // Allow also Numbers as strings (e.g "1" or "-1").
             $return = $val;
         }
-        if (is_string((string) $return))
-        {
+        if (is_string((string) $return)) {
             return $return;
-        }
-        else
-        {
+        } else {
             throw new \InvalidArgumentException('Can not decode Hex string: ' . $val);
         }
     }

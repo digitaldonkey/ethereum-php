@@ -36,7 +36,7 @@ class EthB extends EthQ
         $big_int = parent::validate($val, $params = ['abi' => 'uint8']);
         $int = (int)$big_int->toString();
         if (!($int === 1 || $int === 0)) {
-            throw new \InvalidArgumentException('Can not decode boolean value : ' . $val);
+            throw new \InvalidArgumentException('Can not decode bool value : ' . $val);
         }
         $this->abi = 'bool';
 
