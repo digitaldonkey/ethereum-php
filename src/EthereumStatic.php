@@ -56,7 +56,7 @@ abstract class EthereumStatic
      * @return string
      *   Keccak256 of the provided string.
      *
-     * @throws \Exception
+     * @throws Exception
      *   If keccak hash does not match formal conditions.
      */
     private static function phpKeccak256($string)
@@ -83,7 +83,7 @@ abstract class EthereumStatic
      * @param $string
      *   String to hash.
      *
-     * @throws \Exception
+     * @throws Exception
      *
      * @return string
      *    Hash of input.

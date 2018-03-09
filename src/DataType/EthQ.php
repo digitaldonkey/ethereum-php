@@ -20,7 +20,8 @@ class EthQ extends EthD
     public $value;
 
     /**
-     * @var string $abi Abi of the content.
+     * @var string $abi
+     *    Abi of the content.
      * @see https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI Ethereeum Abi documentation
      */
     protected $abi;
@@ -36,6 +37,7 @@ class EthQ extends EthD
      *   Hexadecimal or number value.
      * @param array $params
      *   Array with optional parameters. Add Abi type $params['abi'] = 'unint8'.
+     *
      * @throw Exception
      */
     public function __construct($val, array $params = [])

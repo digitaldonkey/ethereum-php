@@ -2,6 +2,7 @@
 
 namespace Ethereum;
 
+use Exception;
 use Ethereum\DataType\CallTransaction;
 use Ethereum\DataType\EthD20;
 use Ethereum\DataType\EthD;
@@ -62,7 +63,7 @@ class SmartContract
      * @param $args
      *    Arguments provided.
      *
-     * @throws \Exception
+     * @throws Exception
      *    If called method is not defined in ABI.
      *
      * @return object
@@ -138,7 +139,7 @@ class SmartContract
      *    Name of Method.
      * @return Object
      *    ABI Object
-     * @throws \Exception
+     * @throws Exception
      *    If called method is not defined in ABI.
      */
     private function getMethod($methodName)
@@ -150,7 +151,7 @@ class SmartContract
      * @param $methodName
      * @param $abi
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      *  If method does not exist.
      */
     public static function getMethodFromAbi($methodName, $abi){

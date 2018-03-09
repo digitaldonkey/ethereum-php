@@ -1,5 +1,6 @@
 <?php
 namespace Ethereum;
+use Exception;
 use Ethereum\DataType\EthS;
 use Ethereum\TestEthClient;
 
@@ -53,7 +54,7 @@ class Sha3Test extends TestEthClient {
     /**
      * @param $text
      * @param $sha3
-     * @throws \Exception
+     * @throws Exception
      * @dataProvider kessacStringProvider
      */
     public function testManyWithEthereumSha3($text, $sha3)

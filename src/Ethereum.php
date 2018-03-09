@@ -37,6 +37,7 @@ use Ethereum\DataType\EthD;
 class Ethereum extends EthereumStatic implements Web3Interface
 {
 
+    // Using a trait to enable Tools like PHP storm and doxygen understand PHP magic method calls.
     use Web3Methods;
 
     private $definition;

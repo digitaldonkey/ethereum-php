@@ -9,7 +9,7 @@
 namespace Ethereum;
 
 use Ethereum\TestStatic;
-
+use Exception;
 /**
  * @defgroup ethereumTests EthereumClientTest
  * @ingroup tests
@@ -66,7 +66,7 @@ abstract class TestEthClient extends TestStatic {
     /**
      * %Ethereum Test Base class
      *
-     * @throws \Exception
+     * @throws Exception
      *    If  NETWORK_ID or SERVER_URL are not defined env vars in phpunit.xml.
      */
     public static function setUpBeforeClass() {
