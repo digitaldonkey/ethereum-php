@@ -11,15 +11,18 @@
 namespace Ethereum;
 
 use Ethereum\DataType\EthS;
-use Ethereum\DataType\EthD20;
 use Ethereum\DataType\EthD;
-use Ethereum\DataType\EthBlockParam;
 use Ethereum\DataType\EthQ;
+use Ethereum\DataType\EthB;
+use Ethereum\DataType\EthD20;
+use Ethereum\DataType\EthBlockParam;
 use Ethereum\DataType\EthD32;
 use Ethereum\DataType\SendTransaction;
 use Ethereum\DataType\CallTransaction;
 use Ethereum\DataType\EstimateTransaction;
-use Ethereum\DataType\EthB;
+use Ethereum\DataType\Block;
+use Ethereum\DataType\Transaction;
+use Ethereum\DataType\Receipt;
 use Ethereum\DataType\Filter;
 use Ethereum\DataType\SHHPost;
 use Ethereum\DataType\SHHFilter;

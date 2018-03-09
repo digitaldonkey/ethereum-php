@@ -116,6 +116,10 @@ EOF;
             $returnTypeDescription = "  Array of " . $arrayOfType;
         } else if (EthD::typeMap($returnType)) {
             $returnType = EthD::typeMap($returnType);
+            addUseStatement("Ethereum\\DataType\\$returnType", $useStatements);
+        }
+        else {
+            addUseStatement("Ethereum\\DataType\\$returnType", $useStatements);
         }
 
         # printMe('Return type', $returnTypeDescription ? $returnTypeDescription : $returnType);

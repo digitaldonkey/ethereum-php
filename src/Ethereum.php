@@ -378,7 +378,7 @@ class Ethereum extends EthereumStatic implements Web3Interface
 
         foreach ($type_map as $name => $val_class) {
             if (isset($values[$name])) {
-                $val_class = '\\Ethereum\\DataType' . $val_class;
+                $val_class = '\\Ethereum\\DataType\\' . $val_class;
                 if (is_array($values[$name])) {
                     $sub_values = [];
                     foreach ($values[$name] as $sub_val) {

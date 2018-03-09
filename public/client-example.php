@@ -17,7 +17,7 @@ require_once __DIR__ . '/examples.inc.php';
  */
 $hosts = [
     // Start testrpc, geth or parity locally.
-    'http://localhost:8545',
+    'http://localhost:7545',
     // This is a demo-only purpose account only.
     // Register your own access token. It's free!
     // https://infura.io/#how-to
