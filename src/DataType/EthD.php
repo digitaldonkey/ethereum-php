@@ -129,10 +129,10 @@ class EthD extends EthDataType
         }
 
         // Int types (int*, uint*)
-        $arr = [];
-        preg_match("/^(?'type'[u]?int)([\d]*)$/", $abiType, $arr);
+        $int = [];
+        preg_match("/^(?'type'[u]?int)([\d]*)$/", $abiType, $int);
         // @see https://regex101.com/r/7JHrKG/1
-        if (isset(self::ABI_MAP[$arr['type']])) {
+        if ($int && isset(self::ABI_MAP[$arr['type']])) {
             $class = '\Ethereum\\DataType\\' . self::ABI_MAP[$arr['type']];
             return new $class($this->hexVal(),['abi' => $abiType]);
         }
