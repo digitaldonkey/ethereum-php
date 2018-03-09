@@ -294,7 +294,7 @@ class EthD extends EthDataType
     /**
      * Turn value into Expected value.
      *
-     * @depreciated
+     * @deprecated
      *   This function will be removed ans should not be used.
      *   Pleas switch toconvertByAbi($abiType).
      *
