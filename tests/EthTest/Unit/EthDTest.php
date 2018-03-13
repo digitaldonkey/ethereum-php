@@ -1,7 +1,7 @@
 <?php
 namespace Ethereum;
-use Ethereum\EthD;
-use Ethereum\EthTest;
+use Ethereum\DataType\EthD;
+use Ethereum\TestStatic;
 use ReflectionClass;
 
 /**
@@ -9,7 +9,7 @@ use ReflectionClass;
  *
  * @ingroup staticTests
  */
-class EthDTest extends EthTest
+class EthDTest extends TestStatic
 {
     /**
      * Testing quantities.

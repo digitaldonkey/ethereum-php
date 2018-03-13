@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Generates interface EthMethods.
+ * Generates interface Web3Methods.
  *
  * Generating from resources/ethjs-schema.json -> objects.
  *
@@ -16,23 +16,23 @@ use gossi\codegen\model\PhpInterface;
 use gossi\codegen\model\PhpTrait;
 use gossi\codegen\model\PhpMethod;
 use gossi\codegen\model\PhpParameter;
-use Ethereum\EthD;
+use Ethereum\DataType\EthD;
 
 /**
  * @var array $conf Set up variables for the generated scripts.
  */
 $conf = [
     'interface' => [
-        'destination' => './src/JsonRpcInterface.php',
+        'destination' => './src/Web3Interface.php',
         'class' => 'PhpInterface',
-        'name' => 'JsonRpcInterface',
+        'name' => 'Web3Interface',
         'group' => "@ingroup generated\n * @ingroup interfaces"
 
     ],
     'trait' => [
-        'destination' => './src/EthMethods.php',
+        'destination' => './src/Web3Methods.php',
         'class' => 'PhpTrait',
-        'name' => 'EthMethods',
+        'name' => 'Web3Methods',
         'group' => '@ingroup generated'
     ]
 ];
@@ -99,7 +99,7 @@ EOF;
                 $methodParams[] = PhpParameter::create("arg" . ($i + 1))
                     ->setType($paramType);
                 // Add a use statement.
-                addUseStatement("Ethereum\\$paramType", $useStatements);
+                addUseStatement("Ethereum\\DataType\\$paramType", $useStatements);
             }
         }
 
@@ -116,6 +116,10 @@ EOF;
             $returnTypeDescription = "  Array of " . $arrayOfType;
         } else if (EthD::typeMap($returnType)) {
             $returnType = EthD::typeMap($returnType);
+            addUseStatement("Ethereum\\DataType\\$returnType", $useStatements);
+        }
+        else {
+            addUseStatement("Ethereum\\DataType\\$returnType", $useStatements);
         }
 
         # printMe('Return type', $returnTypeDescription ? $returnTypeDescription : $returnType);

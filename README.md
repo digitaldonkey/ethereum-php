@@ -44,15 +44,16 @@ catch (\Exception $exception) {
 
 Currently only primitive data types are supported, but [RLP](https://github.com/ethereum/wiki/wiki/RLP) will come soon.
 
-**Read-only**
 This library is read-only for now. this means you can retrieve information stored in Ethereum Blockchain.
 
-In order to *write* to the blockchain you need a to sign transactions with a private key. I discourage using a unlocked Ethereum client, as a hacker of your website would be able to spend your eth.
+To *write* to the blockchain you need a to sign transactions with a private key which is not supported yet.
 
 
 ![architecture diagram](https://raw.githubusercontent.com/digitaldonkey/ethereum-php/dev/doxygen-assets/ArchitectureDiagrammCS6.png "Drupal Ethereum architecture")
 
 ### Documentation
+
+The API documentation is available at [ethereum-php.org](http://ethereum-php.org/).
 
 For reference see the [Ethereum RPC documentation](https://github.com/ethereum/wiki/wiki/JSON-RPC) and for data encoding [RLP dcumentation](https://github.com/ethereum/wiki/wiki/RLP) in [Ethereum Wiki](https://github.com/ethereum/wiki).
 

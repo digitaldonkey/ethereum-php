@@ -1,15 +1,15 @@
 <?php
 namespace Ethereum;
 
-use Ethereum\EthBlockParam;
-use Ethereum\EthTest;
+use Ethereum\DataType\EthBlockParam;
+use Ethereum\TestStatic;
 
 /**
  * EthBlockParamTest
  *
  * @ingroup staticTests
  */
-class EthBlockParamTest extends EthTest
+class EthBlockParamTest extends TestStatic
 {
     /**
      * Testing quantities.

@@ -3,9 +3,15 @@
 namespace Ethereum;
 
 use Exception;
+use Ethereum\DataType\CallTransaction;
+use Ethereum\DataType\EthD20;
+use Ethereum\DataType\EthD;
+use Ethereum\DataType\EthBlockParam;
 
 /**
- * Static helper functions for Ethereum JsonRPC API for PHP.
+ * %Ethereum SmartContract API for PHP.
+ *
+ * @ingroup client
  */
 class SmartContract
 {
@@ -36,7 +42,7 @@ class SmartContract
      *    Address of the contract at the network given in $eth.
      *
      * @param Ethereum $eth
-     *    Ethe server class.
+     *    Instance of Ethereum connected to a Ethereum client.
      */
     public function __construct($abi, $contractAddress, $eth)
     {
@@ -57,7 +63,7 @@ class SmartContract
      * @param $args
      *    Arguments provided.
      *
-     * @throws \Exception
+     * @throws Exception
      *    If called method is not defined in ABI.
      *
      * @return object
@@ -133,7 +139,7 @@ class SmartContract
      *    Name of Method.
      * @return Object
      *    ABI Object
-     * @throws \Exception
+     * @throws Exception
      *    If called method is not defined in ABI.
      */
     private function getMethod($methodName)
@@ -145,7 +151,7 @@ class SmartContract
      * @param $methodName
      * @param $abi
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      *  If method does not exist.
      */
     public static function getMethodFromAbi($methodName, $abi){
@@ -160,6 +166,6 @@ class SmartContract
                 return $item;
             }
         }
-        throw new Exception('Called undefined contract method: ' . $methodName);
+        throw new \Exception('Called undefined contract method: ' . $methodName);
     }
 }

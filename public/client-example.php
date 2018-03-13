@@ -1,9 +1,9 @@
 <?php
 
 use Ethereum\Ethereum;
-use Ethereum\EthBlockParam;
-use Ethereum\EthB;
-use Ethereum\EthS;
+use Ethereum\DataType\EthBlockParam;
+use Ethereum\DataType\EthB;
+use Ethereum\DataType\EthS;
 
 /**
  * @var bool IS_PUBLIC Deny public access to this generator.
@@ -17,7 +17,7 @@ require_once __DIR__ . '/examples.inc.php';
  */
 $hosts = [
     // Start testrpc, geth or parity locally.
-    'http://localhost:8545',
+    'http://localhost:7545',
     // This is a demo-only purpose account only.
     // Register your own access token. It's free!
     // https://infura.io/#how-to

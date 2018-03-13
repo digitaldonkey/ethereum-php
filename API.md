@@ -6,9 +6,9 @@ In order to keep this API up do date it is build schema based.
 (resources/ethjs-schema.json)
 
 Ethereum **JsonRPC Methods** are on ethereum-schema->methods. Implemented in Ethereum class.
-Check out the JsonRpcInterface.
+Check out the Web3Interface.
 
-To regenerate src/EthMethods.php and src/JsonRpcInterface.php run
+To regenerate src/Web3Methods.php and src/Web3Interface.php run
 
 ```
 composer run-script generate-methods

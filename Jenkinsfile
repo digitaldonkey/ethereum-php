@@ -24,7 +24,7 @@ pipeline {
     }
     stage('run phpunit') {
       steps {
-        sh './vendor/bin/phpunit --log-junit results/phpunit/phpunit.xml'
+        sh './vendor/bin/phpunit --log-junit results/phpunit/phpunit.xml --testsuite EthereumPhp'
       }
     }
   }

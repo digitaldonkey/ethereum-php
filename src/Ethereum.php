@@ -3,41 +3,42 @@
 namespace Ethereum;
 
 use Graze\GuzzleHttp\JsonRpc\Client as RpcClient;
-use Ethereum\JsonRpcInterface;
-use Ethereum\EthMethods;
-use Ethereum\EthDataType;
+use Ethereum\Web3Interface;
+use Ethereum\Web3Methods;
+use Ethereum\DataType\EthDataType;
 use Exception;
-
+use Ethereum\DataType\EthD;
 /**
- * @defgroup client Ethereum Client
+ * @defgroup client Ethereum Web3 Client
  *
- * %Ethereum JsonRPC client.
+ * %Ethereum Web3 (JsonRPC) client.
  */
 
 /**
- * %Ethereum JsonRPC API for PHP.
+ * %Ethereum Web3 API for PHP.
  *
- * @page ethClient JsonRPC Client
+ * @page ethClient Web3 Client
  *
  * Ethereum::Ethereum is the starting point to communicate with any %Ethereum client (like [Geth](https://geth.ethereum.org/), [Parity](https://github.com/paritytech/parity/releases/tag/v1.8.3), [TestRPC](https://github.com/trufflesuite/ganache-cli), [Quorum](https://www.jpmorgan.com/global/Quorum) ...).
  *
- * Implements %Ethereum JsonRPC API for PHP. Read more about it at the [Ethereum-wiki](https://github.com/ethereum/wiki/wiki/JSON-RPC).
+ * Implements %Ethereum Web3 JsonRPC API for PHP. Read more about it at the [Ethereum-wiki](https://github.com/ethereum/wiki/wiki/JSON-RPC).
  *
  * To get started you might check the hierarchical [class list](hierarchy.html) to get an easy overview about the available Data structures.
  *
- * JsonRpcInterface
+ * Web3Interface
  *
  */
 
 /**
- * Ethereum JsonRPC API for PHP.
+ * Ethereum Web3 API for PHP.
  *
  * @ingroup client
  */
-class Ethereum extends EthereumStatic implements JsonRpcInterface
+class Ethereum extends EthereumStatic implements Web3Interface
 {
 
-    use EthMethods;
+    // Using a trait to enable Tools like PHP storm and doxygen understand PHP magic method calls.
+    use Web3Methods;
 
     private $definition;
     private $methods;
@@ -114,7 +115,7 @@ class Ethereum extends EthereumStatic implements JsonRpcInterface
                     foreach ($args as $i => $arg) {
                         /* @var EthDataType $arg */
 
-                        if (is_subclass_of ($arg,'Ethereum\EthDataType')) {
+                        if (is_subclass_of ($arg,'Ethereum\DataType\EthDataType')) {
                             // Former $arg->getType has been removed.
                             // Getting the basename of the class.
                             $argType = basename(str_replace('\\', '/', get_class($arg)));
@@ -244,7 +245,7 @@ class Ethereum extends EthereumStatic implements JsonRpcInterface
         $return = null;
 
         // Get return value type.
-        $class_name = '\\Ethereum\\' . EthDataType::getTypeClass($return_type_class);
+        $class_name = '\\Ethereum\\DataType\\' . EthDataType::getTypeClass($return_type_class);
         // Is array ?
         $array_val = is_array($return_type_class);
         // Is primitive data type?
@@ -352,4 +353,85 @@ class Ethereum extends EthereumStatic implements JsonRpcInterface
         return $return;
     }
 
+    /**
+     * Determine type class name for primitive and complex data types.
+     *
+     * @param string $class_name
+     *   Type to construct from associative Array.
+     * @param array  $values
+     *   Associative value array.
+     *
+     * @return object|array
+     *   Object of type $class_name.
+     *
+     * @throw Exception
+     *   If something is wrong.
+     */
+    protected static function arrayToComplexType($class_name, array $values)
+    {
+        $return = [];
+        $class_values = [];
+        if (!substr($class_name, 1,8) === __NAMESPACE__) {
+            $class_name = __NAMESPACE__  . "\\$class_name";
+        }
+
+        $type_map = $class_name::getTypeArray();
+
+        foreach ($type_map as $name => $val_class) {
+            if (isset($values[$name])) {
+                $val_class = '\\Ethereum\\DataType\\' . $val_class;
+                if (is_array($values[$name])) {
+                    $sub_values = [];
+                    foreach ($values[$name] as $sub_val) {
+
+                        // Work around testrpc giving not back an array.
+                        if (is_array($sub_val)) {
+                            $sub_values[] = self::arrayToComplexType($val_class, $sub_val);
+                        } else {
+                            $sub_values[] = [$sub_val];
+                        }
+                    }
+                    $class_values[] = $sub_values;
+                } else {
+                    $class_values[] = new $val_class($values[$name]);
+                }
+            } else {
+                // In order to create a proper constructor we need null values too.
+                $class_values[] = null;
+            }
+        }
+        $return = new $class_name(...$class_values);
+
+        return $return;
+    }
+
+    /**
+     * Create value array.
+     *
+     * Turns a array('0x56789...', ...) into array(EthD32(0x56789...), ...)
+     *
+     * @param array  $values
+     *   Array of values of a unique data type.
+     * @param string $typeClass
+     *   Class name for the data type.
+     *
+     * @return array
+     *   Array of value objects of the given type.
+     * @throw Exception
+     */
+    public static function valueArray(array $values, $typeClass)
+    {
+        $return = [];
+        if (!class_exists($typeClass)) {
+            $typeClass = '\\' . __NAMESPACE__  . '\\DataType\\' . $typeClass;
+        }
+        foreach ($values as $i => $val) {
+            if (is_array($val)) {
+                $return[$i] = self::arrayToComplexType($typeClass, $val);
+            }
+            $return[$i] = new $typeClass($val);
+        }
+
+        return $return;
+    }
 }

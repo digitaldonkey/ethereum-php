@@ -1,14 +1,14 @@
 <?php
 namespace Ethereum;
-use Ethereum\EthTest;
-use Ethereum\EthD32;
+use Ethereum\TestStatic;
+use Ethereum\DataType\EthD32;
 
 /**
  * EthereumStaticTest
  *
  * @ingroup staticTests
  */
-class EthereumStaticTest extends EthTest
+class EthereumStaticTest extends TestStatic
 {
     /**
      * This test is bases data by http://codebeautify.org/hex-string-converter.
@@ -58,7 +58,7 @@ class EthereumStaticTest extends EthTest
             '0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbac0'
         ];
         $this->assertEquals(
-            EthereumStatic::valueArray($values, 'EthD32'),
+            Ethereum::valueArray($values, 'EthD32'),
             array(
                 new EthD32('0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd'),
                 new EthD32('0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbac0'),

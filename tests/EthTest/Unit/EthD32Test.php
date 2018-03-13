@@ -1,14 +1,14 @@
 <?php
 namespace Ethereum;
-use Ethereum\EthD32;
-use Ethereum\EthTest;
+use Ethereum\DataType\EthD32;
+use Ethereum\TestStatic;
 
 /**
  * EthD32Test
  *
  * @ingroup staticTests
  */
-class EthD32Test extends EthTest
+class EthD32Test extends TestStatic
 {
     /**
      * Testing quantities.
