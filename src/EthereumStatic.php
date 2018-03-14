@@ -112,7 +112,7 @@ abstract class EthereumStatic
     {
         // Check for function and Params.
         // See: https://regex101.com/r/437FZz/4
-        $regex = '/^[a-zA-Z]*[\(]{1}(([\w\d\[\]*){1}(\,[\w\d\[\]]*[\w\d\[\]]*)*)[\)]{1}$/';
+        $regex = '/^[a-zA-Z]+[a-zA-Z0-9]*[\(]{1}(([\w\d\[\]*){1}(\,[\w\d\[\]]*[\w\d\[\]]*)*)[\)]{1}$/';
         if (is_string($input) && preg_match($regex, $input) === 1) {
             return true;
         }
