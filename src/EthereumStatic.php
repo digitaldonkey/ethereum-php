@@ -22,11 +22,15 @@ abstract class EthereumStatic
      * @param string $input
      *   Method signature.
      *
+     * @throws \InvalidArgumentException
+     *      If signature is not verifyable.
+     *
      * @return string
      *   Hash of the method signature.
      */
     public static function getMethodSignature($input)
     {
+
         if (self::isValidFunction($input)) {
             // The signature is 4bytes of the methods keccac hash. E.g: "0x00000000".
             return substr(self::sha3($input), 0, 10);
@@ -100,6 +104,10 @@ abstract class EthereumStatic
      * "The signature is defined as the canonical expression of the basic prototype,
      * i.e. the function name with the parenthesised list of parameter types."
      * @see http://solidity.readthedocs.io/en/develop/abi-spec.html#function-selector
+     *
+     * This function ignores Aliases.
+     *  E.g: test(uint) test(uint256) should both result in 0x29e99f07.
+     *  This is intentional. It is not recommended to use short names for function signatures.
      *
      * @param string $input
      *   Function ABI as string.

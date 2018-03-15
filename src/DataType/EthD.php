@@ -52,26 +52,69 @@ class EthD extends EthDataType
     /**
      * @const ABI_MAP
      *   Mapping ABI types to PHP classes.
-     *   @see https://solidity.readthedocs.io/en/develop/abi-spec.html
+     *   @see https://solidity.readthedocs.io/en/develop/abi-spec.html#types
      */
     private const ABI_MAP = [
         // The following elementary types exist:
         'uint' => 'EthQ',
         'int' => 'EthQ',
-        'address' => 'EthD20',
+        'address' => 'EthD20', // = uint 160?
         'bool' => 'EthB',
+        // function, an address (20 bytes) followed by a function selector (4 bytes).
+        // Encoded identical to bytes24
+        // 'function' => ''
 
          // Fixed signed fixed-point decimal number of M bits, 8 <= M <= 256
          // @todo fixed-point decimal number not implemented.
          // 'fixed' => 'EthB',
          // 'ufixed' => 'EthS',
 
-        // Small bytes Should work
-        //  bytes<M>: binary type of M bytes, 0 < M <= 32
-        // @todo Dynamic sized byte sequence is not yet implemented.
-        'bytes' => 'EthD',
+        // string: dynamic sized unicode string assumed to be UTF-8 encoded.
+        'string' => 'EthS',
+        // bytes: dynamic sized byte sequence.
+        // @todo 'bytes' => 'EthD',
 
-        'string' => 'EthB',
+        // Small Bytes < 32
+        // Are always padded to 32bytes (64 chars in hex).
+        //
+        // bytes<M>: enc(X) is the sequence of bytes in X padded
+        //  with trailing zero-bytes to a length of 32 bytes.
+        //
+        // bytes<M>: binary type of M bytes, 0 < M <= 32
+        'bytes1' => 'EthD32',
+        'bytes2' => 'EthD32',
+        'bytes3' => 'EthD32',
+        'bytes4' => 'EthD32',
+        'bytes5' => 'EthD32',
+        'bytes6' => 'EthD32',
+        'bytes7' => 'EthD32',
+        'bytes8' => 'EthD32',
+        'bytes9' => 'EthD32',
+        'bytes10' => 'EthD32',
+        'bytes11' => 'EthD32',
+        'bytes12' => 'EthD32',
+        'bytes13' => 'EthD32',
+        'bytes14' => 'EthD32',
+        'bytes15' => 'EthD32',
+        'bytes16' => 'EthD32',
+        'bytes17' => 'EthD32',
+        'bytes18' => 'EthD32',
+        'bytes19' => 'EthD32',
+        'bytes20' => 'EthD20',
+        'bytes21' => 'EthD32',
+        'bytes22' => 'EthD32',
+        'bytes23' => 'EthD32',
+        'bytes24' => 'EthD32',
+        'bytes25' => 'EthD32',
+        'bytes26' => 'EthD32',
+        'bytes27' => 'EthD32',
+        'bytes28' => 'EthD32',
+        'bytes29' => 'EthD32',
+        'bytes30' => 'EthD32',
+        'bytes31' => 'EthD32',
+        'bytes32' => 'EthD32',
+        // Simple byte values
+
 
         // @todo Function not implemented.
         // An address (20 bytes) followed by a function selector (4 bytes).
@@ -97,8 +140,22 @@ class EthD extends EthDataType
 
 
     /**
-     *
      * Convert EthD value into ABI expected value.
+     *
+     * @todo Not fully implemented. Requires full test coverage.
+     *
+     * This function maps the Ethereum data type ABI to the Ethereum\DataType\<Class>
+     *
+     * https://solidity.readthedocs.io/en/develop/abi-spec.html#types
+     *
+     * Other implementations:
+     * https://github.com/ethereumjs/ethereumjs-abi/blob/71f123b676f2b2d81bc20f343670d90045a3d3d8/lib/index.js#L427-L485
+     * https://github.com/Nethereum/Nethereum/blob/9eb30b298a28634d41034c1cc4b1c0354a37c175/src/Nethereum.ABI/ABIType.cs#L34-L58
+     *
+     * Test examples:
+     * https://github.com/ethereumjs/ethereumjs-abi/blob/master/test/index.js
+     * https://github.com/ethereum/web3.js/blob/master/test/coder.encodeParam.js
+     * https://github.com/ethereum/web3.js/blob/master/test/coder.decodeParam.js
      *
      * @param string $abiType
      *   Expected Abi type.
@@ -111,20 +168,29 @@ class EthD extends EthDataType
      */
     public function convertByAbi($abiType)
     {
+        $ns = '\Ethereum\\DataType\\';
 
         // T[k] for any dynamic T and any k > 0
+        // <type>[]: a variable-length array of elements of the given type.
         if (strpos($abiType, '[' )) {
             $this->convertByAbiArray($abiType);
         }
 
         // (T1,...,Tk) if any Ti is dynamic for 1 <= i <= k
+        // (T1,T2,...,Tn): tuple consisting of the types T1, …, Tn, n >= 0
         if (strpos($abiType, '(' )) {
             $this->convertByAbiArray($abiType);
         }
+        // Dynamic bytes
+        if ($abiType === 'bytes') {
+            $this->convertByAbiArray($abiType);
+        }
 
-        // Exact types (e.g: book, address)
+        // Exact types
+        // Are exact keys in ABI_MAP
+        // (e.g: bool, address, bytes[1-32])
         if (isset(self::ABI_MAP[$abiType])) {
-            $class = '\Ethereum\\DataType\\' . self::ABI_MAP[$abiType];
+            $class = $ns . self::ABI_MAP[$abiType];
             return new $class($this->hexVal(),['abi' => $abiType]);
         }
 
@@ -133,11 +199,11 @@ class EthD extends EthDataType
         preg_match("/^(?'type'[u]?int)([\d]*)$/", $abiType, $int);
         // @see https://regex101.com/r/7JHrKG/1
         if ($int && isset(self::ABI_MAP[$int['type']])) {
-            $class = '\Ethereum\\DataType\\' . self::ABI_MAP[$int['type']];
+            $class = $ns . self::ABI_MAP[$int['type']];
             return new $class($this->hexVal(),['abi' => $abiType]);
         }
 
-        throw new Exception('Can not convert to unknown type ' . $abiType);
+        throw new Exception('Can not convert to unknown type ' . $abiType . '. Might be not implemented yet.');
     }
 
     /**
@@ -147,7 +213,7 @@ class EthD extends EthDataType
     public function convertByAbiArray($abiType)
     {
         // @todo Array and complex types.
-        throw new Exception('Requested ABI type is not implemented yet.' . $abiType);
+        throw new Exception('Dynamic ABI type "' . $abiType . '" is not implemented yet.');
     }
 
 
@@ -178,6 +244,7 @@ class EthD extends EthDataType
             }
 
             return $val;
+
         } else {
             throw new \InvalidArgumentException('Can not decode hex binary: ' . $val);
         }
