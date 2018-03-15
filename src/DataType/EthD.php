@@ -70,6 +70,7 @@ class EthD extends EthDataType
         //  bytes<M>: binary type of M bytes, 0 < M <= 32
         // @todo Dynamic sized byte sequence is not yet implemented.
         'bytes' => 'EthD',
+        'bytes32' => 'EthD32',
 
         'string' => 'EthB',
 
