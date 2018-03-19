@@ -2,7 +2,7 @@
 
 namespace Ethereum;
 
-use Ethereum\DataType\EthData;
+use Ethereum\DataType\EthBytes;
 use Ethereum\DataType\EthQ;
 
 /**

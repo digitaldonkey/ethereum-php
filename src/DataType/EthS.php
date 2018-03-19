@@ -7,7 +7,7 @@ namespace Ethereum\DataType;
  *
  * @ingroup dataTypesPrimitive
  */
-class EthS extends EthData
+class EthS extends EthBytes
 {
     /**
      * Implement validation.

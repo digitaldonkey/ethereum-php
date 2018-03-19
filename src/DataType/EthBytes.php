@@ -7,11 +7,11 @@ use Ethereum\Rlp;
 /**
  * Complex Array or byte data.
  *
- * Some Complex types base on EthData.
+ * Some Complex types base on EthBytes.
  *
  * @ingroup dataTypesPrimitive
  */
-class EthData extends EthD
+class EthBytes extends EthD
 {
     /**
      * @var $length

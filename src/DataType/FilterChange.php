@@ -70,10 +70,10 @@ class FilterChange extends EthDataType {
 	 * @param EthD32 $blockHash
 	 * @param EthQ $blockNumber
 	 * @param EthD20 $address
-	 * @param EthData $data
+	 * @param EthBytes $data
 	 * @param array $topics Array of EthD
 	 */
-	public function __construct(EthB $removed = null, EthQ $logIndex = null, EthQ $transactionIndex = null, EthD32 $transactionHash = null, EthD32 $blockHash = null, EthQ $blockNumber = null, EthD20 $address = null, EthData $data = null, array $topics = null) {
+	public function __construct(EthB $removed = null, EthQ $logIndex = null, EthQ $transactionIndex = null, EthD32 $transactionHash = null, EthD32 $blockHash = null, EthQ $blockNumber = null, EthD20 $address = null, EthBytes $data = null, array $topics = null) {
 		$this->removed = $removed;  
 		$this->logIndex = $logIndex;  
 		$this->transactionIndex = $transactionIndex;  
@@ -97,7 +97,7 @@ class FilterChange extends EthDataType {
 			'blockHash' => 'EthD32',
 			'blockNumber' => 'EthQ',
 			'address' => 'EthD20',
-			'data' => 'EthData',
+			'data' => 'EthBytes',
 			'topics' => 'EthD',
 		);
 	}

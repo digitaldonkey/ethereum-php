@@ -3,7 +3,7 @@
 namespace Ethereum;
 
 use Ethereum\DataType\EthD;
-use Ethereum\DataType\EthData;
+use Ethereum\DataType\EthBytes;
 use Ethereum\DataType\EthS;
 
 
@@ -12,7 +12,7 @@ use Ethereum\DataType\EthS;
  *
  * @ingroup staticTests
  */
-class EthDataTest extends TestStatic
+class EthBytesTest extends TestStatic
 {
     /**
      * Testing quantities.
@@ -39,7 +39,7 @@ class EthDataTest extends TestStatic
                  .'0000000000000000000000000000000000000000000000000000000000000009'
                  .'6761766f66796f726b0000000000000000000000000000000000000000000000'
                 ,
-                'EthData',
+                'EthBytes',
                 '0x6761766f66796f726b',
             ],
             [
@@ -49,7 +49,7 @@ class EthDataTest extends TestStatic
                  .'0000000000000000000000000000000000000000000000000000000000000020'
                  .'731a3afc00d1b1e3461b955e53fc866dcf303b3eb9f4c16f89e388930f48134b'
                 ,
-                'EthData',
+                'EthBytes',
                 '0x731a3afc00d1b1e3461b955e53fc866dcf303b3eb9f4c16f89e388930f48134b',
             ],
             [
@@ -61,7 +61,7 @@ class EthDataTest extends TestStatic
                  .'231a3afc00d1b1e3461b955e53fc866dcf303b3eb9f4c16f89e388930f48134b'
                  .'331a3afc00d1b1e3461b955e53fc866dcf303b3eb9f4c16f89e388930f48134b'
                 ,
-                'EthData',
+                'EthBytes',
                 '0x131a3afc00d1b1e3461b955e53fc866dcf303b3eb9f4c16f89e388930f48134b231a3afc00d1b1e3461b955e53fc866dcf303b3eb9f4c16f89e388930f48134b331a3afc00d1b1e3461b955e53fc866dcf303b3eb9f4c16f89e388930f48134b',
             ],
             [
@@ -72,7 +72,7 @@ class EthDataTest extends TestStatic
                  .'731a3afc00d1b1e3461b955e53fc866dcf303b3eb9f4c16f89e388930f48134b'
                  .'731a3afc00d1b1e3461b955e53fc866dcf303b3eb9f4c16f89e388930f48134b'
                 ,
-                'EthData',
+                'EthBytes',
                 '0x731a3afc00d1b1e3461b955e53fc866dcf303b3eb9f4c16f89e388930f48134b'
                  .'731a3afc00d1b1e3461b955e53fc866dcf303b3eb9f4c16f89e388930f48134b',
             ],
@@ -87,7 +87,7 @@ class EthDataTest extends TestStatic
                  .'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                  .'fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff100'
                 ,
-                'EthData',
+                'EthBytes',
                 '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                  .'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                  .'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
@@ -100,7 +100,7 @@ class EthDataTest extends TestStatic
                 '0x0000000000000000000000000000000000000000000000000000000000000020'
                  .'0000000000000000000000000000000000000000000000000000000000000006'
                  .'c3a40000c3a40000000000000000000000000000000000000000000000000000',
-                'EthData',
+                'EthBytes',
                 '0xc3a40000c3a4',
             ],
             [
@@ -109,7 +109,7 @@ class EthDataTest extends TestStatic
                 '0x0000000000000000000000000000000000000000000000000000000000000020'
                  .'000000000000000000000000000000000000000000000000000000000000000b'
                  .'68656c6c6f20776f726c64000000000000000000000000000000000000000000',
-                'EthData',
+                'EthBytes',
                 '0x68656c6c6f20776f726c64',
             ],
 
@@ -118,14 +118,14 @@ class EthDataTest extends TestStatic
 //                'bytes',
 //                '0x000000000000000000000000000000000000000000000000000000000000000d'
 //                 .'48656c6c6f2c20776f726c642100000000000000000000000000000000000000',
-//                'EthData',
+//                'EthBytes',
 //                'Hello, world!',
 //            ],
 //            [
 //                'bytes',
 //                '0x0000000000000000000000000000000000000000000000000000000000000004'
 //                 .'6461766500000000000000000000000000000000000000000000000000000000',
-//                'EthData',
+//                'EthBytes',
 //                'dave',
 //            ],
             [
@@ -134,7 +134,7 @@ class EthDataTest extends TestStatic
                 .'0000000000000000000000000000000000000000000000000000000000000009'
                 .'6761766f66796f726b0000000000000000000000000000000000000000000000'
                 ,
-                'EthData',
+                'EthBytes',
                 '0x6761766f66796f726b',
             ],
 //            [

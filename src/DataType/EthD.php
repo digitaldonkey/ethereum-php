@@ -39,7 +39,7 @@ class EthD extends EthDataType
         // Default block parameter: Address/D20 or tag [latest|earliest|pending].
         'Q|T' => 'EthBlockParam',
         // Either an array of DATA or a single bytes DATA with variable length.
-        'Array|DATA' => 'EthData',
+        'Array|DATA' => 'EthBytes',
         // Derived ABI types
         'bool' => 'EthB',
         // WORKAROUND? Some clients may return an Data Array. Works on testrpc.
@@ -72,7 +72,7 @@ class EthD extends EthDataType
         // string: dynamic sized unicode string assumed to be UTF-8 encoded.
         'string' => 'EthS',
         // bytes: dynamic sized byte sequence.
-        'bytes' => 'EthData',
+        'bytes' => 'EthBytes',
 
         // Small Bytes < 32
         // Are always padded to 32bytes (64 chars in hex).
@@ -119,7 +119,7 @@ class EthD extends EthDataType
         // @todo Function not implemented.
         // An address (20 bytes) followed by a function selector (4 bytes).
         // Encoded identical to bytes24
-        // 'function'         => 'EthData',
+        // 'function'         => 'EthBytes',
     ];
 
     /**

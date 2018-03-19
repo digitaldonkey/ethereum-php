@@ -1,6 +1,6 @@
 <?php
 namespace Ethereum;
-use Ethereum\DataType\EthData;
+use Ethereum\DataType\EthBytes;
 use Ethereum\SmartContract;
 use Ethereum\DataType\EthD32;
 use Ethereum\DataType\EthS;
@@ -39,7 +39,7 @@ class SmartContractBytesTest extends TestEthContract
     {
         $exception_message_expected = 'Dynamic ABI type "bytes" is not implemented yet.';
         try {
-            $this->contract->b1(new EthData('0x'.md5(1).md5(1).md5(1).md5(1)));
+            $this->contract->b1(new EthBytes('0x'.md5(1).md5(1).md5(1).md5(1)));
         } catch (\Exception $exception) {
             $this->assertEquals($exception->getMessage(), $exception_message_expected);
         }
@@ -56,8 +56,9 @@ class SmartContractBytesTest extends TestEthContract
     public function testString()
     {
         $exception_message_expected = 'Dynamic ABI type "string" is not implemented yet.';
+        $XXX = $this->contract->b3(new EthS('Hello!!Bytes'));
         try {
-            $this->contract->b3(new EthS('Hello!!'));
+
         } catch (\Exception $exception) {
             $this->assertEquals($exception->getMessage(), $exception_message_expected);
         }
