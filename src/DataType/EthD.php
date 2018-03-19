@@ -72,7 +72,7 @@ class EthD extends EthDataType
         // string: dynamic sized unicode string assumed to be UTF-8 encoded.
         'string' => 'EthS',
         // bytes: dynamic sized byte sequence.
-        // @todo 'bytes' => 'EthD',
+        'bytes' => 'EthData',
 
         // Small Bytes < 32
         // Are always padded to 32bytes (64 chars in hex).
@@ -181,14 +181,10 @@ class EthD extends EthDataType
         if (strpos($abiType, '(' )) {
             $this->convertByAbiArray($abiType);
         }
-        // Dynamic bytes
-        if ($abiType === 'bytes') {
-            $this->convertByAbiArray($abiType);
-        }
 
         // Exact types
         // Are exact keys in ABI_MAP
-        // (e.g: bool, address, bytes[1-32])
+        // (e.g: bool, address, bytes, string)
         if (isset(self::ABI_MAP[$abiType])) {
             $class = $ns . self::ABI_MAP[$abiType];
             return new $class($this->hexVal(),['abi' => $abiType]);
@@ -212,9 +208,10 @@ class EthD extends EthDataType
      */
     public function convertByAbiArray($abiType)
     {
-        // @todo Array and complex types.
+        // @todo Implement AbiType containing "[" or "(" ).
         throw new Exception('Dynamic ABI type "' . $abiType . '" is not implemented yet.');
     }
+
 
 
 
