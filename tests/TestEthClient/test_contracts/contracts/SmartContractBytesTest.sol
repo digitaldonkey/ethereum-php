@@ -2,10 +2,11 @@ pragma solidity 0.4.19;
 
 contract SmartContractBytesTest {
 
-    function b1(bytes b) public pure returns (uint) {
+    function bytesLength(bytes b) public pure returns (uint) {
         return b.length;
     }
-    function b2(bytes32 b) public pure returns (uint) {
+
+    function bytes32Length(bytes32 b) public pure returns (uint) {
         return b.length;
     }
 
@@ -18,7 +19,11 @@ contract SmartContractBytesTest {
     //        return b.length;
     // }
 
-     function b3(string b) public pure returns (string) {
+    function bytesReturn(bytes a) public pure returns (bytes) {
+         return a;
+     }
+
+     function stringReturn(string b) public pure returns (string) {
          return b;
      }
 }

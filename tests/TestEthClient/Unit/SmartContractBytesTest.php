@@ -18,33 +18,39 @@ class SmartContractBytesTest extends TestEthContract
      * }
      * @throws \Exception
      */
-    public function testBytes32()
+    public function testBytes32Length()
     {
-        $result = $this->contract->b2(new EthD32('0x'.md5(1).md5(1)));
+        $result = $this->contract->bytes32Length(new EthD32('0x'.md5(1).md5(1)));
         $this->assertEquals(32, $result->val());
     }
 
     /**
-     *
-     * @todo Shouldn't we fail of wrong type? Or do we allow a parent instance?
-     *       Here "string" and "bytes" are both encoded the same and children of EthD.
-     *
      * function b1(bytes b) public pure returns (uint) {
      *    return b.length;
      * }
      *
      * @throws \Exception
      */
-    public function testBytes()
+    public function testBytesLength()
     {
-        $exception_message_expected = 'Dynamic ABI type "bytes" is not implemented yet.';
-        try {
-            $this->contract->b1(new EthBytes('0x'.md5(1).md5(1).md5(1).md5(1)));
-        } catch (\Exception $exception) {
-            $this->assertEquals($exception->getMessage(), $exception_message_expected);
-        }
+        $x = new EthBytes(md5(1).md5(1).md5(1).md5(1));
+        $y = $this->contract->bytesLength($x);
+        $this->assertEquals(64, $y->val());
     }
 
+    /**
+     * function b3(bytes a) public pure returns (bytes) {
+     *    return a;
+     * }
+     *
+     * @throws \Exception
+     */
+    public function testBytesReturn()
+    {
+        $someBytes = md5(5) . md5(2) . md5(3) . md5(4);
+        $x = $this->contract->bytesReturn(new EthBytes($someBytes));
+        $this->assertEquals($someBytes, $x->val());
+    }
 
     /**
      * function b3(string b) public pure returns (string) {
@@ -53,15 +59,11 @@ class SmartContractBytesTest extends TestEthContract
      *
      * @throws \Exception
     */
-    public function testString()
+    public function testStringReturn()
     {
-        $exception_message_expected = 'Dynamic ABI type "string" is not implemented yet.';
-        $XXX = $this->contract->b3(new EthS('Hello!!Bytes'));
-        try {
-
-        } catch (\Exception $exception) {
-            $this->assertEquals($exception->getMessage(), $exception_message_expected);
-        }
+        $str = 'Hello little string.';
+        $x= $this->contract->stringReturn(new EthS($str));
+        $this->assertEquals($str, $x->val());
     }
 
 

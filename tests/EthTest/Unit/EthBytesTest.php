@@ -153,17 +153,18 @@ class EthBytesTest extends TestStatic
     /**
      * @dataProvider convertDataProvider
      */
-    public function testEthEthDataTest__createVal($abi, $value, $expClass, $expVal)
+    public function testEthBytesTest__createVal($abi, $value, $expClass, $expVal)
     {
         $expClass = "\\Ethereum\DataType\\$expClass";
         $x = new $expClass($value);
-        $this->assertEquals($expVal, $x->hexVal());
+        $this->assertEquals($expVal, EthereumStatic::ensureHexPrefix($x->val()));
+        $this->assertEquals($value, $x->hexVal());
     }
 
     /**
      * @dataProvider convertDataProvider
      */
-    public function testEthEthDataTest__createType($abi, $value, $expClass, $expVal)
+    public function testEthBytesTest__createType($abi, $value, $expClass, $expVal)
     {
         $class = "\\Ethereum\DataType\\" . $expClass;
         $x = new $class($value);
@@ -174,7 +175,7 @@ class EthBytesTest extends TestStatic
     /**
      * @dataProvider convertDataProvider
      */
-    public function testEthEthDataTest__createTypeWithAbi($abi, $value, $expClass, $expVal)
+    public function testEthBytesTest__createTypeWithAbi($abi, $value, $expClass, $expVal)
     {
         $class = "\\Ethereum\DataType\\" . $expClass;
         $x = new $class($value, ['abi' => $abi]);
@@ -184,17 +185,17 @@ class EthBytesTest extends TestStatic
     /**
      * @dataProvider convertDataProvider
      */
-    public function testEthEthDataTest__converter($abi, $value, $expClass, $expVal)
+    public function testEthBytesTest__converter($abi, $value, $expClass, $expVal)
     {
         $x = new EthD($value);
         $y = $x->convertByAbi($abi);
-        $this->assertEquals($expVal, $y->hexVal());
+        $this->assertEquals(EthereumStatic::removeHexPrefix($expVal), $y->val());
     }
 
     /**
      * @dataProvider convertDataProvider
      */
-    public function testEthEthDataTest__converterType($abi, $value, $expClass, $expVal)
+    public function testEthBytesTest__converterType($abi, $value, $expClass, $expVal)
     {
         $x = new EthD($value);
         $y = $x->convertByAbi($abi);
