@@ -39,7 +39,7 @@ class EthD extends EthDataType
         // Default block parameter: Address/D20 or tag [latest|earliest|pending].
         'Q|T' => 'EthBlockParam',
         // Either an array of DATA or a single bytes DATA with variable length.
-        'Array|DATA' => 'EthData',
+        'Array|DATA' => 'EthBytes',
         // Derived ABI types
         'bool' => 'EthB',
         // WORKAROUND? Some clients may return an Data Array. Works on testrpc.
@@ -72,7 +72,7 @@ class EthD extends EthDataType
         // string: dynamic sized unicode string assumed to be UTF-8 encoded.
         'string' => 'EthS',
         // bytes: dynamic sized byte sequence.
-        // @todo 'bytes' => 'EthD',
+        'bytes' => 'EthBytes',
 
         // Small Bytes < 32
         // Are always padded to 32bytes (64 chars in hex).
@@ -119,7 +119,7 @@ class EthD extends EthDataType
         // @todo Function not implemented.
         // An address (20 bytes) followed by a function selector (4 bytes).
         // Encoded identical to bytes24
-        // 'function'         => 'EthData',
+        // 'function'         => 'EthBytes',
     ];
 
     /**
@@ -181,14 +181,10 @@ class EthD extends EthDataType
         if (strpos($abiType, '(' )) {
             $this->convertByAbiArray($abiType);
         }
-        // Dynamic bytes
-        if ($abiType === 'bytes') {
-            $this->convertByAbiArray($abiType);
-        }
 
         // Exact types
         // Are exact keys in ABI_MAP
-        // (e.g: bool, address, bytes[1-32])
+        // (e.g: bool, address, bytes, string)
         if (isset(self::ABI_MAP[$abiType])) {
             $class = $ns . self::ABI_MAP[$abiType];
             return new $class($this->hexVal(),['abi' => $abiType]);
@@ -212,9 +208,10 @@ class EthD extends EthDataType
      */
     public function convertByAbiArray($abiType)
     {
-        // @todo Array and complex types.
+        // @todo Implement AbiType containing "[" or "(" ).
         throw new Exception('Dynamic ABI type "' . $abiType . '" is not implemented yet.');
     }
+
 
 
 

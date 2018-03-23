@@ -10,6 +10,7 @@ namespace Ethereum;
 
 use Ethereum\TestStatic;
 use Exception;
+
 /**
  * @defgroup ethereumTests EthereumClientTest
  * @ingroup tests
@@ -68,9 +69,10 @@ abstract class TestEthContract extends TestEthClient {
     protected $contract;
 
     /**
+     * This constructs a smart contract
      *
-     *
-     * @throws \ReflectionException
+     * @throws Exception
+     *   If Smart contracts have not been compiled.
      */
     protected function setUp()
     {
@@ -82,14 +84,17 @@ abstract class TestEthContract extends TestEthClient {
          *    * The address of the deployed contract is loaded from
          *        MetaData->netwoks->NETWORK_ID->address.
          */
-        $contractName = new \ReflectionClass($this);
-        $contractName = $contractName->getShortName();
+        $contractName = (new \ReflectionClass($this))->getShortName();
+        $fileName = getcwd() . '/tests/TestEthClient/test_contracts/build/contracts/' . $contractName . '.json';
 
-        $this->data = json_decode(file_get_contents(
-            getcwd() . '/tests/TestEthClient/test_contracts/build/contracts/'
-            . $contractName . '.json'
-        ));
+        if (!file_exists($fileName)) {
+            throw new Exception(
+                'You need to compile and deploy the smartcontracts located in TestEthClient/test_contracts/contracts using truffle.'
+                . ' (npm -i -g truffle && truffle compile && truffle migrate)'
+            );
+        }
 
+        $this->data = json_decode(file_get_contents($fileName));
         $this->contract = new SmartContract(
             $this->data->abi,
             $this->data->networks->{NETWORK_ID}->address,

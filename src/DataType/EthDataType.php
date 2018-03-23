@@ -115,6 +115,19 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
         }
     }
 
+
+    /**
+     * Get type class name.
+     *
+     * @return string ClassName without namespace.
+     */
+    public function getClassName() {
+        $ex = explode("\\", get_class($this));
+        return end($ex);
+        //return  (new \ReflectionClass($this))->getShortName();
+    }
+
+
     /**
      * Determine type class name for primitive and complex data types.
      *

@@ -190,7 +190,6 @@ class EthQ extends EthD
      *   ABI with converted aliases.
      */
     private function abiAliases($abi) {
-        $X = FALSE;
         // uint, int: synonyms for uint256, int256 respectively.
         if ($abi === 'int') {
             $abi = 'int256';

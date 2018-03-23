@@ -11,6 +11,15 @@ use Ethereum\TestEthClient;
  */
 class Sha3Test extends TestEthClient {
 
+    protected function setUp()
+    {
+        $this->markTestSkipped(
+            'sha3() in JsonRPC has a wrong schema type. It actually does not expect EthS (which is RLP encoded), '
+            .'but a hex encoded UTF8 string (like returned by EthS::hexToStr($hex)). For now skipping this test. '
+            . 'We might remove sha3() in schema (there is now a PHP native kessac256) or "invent" a new data type just for this case.'
+        );
+    }
+
     public function kessacStringProvider() {
         // UTF8 text, Kessac256
         return [

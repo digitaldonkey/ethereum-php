@@ -16,13 +16,13 @@ class EthFilter extends EthDataType
      * Constructor.
      * @param EthBlockParam|null $fromBlock
      * @param EthBlockParam|null $toBlock
-     * @param EthData|null       $address
+     * @param EthBytes|null       $address
      * @param array|null         $topics
      */
     public function __construct(
         EthBlockParam $fromBlock = null,
         EthBlockParam $toBlock = null,
-        EthData $address = null,
+        EthBytes $address = null,
         Array $topics = null
     ) {
         $this->fromBlock = $fromBlock;
@@ -41,7 +41,7 @@ class EthFilter extends EthDataType
         $this->toBlock = $value;
     }
 
-    public function setAddress(EthData $value)
+    public function setAddress(EthBytes $value)
     {
         $this->address = $value;
     }
