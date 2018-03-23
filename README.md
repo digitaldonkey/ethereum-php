@@ -15,7 +15,7 @@ Check out the latest [API documentation](http://ethereum-php.org/dev/).
     }
   ],
   "require": {
-    "digitaldonkey/ethereum-php": "dev-master",
+    "digitaldonkey/ethereum-php": "dev-dev",
   }
 }
 ```
@@ -40,19 +40,40 @@ catch (\Exception $exception) {
 }
 ```
 
+**Calling Contracts**
+
+You can call (unpayed) functions in smart contracts easily. 
+
+ The json file "$fileName" used is what you get when you compile a contract with [Truffle](truffleframework.com). 
+
+```php
+$ContractMeta = json_decode(file_get_contents($fileName));
+$contract = new SmartContract(
+  $this->data->abi,
+  $ContractMeta->networks->{NETWORK_ID}->address,
+  new Ethereum(SERVER_URL)
+);
+$someBytes = new EthBytes('34537ce3a455db6b')
+$x = $contract->myContractMethod();
+echo $x->val()
+```
+
+You can also run tests at smart contracts, check out EthTestClient.
+
 ### Limitations & Architecture
 
-Currently only primitive data types are supported, but [RLP](https://github.com/ethereum/wiki/wiki/RLP) will come soon.
+Currently all datatypes expect Arrays and lists are supported. 
 
-**Read-only**
-This library is read-only for now. this means you can retrieve information stored in Ethereum Blockchain.
+This library is read-only for now. This means you can retrieve information stored in Ethereum Blockchain.
 
-In order to *write* to the blockchain you need a to sign transactions with a private key. I discourage using a unlocked Ethereum client, as a hacker of your website would be able to spend your eth.
+To *write* to the blockchain you need a to sign transactions with a private key which is not supported yet.
 
 
 ![architecture diagram](https://raw.githubusercontent.com/digitaldonkey/ethereum-php/dev/doxygen-assets/ArchitectureDiagrammCS6.png "Drupal Ethereum architecture")
 
 ### Documentation
+
+The API documentation is available at [ethereum-php.org](http://ethereum-php.org/).
 
 For reference see the [Ethereum RPC documentation](https://github.com/ethereum/wiki/wiki/JSON-RPC) and for data encoding [RLP dcumentation](https://github.com/ethereum/wiki/wiki/RLP) in [Ethereum Wiki](https://github.com/ethereum/wiki).
 

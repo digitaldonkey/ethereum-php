@@ -5,7 +5,7 @@
  * @ingroup examples
  */
 use Ethereum\Ethereum;
-use Ethereum\EthDataType;
+use Ethereum\DataType\EthDataType;
 
 /**
  * @var bool IS_PUBLIC Deny public access to this generator.

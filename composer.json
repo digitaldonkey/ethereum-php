@@ -4,7 +4,8 @@
   "require": {
     "php": ">=5.6",
     "graze/guzzle-jsonrpc": "~3.0",
-    "pear/math_biginteger": "^1.0"
+    "pear/math_biginteger": "^1.0",
+    "kornrunner/keccak": "^1.0"
   },
   "scripts": {
     "generate-methods": [

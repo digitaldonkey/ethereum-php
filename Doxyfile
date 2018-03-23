@@ -37,7 +37,9 @@ MULTILINE_CPP_IS_BRIEF = NO
 INHERIT_DOCS           = YES
 SEPARATE_MEMBER_PAGES  = NO
 TAB_SIZE               = 2
-ALIASES =
+# Ignore some PhpUnit stuff doxygen doesn't know.
+ALIASES = covers=" "
+ALIASES += dataProvider=" "
 TCL_SUBST              =
 OPTIMIZE_OUTPUT_FOR_C  = NO
 OPTIMIZE_OUTPUT_JAVA   = NO
@@ -128,7 +130,8 @@ EXAMPLE_PATH           =
 EXAMPLE_PATTERNS       = *
 EXAMPLE_RECURSIVE      = NO
 IMAGE_PATH             =
-INPUT_FILTER           =
+# Note: this requires GNU sed. Not working on OSX by default. (brew install gnu-sed --with-default-names)
+INPUT_FILTER           =  "sed -e 's/\/\/.*todo/\/\/\/ \\todo/i'"
 FILTER_PATTERNS        =
 FILTER_SOURCE_FILES    = NO
 FILTER_SOURCE_PATTERNS =
