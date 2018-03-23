@@ -8,7 +8,7 @@ use Ethereum\TestEthClient;
  *
  * @ingroup staticTests
  */
-class Sha3StaticTest extends TestEthClient {
+class Sha3StaticTest extends TestStatic {
 
     public function kessacStringProvider() {
         // UTF8 text, Kessac256

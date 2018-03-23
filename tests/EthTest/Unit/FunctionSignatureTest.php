@@ -6,7 +6,7 @@ namespace Ethereum;
  *
  * @ingroup staticTests
  */
-class FunctionSignatureTest extends TestEthClient
+class FunctionSignatureTest extends TestStatic
 {
     public function functionSignatureProvider() {
         // UTF8 text, Kessac256

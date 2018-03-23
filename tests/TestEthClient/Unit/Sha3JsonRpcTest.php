@@ -9,7 +9,7 @@ use Ethereum\TestEthClient;
  *
  * @ingroup staticTests
  */
-class Sha3Test extends TestEthClient {
+class Sha3JsonRpcTest extends TestEthClient {
 
     protected function setUp()
     {
