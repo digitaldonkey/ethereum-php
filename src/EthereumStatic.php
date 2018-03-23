@@ -22,11 +22,15 @@ abstract class EthereumStatic
      * @param string $input
      *   Method signature.
      *
+     * @throws \InvalidArgumentException
+     *      If signature is not verifyable.
+     *
      * @return string
      *   Hash of the method signature.
      */
     public static function getMethodSignature($input)
     {
+
         if (self::isValidFunction($input)) {
             // The signature is 4bytes of the methods keccac hash. E.g: "0x00000000".
             return substr(self::sha3($input), 0, 10);
@@ -101,6 +105,10 @@ abstract class EthereumStatic
      * i.e. the function name with the parenthesised list of parameter types."
      * @see http://solidity.readthedocs.io/en/develop/abi-spec.html#function-selector
      *
+     * This function ignores Aliases.
+     *  E.g: test(uint) test(uint256) should both result in 0x29e99f07.
+     *  This is intentional. It is not recommended to use short names for function signatures.
+     *
      * @param string $input
      *   Function ABI as string.
      *   See: https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI.
@@ -112,7 +120,7 @@ abstract class EthereumStatic
     {
         // Check for function and Params.
         // See: https://regex101.com/r/437FZz/4
-        $regex = '/^[a-zA-Z]*[\(]{1}(([\w\d\[\]*){1}(\,[\w\d\[\]]*[\w\d\[\]]*)*)[\)]{1}$/';
+        $regex = '/^[a-zA-Z]+[a-zA-Z0-9]*[\(]{1}(([\w\d\[\]*){1}(\,[\w\d\[\]]*[\w\d\[\]]*)*)[\)]{1}$/';
         if (is_string($input) && preg_match($regex, $input) === 1) {
             return true;
         }
@@ -284,79 +292,6 @@ abstract class EthereumStatic
         if (self::hasHexPrefix($str)) {
             return $str;
         }
-
         return '0x' . $str;
     }
-
-    /**
-     * Converts a string to Hex.
-     *
-     * @param string $string
-     *   String to be converted.
-     *
-     * @return string
-     *   Hex representation of the string.
-     */
-    public static function strToHex($string)
-    {
-        $hex = unpack('H*', $string);
-
-        return '0x' . array_shift($hex);
-    }
-
-    /**
-     * Converts Hex to string.
-     *
-     * @param string $string
-     *   Hex string to be converted to UTF-8.
-     *
-     * @return string
-     *   String value.
-     *
-     * @throws Exception
-     */
-    public static function hexToStr($string)
-    {
-
-        if (!self::hasHexPrefix($string)) {
-            throw new Exception('String is missing Hex prefix "0x" : ' . $string);
-        }
-        $string = substr($string, strlen('0x'));
-        $utf8 = '';
-
-        $letters = str_split($string, 2);
-        foreach ($letters as $letter) {
-            $utf8 .= html_entity_decode("&#x$letter;", ENT_QUOTES, 'UTF-8');
-        }
-
-        return $utf8;
-
-        // Dosn't tackle Line 18
-        // if ($string < 128) {
-        //   $utf = chr($string);
-        // }
-        // elseif ($string < 2048) {
-        //   $utf = chr(192 + (($string - ($string % 64)) / 64));
-        //   $utf .= chr(128 + ($string % 64));
-        // }
-        // else {
-        //  $utf = chr(224 + (($string - ($string % 4096)) / 4096));
-        //  $utf .= chr(128 + ((($string % 4096) - ($string % 64)) / 64));
-        //  $utf .= chr(128 + ($string % 64));
-        //}
-
-        // Can't handle Ö
-        // $utf8 = hex2bin($string);
-
-        // Can't handle Ö
-        //$func_length = strlen($string);
-        //for ($func_index = 0; $func_index < $func_length; ++$func_index) {
-        //  $utf8 .= chr(hexdec($string{$func_index} . $string{++$func_index}));
-        //}
-
-        // Destroys umlauts
-        //    for ($i=0; $i < strlen($string)-1; $i+=2){
-        //      $utf8 .= chr(hexdec($string[$i].$string[$i+1]));
-        //    }
-    }
-}
+ }

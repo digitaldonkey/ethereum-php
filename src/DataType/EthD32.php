@@ -9,7 +9,7 @@ namespace Ethereum\DataType;
  *
  * Represents 64 hex characters, 256 bits. Eg. TX hash.
  */
-class EthD32 extends EthData
+class EthD32 extends EthD
 {
     /**
      * Implement validation.

@@ -19,20 +19,39 @@
       "payable": false,
       "stateMutability": "pure",
       "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "a",
+          "type": "uint256"
+        }
+      ],
+      "name": "multiplyWithSevenUsingAlias",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "pure",
+      "type": "function"
     }
   ],
-  "bytecode": "0x6060604052341561000f57600080fd5b60b18061001d6000396000f300606060405260043610603f576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632e4accca146044575b600080fd5b3415604e57600080fd5b606260048080359060200190919050506078565b6040518082815260200191505060405180910390f35b60006007820290509190505600a165627a7a723058206a051484cd135906ce5bdb2df5e92d74f0e1260d062397d7fba94d799151de6f0029",
-  "deployedBytecode": "0x606060405260043610603f576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632e4accca146044575b600080fd5b3415604e57600080fd5b606260048080359060200190919050506078565b6040518082815260200191505060405180910390f35b60006007820290509190505600a165627a7a723058206a051484cd135906ce5bdb2df5e92d74f0e1260d062397d7fba94d799151de6f0029",
-  "sourceMap": "25:126:1:-;;;;;;;;;;;;;;;;;",
-  "deployedSourceMap": "25:126:1:-;;;;;;;;;;;;;;;;;;;;;;;;58:91;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;114:4;141:1;137;:5;130:12;;58:91;;;:::o",
-  "source": "pragma solidity 0.4.19;\n\ncontract SmartContractTest {\n    function multiplyWithSeven (uint a) public pure returns(uint) {\n        return a * 7;\n    }\n}\n",
-  "sourcePath": "/Users/tho/htdocs/ConsenSys/DrupalEthereum/FeatureWeb3Provider/drupal/vendor/digitaldonkey/ethereum-php/tests/TestEthClient/test_contracts/contracts/SmartContractTest.sol",
+  "bytecode": "0x6060604052341561000f57600080fd5b60fc8061001d6000396000f3006060604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632e4accca14604e5780639ac9243b146082575b600080fd5b3415605857600080fd5b606c600480803590602001909190505060b6565b6040518082815260200191505060405180910390f35b3415608c57600080fd5b60a0600480803590602001909190505060c3565b6040518082815260200191505060405180910390f35b6000600782029050919050565b60006007820290509190505600a165627a7a72305820a4fb81e69cc68d46246c0a9a448907d19571e8a7bd66ac46215473fe9c2b9ad50029",
+  "deployedBytecode": "0x6060604052600436106049576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632e4accca14604e5780639ac9243b146082575b600080fd5b3415605857600080fd5b606c600480803590602001909190505060b6565b6040518082815260200191505060405180910390f35b3415608c57600080fd5b60a0600480803590602001909190505060c3565b6040518082815260200191505060405180910390f35b6000600782029050919050565b60006007820290509190505600a165627a7a72305820a4fb81e69cc68d46246c0a9a448907d19571e8a7bd66ac46215473fe9c2b9ad50029",
+  "sourceMap": "25:350:0:-;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "25:350:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;58:94;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;272:101;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;58:94;117:4;144:1;140;:5;133:12;;58:94;;;:::o;272:101::-;338:4;365:1;361;:5;354:12;;272:101;;;:::o",
+  "source": "pragma solidity 0.4.19;\n\ncontract SmartContractTest {\n    function multiplyWithSeven (uint256 a) public pure returns(uint) {\n        return a * 7;\n    }\n\n    // uint, int: synonyms for uint256, int256 respectively (not to be used for computing the function selector).\n    function multiplyWithSevenUsingAlias (uint a) public pure returns(uint) {\n        return a * 7;\n    }\n}\n",
+  "sourcePath": "/Users/tho/htdocs/ConsenSys/ethereum-php/tests/TestEthClient/test_contracts/contracts/SmartContractTest.sol",
   "ast": {
     "attributes": {
-      "absolutePath": "/Users/tho/htdocs/ConsenSys/DrupalEthereum/FeatureWeb3Provider/drupal/vendor/digitaldonkey/ethereum-php/tests/TestEthClient/test_contracts/contracts/SmartContractTest.sol",
+      "absolutePath": "/Users/tho/htdocs/ConsenSys/ethereum-php/tests/TestEthClient/test_contracts/contracts/SmartContractTest.sol",
       "exportedSymbols": {
         "SmartContractTest": [
-          71
+          26
         ]
       }
     },
@@ -45,9 +64,9 @@
             ".19"
           ]
         },
-        "id": 58,
+        "id": 1,
         "name": "PragmaDirective",
-        "src": "0:23:1"
+        "src": "0:23:0"
       },
       {
         "attributes": {
@@ -61,10 +80,10 @@
           "documentation": null,
           "fullyImplemented": true,
           "linearizedBaseContracts": [
-            71
+            26
           ],
           "name": "SmartContractTest",
-          "scope": 72
+          "scope": 27
         },
         "children": [
           {
@@ -77,7 +96,7 @@
               ],
               "name": "multiplyWithSeven",
               "payable": false,
-              "scope": 71,
+              "scope": 26,
               "stateMutability": "pure",
               "superFunction": null,
               "visibility": "public"
@@ -89,7 +108,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "a",
-                      "scope": 70,
+                      "scope": 13,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -99,22 +118,22 @@
                     "children": [
                       {
                         "attributes": {
-                          "name": "uint",
+                          "name": "uint256",
                           "type": "uint256"
                         },
-                        "id": 59,
+                        "id": 2,
                         "name": "ElementaryTypeName",
-                        "src": "86:4:1"
+                        "src": "86:7:0"
                       }
                     ],
-                    "id": 60,
+                    "id": 3,
                     "name": "VariableDeclaration",
-                    "src": "86:6:1"
+                    "src": "86:9:0"
                   }
                 ],
-                "id": 61,
+                "id": 4,
                 "name": "ParameterList",
-                "src": "85:8:1"
+                "src": "85:11:0"
               },
               {
                 "children": [
@@ -122,7 +141,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "",
-                      "scope": 70,
+                      "scope": 13,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "uint256",
@@ -135,25 +154,25 @@
                           "name": "uint",
                           "type": "uint256"
                         },
-                        "id": 62,
+                        "id": 5,
                         "name": "ElementaryTypeName",
-                        "src": "114:4:1"
+                        "src": "117:4:0"
                       }
                     ],
-                    "id": 63,
+                    "id": 6,
                     "name": "VariableDeclaration",
-                    "src": "114:4:1"
+                    "src": "117:4:0"
                   }
                 ],
-                "id": 64,
+                "id": 7,
                 "name": "ParameterList",
-                "src": "113:6:1"
+                "src": "116:6:0"
               },
               {
                 "children": [
                   {
                     "attributes": {
-                      "functionReturnParameters": 64
+                      "functionReturnParameters": 7
                     },
                     "children": [
                       {
@@ -177,13 +196,13 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 60,
+                              "referencedDeclaration": 3,
                               "type": "uint256",
                               "value": "a"
                             },
-                            "id": 65,
+                            "id": 8,
                             "name": "Identifier",
-                            "src": "137:1:1"
+                            "src": "140:1:0"
                           },
                           {
                             "attributes": {
@@ -198,39 +217,194 @@
                               "type": "int_const 7",
                               "value": "7"
                             },
-                            "id": 66,
+                            "id": 9,
                             "name": "Literal",
-                            "src": "141:1:1"
+                            "src": "144:1:0"
                           }
                         ],
-                        "id": 67,
+                        "id": 10,
                         "name": "BinaryOperation",
-                        "src": "137:5:1"
+                        "src": "140:5:0"
                       }
                     ],
-                    "id": 68,
+                    "id": 11,
                     "name": "Return",
-                    "src": "130:12:1"
+                    "src": "133:12:0"
                   }
                 ],
-                "id": 69,
+                "id": 12,
                 "name": "Block",
-                "src": "120:29:1"
+                "src": "123:29:0"
               }
             ],
-            "id": 70,
+            "id": 13,
             "name": "FunctionDefinition",
-            "src": "58:91:1"
+            "src": "58:94:0"
+          },
+          {
+            "attributes": {
+              "constant": true,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "multiplyWithSevenUsingAlias",
+              "payable": false,
+              "scope": 26,
+              "stateMutability": "pure",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "a",
+                      "scope": 25,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 14,
+                        "name": "ElementaryTypeName",
+                        "src": "310:4:0"
+                      }
+                    ],
+                    "id": 15,
+                    "name": "VariableDeclaration",
+                    "src": "310:6:0"
+                  }
+                ],
+                "id": 16,
+                "name": "ParameterList",
+                "src": "309:8:0"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 25,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 17,
+                        "name": "ElementaryTypeName",
+                        "src": "338:4:0"
+                      }
+                    ],
+                    "id": 18,
+                    "name": "VariableDeclaration",
+                    "src": "338:4:0"
+                  }
+                ],
+                "id": 19,
+                "name": "ParameterList",
+                "src": "337:6:0"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 19
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "commonType": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "*",
+                          "type": "uint256"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 15,
+                              "type": "uint256",
+                              "value": "a"
+                            },
+                            "id": 20,
+                            "name": "Identifier",
+                            "src": "361:1:0"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "hexvalue": "37",
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "subdenomination": null,
+                              "token": "number",
+                              "type": "int_const 7",
+                              "value": "7"
+                            },
+                            "id": 21,
+                            "name": "Literal",
+                            "src": "365:1:0"
+                          }
+                        ],
+                        "id": 22,
+                        "name": "BinaryOperation",
+                        "src": "361:5:0"
+                      }
+                    ],
+                    "id": 23,
+                    "name": "Return",
+                    "src": "354:12:0"
+                  }
+                ],
+                "id": 24,
+                "name": "Block",
+                "src": "344:29:0"
+              }
+            ],
+            "id": 25,
+            "name": "FunctionDefinition",
+            "src": "272:101:0"
           }
         ],
-        "id": 71,
+        "id": 26,
         "name": "ContractDefinition",
-        "src": "25:126:1"
+        "src": "25:350:0"
       }
     ],
-    "id": 72,
+    "id": 27,
     "name": "SourceUnit",
-    "src": "0:152:1"
+    "src": "0:376:0"
   },
   "compiler": {
     "name": "solc",
@@ -249,5 +423,5 @@
     }
   },
   "schemaVersion": "1.0.1",
-  "updatedAt": "2018-03-06T19:19:51.874Z"
+  "updatedAt": "2018-03-19T19:24:05.861Z"
 }

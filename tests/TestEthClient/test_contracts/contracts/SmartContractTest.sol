@@ -1,7 +1,12 @@
 pragma solidity 0.4.19;
 
 contract SmartContractTest {
-    function multiplyWithSeven (uint a) public pure returns(uint) {
+    function multiplyWithSeven (uint256 a) public pure returns(uint) {
+        return a * 7;
+    }
+
+    // uint, int: synonyms for uint256, int256 respectively (not to be used for computing the function selector).
+    function multiplyWithSevenUsingAlias (uint a) public pure returns(uint) {
         return a * 7;
     }
 }

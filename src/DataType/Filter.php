@@ -40,10 +40,10 @@ class Filter extends EthDataType {
 	/**
 	 * @param EthBlockParam $fromBlock
 	 * @param EthBlockParam $toBlock
-	 * @param EthData $address
+	 * @param EthBytes $address
 	 * @param array $topics Array of EthD
 	 */
-	public function __construct(EthBlockParam $fromBlock = null, EthBlockParam $toBlock = null, EthData $address = null, array $topics = null) {
+	public function __construct(EthBlockParam $fromBlock = null, EthBlockParam $toBlock = null, EthBytes $address = null, array $topics = null) {
 		$this->fromBlock = $fromBlock;  
 		$this->toBlock = $toBlock;  
 		$this->address = $address;  
@@ -57,7 +57,7 @@ class Filter extends EthDataType {
 		return array( 
 			'fromBlock' => 'EthBlockParam',
 			'toBlock' => 'EthBlockParam',
-			'address' => 'EthData',
+			'address' => 'EthBytes',
 			'topics' => 'EthD',
 		);
 	}

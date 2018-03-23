@@ -9,7 +9,7 @@ namespace Ethereum\DataType;
  *
  * Represents 40 hex characters, 160 bits. E.g Ethereum Address.
  */
-class EthD20 extends EthData
+class EthD20 extends EthD
 {
     /**
      * Implement validation.

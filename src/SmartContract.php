@@ -123,12 +123,20 @@ class SmartContract
      * @param $m
      * @param $values
      * @return string
+     * @throws \InvalidArgumentException
      */
     private static function getMethodParams($m, $values)
     {
         $params = '';
+
+        if (count($m->inputs) !== count($values)) {
+            throw new \InvalidArgumentException('Expected ' . count($m->inputs) . ' params but got ' . count($values));
+        }
+
         foreach ($values as $i => $val) {
-            $params .= EthereumStatic::removeHexPrefix($val->hexVal());
+            $expectedType = $m->inputs[$i]->type;
+            $validAbiType = $val->convertByAbi($expectedType);
+            $params .= EthereumStatic::removeHexPrefix($validAbiType->hexVal());
         }
         return $params;
     }
@@ -166,6 +174,6 @@ class SmartContract
                 return $item;
             }
         }
-        throw new \Exception('Called undefined contract method: ' . $methodName);
+        throw new \Exception('Called undefined contract method: ' . $methodName . '.');
     }
 }

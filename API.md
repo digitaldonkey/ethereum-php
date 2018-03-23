@@ -17,6 +17,7 @@ composer run-script generate-methods
 
 **Complex Data types**
 are generated  ethereum-schema->objects.
+
 Currently these are:
 
 ```
@@ -51,13 +52,23 @@ vendor/bin/phpunit
 
 See phpunit.xml and tests/
 
-**Static tests**
+**Static tests** 
+
+Based on TestStatic.php
+
 `vendor/bin/phpunit --testsuite EthereumPhp`
 
-**Dynamic tests**
+or a single test class 
+
+`vendor/bin/phpunit  --filter {FunctionSignatureTest}`
+
+**Dynamic tests** 
+
+Based on TestEthClient.php
+
 Require a Ethereum node to be running.
 
-`vendor/bin/phpunit --testsuite EthereumPhpContracts`
+`vendor/bin/phpunit --testsuite TestEthClient`
 
 You may define `NETWORK_ID` and `SERVER_URL` to perform testing against multiple Ethereum clients.
 
