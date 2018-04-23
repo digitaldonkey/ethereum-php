@@ -1,0 +1,91 @@
+/* Start custom header styles */
+@media (min-width: 1005px) {
+    .branding {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+.branding-title {
+    align-items: center;
+    display: flex;
+    font-size: 80%;
+    padding: .5em 2em .5em 0;
+}
+
+.branding-nav {
+    align-items: center;
+    display: flex;
+    min-height: 3.5em;
+    justify-content: space-between;
+    min-width: 50%;
+    flex-grow: 1;
+}
+
+.title {
+    font-size: 1em;
+}
+
+.version-selector{
+    padding: 0 1em;
+}
+.version-selector>label {
+    font-weight: bold;
+    font-size: small;
+}
+.version-selector--select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: .5em;
+    background: #efefef;
+    border: none;
+    border-radius: 3px;
+    font-size: 1em;
+    width: 14em;
+}
+.version-selector--wrapper {
+    position:relative;
+    display: inline;
+}
+.version-selector--wrapper:after {
+    content:"";
+    width:0;
+    height:0;
+    position:absolute;
+    pointer-events: none;
+}
+.version-selector--wrapper:after {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    top: .3em;
+    right: .75em;
+    border-top: 8px solid black;
+    opacity: 0.5;
+}
+select::-ms-expand {
+    display: none;
+}
+
+.search {
+    height: 1.1em;
+    position: relative;
+}
+/* END custom header styles */
+
+/* Helper for API Documentation. */
+.hide-in-apidoc {
+    display: none;
+}
+
+/* Code-blocks */
+div.fragment {
+    padding: .5em;
+}
+
+/* Responsive images */
+.image>img {
+    max-width: 100%;
+    height: auto;
+}

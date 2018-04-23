@@ -1,7 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <phpunit bootstrap="vendor/autoload.php">
   <testsuites>
     <testsuite name="EthereumPhp">
-      <directory>tests/Unit</directory>
+      <directory>tests/EthTest/Unit</directory>
+    </testsuite>
+    <testsuite name="TestEthClient">
+      <directory>tests/TestEthClient/Unit</directory>
     </testsuite>
   </testsuites>
+  <php>
+    <env name="SERVER_URL" value="http://localhost:7545"/>
+    <env name="NETWORK_ID" value="5777"/>
+  </php>
 </phpunit>
