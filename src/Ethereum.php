@@ -7,6 +7,8 @@ use Ethereum\DataType\EthDataType;
 use Exception;
 use Ethereum\DataType\EthD;
 use Ethereum\DataType\EthD20;
+use Ethereum\DataType\EthD32;
+use Ethereum\DataType\EthQ;
 
 /**
  * @defgroup client Ethereum Web3 Client
@@ -435,40 +437,6 @@ class Ethereum extends EthereumStatic implements Web3Interface
   }
 
   /**
-   * Keccak hash function.
-   *
-   * This is a a local version of web3_sha3() based on
-   *   https://github.com/kornrunner/php-keccak
-   *
-   * Ethereum JsonRPC provides web3.sha3(), but  making a JsonRPC call for that
-   * seems costly.
-   *
-   * Unlike web3's sha3 method suggests Ethereum is NOT using SHA3-256 standard
-   * implementation (the NIST SHA3-256 became a standard later), but Keccak256.
-   * Is is the pure Keccak[r=1088, c=512] implementation.
-   *
-   * @param string $string
-   *   String to hash.
-   *
-   * @return string
-   *   Keccak256 of the provided string.
-   *
-   * @throws Exception
-   *   If keccak hash does not match formal conditions.
-   */
-  private static function phpKeccak256($string)
-  {
-      $return = Keccak::hash($string, 256);
-      $return = self::ensureHexPrefix($return);
-      // Formal verification: Prefix + 64 Hex chars.
-      if (!$return || strlen($return) !== 66) {
-          throw new \Exception('keccak256 returns a wrong value.');
-      }
-      return $return;
-  }
-
-
-  /**
    * PersonalEcRecover function.
    *
    * @param string $message
@@ -534,7 +502,7 @@ class Ethereum extends EthereumStatic implements Web3Interface
     }
 
     // Formal verification: Prefix + 64 Hex chars.
-    if (!is_a($address, 'Ethereum\EthD20')) {
+    if (!is_a($address, 'Ethereum\DataType\EthD20')) {
       throw new \Exception('ecRecover returns a wrong value.');
     }
     return $address->hexVal();
