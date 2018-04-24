@@ -8,7 +8,7 @@ use Exception;
 use Ethereum\DataType\EthD;
 use Ethereum\DataType\EthD20;
 use Ethereum\DataType\EthD32;
-use Ethereum\DataType\EthQ;
+use Ethereum\EcRecover;
 
 /**
  * @defgroup client Ethereum Web3 Client
@@ -354,20 +354,20 @@ class Ethereum extends EthereumStatic implements Web3Interface
         return $return;
     }
 
-    /**
-     * Determine type class name for primitive and complex data types.
-     *
-     * @param string $class_name
-     *   Type to construct from associative Array.
-     * @param array  $values
-     *   Associative value array.
-     *
-     * @return object|array
-     *   Object of type $class_name.
-     *
-     * @throw Exception
-     *   If something is wrong.
-     */
+  /**
+   * Determine type class name for primitive and complex data types.
+   *
+   * @param string $class_name
+   *   Type to construct from associative Array.
+   * @param array  $values
+   *   Associative value array.
+   *
+   * @throws Exception
+   *   If something is wrong.
+   *
+   * @return object|array
+   *   Object of type $class_name.
+   */
     protected static function arrayToComplexType($class_name, array $values)
     {
         $return = [];
@@ -409,148 +409,38 @@ class Ethereum extends EthereumStatic implements Web3Interface
   }
 
   /**
-   * Get signature of a solidity method.
-   *
-   * Returns hash of the Smart contract method - it's signature.
-   *
-   * See:
-   * https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI#function-selector
-   *
-   * @param string $input
-   *   Method signature.
-   *
-   * @throws \InvalidArgumentException
-   *      If signature is not verifyable.
-   *
-   * @return string
-   *   Hash of the method signature.
-   */
-    public static function getMethodSignature($input)
-    {
-        if (self::isValidFunction($input)) {
-            // The signature is 4bytes of the methods keccac hash. E.g: "0x00000000".
-            return substr(self::sha3($input), 0, 10);
-        }
-        else {
-            throw new \InvalidArgumentException("No valid (solidity) signature string provided.");
-        }
-  }
-
-  /**
    * PersonalEcRecover function.
    *
    * @param string $message
-   *   UTF-8 text without prefix.
+   *   UTF-8 text.
+   *
    * @param EthD $signature
    *   Hex value of the Message Signature.
-   * @param EthD20 $public_key
-   *   Hex version of the Public key (Ethereum Address).
-   *
-   * @return bool
-   *   Returns TRUE if Public Key matches the signature.
    *
    * @throws \Exception
-   *   If keccak hash does not match formal conditions.
+   *
+   * @return string EthereumAddress.
+   *   Returns TRUE if Public Key matches the signature.
    */
-  public function personalEcRecover($message, EthD $signature, EthD20 $public_key) {
-    $message_hash = $this->phpKeccak256($this->personalSignAddHeader($message));
-    $address = $this->phpEcRecover(new EthD32($message_hash), $signature);
+  public static function personalEcRecover($message, EthD $signature) {
+    return EcRecover::personalEcRecover($message, $signature);
   }
 
   /**
-   * EcRecover - Elliptic Curve Signature Verification.
+   * Create value array.
    *
-   * This function ecRecover is a wrapper to a solidity function (ececover).
-   * See:
-   * http://solidity.readthedocs.io/en/latest/miscellaneous.html?highlight=ecrecover
+   * Turns a array('0x56789...', ...) into array(EthD32(0x56789...), ...)
    *
-   * Using this ecRecover-wrapper it is the recommended to use ecrecover in
-   * order to  provide future performance improvements.
-   *
-   * EC recovery doses not require any blockchain interaction, it's just
-   * freaky math. Considering libraries, PHP extensions or command
-   * line C or node implementations.
-   *
-   * @param string $message_hash.
-   *   Keccak-256 of message in hex
-   *
-   * @return string
-   *   Keccak256 of the provided string.
+   * @param array  $values
+   *   Array of values of a unique data type.
+   * @param string $typeClass
+   *   Class name for the data type.
    *
    * @throws \Exception
-   *   If keccak hash does not match formal conditions.
+   *
+   * @return array
+   *   Array of value objects of the given type.
    */
-  public function phpEcRecover(EthD32 $message_hash, EthQ $v, EthD32 $r, EthD32 $s) {
-    $return = NULL;
-
-    define('ETHEREUM_ECRECOVER', '/opt/local/bin/ecrecover #m# #v# #r# #s#');
-    // Elliptic Curve recovery
-    // Can be implemented in various ways. Currently under investigation.
-    // The last option however is using a JsonRPC call.
-    if (defined('ETHEREUM_ECRECOVER')) {
-      $call = str_replace(
-        array('#m#', '#v#', '#r#', '#s#'),
-        array($message_hash->hexVal(), $v->hexVal(), $r->hexVal(), $s->hexVal()),
-        ETHEREUM_ECRECOVER
-      );
-      $address = new EthD20($this->ensureHexPrefix(substr(shell_exec($call), 0, 42)));
-    }
-    else {
-      // $address = $this->ecrecovery($message_hash, $v, $r, $s);
-      // $this->contractEcRecover($message, EthD $signature, EthD20 $public_key)
-      throw new \Exception('EC verifications on contract level is not implemented yet.');
-    }
-
-    // Formal verification: Prefix + 64 Hex chars.
-    if (!is_a($address, 'Ethereum\DataType\EthD20')) {
-      throw new \Exception('ecRecover returns a wrong value.');
-    }
-    return $address->hexVal();
-  }
-
-
-  /**
-   * Contract based EcRecover.
-   *
-   * @param string $message
-   *   UTF-8 text without prefix.
-   * @param EthD $signature
-   *   Hex value of the Message Signature.
-   * @param EthD20 $public_key
-   *   Hex version of the Public key (Ethereum Address).
-   *
-   * @return bool
-   *   Returns TRUE if Public Key matches the signature.
-   *
-   * @throws \Exception
-   *   If keccak hash does not match formal conditions.
-   */
-  public function contractEcRecover($message, EthD $signature, EthD20 $public_key) {
-    $contract_addr = '0x3bbb367afe5075e0461f535d6ed2a640822edb1c';
-
-//    77d32e94 ecrecovery(bytes32,bytes)
-//    39cdde32 ecverify(bytes32,bytes,address)
-
-    $message_hash = $this->phpKeccak256($this->personalSignAddHeader($message));
-    $address = $this->phpEcRecover(new EthD32($message_hash), $signature);
-
-    // @todo
-  }
-
-    /**
-     * Create value array.
-     *
-     * Turns a array('0x56789...', ...) into array(EthD32(0x56789...), ...)
-     *
-     * @param array  $values
-     *   Array of values of a unique data type.
-     * @param string $typeClass
-     *   Class name for the data type.
-     *
-     * @return array
-     *   Array of value objects of the given type.
-     * @throw Exception
-     */
     public static function valueArray(array $values, $typeClass)
     {
         $return = [];
