@@ -49,7 +49,7 @@ You can call (unpayed) functions in smart contracts easily.
 ```php
 $ContractMeta = json_decode(file_get_contents($fileName));
 $contract = new SmartContract(
-  $this->data->abi,
+  $ContractMeta->abi,
   $ContractMeta->networks->{NETWORK_ID}->address,
   new Ethereum(SERVER_URL)
 );
