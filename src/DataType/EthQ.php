@@ -301,6 +301,17 @@ class EthQ extends EthD
         }
     }
 
+  /**
+   * Checks if value is not null.
+   *
+   * @return bool
+   */
+    public function isNotNull()
+    {
+      $null = new Math_BigInteger();
+      return ($this->value->compare($null)  > 0 || $this->value->compare($null)  < 0);
+    }
+
     /**
      * Implement Integer value.
      *

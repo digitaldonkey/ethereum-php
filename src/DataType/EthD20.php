@@ -2,6 +2,8 @@
 
 namespace Ethereum\DataType;
 
+use Ethereum\DataType\EthQ;
+
 /**
  * Byte data, length 20.
  *
@@ -58,7 +60,17 @@ class EthD20 extends EthD
                 return $address;
             }
         }
-
         return null;
     }
+
+  /**
+   * Checks if address is not null.
+   *
+   * @return bool
+   */
+    public function isNotNull() {
+        $checkForValue = new EthQ($this->value);
+        return $checkForValue->isNotNull();
+    }
+
 }

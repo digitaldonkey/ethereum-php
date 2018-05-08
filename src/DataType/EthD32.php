@@ -25,11 +25,14 @@ class EthD32 extends EthD
      */
     public function validateLength($val)
     {
-
-        if (strlen($val) === 66) {
-            return $val;
-        } else {
-            throw new \InvalidArgumentException('Invalid length for hex binary: ' . $val);
-        }
+      if (strlen($val) <= 66) {
+        $padUp = 66 - strlen($val);
+        $val = $val . str_repeat ( '0' , $padUp );
+      }
+      if (strlen($val) === 66) {
+          return $val;
+      } else {
+          throw new \InvalidArgumentException('Invalid length for hex binary: ' . $val);
+      }
     }
 }
