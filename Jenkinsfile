@@ -2,8 +2,7 @@
 pipeline {
   agent {
     docker {
-       image 'library/composer'
-//       args 'composer install'
+       image 'digitaldonkey/php-with-composer'
      }
   }
   stages {
