@@ -419,11 +419,10 @@ class Ethereum extends EthereumStatic implements Web3Interface
    *
    * @throws \Exception
    *
-   * @return string EthereumAddress.
-   *   Returns TRUE if Public Key matches the signature.
+   * @return string EthereumAddress with prefix.
    */
   public static function personalEcRecover($message, EthD $signature) {
-    return EcRecover::personalEcRecover($message, $signature);
+    return EcRecover::personalEcRecover($message, $signature->hexVal());
   }
 
   /**

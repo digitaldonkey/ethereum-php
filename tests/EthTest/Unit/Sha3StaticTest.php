@@ -22,11 +22,13 @@ class Sha3StaticTest extends TestStatic {
         ];
     }
 
-    /**
-     * @param $text
-     * @param $sha3
-     * @dataProvider kessacStringProvider
-     */
+  /**
+   * @param $text
+   * @param $sha3
+   * @dataProvider kessacStringProvider
+   *
+   * @throws \Exception
+   */
     public function testManyStrings($text, $sha3)
     {
         $this->assertSame($sha3, EthereumStatic::sha3($text));

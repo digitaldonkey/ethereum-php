@@ -1,4 +1,4 @@
-pragma solidity 0.4.19;
+pragma solidity 0.4.23;
 
 contract SmartContractTest {
     function multiplyWithSeven (uint256 a) public pure returns(uint) {
