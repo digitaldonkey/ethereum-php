@@ -34,17 +34,6 @@ class EthD32Test extends TestStatic
         }
     }
 
-    public function testEthQ__invalidLengthShort()
-    {
-
-        try {
-            new EthD32('0x0');
-            $this->fail("Expected exception '" . $exception_message_expected . "' not thrown");
-        } catch (\Exception $exception) {
-            $this->assertTrue(strpos($exception->getMessage(), "Invalid length") !== false);
-        }
-    }
-
     public function testEthQ__notHexPrefixed()
     {
         $this->expectException(\InvalidArgumentException::class);
