@@ -116,9 +116,16 @@ class Rlp extends EthereumStatic {
         $rlpDataLength = self::byteLength($secondByte);
 
         if ($prefixLength < self::PREF_SHORT_ITEM) {
+
+          if (!$rlpDataLength) {
+            // The value is himself type byte or string.
+            $data = $hexVal;
+          }
+          else {
             //  (offset, dataLen, type) return (0, 1, str)
             // The value is himself type byte or string.
             $data = substr($hexVal, self::byteToStr(32 + $prefixLength), self::byteToStr($rlpDataLength));
+          }
         }
         elseif (
             $rlpDataLength < self::PREF_LONG_ITEM
