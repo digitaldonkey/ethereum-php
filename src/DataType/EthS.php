@@ -2,8 +2,8 @@
 
 namespace Ethereum\DataType;
 
-use Ethereum\Rlp;
-use Exception;
+use Ethereum\RLP\Rlp;
+
 
 /**
  * String data.
@@ -17,23 +17,22 @@ class EthS extends EthBytes
      *     A prefixed, ABI Encoded string or a UTF-8 string which does not start with "0x".
      * @param array $params
      * @return null|number|string
-     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function validate($val, array $params)
     {
         $return = null;
-
         // Decode
         if ($this->hasHexPrefix($val)) {
             // Hex encoded string.
-            $return = $this->hexToStr(Rlp::decode($val));
+            $return = $this->hexToStr($val);
         }
         else {
             $return = $val;
         }
 
         // Validate.
-        if (is_string((string) $return) && $this->checkUtf8($return)) {
+        if (is_string((string)$return) && $this->checkUtf8($return)) {
             return $return;
         }
         else {
@@ -41,12 +40,44 @@ class EthS extends EthBytes
         }
     }
 
+
+    /**
+     * @param $hexVal
+     * @return \Ethereum\DataType\EthBytes
+     * @throws Exception
+     */
+    public static function cretateFromRLP($hexVal)
+    {
+        $rlpItem = Rlp::decode($hexVal);
+        return new EthS(self::ensureHexPrefix($rlpItem[0]->get()));
+    }
+
+    /**
+     * Return hex value.
+     *
+     * @return string
+     *      Prefixed Hex value.
+     */
+    public function rlpVal()
+    {
+        // @todo ???
+        return Rlp::encode($this->strToHex($this->value));
+    }
+
     /**
      * Get hexadecimal string representation.
      */
     public function hexVal()
     {
-        return Rlp::encode($this->strToHex($this->value));
+        return $this->ensureHexPrefix($this->strToHex($this->value));
+    }
+
+    /**
+     * @return string
+     */
+    public function encodedHexVal()
+    {
+        return $this->rlpVal();
     }
 
     /**
@@ -68,7 +99,8 @@ class EthS extends EthBytes
      *
      * @return bool
      */
-    private function checkUtf8($str) {
+    private function checkUtf8($str)
+    {
         if (preg_match('%^(?:
               [\x09\x0A\x0D\x20-\x7E]            # ASCII
             | [\xC2-\xDF][\x80-\xBF]             # non-overlong 2-byte
@@ -114,10 +146,7 @@ class EthS extends EthBytes
      */
     public static function hexToStr($string)
     {
-        if (self::hasHexPrefix($string)) {
-            throw new Exception('Byte value of string must not have a hex prefix." : ' . $string);
-        }
-        return pack('H*', $string);
+        return pack('H*', self::removeHexPrefix($string));
     }
 
 }

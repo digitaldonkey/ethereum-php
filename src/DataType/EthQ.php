@@ -38,7 +38,7 @@ class EthQ extends EthD
      * @param array $params
      *   Array with optional parameters. Add Abi type $params['abi'] = 'unint8'.
      *
-     * @throw Exception
+     * @throws Exception
      */
     public function __construct($val, array $params = [])
     {
@@ -53,7 +53,7 @@ class EthQ extends EthD
      * @param array $params
      *   Only $param['abi'] is relevant.
      *
-     * @throw Exception
+     * @throws Exception
      *   If things are wrong.
      *
      * @return Math_BigInteger.
@@ -83,15 +83,18 @@ class EthQ extends EthD
             if (strlen($val) >= 10 && $val[2] === 'f') {
                 $big_int = new Math_BigInteger($val, -16);
                 $big_int->is_negative = true;
-            } else {
+            }
+            else {
                 // defaults to unsigned int if no abi is given.
                 $big_int = new Math_BigInteger($val, 16);
             }
-        } elseif (is_numeric($val)) {
+        }
+        elseif (is_numeric($val)) {
             if ($val < 0) {
                 $big_int = new Math_BigInteger($val);
                 $big_int->is_negative = true;
-            } else {
+            }
+            else {
                 $big_int = new Math_BigInteger($val);
             }
         }
@@ -107,14 +110,16 @@ class EthQ extends EthD
                     // Check if calculated ABI is a subset of the given API Param.
                     if ($this->getLength($this->abi) < $this->getLength($abi)) {
                         $this->abi = $abi;
-                    } else {
+                    }
+                    else {
                         throw new \InvalidArgumentException(
                           'Given ABI (' . $abi . ') does not match number given number: ' . $val);
                     }
                 }
             }
             return $big_int;
-        } else {
+        }
+        else {
             throw new \InvalidArgumentException('Can not decode Hex number: ' . $val);
         }
     }
@@ -154,7 +159,8 @@ class EthQ extends EthD
         }
         if ($negative) {
             return 'int' . $abi_l;
-        } else {
+        }
+        else {
             // Default to unsigned integer.
             return 'uint' . $abi_l;
         }
@@ -189,7 +195,8 @@ class EthQ extends EthD
      * @return string
      *   ABI with converted aliases.
      */
-    private function abiAliases($abi) {
+    private static function abiAliases($abi)
+    {
         // uint, int: synonyms for uint256, int256 respectively.
         if ($abi === 'int') {
             $abi = 'int256';
@@ -203,25 +210,27 @@ class EthQ extends EthD
     /**
      * Split abi type into length and intType.
      */
-    protected function splitAbi($abi)
+    protected static function splitAbi($abi)
     {
         $matches = [];
         $valid = null;
         // See: https://regex101.com/r/3XYumB/1
-        if (preg_match('/^(u?int)(\d{1,3})$/', $this->abiAliases($abi), $matches)) {
+        if (preg_match('/^(u?int)(\d{1,3})$/', self::abiAliases($abi),
+          $matches)) {
             return (object)[
               'abi' => $abi,
               'intType' => $matches[1],
               'intLength' => $matches[2],
             ];
-        } else {
+        }
+        else {
             throw new \InvalidArgumentException('Could not decode ABI for: ' . $abi);
         }
     }
 
     /**
      * Implement hex value.
-     * @throw Exception
+     * @throws Exception
      */
     public function hexVal()
     {
@@ -260,13 +269,15 @@ class EthQ extends EthD
     {
         if (!$abi) {
             $type = $this->splitAbi($this->abi);
-        } else {
+        }
+        else {
             $type = $abi;
         }
 
         if ($type->abi === 'uint') {
             return false;
-        } else {
+        }
+        else {
             return true;
         }
     }
@@ -296,20 +307,21 @@ class EthQ extends EthD
     {
         if ($this->isLargeNumber($this->value)) {
             return $this->value->toString();
-        } else {
+        }
+        else {
             return (int)$this->value->toString();
         }
     }
 
-  /**
-   * Checks if value is not null.
-   *
-   * @return bool
-   */
+    /**
+     * Checks if value is not null.
+     *
+     * @return bool
+     */
     public function isNotNull()
     {
-      $null = new Math_BigInteger();
-      return ($this->value->compare($null)  > 0 || $this->value->compare($null)  < 0);
+        $null = new Math_BigInteger();
+        return ($this->value->compare($null) > 0 || $this->value->compare($null) < 0);
     }
 
     /**
@@ -336,5 +348,13 @@ class EthQ extends EthD
     {
         $valid_lengths = "8;16;24;32;40;48;56;64;72;80;88;96;104;112;120;128;136;144;152;160;168;176;184;192;200;208;216;224;232;240;248;256";
         return explode(';', $valid_lengths);
+    }
+
+    /**
+     * @return string|int
+     */
+    public static function getdataLengthType($abiType)
+    {
+        return 'static';
     }
 }
