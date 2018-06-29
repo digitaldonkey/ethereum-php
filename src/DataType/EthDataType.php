@@ -2,11 +2,10 @@
 
 namespace Ethereum\DataType;
 
-use Exception;
-use Ethereum\DataType\EthDataTypeInterface;
-use Ethereum\DataType\EthD;
-use Ethereum\EthereumStatic;
 use Ethereum\Ethereum;
+use Ethereum\EthereumStatic;
+
+
 /**
  * @defgroup dataTypes Data Types
  *
@@ -18,7 +17,6 @@ use Ethereum\Ethereum;
  *
  * All Interfaces.
  */
-
 
 /**
  * @defgroup dataTypesPrimitive Primitive Types
@@ -36,6 +34,7 @@ use Ethereum\Ethereum;
  * @ingroup dataTypes
  */
 
+
 /**
  * Base Class for all Data types.
  *
@@ -44,6 +43,119 @@ use Ethereum\Ethereum;
  */
 abstract class EthDataType extends EthereumStatic implements EthDataTypeInterface
 {
+
+    /**
+     * @const ABI_MAP
+     *   Mapping ABI types to PHP classes.
+     * @see https://solidity.readthedocs.io/en/develop/abi-spec.html#types
+     */
+    private const ABI_MAP = [
+        // The following elementary types exist:
+        'uint' => 'EthQ',
+        'int' => 'EthQ',
+        'address' => 'EthD20',
+        // = uint 160?
+        'bool' => 'EthB',
+        // function, an address (20 bytes) followed by a function selector (4 bytes).
+        // Encoded identical to bytes24
+        // 'function' => ''
+
+        // Fixed signed fixed-point decimal number of M bits, 8 <= M <= 256
+        // @todo fixed-point decimal number not implemented.
+        // 'fixed' => 'EthB',
+        // 'ufixed' => 'EthS',
+
+        // string: dynamic sized unicode string assumed to be UTF-8 encoded.
+        'string' => 'EthS',
+        // bytes: dynamic sized byte sequence.
+        'bytes' => 'EthBytes',
+
+        // Small Bytes < 32
+        // Are always padded to 32bytes (64 chars in hex).
+        //
+        // bytes<M>: enc(X) is the sequence of bytes in X padded
+        //  with trailing zero-bytes to a length of 32 bytes.
+        //
+        // bytes<M>: binary type of M bytes, 0 < M <= 32
+        'bytes1' => 'EthD32',
+        'bytes2' => 'EthD32',
+        'bytes3' => 'EthD32',
+        'bytes4' => 'EthD32',
+        'bytes5' => 'EthD32',
+        'bytes6' => 'EthD32',
+        'bytes7' => 'EthD32',
+        'bytes8' => 'EthD32',
+        'bytes9' => 'EthD32',
+        'bytes10' => 'EthD32',
+        'bytes11' => 'EthD32',
+        'bytes12' => 'EthD32',
+        'bytes13' => 'EthD32',
+        'bytes14' => 'EthD32',
+        'bytes15' => 'EthD32',
+        'bytes16' => 'EthD32',
+        'bytes17' => 'EthD32',
+        'bytes18' => 'EthD32',
+        'bytes19' => 'EthD32',
+        'bytes20' => 'EthD20',
+        'bytes21' => 'EthD32',
+        'bytes22' => 'EthD32',
+        'bytes23' => 'EthD32',
+        'bytes24' => 'EthD32',
+        'bytes25' => 'EthD32',
+        'bytes26' => 'EthD32',
+        'bytes27' => 'EthD32',
+        'bytes28' => 'EthD32',
+        'bytes29' => 'EthD32',
+        'bytes30' => 'EthD32',
+        'bytes31' => 'EthD32',
+        'bytes32' => 'EthD32',
+
+        // @todo Function not implemented.
+        // An address (20 bytes) followed by a function selector (4 bytes).
+        // Encoded identical to bytes24
+        // 'function'         => 'EthD32' // ??? Might require a ABI bytes24 that the valuewon't get zero padded.
+    ];
+
+    /**
+     * Get PHP-class by ABI.
+     *
+     * @param $abiType
+     *  Ethereum ABI type. See https://solidity.readthedocs.io/en/develop/abi-spec.html#types
+     *
+     * @return string
+     *   Namespaced class, you may use to do things like: `new $class($myVal)`
+     *
+     * @throws Exception
+     */
+    public static function getClassByAbi($abiType)
+    {
+        $ns = 'Ethereum\DataType\\';
+
+        // Exact types
+        // Are exact keys in ABI_MAP
+        // (e.g: bool, address, bytes, string)
+        if (isset(self::ABI_MAP[$abiType])) {
+            return $ns . self::ABI_MAP[$abiType];
+        }
+
+        // Int types (int*, uint*)
+        $int = [];
+        preg_match("/^(?'type'[u]?int)([\d]*)$/", $abiType, $int);
+        // @see https://regex101.com/r/7JHrKG/1
+        if ($int && isset(self::ABI_MAP[$int['type']])) {
+            return $ns . self::ABI_MAP[$int['type']];
+        }
+
+        throw new \Exception('Unknown ABI type: ' . $abiType);
+    }
+
+    /**
+     * @return string|int
+     */
+    public static function getdataLengthType($abiType)
+    {
+        return 'dynamic'; // Actually 'unknown.'
+    }
 
     /**
      * Check if Type is a primitive type.
@@ -61,35 +173,36 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
      *
      * @param string $property
      *   Name of the property.
-     * @param bool   $hex_val
+     *
+     * @param bool $returnHexVal
      *   Set to TRUE to get the hexadecimal value.
      *
-     * @throw Exception
+     * @throws Exception
      *   If property does not exist.
      *
      * @return string|int|array
      *   The property value.*
      */
-    public function getProperty($property = 'value', $hex_val = false)
+    public function getProperty($property = 'value', $returnHexVal = false)
     {
 
         if (property_exists($this, $property)) {
 
             if (is_object($this->$property)) {
-                return ($hex_val) ? $this->$property->hexval() : $this->$property->val();
+                return ($returnHexVal) ? $this->$property->hexval() : $this->$property->val();
             }
 
             if (is_array($this->$property)) {
                 $return = [];
                 foreach ($this->$property as $item) {
                     if (is_object($item)) {
-                        $return[] = ($hex_val) ? $item->hexval() : $item->val();
+                        $return[] = ($returnHexVal) ? $item->hexval() : $item->val();
                     }
                 }
-
                 return $return;
             }
-        } else {
+        }
+        else {
             throw new \InvalidArgumentException("Property '$property' does not exist.");
         }
     }
@@ -109,9 +222,13 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
     public function setValue($val, array $params = [])
     {
         if (method_exists($this, 'validate')) {
+            if (isset($params['abi'])) {
+                $this->abi = $params['abi'];
+            }
             $this->value = $this->validate($val, $params);
-        } else {
-            throw new Exception('Validation of ' . __METHOD__ . ' not implemented yet.');
+        }
+        else {
+            throw new \Exception('Validation of ' . __METHOD__ . ' not implemented yet.');
         }
     }
 
@@ -121,7 +238,8 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
      *
      * @return string ClassName without namespace.
      */
-    public function getClassName() {
+    public function getClassName()
+    {
         $ex = explode("\\", get_class($this));
         return end($ex);
         //return  (new \ReflectionClass($this))->getShortName();
@@ -133,7 +251,8 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
      *
      * @param array|string $type
      *   Type containing Schema name.
-     * @param bool         $typed_constructor
+     *
+     * @param bool $typed_constructor
      *   If true this function will return "array" for types of array($type),
      *   instead of $type.
      *
@@ -166,7 +285,7 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
         }
 
         if (!$type_class) {
-            throw new Exception('Could not determine type class at getTypeClass()');
+            throw new \Exception('Could not determine type class at getTypeClass()');
         }
 
         return $type_class;
@@ -178,11 +297,12 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
      *
      * @return array Array with names of all type classes.
      */
-    public static function getAllTypeClasses() {
+    public static function getAllTypeClasses()
+    {
         $schema = Ethereum::getDefinition();
         return array_merge(
-            EthD::getPrimitiveTypes(),
-            array_keys($schema['objects'])
+          EthD::getPrimitiveTypes(),
+          array_keys($schema['objects'])
         );
     }
 }

@@ -1,7 +1,6 @@
 <?php
 namespace Ethereum;
 use Ethereum\DataType\EthD32;
-use Ethereum\TestStatic;
 
 /**
  * EthD32Test
@@ -36,8 +35,8 @@ class EthD32Test extends TestStatic
 
     public function testEthQ__notHexPrefixed()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        new EthD32('f79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd');
+        $a = new EthD32('f79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd');
+        $this->assertEquals($a->hexVal(), '0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd');
     }
 
     public function testEthQ__notHex()

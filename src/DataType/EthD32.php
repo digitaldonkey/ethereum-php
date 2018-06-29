@@ -17,7 +17,7 @@ class EthD32 extends EthD
      * @param string $val
      *   Hexadecimal "0x"prefixed  byte value.
      *
-     * @throw Exception
+     * @throws Exception
      *   If things are wrong.
      *
      * @return string
@@ -25,14 +25,52 @@ class EthD32 extends EthD
      */
     public function validateLength($val)
     {
-      if (strlen($val) <= 66) {
-        $padUp = 66 - strlen($val);
-        $val = $val . str_repeat ( '0' , $padUp );
-      }
-      if (strlen($val) === 66) {
-          return $val;
-      } else {
-          throw new \InvalidArgumentException('Invalid length for hex binary: ' . $val);
-      }
+        if (strlen($val) <= 66) {
+            $padUp = 66 - strlen($val);
+            $val = $val . str_repeat('0', $padUp);
+        }
+        if (strlen($val) === 66) {
+            return $val;
+        }
+        else {
+            throw new \InvalidArgumentException('Invalid length for hex binary: ' . $val);
+        }
+    }
+
+    /**
+     * @return string|int
+     */
+    public static function getdataLengthType($abiType)
+    {
+        return 'static';
+    }
+
+    /**
+     * Returns the length in chars according to ABI length.
+     *
+     * @return int
+     */
+    protected function getDataStrLength()
+    {
+        return 2 * preg_replace('/[^0-9]/', '', $this->abi);
+    }
+
+    /**
+     * Return un-prefixed hex value.
+     *
+     * Subclasses may return other types.
+     *
+     * @return string
+     *      Un-prefixed Hex value.
+     */
+    public function val()
+    {
+        if ($this->abi) {
+            // Shortening Data according to ABI lenngth if available.
+            return substr($this->value, 2, $this->getDataStrLength());
+        }
+        // Fall back on full 32 bytes if Abi is not set.
+        // It is recommended not to use bytes[1-31], as they all use same space/gas.
+        return substr($this->value, 2);
     }
 }

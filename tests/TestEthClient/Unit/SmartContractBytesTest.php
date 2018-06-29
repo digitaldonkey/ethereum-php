@@ -62,7 +62,9 @@ class SmartContractBytesTest extends TestEthContract
     public function testStringReturn()
     {
         $str = 'Hello little string.';
-        $x= $this->contract->stringReturn(new EthS($str));
+        $strObj = new EthS($str);
+        $hex = $strObj->hexVal();
+        $x = $this->contract->stringReturn($strObj);
         $this->assertEquals($str, $x->val());
     }
 
