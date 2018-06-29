@@ -78,9 +78,3 @@ The API documentation is available at [ethereum-php.org](http://ethereum-php.org
 For reference see the [Ethereum RPC documentation](https://github.com/ethereum/wiki/wiki/JSON-RPC) and for data encoding [RLP dcumentation](https://github.com/ethereum/wiki/wiki/RLP) in [Ethereum Wiki](https://github.com/ethereum/wiki).
 
 There is also a more readable [Ethereum Frontier Guide](http://ethereum.gitbooks.io/frontier-guide/content/rpc.html) version.
-
-More to read and watch
-
-* [Drupalcon Vienna talk](https://events.drupal.org/vienna2017/sessions/drupal-and-ethereum-blockchain)
-* [Drupalcon Baltimore talk](https://events.drupal.org/baltimore2017/sessions/drupal-and-ethereum-blockchain)
-
