@@ -31,12 +31,11 @@ class EthBytesTest extends TestStatic
     public function convertDataProvider()
     {
         return [
-            // [ABI, value, Expected type class, expected value]
+            // [ABI, rawValue, Expected type class, expected value]
             [
                 // See https://github.com/ethereum/web3.js/blob/cd1cfd9db6cacb494884a1824f8562c6440f85df/test/coder.decodeParam.js#L141-L144
                 'bytes',
-                '0x0000000000000000000000000000000000000000000000000000000000000020'
-                 .'0000000000000000000000000000000000000000000000000000000000000009'
+                  '0000000000000000000000000000000000000000000000000000000000000009'
                  .'6761766f66796f726b0000000000000000000000000000000000000000000000'
                 ,
                 'EthBytes',
@@ -45,8 +44,7 @@ class EthBytesTest extends TestStatic
             [
                 //See https://github.com/ethereum/web3.js/blob/cd1cfd9db6cacb494884a1824f8562c6440f85df/test/coder.decodeParam.js#L145-L148
                 'bytes',
-                '0x0000000000000000000000000000000000000000000000000000000000000020'
-                 .'0000000000000000000000000000000000000000000000000000000000000020'
+                  '0000000000000000000000000000000000000000000000000000000000000020'
                  .'731a3afc00d1b1e3461b955e53fc866dcf303b3eb9f4c16f89e388930f48134b'
                 ,
                 'EthBytes',
@@ -55,8 +53,7 @@ class EthBytesTest extends TestStatic
             [
                 //See https://github.com/ethereum/web3.js/blob/cd1cfd9db6cacb494884a1824f8562c6440f85df/test/coder.decodeParam.js#L149-L156
                 'bytes',
-                '0x0000000000000000000000000000000000000000000000000000000000000020'
-                 .'0000000000000000000000000000000000000000000000000000000000000060'
+                  '0000000000000000000000000000000000000000000000000000000000000060'
                  .'131a3afc00d1b1e3461b955e53fc866dcf303b3eb9f4c16f89e388930f48134b'
                  .'231a3afc00d1b1e3461b955e53fc866dcf303b3eb9f4c16f89e388930f48134b'
                  .'331a3afc00d1b1e3461b955e53fc866dcf303b3eb9f4c16f89e388930f48134b'
@@ -67,10 +64,9 @@ class EthBytesTest extends TestStatic
             [
                 //See https://github.com/ethereum/web3.js/blob/cd1cfd9db6cacb494884a1824f8562c6440f85df/test/coder.decodeParam.js#L157-L162
                 'bytes',
-                '0x0000000000000000000000000000000000000000000000000000000000000020'
-                 .'0000000000000000000000000000000000000000000000000000000000000040'
-                 .'731a3afc00d1b1e3461b955e53fc866dcf303b3eb9f4c16f89e388930f48134b'
-                 .'731a3afc00d1b1e3461b955e53fc866dcf303b3eb9f4c16f89e388930f48134b'
+                 '0000000000000000000000000000000000000000000000000000000000000040'
+                .'731a3afc00d1b1e3461b955e53fc866dcf303b3eb9f4c16f89e388930f48134b'
+                .'731a3afc00d1b1e3461b955e53fc866dcf303b3eb9f4c16f89e388930f48134b'
                 ,
                 'EthBytes',
                 '0x731a3afc00d1b1e3461b955e53fc866dcf303b3eb9f4c16f89e388930f48134b'
@@ -79,8 +75,7 @@ class EthBytesTest extends TestStatic
             [
                 //See https://github.com/ethereum/web3.js/blob/master/test/coder.decodeParam.js
                 'bytes',
-                '0x0000000000000000000000000000000000000000000000000000000000000020'
-                 .'000000000000000000000000000000000000000000000000000000000000009f'
+                  '000000000000000000000000000000000000000000000000000000000000009f'
                  .'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                  .'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                  .'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
@@ -97,8 +92,7 @@ class EthBytesTest extends TestStatic
             [
                 //See https://github.com/ethereum/web3.js/blob/master/test/coder.decodeParam.js
                 'bytes',
-                '0x0000000000000000000000000000000000000000000000000000000000000020'
-                 .'0000000000000000000000000000000000000000000000000000000000000006'
+                  '0000000000000000000000000000000000000000000000000000000000000006'
                  .'c3a40000c3a40000000000000000000000000000000000000000000000000000',
                 'EthBytes',
                 '0xc3a40000c3a4',
@@ -106,8 +100,7 @@ class EthBytesTest extends TestStatic
             [
                 // @see https://github.com/ethereumjs/ethereumjs-abi/blob/master/test/index.js
                 'bytes',
-                '0x0000000000000000000000000000000000000000000000000000000000000020'
-                 .'000000000000000000000000000000000000000000000000000000000000000b'
+                  '000000000000000000000000000000000000000000000000000000000000000b'
                  .'68656c6c6f20776f726c64000000000000000000000000000000000000000000',
                 'EthBytes',
                 '0x68656c6c6f20776f726c64',
@@ -130,8 +123,7 @@ class EthBytesTest extends TestStatic
 //            ],
             [
                 'bytes',
-                '0x0000000000000000000000000000000000000000000000000000000000000020'
-                .'0000000000000000000000000000000000000000000000000000000000000009'
+                 '0000000000000000000000000000000000000000000000000000000000000009'
                 .'6761766f66796f726b0000000000000000000000000000000000000000000000'
                 ,
                 'EthBytes',
@@ -153,21 +145,20 @@ class EthBytesTest extends TestStatic
     /**
      * @dataProvider convertDataProvider
      */
-    public function testEthBytesTest__createVal($abi, $value, $expClass, $expVal)
+    public function testEthBytesTest__createVal($abi, $rawValue, $expClass, $expVal)
     {
         $expClass = "\\Ethereum\DataType\\$expClass";
-        $x = new $expClass($value);
-        $this->assertEquals($expVal, EthereumStatic::ensureHexPrefix($x->val()));
-        $this->assertEquals($value, $x->hexVal());
+        $x = $expClass::cretateFromRLP(EthereumStatic::ensureHexPrefix($rawValue));
+        $this->assertEquals($expVal, $x->hexVal());
     }
 
     /**
      * @dataProvider convertDataProvider
      */
-    public function testEthBytesTest__createType($abi, $value, $expClass, $expVal)
+    public function testEthBytesTest__createType($abi, $rawValue, $expClass, $expVal)
     {
         $class = "\\Ethereum\DataType\\" . $expClass;
-        $x = new $class($value);
+        $x = new $class($expVal);
         $this->assertEquals($expClass, $x->getClassName());
     }
 
@@ -175,19 +166,19 @@ class EthBytesTest extends TestStatic
     /**
      * @dataProvider convertDataProvider
      */
-    public function testEthBytesTest__createTypeWithAbi($abi, $value, $expClass, $expVal)
+    public function testEthBytesTest__createTypeWithAbi($abi, $rawValue, $expClass, $expVal)
     {
         $class = "\\Ethereum\DataType\\" . $expClass;
-        $x = new $class($value, ['abi' => $abi]);
+        $x = new $class($expVal, ['abi' => $abi]);
         $this->assertEquals($expClass, $x->getClassName());
     }
 
     /**
      * @dataProvider convertDataProvider
      */
-    public function testEthBytesTest__converter($abi, $value, $expClass, $expVal)
+    public function testEthBytesTest__converter($abi, $rawValue, $expClass, $expVal)
     {
-        $x = new EthD($value);
+        $x = new EthD($expVal);
         $y = $x->convertByAbi($abi);
         $this->assertEquals(EthereumStatic::removeHexPrefix($expVal), $y->val());
     }
@@ -195,9 +186,9 @@ class EthBytesTest extends TestStatic
     /**
      * @dataProvider convertDataProvider
      */
-    public function testEthBytesTest__converterType($abi, $value, $expClass, $expVal)
+    public function testEthBytesTest__converterType($abi, $rawValue, $expClass, $expVal)
     {
-        $x = new EthD($value);
+        $x = new EthD($expVal);
         $y = $x->convertByAbi($abi);
         $this->assertEquals($expClass, $y->getClassName());
     }

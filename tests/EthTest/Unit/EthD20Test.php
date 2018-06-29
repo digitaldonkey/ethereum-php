@@ -2,7 +2,6 @@
 namespace Ethereum;
 
 use Ethereum\DataType\EthD20;
-use Ethereum\TestStatic;
 
 
 /**
@@ -49,8 +48,9 @@ class EthD20Test extends TestStatic
 
     public function testEthQ__notHexPrefixed()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        new EthD20('4f1116b6e1a6e963efffa30c0a8541075cc51c45');
+        // Change note: Now you can use unprefixed values again.
+        $a = new EthD20('4f1116b6e1a6e963efffa30c0a8541075cc51c45');
+        $this->assertEquals($a->hexVal(), '0x4f1116b6e1a6e963efffa30c0a8541075cc51c45');
     }
 
     public function testEthQ__notHex()

@@ -19,7 +19,7 @@ class EthD20 extends EthD
      * @param string $val
      *   Hexadecimal "0x"prefixed  byte value.
      *
-     * @throw Exception
+     * @throws Exception
      *   If things are wrong.
      *
      * @return string
@@ -44,7 +44,7 @@ class EthD20 extends EthD
      * @return string
      *   If address can't be decoded.
      *
-     * @throw Exception
+     * @throws Exception
      *   If string is not a formally valid address.
      */
     public static function unPadEnsureLength($string)
@@ -71,6 +71,14 @@ class EthD20 extends EthD
     public function isNotNull() {
         $checkForValue = new EthQ($this->value);
         return $checkForValue->isNotNull();
+    }
+
+    /**
+    * @return string|int
+    */
+    public static function getdataLengthType($abiType)
+    {
+        return 'static';
     }
 
 }
