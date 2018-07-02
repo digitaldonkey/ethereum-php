@@ -1,12 +1,8 @@
 <?php
 
 namespace Ethereum;
-use Exception;
-use kornrunner\Keccak;
 
-use Ethereum\DataType\EthD32;
-use Ethereum\DataType\EthD;
-use Ethereum\DataType\EthQ;
+use kornrunner\Keccak;
 
 /**
  * Static helper functions for Ethereum JsonRPC API for PHP.
@@ -39,8 +35,7 @@ abstract class EthereumStatic
             // The signature is 4bytes of the methods keccac hash. E.g: "0x00000000".
             return substr(self::sha3($input), 0, 10);
         }
-        else
-        {
+        else {
             throw new \InvalidArgumentException("No valid (solidity) signature string provided.");
         }
     }
@@ -95,7 +90,8 @@ abstract class EthereumStatic
      * @return string
      *    Hash of input.
      */
-    public static function sha3($string) {
+    public static function sha3($string)
+    {
         return self::phpKeccak256($string);
     }
 
@@ -224,7 +220,7 @@ abstract class EthereumStatic
      *
      * @param string $address
      *   String to test for Address.
-     * @param bool   $throw
+     * @param bool $throw
      *   If TRUE we will throw en error.
      *
      * @return bool
@@ -241,7 +237,7 @@ abstract class EthereumStatic
             return false;
         }
         $return = ctype_xdigit(self::removeHexPrefix($address));
-      return $return;
+        return $return;
     }
 
     /**
@@ -270,7 +266,7 @@ abstract class EthereumStatic
     public static function removeHexPrefix($str)
     {
         if (!self::hasHexPrefix($str)) {
-            throw new \InvalidArgumentException('String is not prefixed with "0x".');
+            return $str;
         }
 
         return substr($str, 2);
@@ -334,5 +330,4 @@ abstract class EthereumStatic
         }
         return $convertTabe[$to] * $ammount / $convertTabe[$from];
     }
-
 }

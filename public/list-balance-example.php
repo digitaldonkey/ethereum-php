@@ -23,15 +23,10 @@ require_once __DIR__ . '/examples.inc.php';
 function getBalanceAtAddress($address) {
 
     try {
-//        $eth = new Ethereum('https://kovan.infura.io/drupal');
-        $eth = new Ethereum('http://127.0.0.1:7545');
-        $wei = $eth->eth_getBalance(new EthD20($address), new EthBlockParam())->val();
-        echo
 
-        printTable([
-          0 => ['Address', 'Balance in Ether'],
-          1 => [$address, $eth->convertCurrency($wei)],
-        ]);
+        $eth = new Ethereum('http://127.0.0.1:7545');
+        $balanceInWei = $eth->eth_getBalance(new EthD20($address), new EthBlockParam())->val();
+        return $eth->convertCurrency($balanceInWei);
 
     }
     catch (\Exception $exception) {
@@ -45,4 +40,7 @@ function getBalanceAtAddress($address) {
 
 $address = '0x78f444392cB2C0aF3cF606De36Ad080EBf22b500';
 
-$XXX = getBalanceAtAddress($address);
+printTable([
+  0 => ['Address', 'Balance in Ether'],
+  1 => [$address, getBalanceAtAddress($address)],
+]);

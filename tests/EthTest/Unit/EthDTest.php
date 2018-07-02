@@ -27,8 +27,8 @@ class EthDTest extends TestStatic
     // Made to Fail.
     public function testEthD__notHexPrefixed()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        new EthD('4f1116b6e1a6e963efffa30c0a8541075cc51c45');
+        $a = new EthD('4f1116b6e1a6e963efffa30c0a8541075cc51c45');
+        $this->assertEquals($a->hexVal(), '0x4f1116b6e1a6e963efffa30c0a8541075cc51c45');
     }
 
     public function testEthQD__notHex()
