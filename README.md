@@ -8,6 +8,12 @@ Check out the latest [API documentation](http://ethereum-php.org/dev/).
 
 ```yaml
 {
+  "minimum-stability":"dev",
+  "autoload": {
+    "psr-4": {
+      "Ethereum\\": "src/"
+    }
+  },
   "repositories": [
     {
       "type": "git",
@@ -15,7 +21,7 @@ Check out the latest [API documentation](http://ethereum-php.org/dev/).
     }
   ],
   "require": {
-    "digitaldonkey/ethereum-php": "dev-dev",
+    "digitaldonkey/ethereum-php": "dev-master"
   }
 }
 ```
@@ -31,13 +37,19 @@ This is the important part of [composer.json](https://github.com/digitaldonkey/e
 
 
 ```php
+require __DIR__ . '/vendor/autoload.php';
+use Ethereum\Ethereum;
+
 try {
-  $eth = new EthereumController('http://localhost:8445');
-  echo $eth->client->eth_protocolVersion();
+	// Connect to Ganache
+    $eth = new Ethereum('http://127.0.0.1:7545');
+    // Should return Int 63
+    echo $eth->eth_protocolVersion()->val();
 }
 catch (\Exception $exception) {
-  die ("Unable to connect.");
+    die ("Unable to connect.");
 }
+
 ```
 
 **Calling Contracts**
