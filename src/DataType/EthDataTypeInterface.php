@@ -20,6 +20,18 @@ interface EthDataTypeInterface
      */
     public static function isPrimitive();
 
+
+  /**
+   * Get length of this data type.
+   *
+   * @return string [dynamic|fixed]
+   *
+   * @param $abiType
+   *
+   * @return mixed
+   */
+    public static function getdataLengthType($abiType);
+
     /**
      * Get property value.
      *
@@ -28,7 +40,7 @@ interface EthDataTypeInterface
      * @param bool $hex_val
      *   Set to TRUE to get the hexadecimal representation of the property.
      *
-     * @throw Exception
+     * @throws Exception
      *   If something is wrong.
      *
      * @return string|int|array

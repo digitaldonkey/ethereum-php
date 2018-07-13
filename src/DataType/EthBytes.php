@@ -2,8 +2,7 @@
 
 namespace Ethereum\DataType;
 
-use Ethereum\Rlp;
-use InvalidArgumentException;
+use Ethereum\RLP\Rlp;
 
 /**
  * Complex Array or byte data.
@@ -14,6 +13,7 @@ use InvalidArgumentException;
  */
 class EthBytes extends EthD
 {
+
     /**
      * Implement validation.
      *
@@ -27,27 +27,17 @@ class EthBytes extends EthD
      * @return string
      *   Unprefixed byte value.
      *
-     * @throws InvalidArgumentException Can not decode int value.
+     * @throws \InvalidArgumentException Can not decode int value.
      *   If things are wrong.
      */
     public function validate($val, array $params)
     {
-        // Always assume it's a ABI encoded value.
-        // To set bytes plain bytes it has to be done without Hex prefix.
-        if (isset($params['abi'])) {
-            $val = Rlp::decode($val);
-        }
-
-        if (self::hasHexPrefix($val)) {
-            $val = Rlp::decode($val);
-        }
-
-        if (!ctype_xdigit($val)) {
-            throw new InvalidArgumentException(
-                'Value of dynamic ABI type is not a valid hex string.'
+        if (!ctype_xdigit($this->removeHexPrefix($val))) {
+            throw new \InvalidArgumentException(
+              'Value of dynamic ABI type is not a valid hex string.'
             );
         }
-        return $val;
+        return $this->ensureHexPrefix($val);
     }
 
     /**
@@ -56,8 +46,7 @@ class EthBytes extends EthD
      * @param string $val
      *   Hexadecimal "0x"prefixed  byte value.
      *
-     * @throw Exception
-     *   If things are wrong.
+     * @throws InvalidArgumentException
      *
      * @return string
      *   Validated D20 value.
@@ -66,12 +55,22 @@ class EthBytes extends EthD
     {
         if (strlen($val) % 2 !== 0) {
             throw new \InvalidArgumentException(
-                'A valid bytes string must have a even number of letters.'
+              'A valid bytes string must have a even number of letters.'
             );
-        }
-        else {
+        } else {
             return $val;
         }
+    }
+
+    /**
+     * @param $hexVal
+     * @return \Ethereum\DataType\EthBytes
+     * @throws Exception
+     */
+    public static function cretateFromRLP($hexVal)
+    {
+        $rlpItem = Rlp::decode($hexVal);
+        return new EthBytes(self::ensureHexPrefix($rlpItem[0]->get()));
     }
 
     /**
@@ -81,6 +80,25 @@ class EthBytes extends EthD
      *      Prefixed Hex value.
      */
     public function hexVal()
+    {
+        return $this->value;
+    }
+
+    /**
+     * @return string
+     */
+    public function encodedHexVal()
+    {
+        return $this->rlpVal();
+    }
+
+    /**
+     * Return hex value.
+     *
+     * @return string
+     *      Prefixed Hex value.
+     */
+    public function rlpVal()
     {
         return Rlp::encode($this->value);
     }
@@ -95,7 +113,15 @@ class EthBytes extends EthD
      */
     public function val()
     {
-        return $this->value;
+        return $this->removeHexPrefix($this->value);
+    }
+
+    /**
+     * @return string|int
+     */
+    public static function getdataLengthType($abiType)
+    {
+        return 'dynamic';
     }
 
 }

@@ -304,7 +304,7 @@ class Ethereum extends EthereumStatic implements Web3Interface
 
     /**
      * Ethereum request.
-     * @throw Exception
+     * @throws Exception
      */
     public function etherRequest($method, $params = [])
     {
@@ -417,7 +417,7 @@ class Ethereum extends EthereumStatic implements Web3Interface
    * @param EthD $signature
    *   Hex value of the Message Signature.
    *
-   * @throws \Exception
+   * @throws Exception
    *
    * @return string EthereumAddress with prefix.
    */
@@ -435,7 +435,7 @@ class Ethereum extends EthereumStatic implements Web3Interface
    * @param string $typeClass
    *   Class name for the data type.
    *
-   * @throws \Exception
+   * @throws Exception
    *
    * @return array
    *   Array of value objects of the given type.
