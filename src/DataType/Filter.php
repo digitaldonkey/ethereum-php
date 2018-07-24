@@ -58,7 +58,7 @@ class Filter extends EthDataType {
 			'fromBlock' => 'EthBlockParam',
 			'toBlock' => 'EthBlockParam',
 			'address' => 'EthBytes',
-			'topics' => 'EthD',
+			'topics' => '[EthD]',
 		);
 	}
 

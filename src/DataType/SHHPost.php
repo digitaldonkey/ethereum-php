@@ -69,7 +69,7 @@ class SHHPost extends EthDataType {
 	 */
 	public static function getTypeArray() {
 		return array( 
-			'topics' => 'EthD',
+			'topics' => '[EthD]',
 			'payload' => 'EthD',
 			'priority' => 'EthQ',
 			'ttl' => 'EthQ',

@@ -96,7 +96,7 @@ class SHHMessage extends EthDataType {
 			'expiry' => 'EthQ',
 			'ttl' => 'EthQ',
 			'sent' => 'EthQ',
-			'topics' => 'EthD',
+			'topics' => '[EthD]',
 			'payload' => 'EthD',
 			'workProved' => 'EthQ',
 		);

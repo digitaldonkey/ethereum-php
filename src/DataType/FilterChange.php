@@ -71,7 +71,7 @@ class FilterChange extends EthDataType {
 	 * @param EthQ $blockNumber
 	 * @param EthD20 $address
 	 * @param EthBytes $data
-	 * @param array $topics Array of EthD
+	 * @param array $topics Array of EthD32
 	 */
 	public function __construct(EthB $removed = null, EthQ $logIndex = null, EthQ $transactionIndex = null, EthD32 $transactionHash = null, EthD32 $blockHash = null, EthQ $blockNumber = null, EthD20 $address = null, EthBytes $data = null, array $topics = null) {
 		$this->removed = $removed;  
@@ -98,7 +98,7 @@ class FilterChange extends EthDataType {
 			'blockNumber' => 'EthQ',
 			'address' => 'EthD20',
 			'data' => 'EthBytes',
-			'topics' => 'EthD',
+			'topics' => '[EthD32]',
 		);
 	}
 
@@ -115,7 +115,7 @@ class FilterChange extends EthDataType {
 		(!is_null($this->blockNumber)) ? $return['blockNumber'] = $this->blockNumber->hexVal() : NULL; 
 		(!is_null($this->address)) ? $return['address'] = $this->address->hexVal() : NULL; 
 		(!is_null($this->data)) ? $return['data'] = $this->data->hexVal() : NULL; 
-		(!is_null($this->topics)) ? $return['topics'] = EthereumStatic::valueArray($this->topics, 'EthD') : array(); 
+		(!is_null($this->topics)) ? $return['topics'] = EthereumStatic::valueArray($this->topics, 'EthD32') : array(); 
 		return $return;
 	}
 }

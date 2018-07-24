@@ -167,7 +167,7 @@
       "blockNumber": "Q",
       "address": "D20",
       "data": "Array|DATA",
-      "topics": ["D"]
+      "topics": ["D32"]
     },
     "SHHPost": {
       "__required": ["topics", "payload", "priority", "ttl"],

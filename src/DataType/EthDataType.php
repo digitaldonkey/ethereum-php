@@ -125,7 +125,7 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
      * @return string
      *   Namespaced class, you may use to do things like: `new $class($myVal)`
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public static function getClassByAbi($abiType)
     {
@@ -216,7 +216,7 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
      * @param array $params
      *   Array with optional keyed arguments.
      *
-     * @throws Exception
+     * @throws \Exception
      *   If validation is not implemented for type.
      */
     public function setValue($val, array $params = [])
@@ -263,6 +263,10 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
      */
     public static function getTypeClass($type, $typed_constructor = false)
     {
+        // Handling "[type]".
+        if (is_string($type) && strpos($type, '[') !== FALSE) {
+            $type = array(str_replace(['[', ']'], '', $type));
+        }
 
         if (!is_array($type)) {
             $primitive_type = EthD::typeMap($type);

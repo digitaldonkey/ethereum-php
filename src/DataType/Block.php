@@ -177,8 +177,8 @@ class Block extends EthDataType {
 			'gasLimit' => 'EthQ',
 			'gasUsed' => 'EthQ',
 			'timestamp' => 'EthQ',
-			'transactions' => 'Transaction',
-			'uncles' => 'EthD',
+			'transactions' => '[Transaction]',
+			'uncles' => '[EthD]',
 		);
 	}
 

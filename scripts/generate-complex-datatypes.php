@@ -305,7 +305,7 @@ function makeTypeArrayBody(Array $input)
     $data[] = "return array( ";
     foreach ($input['params'] as $name => $type) {
         if (is_array($type)) {
-            $data[] = "\t'" . $name . "' => '" . EthD::typeMap($type[0]) . "',";
+            $data[] = "\t'" . $name . "' => '[" . EthD::typeMap($type[0]) . "]',";
         } else {
             $data[] = "\t'" . $name . "' => '" . EthD::typeMap($type) . "',";
         }

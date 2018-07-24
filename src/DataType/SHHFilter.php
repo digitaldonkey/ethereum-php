@@ -41,7 +41,7 @@ class SHHFilter extends EthDataType {
 	 */
 	public static function getTypeArray() {
 		return array( 
-			'topics' => 'EthD',
+			'topics' => '[EthD]',
 			'to' => 'EthD',
 		);
 	}

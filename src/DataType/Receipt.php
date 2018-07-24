@@ -90,7 +90,7 @@ class Receipt extends EthDataType {
 			'cumulativeGasUsed' => 'EthQ',
 			'gasUsed' => 'EthQ',
 			'contractAddress' => 'EthD20',
-			'logs' => '',
+			'logs' => '[FilterChange]',
 		);
 	}
 
