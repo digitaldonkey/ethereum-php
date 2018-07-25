@@ -40,9 +40,9 @@ trait Web3Methods {
 	 * 
 	 * See [Ethereum Wiki web3_clientVersion](https://github.com/ethereum/wiki/wiki/JSON-RPC#web3_clientversion)
 	 *
-	 * @return EthS
+	 * @return ?EthS
 	 */
-	public function web3_clientVersion(): EthS {
+	public function web3_clientVersion(): ?EthS {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -52,9 +52,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki web3_sha3](https://github.com/ethereum/wiki/wiki/JSON-RPC#web3_sha3)
 	 *
 	 * @param EthS $arg1
-	 * @return EthD
+	 * @return ?EthD
 	 */
-	public function web3_sha3(EthS $arg1): EthD {
+	public function web3_sha3(EthS $arg1): ?EthD {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -63,9 +63,9 @@ trait Web3Methods {
 	 * 
 	 * See [Ethereum Wiki net_version](https://github.com/ethereum/wiki/wiki/JSON-RPC#net_version)
 	 *
-	 * @return EthS
+	 * @return ?EthS
 	 */
-	public function net_version(): EthS {
+	public function net_version(): ?EthS {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -74,9 +74,9 @@ trait Web3Methods {
 	 * 
 	 * See [Ethereum Wiki net_peerCount](https://github.com/ethereum/wiki/wiki/JSON-RPC#net_peercount)
 	 *
-	 * @return EthQ
+	 * @return ?EthQ
 	 */
-	public function net_peerCount(): EthQ {
+	public function net_peerCount(): ?EthQ {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -85,9 +85,9 @@ trait Web3Methods {
 	 * 
 	 * See [Ethereum Wiki net_listening](https://github.com/ethereum/wiki/wiki/JSON-RPC#net_listening)
 	 *
-	 * @return EthB
+	 * @return ?EthB
 	 */
-	public function net_listening(): EthB {
+	public function net_listening(): ?EthB {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -99,9 +99,9 @@ trait Web3Methods {
 	 * @param EthD20 $arg1
 	 * @param EthD $arg2
 	 * @param EthS $arg3
-	 * @return EthD
+	 * @return ?EthD
 	 */
-	public function personal_sign(EthD20 $arg1, EthD $arg2, EthS $arg3): EthD {
+	public function personal_sign(EthD20 $arg1, EthD $arg2, EthS $arg3): ?EthD {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -112,9 +112,9 @@ trait Web3Methods {
 	 *
 	 * @param EthD $arg1
 	 * @param EthD $arg2
-	 * @return EthD20
+	 * @return ?EthD20
 	 */
-	public function personal_ecRecover(EthD $arg1, EthD $arg2): EthD20 {
+	public function personal_ecRecover(EthD $arg1, EthD $arg2): ?EthD20 {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -123,9 +123,9 @@ trait Web3Methods {
 	 * 
 	 * See [Ethereum Wiki eth_protocolVersion](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_protocolversion)
 	 *
-	 * @return EthS
+	 * @return ?EthS
 	 */
-	public function eth_protocolVersion(): EthS {
+	public function eth_protocolVersion(): ?EthS {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -134,9 +134,9 @@ trait Web3Methods {
 	 * 
 	 * See [Ethereum Wiki eth_syncing](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_syncing)
 	 *
-	 * @return EthB
+	 * @return ?EthB
 	 */
-	public function eth_syncing(): EthB {
+	public function eth_syncing(): ?EthB {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -145,9 +145,9 @@ trait Web3Methods {
 	 * 
 	 * See [Ethereum Wiki eth_coinbase](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_coinbase)
 	 *
-	 * @return EthD20
+	 * @return ?EthD20
 	 */
-	public function eth_coinbase(): EthD20 {
+	public function eth_coinbase(): ?EthD20 {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -156,9 +156,9 @@ trait Web3Methods {
 	 * 
 	 * See [Ethereum Wiki eth_mining](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_mining)
 	 *
-	 * @return EthB
+	 * @return ?EthB
 	 */
-	public function eth_mining(): EthB {
+	public function eth_mining(): ?EthB {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -167,9 +167,9 @@ trait Web3Methods {
 	 * 
 	 * See [Ethereum Wiki eth_hashrate](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_hashrate)
 	 *
-	 * @return EthQ
+	 * @return ?EthQ
 	 */
-	public function eth_hashrate(): EthQ {
+	public function eth_hashrate(): ?EthQ {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -178,9 +178,9 @@ trait Web3Methods {
 	 * 
 	 * See [Ethereum Wiki eth_gasPrice](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gasprice)
 	 *
-	 * @return EthQ
+	 * @return ?EthQ
 	 */
-	public function eth_gasPrice(): EthQ {
+	public function eth_gasPrice(): ?EthQ {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -189,9 +189,9 @@ trait Web3Methods {
 	 * 
 	 * See [Ethereum Wiki eth_accounts](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_accounts)
 	 *
-	 * @return array   Array of EthD20
+	 * @return ?array   Array of EthD20
 	 */
-	public function eth_accounts(): array {
+	public function eth_accounts(): ?array {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -200,9 +200,9 @@ trait Web3Methods {
 	 * 
 	 * See [Ethereum Wiki eth_blockNumber](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_blocknumber)
 	 *
-	 * @return EthQ
+	 * @return ?EthQ
 	 */
-	public function eth_blockNumber(): EthQ {
+	public function eth_blockNumber(): ?EthQ {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -213,9 +213,9 @@ trait Web3Methods {
 	 *
 	 * @param EthD20 $arg1
 	 * @param EthBlockParam $arg2
-	 * @return EthQ
+	 * @return ?EthQ
 	 */
-	public function eth_getBalance(EthD20 $arg1, EthBlockParam $arg2): EthQ {
+	public function eth_getBalance(EthD20 $arg1, EthBlockParam $arg2): ?EthQ {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -227,9 +227,9 @@ trait Web3Methods {
 	 * @param EthD20 $arg1
 	 * @param EthQ $arg2
 	 * @param EthBlockParam $arg3
-	 * @return EthD
+	 * @return ?EthD
 	 */
-	public function eth_getStorageAt(EthD20 $arg1, EthQ $arg2, EthBlockParam $arg3): EthD {
+	public function eth_getStorageAt(EthD20 $arg1, EthQ $arg2, EthBlockParam $arg3): ?EthD {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -240,9 +240,9 @@ trait Web3Methods {
 	 *
 	 * @param EthD20 $arg1
 	 * @param EthBlockParam $arg2
-	 * @return EthQ
+	 * @return ?EthQ
 	 */
-	public function eth_getTransactionCount(EthD20 $arg1, EthBlockParam $arg2): EthQ {
+	public function eth_getTransactionCount(EthD20 $arg1, EthBlockParam $arg2): ?EthQ {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -252,9 +252,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki eth_getBlockTransactionCountByHash](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getblocktransactioncountbyhash)
 	 *
 	 * @param EthD32 $arg1
-	 * @return EthQ
+	 * @return ?EthQ
 	 */
-	public function eth_getBlockTransactionCountByHash(EthD32 $arg1): EthQ {
+	public function eth_getBlockTransactionCountByHash(EthD32 $arg1): ?EthQ {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -264,9 +264,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki eth_getBlockTransactionCountByNumber](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getblocktransactioncountbynumber)
 	 *
 	 * @param EthBlockParam $arg1
-	 * @return EthQ
+	 * @return ?EthQ
 	 */
-	public function eth_getBlockTransactionCountByNumber(EthBlockParam $arg1): EthQ {
+	public function eth_getBlockTransactionCountByNumber(EthBlockParam $arg1): ?EthQ {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -276,9 +276,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki eth_getUncleCountByBlockHash](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getunclecountbyblockhash)
 	 *
 	 * @param EthD32 $arg1
-	 * @return EthQ
+	 * @return ?EthQ
 	 */
-	public function eth_getUncleCountByBlockHash(EthD32 $arg1): EthQ {
+	public function eth_getUncleCountByBlockHash(EthD32 $arg1): ?EthQ {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -288,9 +288,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki eth_getUncleCountByBlockNumber](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getunclecountbyblocknumber)
 	 *
 	 * @param EthQ $arg1
-	 * @return EthQ
+	 * @return ?EthQ
 	 */
-	public function eth_getUncleCountByBlockNumber(EthQ $arg1): EthQ {
+	public function eth_getUncleCountByBlockNumber(EthQ $arg1): ?EthQ {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -301,9 +301,9 @@ trait Web3Methods {
 	 *
 	 * @param EthD20 $arg1
 	 * @param EthBlockParam $arg2
-	 * @return EthD
+	 * @return ?EthD
 	 */
-	public function eth_getCode(EthD20 $arg1, EthBlockParam $arg2): EthD {
+	public function eth_getCode(EthD20 $arg1, EthBlockParam $arg2): ?EthD {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -314,9 +314,9 @@ trait Web3Methods {
 	 *
 	 * @param EthD20 $arg1
 	 * @param EthD32 $arg2
-	 * @return EthD
+	 * @return ?EthD
 	 */
-	public function eth_sign(EthD20 $arg1, EthD32 $arg2): EthD {
+	public function eth_sign(EthD20 $arg1, EthD32 $arg2): ?EthD {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -326,9 +326,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki eth_sendTransaction](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_sendtransaction)
 	 *
 	 * @param SendTransaction $arg1
-	 * @return EthD
+	 * @return ?EthD
 	 */
-	public function eth_sendTransaction(SendTransaction $arg1): EthD {
+	public function eth_sendTransaction(SendTransaction $arg1): ?EthD {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -338,9 +338,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki eth_sendRawTransaction](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_sendrawtransaction)
 	 *
 	 * @param EthD $arg1
-	 * @return EthD32
+	 * @return ?EthD32
 	 */
-	public function eth_sendRawTransaction(EthD $arg1): EthD32 {
+	public function eth_sendRawTransaction(EthD $arg1): ?EthD32 {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -351,9 +351,9 @@ trait Web3Methods {
 	 *
 	 * @param CallTransaction $arg1
 	 * @param EthBlockParam $arg2
-	 * @return EthD
+	 * @return ?EthD
 	 */
-	public function eth_call(CallTransaction $arg1, EthBlockParam $arg2): EthD {
+	public function eth_call(CallTransaction $arg1, EthBlockParam $arg2): ?EthD {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -364,9 +364,9 @@ trait Web3Methods {
 	 *
 	 * @param EstimateTransaction $arg1
 	 * @param EthBlockParam $arg2
-	 * @return EthQ
+	 * @return ?EthQ
 	 */
-	public function eth_estimateGas(EstimateTransaction $arg1, EthBlockParam $arg2): EthQ {
+	public function eth_estimateGas(EstimateTransaction $arg1, EthBlockParam $arg2): ?EthQ {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -377,9 +377,9 @@ trait Web3Methods {
 	 *
 	 * @param EthD32 $arg1
 	 * @param EthB $arg2
-	 * @return Block
+	 * @return ?Block
 	 */
-	public function eth_getBlockByHash(EthD32 $arg1, EthB $arg2): Block {
+	public function eth_getBlockByHash(EthD32 $arg1, EthB $arg2): ?Block {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -390,9 +390,9 @@ trait Web3Methods {
 	 *
 	 * @param EthBlockParam $arg1
 	 * @param EthB $arg2
-	 * @return Block
+	 * @return ?Block
 	 */
-	public function eth_getBlockByNumber(EthBlockParam $arg1, EthB $arg2): Block {
+	public function eth_getBlockByNumber(EthBlockParam $arg1, EthB $arg2): ?Block {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -402,9 +402,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki eth_getTransactionByHash](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionbyhash)
 	 *
 	 * @param EthD32 $arg1
-	 * @return Transaction
+	 * @return ?Transaction
 	 */
-	public function eth_getTransactionByHash(EthD32 $arg1): Transaction {
+	public function eth_getTransactionByHash(EthD32 $arg1): ?Transaction {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -415,9 +415,9 @@ trait Web3Methods {
 	 *
 	 * @param EthD32 $arg1
 	 * @param EthQ $arg2
-	 * @return Transaction
+	 * @return ?Transaction
 	 */
-	public function eth_getTransactionByBlockHashAndIndex(EthD32 $arg1, EthQ $arg2): Transaction {
+	public function eth_getTransactionByBlockHashAndIndex(EthD32 $arg1, EthQ $arg2): ?Transaction {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -428,9 +428,9 @@ trait Web3Methods {
 	 *
 	 * @param EthBlockParam $arg1
 	 * @param EthQ $arg2
-	 * @return Transaction
+	 * @return ?Transaction
 	 */
-	public function eth_getTransactionByBlockNumberAndIndex(EthBlockParam $arg1, EthQ $arg2): Transaction {
+	public function eth_getTransactionByBlockNumberAndIndex(EthBlockParam $arg1, EthQ $arg2): ?Transaction {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -440,9 +440,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki eth_getTransactionReceipt](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionreceipt)
 	 *
 	 * @param EthD32 $arg1
-	 * @return Receipt
+	 * @return ?Receipt
 	 */
-	public function eth_getTransactionReceipt(EthD32 $arg1): Receipt {
+	public function eth_getTransactionReceipt(EthD32 $arg1): ?Receipt {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -453,9 +453,9 @@ trait Web3Methods {
 	 *
 	 * @param EthD32 $arg1
 	 * @param EthQ $arg2
-	 * @return Block
+	 * @return ?Block
 	 */
-	public function eth_getUncleByBlockHashAndIndex(EthD32 $arg1, EthQ $arg2): Block {
+	public function eth_getUncleByBlockHashAndIndex(EthD32 $arg1, EthQ $arg2): ?Block {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -466,9 +466,9 @@ trait Web3Methods {
 	 *
 	 * @param EthBlockParam $arg1
 	 * @param EthQ $arg2
-	 * @return Block
+	 * @return ?Block
 	 */
-	public function eth_getUncleByBlockNumberAndIndex(EthBlockParam $arg1, EthQ $arg2): Block {
+	public function eth_getUncleByBlockNumberAndIndex(EthBlockParam $arg1, EthQ $arg2): ?Block {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -477,9 +477,9 @@ trait Web3Methods {
 	 * 
 	 * See [Ethereum Wiki eth_getCompilers](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getcompilers)
 	 *
-	 * @return array   Array of EthS
+	 * @return ?array   Array of EthS
 	 */
-	public function eth_getCompilers(): array {
+	public function eth_getCompilers(): ?array {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -489,9 +489,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki eth_compileLLL](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_compilelll)
 	 *
 	 * @param EthS $arg1
-	 * @return EthD
+	 * @return ?EthD
 	 */
-	public function eth_compileLLL(EthS $arg1): EthD {
+	public function eth_compileLLL(EthS $arg1): ?EthD {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -501,9 +501,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki eth_compileSolidity](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_compilesolidity)
 	 *
 	 * @param EthS $arg1
-	 * @return EthD
+	 * @return ?EthD
 	 */
-	public function eth_compileSolidity(EthS $arg1): EthD {
+	public function eth_compileSolidity(EthS $arg1): ?EthD {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -513,9 +513,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki eth_compileSerpent](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_compileserpent)
 	 *
 	 * @param EthS $arg1
-	 * @return EthD
+	 * @return ?EthD
 	 */
-	public function eth_compileSerpent(EthS $arg1): EthD {
+	public function eth_compileSerpent(EthS $arg1): ?EthD {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -525,9 +525,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki eth_newFilter](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_newfilter)
 	 *
 	 * @param Filter $arg1
-	 * @return EthQ
+	 * @return ?EthQ
 	 */
-	public function eth_newFilter(Filter $arg1): EthQ {
+	public function eth_newFilter(Filter $arg1): ?EthQ {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -536,9 +536,9 @@ trait Web3Methods {
 	 * 
 	 * See [Ethereum Wiki eth_newBlockFilter](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_newblockfilter)
 	 *
-	 * @return EthQ
+	 * @return ?EthQ
 	 */
-	public function eth_newBlockFilter(): EthQ {
+	public function eth_newBlockFilter(): ?EthQ {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -547,9 +547,9 @@ trait Web3Methods {
 	 * 
 	 * See [Ethereum Wiki eth_newPendingTransactionFilter](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_newpendingtransactionfilter)
 	 *
-	 * @return EthQ
+	 * @return ?EthQ
 	 */
-	public function eth_newPendingTransactionFilter(): EthQ {
+	public function eth_newPendingTransactionFilter(): ?EthQ {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -559,9 +559,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki eth_uninstallFilter](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_uninstallfilter)
 	 *
 	 * @param EthQ $arg1
-	 * @return EthB
+	 * @return ?EthB
 	 */
-	public function eth_uninstallFilter(EthQ $arg1): EthB {
+	public function eth_uninstallFilter(EthQ $arg1): ?EthB {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -571,9 +571,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki eth_getFilterChanges](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getfilterchanges)
 	 *
 	 * @param EthQ $arg1
-	 * @return array   Array of FilterChange
+	 * @return ?array   Array of FilterChange
 	 */
-	public function eth_getFilterChanges(EthQ $arg1): array {
+	public function eth_getFilterChanges(EthQ $arg1): ?array {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -583,9 +583,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki eth_getFilterLogs](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getfilterlogs)
 	 *
 	 * @param EthQ $arg1
-	 * @return array   Array of FilterChange
+	 * @return ?array   Array of FilterChange
 	 */
-	public function eth_getFilterLogs(EthQ $arg1): array {
+	public function eth_getFilterLogs(EthQ $arg1): ?array {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -595,9 +595,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki eth_getLogs](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getlogs)
 	 *
 	 * @param Filter $arg1
-	 * @return array   Array of FilterChange
+	 * @return ?array   Array of FilterChange
 	 */
-	public function eth_getLogs(Filter $arg1): array {
+	public function eth_getLogs(Filter $arg1): ?array {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -606,9 +606,9 @@ trait Web3Methods {
 	 * 
 	 * See [Ethereum Wiki eth_getWork](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getwork)
 	 *
-	 * @return array   Array of EthD
+	 * @return ?array   Array of EthD
 	 */
-	public function eth_getWork(): array {
+	public function eth_getWork(): ?array {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -620,9 +620,9 @@ trait Web3Methods {
 	 * @param EthD $arg1
 	 * @param EthD32 $arg2
 	 * @param EthD32 $arg3
-	 * @return EthB
+	 * @return ?EthB
 	 */
-	public function eth_submitWork(EthD $arg1, EthD32 $arg2, EthD32 $arg3): EthB {
+	public function eth_submitWork(EthD $arg1, EthD32 $arg2, EthD32 $arg3): ?EthB {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -633,9 +633,9 @@ trait Web3Methods {
 	 *
 	 * @param EthD $arg1
 	 * @param EthD $arg2
-	 * @return EthB
+	 * @return ?EthB
 	 */
-	public function eth_submitHashrate(EthD $arg1, EthD $arg2): EthB {
+	public function eth_submitHashrate(EthD $arg1, EthD $arg2): ?EthB {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -647,9 +647,9 @@ trait Web3Methods {
 	 * @param EthS $arg1
 	 * @param EthS $arg2
 	 * @param EthS $arg3
-	 * @return EthB
+	 * @return ?EthB
 	 */
-	public function db_putString(EthS $arg1, EthS $arg2, EthS $arg3): EthB {
+	public function db_putString(EthS $arg1, EthS $arg2, EthS $arg3): ?EthB {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -660,9 +660,9 @@ trait Web3Methods {
 	 *
 	 * @param EthS $arg1
 	 * @param EthS $arg2
-	 * @return EthS
+	 * @return ?EthS
 	 */
-	public function db_getString(EthS $arg1, EthS $arg2): EthS {
+	public function db_getString(EthS $arg1, EthS $arg2): ?EthS {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -674,9 +674,9 @@ trait Web3Methods {
 	 * @param EthS $arg1
 	 * @param EthS $arg2
 	 * @param EthD $arg3
-	 * @return EthB
+	 * @return ?EthB
 	 */
-	public function db_putHex(EthS $arg1, EthS $arg2, EthD $arg3): EthB {
+	public function db_putHex(EthS $arg1, EthS $arg2, EthD $arg3): ?EthB {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -687,9 +687,9 @@ trait Web3Methods {
 	 *
 	 * @param EthS $arg1
 	 * @param EthS $arg2
-	 * @return EthD
+	 * @return ?EthD
 	 */
-	public function db_getHex(EthS $arg1, EthS $arg2): EthD {
+	public function db_getHex(EthS $arg1, EthS $arg2): ?EthD {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -699,9 +699,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki shh_post](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_post)
 	 *
 	 * @param SHHPost $arg1
-	 * @return EthB
+	 * @return ?EthB
 	 */
-	public function shh_post(SHHPost $arg1): EthB {
+	public function shh_post(SHHPost $arg1): ?EthB {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -710,9 +710,9 @@ trait Web3Methods {
 	 * 
 	 * See [Ethereum Wiki shh_version](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_version)
 	 *
-	 * @return EthS
+	 * @return ?EthS
 	 */
-	public function shh_version(): EthS {
+	public function shh_version(): ?EthS {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -721,9 +721,9 @@ trait Web3Methods {
 	 * 
 	 * See [Ethereum Wiki shh_newIdentity](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_newidentity)
 	 *
-	 * @return EthD
+	 * @return ?EthD
 	 */
-	public function shh_newIdentity(): EthD {
+	public function shh_newIdentity(): ?EthD {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -733,9 +733,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki shh_hasIdentity](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_hasidentity)
 	 *
 	 * @param EthD $arg1
-	 * @return EthB
+	 * @return ?EthB
 	 */
-	public function shh_hasIdentity(EthD $arg1): EthB {
+	public function shh_hasIdentity(EthD $arg1): ?EthB {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -744,9 +744,9 @@ trait Web3Methods {
 	 * 
 	 * See [Ethereum Wiki shh_newGroup](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_newgroup)
 	 *
-	 * @return EthD
+	 * @return ?EthD
 	 */
-	public function shh_newGroup(): EthD {
+	public function shh_newGroup(): ?EthD {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -756,9 +756,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki shh_addToGroup](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_addtogroup)
 	 *
 	 * @param EthD $arg1
-	 * @return EthB
+	 * @return ?EthB
 	 */
-	public function shh_addToGroup(EthD $arg1): EthB {
+	public function shh_addToGroup(EthD $arg1): ?EthB {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -768,9 +768,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki shh_newFilter](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_newfilter)
 	 *
 	 * @param SHHFilter $arg1
-	 * @return EthQ
+	 * @return ?EthQ
 	 */
-	public function shh_newFilter(SHHFilter $arg1): EthQ {
+	public function shh_newFilter(SHHFilter $arg1): ?EthQ {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -780,9 +780,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki shh_uninstallFilter](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_uninstallfilter)
 	 *
 	 * @param EthQ $arg1
-	 * @return EthB
+	 * @return ?EthB
 	 */
-	public function shh_uninstallFilter(EthQ $arg1): EthB {
+	public function shh_uninstallFilter(EthQ $arg1): ?EthB {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -792,9 +792,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki shh_getFilterChanges](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_getfilterchanges)
 	 *
 	 * @param EthQ $arg1
-	 * @return array   Array of SHHFilterChange
+	 * @return ?array   Array of SHHFilterChange
 	 */
-	public function shh_getFilterChanges(EthQ $arg1): array {
+	public function shh_getFilterChanges(EthQ $arg1): ?array {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 
@@ -804,9 +804,9 @@ trait Web3Methods {
 	 * See [Ethereum Wiki shh_getMessages](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_getmessages)
 	 *
 	 * @param EthQ $arg1
-	 * @return array   Array of SHHFilterChange
+	 * @return ?array   Array of SHHFilterChange
 	 */
-	public function shh_getMessages(EthQ $arg1): array {
+	public function shh_getMessages(EthQ $arg1): ?array {
 		return $this->__call(__FUNCTION__, func_get_args());
 	}
 }
