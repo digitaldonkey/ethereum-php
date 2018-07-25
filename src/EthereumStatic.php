@@ -6,8 +6,6 @@ use kornrunner\Keccak;
 
 /**
  * Static helper functions for Ethereum JsonRPC API for PHP.
- *
- * @todo DOXYGEN todo does not work consistently. Not all todo's are picked up.
  */
 abstract class EthereumStatic
 {
@@ -23,7 +21,7 @@ abstract class EthereumStatic
      *   Method signature.
      *
      * @throws \InvalidArgumentException
-     *      If signature is not verifyable.
+     *      If signature is not verify able.
      *
      * @return string
      *   Hash of the method signature.
@@ -33,7 +31,7 @@ abstract class EthereumStatic
 
         if (self::isValidFunction($input)) {
             // The signature is 4bytes of the methods keccac hash. E.g: "0x00000000".
-            return substr(self::sha3($input), 0, 10);
+            return self::ensureHexPrefix(substr(self::sha3($input), 0, 10));
         }
         else {
             throw new \InvalidArgumentException("No valid (solidity) signature string provided.");
@@ -59,19 +57,10 @@ abstract class EthereumStatic
      * @return string
      *   Keccak256 of the provided string.
      *
-     * @throws Exception
-     *   If keccak hash does not match formal conditions.
      */
-    private static function phpKeccak256($string)
+    public static function phpKeccak256($string)
     {
-        $return = Keccak::hash($string, 256);
-        $return = self::ensureHexPrefix($return);
-
-        // Formal verification: Prefix + 64 Hex chars.
-        if (!$return || strlen($return) !== 66) {
-            throw new \Exception('keccak256 returns a wrong value.');
-        }
-        return $return;
+        return self::ensureHexPrefix(Keccak::hash($string, 256));
     }
 
     /**
@@ -84,8 +73,6 @@ abstract class EthereumStatic
      *
      * @param $string
      *   String to hash.
-     *
-     * @throws Exception
      *
      * @return string
      *    Hash of input.
@@ -294,12 +281,14 @@ abstract class EthereumStatic
      *
      * Defaults from wei to ether.
      *
-     * @param float $ammount
+     * @param float $amount
      * @param string $from
      * @param string $to
      * @throws \Exception
+     *
+     * @return float
      */
-    public static function convertCurrency(float $ammount, string $from = 'wei', string $to = 'ether') {
+    public static function convertCurrency(float $amount, string $from = 'wei', string $to = 'ether') {
 
         // relative to Ether
         $convertTabe = [
@@ -328,6 +317,6 @@ abstract class EthereumStatic
         if (!isset($convertTabe[$to])) {
             throw new \Exception('Inknown currency to convert to "' . $to . '"');
         }
-        return $convertTabe[$to] * $ammount / $convertTabe[$from];
+        return $convertTabe[$to] * $amount / $convertTabe[$from];
     }
 }
