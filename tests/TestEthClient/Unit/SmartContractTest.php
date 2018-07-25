@@ -30,6 +30,17 @@ class SmartContractTest extends TestEthContract
         );
         $this->assertEquals($number*7, $result->val());
     }
+
+
+    public function testSimpleContractUsingAlias()
+    {
+        $number = 2;
+        $result = $this->contract->multiplyWithSevenUsingAlias(
+          new EthQ($number, ['abi'=> 'uint256'])
+        );
+        $this->assertEquals($number*7, $result->val());
+    }
+
 }
 
 
