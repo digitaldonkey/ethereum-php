@@ -133,7 +133,7 @@ EOF;
                 "",
             ))
             ->setParameters($methodParams)
-            ->setType($returnType, $returnTypeDescription)
+            ->setType('?' . $returnType, $returnTypeDescription)
         );
         if ($cnf['class'] === 'PhpTrait') {
             $code->getMethod($method_name)->setBody('return $this->__call(__FUNCTION__, func_get_args());');

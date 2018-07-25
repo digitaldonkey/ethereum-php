@@ -1,6 +1,6 @@
 # Ethereum-PHP
 
-is a typed PHP-7 interface to [Ethereum JSON-RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC).
+is a typed PHP-7.1+ interface to [Ethereum JSON-RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC).
 
 Check out the latest [API documentation](http://ethereum-php.org/dev/).
 
