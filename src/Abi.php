@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Ethereum;
 
 use Ethereum\DataType\EthD;
@@ -32,10 +31,10 @@ class Abi extends EthereumStatic
      *
      * @return EthD
      * @throws \InvalidArgumentException
+     * @throws \Exception
      */
     public function encodeFunction(string $methodName, array $values)
     {
-
         $m = $this->getParamDefinition($methodName);
 
         if (count($m->inputs) !== count($values)) {
@@ -52,36 +51,59 @@ class Abi extends EthereumStatic
         return new EthD($params);
     }
 
+
     /**
      * Decode return values of Abi $method.
-     *
-     * Iterate trough expected return values
-     *
-     * Decide fixed / dynamic and decode acordingly.
      *
      * @param $method
      * @param $rawReturn
      *
-     * @return array
+     * @throws \Exception
      *
-     * @throws \Ethereum\Exception
+     * @return array
      */
-    public function decode(string $method, EthD $rawReturn)
+    public function decodeMethod(string $method, EthD $rawReturn)
     {
+        $params = $this->getParamDefinition($method);
+
+        $return = $this->decode($params->outputs, self::removeHexPrefix($rawReturn->hexVal()));
+
+        // Only return array if we expect multiple params.
+        if (count($return) === 1) {
+            $return = $return[0];
+        }
+        return $return;
+    }
+
+
+    /**
+     * Decode by ABI params.
+     *
+     *
+     * @param array $params
+     * @param string $msgData
+     *
+     * @throws \Exception
+     *
+     * @return array
+     */
+    public static function decode(array $params, string $msgData)
+    {
+        if (self::hasHexPrefix($msgData) || !ctype_xdigit($msgData)) {
+            throw new \Exception('msgData must be a unprefixed hex value.');
+        }
         $return = [];
-        $m = $this->getParamDefinition($method);
-
         $pos = 0;
-        $msgData = self::removeHexPrefix($rawReturn->hexVal());
 
-        foreach ($m->outputs as $p => $param) {
+        foreach ($params as $p => $param) {
 
+            /** @var EthD $class EthD or a derived class. */
             $class = EthD::getClassByAbi($param->type);
 
             $lengthType = $class::getdataLengthType($param->type);
 
             if ($lengthType === 'static') {
-                // Fixed lenth type.
+                // Fixed length type.
                 $thisValue = substr($msgData, $pos, 64);
                 $return[$p] = new $class(self::ensureHexPrefix($thisValue), ['abi' => $param->type]);
             }
@@ -100,28 +122,23 @@ class Abi extends EthereumStatic
                 }
             }
             else {
-                throw new \Exception('Lengtht type must be "dynamic" or "static".');
+                throw new \Exception('Length type must be "dynamic" or "static".');
             }
             $pos += 64;
-        }
-
-        // Only return array if we expect multiple params.
-        if (count($m->outputs) === 1) {
-            $return = $return[0];
         }
         return $return;
     }
 
 
     /**
-     * Filter Abi for a given Method and return the definiton.
+     * Filter Abi for a given Method and return the definition.
      *
-     * @param $methodName
-     * @return array
-     * @throws Exception
+     * @param $methodName string
+     * @return Object
+     * @throws \Exception
      *  If method does not exist.
      */
-    public function getParamDefinition($methodName)
+    public function getParamDefinition(string $methodName)
     {
         foreach ($this->abi as $item) {
             if (isset($item->name)
@@ -155,6 +172,7 @@ class Abi extends EthereumStatic
         return self::getMethodSignature($sign);
     }
 
+
     /**
      * Convert EthD value into ABI expected value.
      *
@@ -176,7 +194,10 @@ class Abi extends EthereumStatic
      * @param string $abiType
      *   Expected Abi type.
      *
-     * @throws Exception
+     * @param EthD $value
+     *   Expected Abi type.
+     *
+     * @throws \Exception
      *    If conversation is not implemented for ABI type.
      *
      * @return object
@@ -202,7 +223,44 @@ class Abi extends EthereumStatic
             return new $class($value->hexVal(), ['abi' => $abiType]);
         }
 
-        throw new Exception('Can not convert to unknown type ' . $abiType . '. Might be not implemented yet.');
+        throw new \Exception('Can not convert to unknown type ' . $abiType . '. Might be not implemented yet.');
     }
+
+
+    /**
+     * Get all events from ABI.
+     *
+     * @return Event[]
+     */
+    public function getEvents()
+    {
+        $events = [];
+        foreach ($this->abi as $item) {
+            if (isset($item->type)
+              && $item->type === 'event'
+            ) {
+                $events[] = new Event($item);
+            }
+        }
+        return $events;
+    }
+
+
+    /**
+     * Array of Events by topic.
+     *
+     * @return Event[]
+     *
+     * @throws \Exception
+     */
+    public function getEventsByTopic()
+    {
+        $events = [];
+        foreach ($this->getEvents() as $event) {
+            $events[$event->getTopic()] = $event;
+        }
+        return $events;
+    }
+
 
 }

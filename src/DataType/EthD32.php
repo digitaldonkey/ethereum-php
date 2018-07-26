@@ -38,9 +38,9 @@ class EthD32 extends EthD
     }
 
     /**
-     * @return string|int
+     * @return string
      */
-    public static function getdataLengthType($abiType)
+    public static function getDataLengthType()
     {
         return 'static';
     }

@@ -76,7 +76,7 @@ class EthD20 extends EthD
     /**
     * @return string|int
     */
-    public static function getdataLengthType($abiType)
+    public static function getDataLengthType()
     {
         return 'static';
     }

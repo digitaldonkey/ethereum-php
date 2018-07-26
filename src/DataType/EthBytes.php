@@ -119,7 +119,7 @@ class EthBytes extends EthD
     /**
      * @return string|int
      */
-    public static function getdataLengthType($abiType)
+    public static function getDataLengthType()
     {
         return 'dynamic';
     }

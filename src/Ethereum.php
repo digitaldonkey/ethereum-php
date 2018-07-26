@@ -6,9 +6,9 @@ use Graze\GuzzleHttp\JsonRpc\Client as RpcClient;
 use Ethereum\DataType\EthDataType;
 use Exception;
 use Ethereum\DataType\EthD;
-use Ethereum\DataType\EthD20;
 use Ethereum\DataType\EthD32;
 use Ethereum\EcRecover;
+use Ethereum\DataType\FilterChange;
 
 /**
  * @defgroup client Ethereum Web3 Client
@@ -48,6 +48,7 @@ class Ethereum extends EthereumStatic implements Web3Interface
     public $client;
     public $debugHtml = '';
 
+
     /**
      * Constructing Ethereum Class.
      *
@@ -65,7 +66,7 @@ class Ethereum extends EthereumStatic implements Web3Interface
      *   Connection to Ethereum node. E.g:
      *   http://localhost:8545 or https://mainnet.infura.io/drupal.
      */
-    public function __construct($url = 'http://localhost:8545')
+    public function __construct(string $url = 'http://localhost:8545')
     {
       // Require the workaround helpers, as autoload files in composer
       //   doesn't work as expected.
@@ -130,7 +131,14 @@ class Ethereum extends EthereumStatic implements Web3Interface
                                 // Add value. Inconsistently booleans are not hexEncoded if they
                                 // are not data like in eth_getBlockByHash().
                                 if ($arg->isPrimitive() && $argType !== 'EthB') {
-                                    $request_params[] = $arg->hexVal();
+
+                                    if ($method === 'eth_getFilterChanges') {
+                                        // Filter Id is an un-padded value :(
+                                        $request_params[] = $arg->hexValUnpadded();
+                                    }
+                                    else {
+                                        $request_params[] = $arg->hexVal();
+                                    }
                                 }
                                 elseif ($arg->isPrimitive() && $argType === 'EthB') {
                                     $request_params[] = $arg->val();
@@ -214,18 +222,23 @@ class Ethereum extends EthereumStatic implements Web3Interface
         }
     }
 
+
     /**
      * Method call wrapper.
+     *
+     * @param string $method
+     * @param array $args
+     * @return mixed
      */
-    public function __call($method, $args)
+    public function __call(string $method, array $args)
     {
-
         if (is_callable($this->methods[$method])) {
             return call_user_func_array($this->methods[$method], $args);
         } else {
             throw new \InvalidArgumentException('Unknown Method: ' . $method);
         }
     }
+
 
     /**
      * Handle Return Value.
@@ -237,14 +250,18 @@ class Ethereum extends EthereumStatic implements Web3Interface
      * @param string $method
      *   Method name for error messages.
      *
-     * @return array|object Expected object.
+     * * @return array|null|object Expected object.
      * Expected object.
      *
-     * @throws Exception
+     * @throws \Exception
      */
-    private function createReturnValue($value, $return_type_class, $method)
+    private function createReturnValue($value, string $return_type_class, string $method)
     {
         $return = null;
+
+        if (is_null($value)) {
+            return null;
+        }
 
         // Get return value type.
         $class_name = '\\Ethereum\\DataType\\' . EthDataType::getTypeClass($return_type_class);
@@ -266,13 +283,23 @@ class Ethereum extends EthereumStatic implements Web3Interface
             $return = $this->arrayToComplexType($class_name, $value);
         }
         elseif (!$is_primitive) {
-            // Returning empty of type.
-            // Fixes get unknown block by number.
 
-            // @todo What if type class has required values in constructor?
-            // Should there be a default implementation for non existent types?
-            // Like a Null Object? Should EthDataTypes have a test if they are valid?
-            $return = new $class_name();
+            if ($array_val) {
+                if ($method === 'eth_getFilterChanges') {
+                    // Only be [FilterChange| D32]
+                    $return = $this->handleFilterChangeValues($value);
+                }
+                elseif ($method === 'shh_getFilterChanges') {
+                    throw new \Exception('shh_getFilterChanges not implemented.');
+                }
+                else {
+                    // There only should be [SSHFilterChange] left
+                    throw new \Exception(' Return is a array of non primitive types. Method: ' . $method);
+                }
+            }
+            else {
+                $return = new $class_name();
+            }
         }
 
         if (!$return && !is_array($return)) {
@@ -283,9 +310,9 @@ class Ethereum extends EthereumStatic implements Web3Interface
                                  . ' (), couldn not be decoded. Value was: '
                                  . print_r($value, true));
         }
-
         return $return;
     }
+
 
     /**
      * Request().
@@ -296,17 +323,24 @@ class Ethereum extends EthereumStatic implements Web3Interface
      *   Request parameters. See Guzzle doc.
      * @return mixed
      */
-    public function request($method, array $params = [])
+    public function request(string $method, array $params = [])
     {
         $this->id++;
         return $this->client->send($this->client->request($this->id, $method, $params))->getRpcResult();
     }
 
+
     /**
      * Ethereum request.
-     * @throws Exception
+     *
+     * @param string $method
+     * @param array $params
+     *
+     * @throws \Exception
+     *
+     * @return array|mixed
      */
-    public function etherRequest($method, $params = [])
+    public function etherRequest(string $method, array $params = [])
     {
         try {
             return $this->request($method, $params);
@@ -323,6 +357,7 @@ class Ethereum extends EthereumStatic implements Web3Interface
         }
     }
 
+
     /**
      * Debug Helper.
      *
@@ -334,7 +369,7 @@ class Ethereum extends EthereumStatic implements Web3Interface
      * @return string
      *   Debug HTML output.
      */
-    public function debug($title, $content = null)
+    public function debug(string $title, $content = null)
     {
         $return = '';
         $return .= '<p style="margin-left: 1em"><b>' . $title . "</b></p>";
@@ -354,6 +389,60 @@ class Ethereum extends EthereumStatic implements Web3Interface
         return $return;
     }
 
+
+    /**
+     * handleFilterChangeValues().
+     *
+     * The return values for getFilterChange are not consistently implemented
+     * in the schema. @see https://github.com/ethjs/ethjs-schema/issues/10
+     *
+     * See also https://github.com/ethereum/wiki/wiki/JSON-RPC#returns-42
+     *
+     * @param $values array
+     *
+     * @throws \Exception
+     *
+     * @return array
+     */
+    protected static function handleFilterChangeValues(array $values) {
+
+        $return = [];
+        foreach ($values as $val) {
+            // If $val is an array, we handle a change of eth_newFilter -> returns [FilterChange]
+            if (is_array($val)) {
+                $processed = [];
+                foreach (FilterChange::getTypeArray() as $key => $type) {
+
+                    if (substr($type, 0, 1) === '[') {
+                        // param is an array. E.g topics.
+                        $className = '\Ethereum\Datatype\\' . str_replace(['[', ']'], '', $type);
+                        $sub = [];
+                        foreach ($val[$key] as $subVal) {
+                            $sub[] = new $className($subVal);
+                        }
+                        $processed[] = $sub;
+
+                        // @todo We'll need to decode the ABI of the values too!
+                    }
+                    else {
+                        $className = '\Ethereum\Datatype\\' . $type;
+                        $processed[] = isset($val[$key]) ? new $className($val[$key]) : null;
+                    }
+                }
+                $return[] = new FilterChange(...$processed);
+            }
+            else {
+                // If $val not an array, we handle a change of
+                // eth_newBlockFilter (block hashes) -> returns [D32] or
+                // eth_newPendingTransactionFilter (transaction hashes) -> returns [D32]
+                $return[] = new EthD32($val);
+            }
+
+        }
+        return $return;
+    }
+
+
   /**
    * Determine type class name for primitive and complex data types.
    *
@@ -368,7 +457,7 @@ class Ethereum extends EthereumStatic implements Web3Interface
    * @return object|array
    *   Object of type $class_name.
    */
-    protected static function arrayToComplexType($class_name, array $values)
+    protected static function arrayToComplexType(string $class_name, array $values)
     {
         $return = [];
         $class_values = [];
@@ -376,11 +465,16 @@ class Ethereum extends EthereumStatic implements Web3Interface
             $class_name = __NAMESPACE__  . "\\$class_name";
         }
 
+        /** @var  $class_name EthD or a derived class. */
         $type_map = $class_name::getTypeArray();
 
+        // Looping through the values of expected of $class_name.
         foreach ($type_map as $name => $val_class) {
+
             if (isset($values[$name])) {
-                $val_class = '\\Ethereum\\DataType\\' . $val_class;
+                $val_class = '\\Ethereum\\DataType\\' . EthDataType::getTypeClass($val_class);
+
+                // We might expect an array like logs=[FilterChange].
                 if (is_array($values[$name])) {
                     $sub_values = [];
                     foreach ($values[$name] as $sub_val) {
@@ -389,15 +483,17 @@ class Ethereum extends EthereumStatic implements Web3Interface
                         if (is_array($sub_val)) {
                             $sub_values[] = self::arrayToComplexType($val_class, $sub_val);
                         } else {
-                            $sub_values[] = [$sub_val];
+                            $sub_values[] = new $val_class($sub_val);
                         }
                     }
                     $class_values[] = $sub_values;
-                } else {
+                }
+                else {
                     $class_values[] = new $val_class($values[$name]);
                 }
-            } else {
-                // In order to create a proper constructor we need null values too.
+            }
+            else {
+                // In order to create a proper constructor null values are required.
                 $class_values[] = null;
             }
         }
@@ -407,6 +503,7 @@ class Ethereum extends EthereumStatic implements Web3Interface
     }
     return $return;
   }
+
 
   /**
    * PersonalEcRecover function.
@@ -421,9 +518,10 @@ class Ethereum extends EthereumStatic implements Web3Interface
    *
    * @return string EthereumAddress with prefix.
    */
-  public static function personalEcRecover($message, EthD $signature) {
+  public static function personalEcRecover(string $message, EthD $signature) {
     return EcRecover::personalEcRecover($message, $signature->hexVal());
   }
+
 
   /**
    * Create value array.
@@ -440,7 +538,7 @@ class Ethereum extends EthereumStatic implements Web3Interface
    * @return array
    *   Array of value objects of the given type.
    */
-    public static function valueArray(array $values, $typeClass)
+    public static function valueArray(array $values, string $typeClass)
     {
         $return = [];
         if (!class_exists($typeClass)) {
@@ -454,4 +552,6 @@ class Ethereum extends EthereumStatic implements Web3Interface
         }
         return $return;
     }
+
+
 }

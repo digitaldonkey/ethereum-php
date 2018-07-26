@@ -113,21 +113,22 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
         // @todo Function not implemented.
         // An address (20 bytes) followed by a function selector (4 bytes).
         // Encoded identical to bytes24
-        // 'function'         => 'EthD32' // ??? Might require a ABI bytes24 that the valuewon't get zero padded.
+        // 'function'         => 'EthD32' // ??? Might require a ABI bytes24 that the value won't get zero padded.
     ];
+
 
     /**
      * Get PHP-class by ABI.
      *
-     * @param $abiType
+     * @param string $abiType
      *  Ethereum ABI type. See https://solidity.readthedocs.io/en/develop/abi-spec.html#types
      *
      * @return string
-     *   Namespaced class, you may use to do things like: `new $class($myVal)`
+     *   Name spaced class, you may use to do things like: `new $class($myVal)`
      *
      * @throws \Exception
      */
-    public static function getClassByAbi($abiType)
+    public static function getClassByAbi(string $abiType)
     {
         $ns = 'Ethereum\DataType\\';
 
@@ -149,16 +150,25 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
         throw new \Exception('Unknown ABI type: ' . $abiType);
     }
 
+
     /**
-     * @return string|int
+     * Every Data class is 'static' or 'dynamic'.
+     *
+     * @see: https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI#types
+     *
+     * @return string
      */
-    public static function getdataLengthType($abiType)
+    public static function getDataLengthType()
     {
-        return 'dynamic'; // Actually 'unknown.'
+        return 'dynamic';
     }
 
     /**
      * Check if Type is a primitive type.
+     *
+     * Primitive types are implemented manually, while the complex types are
+     * generated with `php scripts/generate-complex-datatypes.php` using
+     * resources/ethjs-schema.json['objects'] as a source.
      *
      * @return bool
      *   True if data type is primitive.
@@ -167,6 +177,7 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
     {
         return false;
     }
+
 
     /**
      * Get hexadecimal representation of $value.
@@ -177,15 +188,14 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
      * @param bool $returnHexVal
      *   Set to TRUE to get the hexadecimal value.
      *
-     * @throws Exception
+     * @throws \InvalidArgumentException
      *   If property does not exist.
      *
      * @return string|int|array
      *   The property value.*
      */
-    public function getProperty($property = 'value', $returnHexVal = false)
+    public function getProperty(string $property = 'value', bool $returnHexVal = false)
     {
-
         if (property_exists($this, $property)) {
 
             if (is_object($this->$property)) {
@@ -206,6 +216,7 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
             throw new \InvalidArgumentException("Property '$property' does not exist.");
         }
     }
+
 
     /**
      * Validation is implemented in subclasses.
@@ -242,14 +253,13 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
     {
         $ex = explode("\\", get_class($this));
         return end($ex);
-        //return  (new \ReflectionClass($this))->getShortName();
     }
 
 
     /**
      * Determine type class name for primitive and complex data types.
      *
-     * @param array|string $type
+     * @param string $type
      *   Type containing Schema name.
      *
      * @param bool $typed_constructor
@@ -259,21 +269,16 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
      * @return string
      *   Class name of type.
      *
-     * @throws Exception Could not determine type class
+     * @throws \Exception Could not determine type class
      */
-    public static function getTypeClass($type, $typed_constructor = false)
+    public static function getTypeClass(string $type, bool $typed_constructor = false)
     {
         // Handling "[type]".
-        if (is_string($type) && strpos($type, '[') !== FALSE) {
-            $type = array(str_replace(['[', ']'], '', $type));
+        if (strpos($type, '[') !== FALSE) {
+            $type = str_replace(['[', ']'], '', $type);
         }
 
-        if (!is_array($type)) {
-            $primitive_type = EthD::typeMap($type);
-        }
-        else {
-            $primitive_type = EthD::typeMap($type[0]);
-        }
+        $primitive_type = EthD::typeMap($type);
 
         if ($primitive_type) {
             $type_class = $primitive_type;

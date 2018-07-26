@@ -19,16 +19,21 @@ class EthDataTypeTest extends TestStatic
         $this->allTypes = EthDataType::getAllTypeClasses();
     }
 
+
     /**
      * @covers EthDataType::getTypeClass
      */
     public function testGetTypeClass() {
         foreach ($this->allTypes as $type) {
-            $this->assertEquals(EthDataType::getTypeClass(array($type), true), 'array');
-            $this->assertEquals(EthDataType::getTypeClass(array($type), false), $type);
+
+            // @depreciated Changed to allow only String
+            // $this->assertEquals(EthDataType::getTypeClass(array($type), true), 'array');
+            // $this->assertEquals(EthDataType::getTypeClass(array($type), false), $type);
+
             $this->assertEquals(EthDataType::getTypeClass($type, true), $type);
             $this->assertEquals(EthDataType::getTypeClass($type, false), $type);
         }
     }
+
 
 }

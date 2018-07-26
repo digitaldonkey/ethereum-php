@@ -17,7 +17,7 @@ class EthS extends EthBytes
      *     A prefixed, ABI Encoded string or a UTF-8 string which does not start with "0x".
      * @param array $params
      * @return null|number|string
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function validate($val, array $params)
     {

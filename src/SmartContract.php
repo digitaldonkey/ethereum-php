@@ -5,8 +5,7 @@ namespace Ethereum;
 use Ethereum\DataType\CallTransaction;
 use Ethereum\DataType\EthBlockParam;
 use Ethereum\DataType\EthD20;
-use Exception;
-
+use Ethereum\DataType\FilterChange;
 
 /**
  * %Ethereum SmartContract API for PHP.
@@ -31,9 +30,15 @@ class SmartContract
      */
     private $eth;
 
+    /**
+     * @var $events
+     * Contract Events array in the form $events[<topic hex>]= \Ethereum\Event.
+     */
+    private $events;
+
 
     /**
-     * Get valid number lengths.
+     * SmartContract constructor.
      *
      * @param $abi array
      *    Smart contract ABI.
@@ -41,20 +46,22 @@ class SmartContract
      * @param string $contractAddress
      *    Address of the contract at the network given in $eth.
      *
-     * @param Ethereum $eth
+     * @param \Ethereum\Ethereum $eth
      *    Instance of Ethereum connected to a Ethereum client.
+     *
+     *
+     * @throws \Exception
      */
-    public function __construct($abi, $contractAddress, $eth)
+    public function __construct(array $abi, string $contractAddress, Ethereum $eth)
     {
         $this->abi = new Abi($abi);
         $this->eth = $eth;
         $this->contractAddress = $contractAddress;
+        $this->events = $this->abi->getEventsByTopic();
     }
 
     /**
-     *
-     * @todo Maybe we need a smarter default block param handling here.
-     *      Currently we can only call latest Block.
+     * Calling contract functions.
      *
      * @param string $method
      *    Name of the Smart contract method you wish to call.
@@ -62,19 +69,14 @@ class SmartContract
      * @param $args
      *    Arguments provided.
      *
-     * @throws Exception
+     * @throws \Exception
      *    If called method is not defined in ABI.
      *
      * @return array|object
      *    Data type object implementing EthDataTypeInterface.
-     *
-     * @todo: ARRAY or OBJECT? How to make it consistent??
      */
-    public function __call($method, $args)
+    public function __call(string $method, array $args)
     {
-
-        $XXX = $this->abi->encodeFunction($method, $args);
-
         $call = new CallTransaction(
           new EthD20($this->contractAddress),
           null,
@@ -84,10 +86,33 @@ class SmartContract
           $this->abi->encodeFunction($method, $args)
         );
 
-        // @todo Defaulting to latest Block here :/
+        // @todo Maybe we need a smarter default block param handling here.
+        // Currently we can only call latest Block.
         $rawReturn = $this->eth->eth_call($call, new EthBlockParam());
 
-        return $this->abi->decode($method, $rawReturn);
+        return $this->abi->decodeMethod($method, $rawReturn);
     }
 
+
+    /**
+     * @param \Ethereum\DataType\FilterChange $filterChange
+     * @throws \Exception
+     *
+     * @return array Event emitted Data.
+     */
+    public function processLog(FilterChange $filterChange) {
+
+        if ($filterChange->address->hexVal() !== $this->contractAddress) {
+            return null;
+        }
+
+        if (is_array($filterChange->topics)) {
+            $topic = $filterChange->topics[0]->hexVal();
+            if (isset($this->events[$topic])) {
+                // We have a relevant event.
+                return $this->events[$topic]->decode($filterChange);
+            }
+        }
+        return null;
+    }
 }

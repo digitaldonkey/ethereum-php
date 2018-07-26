@@ -26,11 +26,8 @@ interface EthDataTypeInterface
    *
    * @return string [dynamic|fixed]
    *
-   * @param $abiType
-   *
-   * @return mixed
    */
-    public static function getdataLengthType($abiType);
+    public static function getDataLengthType();
 
     /**
      * Get property value.
@@ -46,7 +43,7 @@ interface EthDataTypeInterface
      * @return string|int|array
      *   The property value.*
      */
-    public function getProperty($property = 'value', $hex_val = false);
+    public function getProperty(string $property = 'value', bool $hex_val = false);
 
     /**
      * Set a value with validation.
@@ -66,8 +63,10 @@ interface EthDataTypeInterface
     /**
      * Determine type class name for primitive and complex data types.
      *
-     * @param array|string $type
+     *
+     * @param string $type
      *   Type containing Schema name.
+     *
      * @param bool $typed_constructor
      *   If true this function will return "array" for types of array($type),
      *   instead of $type.
@@ -77,8 +76,7 @@ interface EthDataTypeInterface
      *
      * @throws Exception Could not determine type class
      */
-    public static function getTypeClass($type, $typed_constructor = false);
-
+    public static function getTypeClass(string $type, bool $typed_constructor = false);
 
     /**
      * Array of the value types.
