@@ -2,6 +2,9 @@
 
 <phpunit bootstrap="vendor/autoload.php">
   <testsuites>
+    <testsuite name="CodeGenerators">
+      <directory>tests/CodeGenerators</directory>
+    </testsuite>
     <testsuite name="EthereumPhp">
       <directory>tests/EthTest/Unit</directory>
     </testsuite>
