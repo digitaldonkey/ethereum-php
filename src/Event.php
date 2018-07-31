@@ -15,6 +15,7 @@ class Event extends EthereumStatic
     protected $name;
     protected $anonymous;
     protected $inputs;
+    protected $data = null;
 
     public function __construct($abiItem)
     {
@@ -83,4 +84,22 @@ class Event extends EthereumStatic
         return $this->sha3($this->getSignature());
     }
 
+    public function createFromFilterChange(FilterChange $filterChange) {
+        $this->data = $this->decode($filterChange);
+
+        // @todo Should I clone it or so?
+        return $this;
+    }
+
+    public function hasData() {
+        return is_array($this->data);
+    }
+
+    public function getData() {
+        return $this->data;
+    }
+
+    public function getHandler () {
+        return 'on' . ucfirst($this->name);
+    }
 }

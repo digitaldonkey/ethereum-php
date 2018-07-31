@@ -34,7 +34,7 @@ class SmartContract
      * @var $events
      * Contract Events array in the form $events[<topic hex>]= \Ethereum\Event.
      */
-    private $events;
+    protected $events;
 
 
     /**
@@ -98,7 +98,7 @@ class SmartContract
      * @param \Ethereum\DataType\FilterChange $filterChange
      * @throws \Exception
      *
-     * @return array Event emitted Data.
+     * @return \Ethereum\Event with emitted Data.
      */
     public function processLog(FilterChange $filterChange) {
 
@@ -110,9 +110,71 @@ class SmartContract
             $topic = $filterChange->topics[0]->hexVal();
             if (isset($this->events[$topic])) {
                 // We have a relevant event.
-                return $this->events[$topic]->decode($filterChange);
+                return $this->events[$topic]->createFromFilterChange($filterChange);
             }
         }
         return null;
+    }
+
+    public function getAddress() {
+        return $this->contractAddress;
+    }
+
+
+    /**
+     * Create a array of Contracts from the Truffle solidity compilates.
+     *
+     * The compilates are generated, when you run `truffle compile && truffle migrate`.
+     *
+     * If web3 and networkId are given the array will have initialized contracts.
+     *
+     * @param $path
+     *    Path to the compiled truffle Json files.
+     *
+     * @param \Ethereum\Ethereum $web3
+     *    Instance of a connected web3 client.
+     *
+     * @param string $networkId
+     *    Network Id as defined in truffle.js
+     *  @see https://github.com/digitaldonkey/ethereum-php/blob/dev/tests/TestEthClient/test_contracts/truffle.js
+     *
+     * @return array
+     */
+    public static function createFromTruffleBuildDirectory($path, $web3 = null, $networkId = null) {
+        $return = [];
+        foreach (scandir($path) as $fileName) {
+            if (strpos($fileName, '.json') !== false) {
+                $filePath = $path . '/' . $fileName;
+                $file = pathinfo($filePath);
+                if($file['extension'] === 'json') {
+                    $contractMeta = self::createMetaFromTruffle($filePath);
+
+                    if ($web3 && $networkId) {
+                        $address = $contractMeta->networks->{$networkId}->address;
+                        if (!class_exists($file['filename']) && $file['filename'] instanceof SmartContract) {
+                            // Class exists?
+                            trigger_error('Found a json for ' . $file['filename'] . ', but no corresponding contract class name. Initializing with default contract class.', E_USER_WARNING);
+                            $return[$file['filename']] = new SmartContract($contractMeta->abi, $address, $web3);
+                        }
+                        else {
+                            $return[$file['filename']] = new $file['filename']($contractMeta->abi, $address, $web3);
+                        }
+                    }
+                    else {
+                        $return[$file['filename']] = self::createMetaFromTruffle($filePath);
+                    }
+                }
+            }
+        }
+        return $return;
+    }
+
+
+    /**
+     * @param $filePath
+     * @return mixed
+     */
+    public static function createMetaFromTruffle($filePath) {
+        return json_decode(file_get_contents($filePath));
     }
 }

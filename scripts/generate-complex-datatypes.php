@@ -340,7 +340,7 @@ function makeToArrayBody(Array $input)
                 . $name
                 . ')) ? $return['
                 . "'$name'"
-                . '] = EthereumStatic::valueArray($this->'
+                . '] = Ethereum::valueArray($this->'
                 . $name
                 . ", '"
                 . EthDataType::getTypeClass($type[0])
