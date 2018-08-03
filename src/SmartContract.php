@@ -6,6 +6,7 @@ use Ethereum\DataType\CallTransaction;
 use Ethereum\DataType\EthBlockParam;
 use Ethereum\DataType\EthD20;
 use Ethereum\DataType\FilterChange;
+use \Ethereum\EmittedEvent;
 
 /**
  * %Ethereum SmartContract API for PHP.
@@ -32,7 +33,7 @@ class SmartContract
 
     /**
      * @var $events
-     * Contract Events array in the form $events[<topic hex>]= \Ethereum\Event.
+     * Contract Events array in the form $events[<topic hex>]= \Ethereum\EmittedEvent.
      */
     protected $events;
 
@@ -98,7 +99,7 @@ class SmartContract
      * @param \Ethereum\DataType\FilterChange $filterChange
      * @throws \Exception
      *
-     * @return \Ethereum\Event with emitted Data.
+     * @return \Ethereum\EmittedEvent with emitted Data.
      */
     public function processLog(FilterChange $filterChange) {
 
@@ -109,8 +110,9 @@ class SmartContract
         if (is_array($filterChange->topics)) {
             $topic = $filterChange->topics[0]->hexVal();
             if (isset($this->events[$topic])) {
+                $transaction = $this->eth->eth_getTransactionByHash($filterChange->transactionHash);
                 // We have a relevant event.
-                return $this->events[$topic]->createFromFilterChange($filterChange);
+                return new EmittedEvent($this->events[$topic], $filterChange, $transaction);
             }
         }
         return null;

@@ -8,6 +8,8 @@
 
 namespace Ethereum;
 use Ethereum\DataType\FilterChange;
+use Ethereum\DataType\Receipt;
+use Ethereum\DataType\Transaction;
 
 class Event extends EthereumStatic
 {
@@ -15,10 +17,11 @@ class Event extends EthereumStatic
     protected $name;
     protected $anonymous;
     protected $inputs;
-    protected $data = null;
+    protected $abi;
 
     public function __construct($abiItem)
     {
+        $this->abi = $abiItem;
         $this->inputs = $abiItem->inputs;
         $this->name = $abiItem->name;
         $this->anonymous = $abiItem->anonymous;
@@ -84,22 +87,17 @@ class Event extends EthereumStatic
         return $this->sha3($this->getSignature());
     }
 
-    public function createFromFilterChange(FilterChange $filterChange) {
-        $this->data = $this->decode($filterChange);
-
-        // @todo Should I clone it or so?
-        return $this;
-    }
-
-    public function hasData() {
-        return is_array($this->data);
-    }
-
-    public function getData() {
-        return $this->data;
-    }
-
+    /**
+     * @return string
+     */
     public function getHandler () {
         return 'on' . ucfirst($this->name);
+    }
+
+    /**
+     * @return object
+     */
+    public function getAbi() {
+        return $this->abi;
     }
 }
