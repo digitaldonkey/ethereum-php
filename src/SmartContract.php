@@ -118,15 +118,18 @@ class SmartContract
         return null;
     }
 
+    /**
+     * @return string
+     */
     public function getAddress() {
         return $this->contractAddress;
     }
 
 
     /**
-     * Create a array of Contracts from the Truffle solidity compilates.
+     * Create a array of Contracts from Truffle compiled solidity code.
      *
-     * The compilates are generated, when you run `truffle compile && truffle migrate`.
+     * These JSON files are generated, when you run `truffle compile && truffle migrate`.
      *
      * If web3 and networkId are given the array will have initialized contracts.
      *
@@ -138,7 +141,9 @@ class SmartContract
      *
      * @param string $networkId
      *    Network Id as defined in truffle.js
-     *  @see https://github.com/digitaldonkey/ethereum-php/blob/dev/tests/TestEthClient/test_contracts/truffle.js
+     * @see https://github.com/digitaldonkey/ethereum-php/blob/dev/tests/TestEthClient/test_contracts/truffle.js
+     *
+     * @throws \Exception
      *
      * @return array
      */
@@ -179,4 +184,6 @@ class SmartContract
     public static function createMetaFromTruffle($filePath) {
         return json_decode(file_get_contents($filePath));
     }
+
+
 }

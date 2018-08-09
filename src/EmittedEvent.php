@@ -39,12 +39,14 @@ class EmittedEvent extends Event
         $this->contractAddress = $filterChange->address->hexVal();
     }
 
+
     /**
      * @return string
      */
     public function getContract() {
         return $this->contractAddress;
     }
+
 
     /**
      * @return string
@@ -53,12 +55,14 @@ class EmittedEvent extends Event
         return $this->emitterAddress;
     }
 
+
     /**
      * @return bool
      */
     public function hasData() {
         return is_array($this->data);
     }
+
 
     /**
      * @return array|null
@@ -67,12 +71,28 @@ class EmittedEvent extends Event
         return $this->data;
     }
 
+
+    /**
+     * Array of hex values.
+     *
+     * @return array
+     */
+    public function getRawData() {
+        $return = [];
+        foreach ($this->getData() as $val) {
+            $return[] = $val->hexVal();
+        }
+        return $return;
+    }
+
+
     /**
      * @return \Ethereum\DataType\Transaction
      */
     public function getTransaction() {
         return $this->transaction;
     }
+
 
     /**
      * @param \Ethereum\DataType\FilterChange $filterChange
@@ -87,4 +107,6 @@ class EmittedEvent extends Event
             throw new \Exception('Could not determine Event emitter EmittedEvent.');
         }
     }
+
+
 }
