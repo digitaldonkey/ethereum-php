@@ -105,7 +105,8 @@ class EthBlockParam extends EthQ
         } else {
             $val = intval($this->value->toString());
             $val = ($val === 0) ? $val : $this->value->toHex(false);
-
+            $val = ltrim($val,0);
+            
             // Unpaded positive Hex value.
             return $this->ensureHexPrefix($val);
         }
