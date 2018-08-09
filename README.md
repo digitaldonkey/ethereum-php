@@ -72,9 +72,16 @@ echo $x->val()
 
 You can also run tests at smart contracts, check out EthTestClient.
 
-### Limitations & Architecture
+### Event listening and handling
 
-Currently all datatypes expect Arrays and lists are supported. 
+You can use Ethereum-PHP to watch changed on your smart contracts or index a Blockchain block by block. gs
+
+See [UsingFilters](https://github.com/digitaldonkey/ethereum-php/blob/master/UsingFilters.md) and [ethereum-php-eventlistener](https://github.com/digitaldonkey/ethereum-php-eventlistener).
+
+
+### Limitations
+
+Currently not all datatypes are supported.
 
 This library is read-only for now. This means you can retrieve information stored in Ethereum Blockchain.
 

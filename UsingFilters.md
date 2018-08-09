@@ -57,6 +57,50 @@ Currently suggesting a simplified Ajax based Approach:
 
 More below.
 
+
+**Event Listener**
+
+In some cases you might want to index all events in a Blockchain or listen continuously to contract events whenever a new Block is generated. 
+
+Natively PHP is very bad at this. I implemented a [Block/Event listener](https://github.com/digitaldonkey/ethereum-php-eventlistener) based on [ReactPHP](https://github.com/reactphp/react) which allows Block processing and Event listening. 
+
+Truffle integration: This approach is very easy to integrate if you are using Truffle for your Contract code. 
+
+```php 
+// Extend a \Ethereum\SmartContract with EventHandlers
+class CallableEvents extends SmartContract {
+  public function onCalledTrigger1 (EthEvent $event) {
+    echo '### ' . substr(__FUNCTION__, 2) . "(\Ethereum\EmittedEvent)\n";
+    var_dump($event);
+  }
+  public function onCalledTrigger2 (EthEvent $event) {
+    echo '### ' . substr(__FUNCTION__, 2) . "(\Ethereum\EmittedEvent)\n";
+    var_dump($event);
+  }
+}
+
+$web3 = new Ethereum('http://192.168.99.100:8545');
+$networkId = '5777';
+
+// Contract Classes must have same name as the solidity classes for this to work.
+$contracts = SmartContract::createFromTruffleBuildDirectory(
+  'YOUR/truffle/build/contracts',
+   $web3,
+   $networkId
+);
+
+// process any Transaction from current Block to the future.
+new ContractEventProcessor(
+  $web3,
+  $contracts,
+  'latest',
+  'latest'
+);
+```
+
+See [integration-with-truffle-and-contract-events](https://github.com/digitaldonkey/ethereum-php-eventlistener#integration-with-truffle-and-contract-events).
+
+
 ## Note on weird return values
 
 The return of `eth_getFilterChanges()` depends on which method you use to setup the filter. Filter added with 
@@ -77,9 +121,3 @@ This is also not correctly reflected in [ethjs-schema](https://github.com/ethjs/
 4. Use contractInstance->processLog(FilterChange) to get the decoded Contract event data
 
 Example  *tests/TestEthClient/Unit/CallableEventsTest.php*
-
-
-
-**TODO**
-Add event dispatch/listening to contract object, so that you could add custom Event callbacks for you application code.
-
