@@ -8,6 +8,8 @@
 
 namespace Ethereum;
 use Ethereum\DataType\FilterChange;
+use Ethereum\DataType\Receipt;
+use Ethereum\DataType\Transaction;
 
 class Event extends EthereumStatic
 {
@@ -15,9 +17,11 @@ class Event extends EthereumStatic
     protected $name;
     protected $anonymous;
     protected $inputs;
+    protected $abi;
 
     public function __construct($abiItem)
     {
+        $this->abi = $abiItem;
         $this->inputs = $abiItem->inputs;
         $this->name = $abiItem->name;
         $this->anonymous = $abiItem->anonymous;
@@ -83,4 +87,17 @@ class Event extends EthereumStatic
         return $this->sha3($this->getSignature());
     }
 
+    /**
+     * @return string
+     */
+    public function getHandler () {
+        return 'on' . ucfirst($this->name);
+    }
+
+    /**
+     * @return object
+     */
+    public function getAbi() {
+        return $this->abi;
+    }
 }

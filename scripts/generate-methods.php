@@ -9,7 +9,7 @@
  * @ingroup generators
  */
 
-require_once (__DIR__ . "/generator-commons.php");
+require_once(__DIR__ . "/generator-commons.php");
 
 use gossi\codegen\generator\CodeGenerator;
 use gossi\codegen\model\PhpInterface;
@@ -137,7 +137,7 @@ EOF;
                 "",
             ))
             ->setParameters($methodParams)
-            ->setType('?' . $returnType, $returnTypeDescription)
+            ->setType('null|' . $returnType, $returnTypeDescription)
         );
         if ($cnf['class'] === 'PhpTrait') {
             $code->getMethod($method_name)->setBody('return $this->__call(__FUNCTION__, func_get_args());');

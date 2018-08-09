@@ -76,12 +76,9 @@ class CallableEvents extends TestEthContract
         }
 
         foreach($receipt->logs as $filterChange) {
-            $eventResult = $this->contract->processLog($filterChange);
-            $returnedData = [];
-            foreach ($eventResult as $result) {
-                $returnedData[] = $result->hexVal();
-            }
-            $this->assertSame($eventData, $returnedData);
+            /* @var \Ethereum\EmittedEvent $event */
+            $event = $this->contract->processLog($filterChange);
+            $this->assertSame($eventData, $event->getRawData());
         }
     }
 

@@ -465,6 +465,13 @@ class Ethereum extends EthereumStatic implements Web3Interface
             $class_name = __NAMESPACE__  . "\\$class_name";
         }
 
+        // Applying workarounds.
+        $functionName = 'eth_workaround_' . strtolower(str_replace('\\', '_', substr($class_name,1)));
+        if (function_exists($functionName)) {
+            $values = call_user_func($functionName, $values);
+        }
+
+
         /** @var  $class_name EthD or a derived class. */
         $type_map = $class_name::getTypeArray();
 
@@ -545,6 +552,9 @@ class Ethereum extends EthereumStatic implements Web3Interface
             $typeClass = '\\' . __NAMESPACE__  . '\\DataType\\' . $typeClass;
         }
         foreach ($values as $i => $val) {
+            if (is_object($val)) {
+                $return[$i] = $val->toArray();
+            }
             if (is_array($val)) {
                 $return[$i] = self::arrayToComplexType($typeClass, $val);
             }
