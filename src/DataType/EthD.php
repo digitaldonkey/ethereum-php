@@ -50,6 +50,7 @@ class EthD extends EthDataType
         // EthSyncing ?
         // WORKAROUND? Some clients may return an Data Array. Works on testrpc.
       'DATA|Transaction' => 'Transaction',
+      'FilterChange' => 'FilterChange'
     ];
 
 
@@ -137,7 +138,7 @@ class EthD extends EthDataType
      * @param array $params
      *   Array with optional parameters. Add Abi type $params['abi'] = 'unint8'.
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function __construct($val, array $params = [])
     {
@@ -154,7 +155,7 @@ class EthD extends EthDataType
      * @param string $abiType
      *   Expected Abi type.
      *
-     * @throws Exception
+     * @throws \Exception
      *    If conversation is not implemented for ABI type.
      *
      * @return object

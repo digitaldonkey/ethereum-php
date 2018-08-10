@@ -9,7 +9,7 @@
  * @ingroup generators
  */
 
-require_once (__DIR__ . "/generator-commons.php");
+require_once(__DIR__ . "/generator-commons.php");
 
 use gossi\codegen\generator\CodeGenerator;
 use gossi\codegen\model\PhpInterface;
@@ -17,6 +17,11 @@ use gossi\codegen\model\PhpTrait;
 use gossi\codegen\model\PhpMethod;
 use gossi\codegen\model\PhpParameter;
 use Ethereum\DataType\EthD;
+
+
+// For Tests we can disable the file generation.
+$shouldWriteToDisc = (isset($GLOBALS['argv'][1]) && $GLOBALS['argv'][1] === '--no-file-generation') ? false : true;
+
 
 /**
  * @var array $conf Set up variables for the generated scripts.
@@ -40,7 +45,6 @@ $conf = [
 foreach ($conf as $cnf) {
     echo "### GENERATING ETHEREUM METHODS INTERFACE ###\n";
     echo "# File generated " . $cnf['destination'] . "\n";
-    echo "#############################################\n";
 
     $group = $cnf["group"];
     $file_header = <<<EOF
@@ -133,7 +137,7 @@ EOF;
                 "",
             ))
             ->setParameters($methodParams)
-            ->setType($returnType, $returnTypeDescription)
+            ->setType('null|' . $returnType, $returnTypeDescription)
         );
         if ($cnf['class'] === 'PhpTrait') {
             $code->getMethod($method_name)->setBody('return $this->__call(__FUNCTION__, func_get_args());');
@@ -150,7 +154,14 @@ EOF;
     $codeText = $generator->generate($code);
 
     # print $codeText;
-    file_put_contents($cnf['destination'] , $file_header . $codeText);
+    if ($shouldWriteToDisc) {
+        file_put_contents($cnf['destination'] , $file_header . $codeText);
+    }
+    else {
+        echo "File is not written to disc, because file generation is disabled by '--no-file-generation'\n";
+    }
+    echo "#############################################\n";
+
 
 }
 

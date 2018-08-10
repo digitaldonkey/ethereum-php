@@ -14,7 +14,7 @@ use Math_BigInteger;
 class EthQ extends EthD
 {
     // Validation properties.
-    protected $intTypes = ['int', 'uint'];
+    private $intTypes = ['int', 'uint'];
 
     // @var $value Math_BigInteger Math big integer pear library.
     public $value;
@@ -253,6 +253,15 @@ class EthQ extends EthD
     }
 
     /**
+     * Implement hex value.
+     * @throws Exception
+     */
+    public function hexValUnpadded()
+    {
+        return '0x' . $this->value->toHex($this->value->is_negative);
+    }
+
+    /**
      * Implement getLength().
      */
     public function getLength($abi)
@@ -314,6 +323,14 @@ class EthQ extends EthD
     }
 
     /**
+     * @return string
+     */
+    public function encodedHexVal()
+    {
+        return $this->hexVal();
+    }
+
+    /**
      * Checks if value is not null.
      *
      * @return bool
@@ -353,7 +370,7 @@ class EthQ extends EthD
     /**
      * @return string|int
      */
-    public static function getdataLengthType($abiType)
+    public static function getDataLengthType()
     {
         return 'static';
     }

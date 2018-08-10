@@ -39,3 +39,16 @@ function eth_workaround_net_listening($val)
         return $val;
     }
 }
+
+/**
+ * Workaround for Ethereum\DataType\Transaction.
+ *
+ * Fixing the "to" address field might be "0x0" instead of null.
+ */
+function eth_workaround_ethereum_datatype_transaction(array $values)
+{
+    if (isset($values['to']) && $values['to'] === '0x0') {
+        $values['to'] = null;
+    }
+    return $values;
+}

@@ -95,7 +95,7 @@ class Rlp extends EthereumStatic
      * @param string $hexVal
      *
      * @return \Ethereum\RLP\RlpItem[]
-     * @throws Exception
+     * @throws \Exception
      */
     public static function decode(string $hexVal): array
     {
@@ -117,7 +117,8 @@ class Rlp extends EthereumStatic
      * @param int $startPos
      * @param int $endPos
      * @param int $levelToIndex
-     * @param \Ethereum\RLP\RlpItem\RlpCollection $rlpCollection
+     * @param \Ethereum\RLP\RlpCollection $rlpCollection
+     * @throws \Exception
      */
     private static function decodeValues(
       string $msgData,

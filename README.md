@@ -1,6 +1,6 @@
 # Ethereum-PHP
 
-is a typed PHP-7 interface to [Ethereum JSON-RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC).
+is a typed PHP-7.1+ interface to [Ethereum JSON-RPC API](https://github.com/ethereum/wiki/wiki/JSON-RPC).
 
 Check out the latest [API documentation](http://ethereum-php.org/dev/).
 
@@ -8,6 +8,12 @@ Check out the latest [API documentation](http://ethereum-php.org/dev/).
 
 ```yaml
 {
+  "minimum-stability":"dev",
+  "autoload": {
+    "psr-4": {
+      "Ethereum\\": "src/"
+    }
+  },
   "repositories": [
     {
       "type": "git",
@@ -15,7 +21,7 @@ Check out the latest [API documentation](http://ethereum-php.org/dev/).
     }
   ],
   "require": {
-    "digitaldonkey/ethereum-php": "dev-dev",
+    "digitaldonkey/ethereum-php": "dev-master"
   }
 }
 ```
@@ -31,13 +37,19 @@ This is the important part of [composer.json](https://github.com/digitaldonkey/e
 
 
 ```php
+require __DIR__ . '/vendor/autoload.php';
+use Ethereum\Ethereum;
+
 try {
-  $eth = new EthereumController('http://localhost:8445');
-  echo $eth->client->eth_protocolVersion();
+	// Connect to Ganache
+    $eth = new Ethereum('http://127.0.0.1:7545');
+    // Should return Int 63
+    echo $eth->eth_protocolVersion()->val();
 }
 catch (\Exception $exception) {
-  die ("Unable to connect.");
+    die ("Unable to connect.");
 }
+
 ```
 
 **Calling Contracts**
@@ -60,9 +72,16 @@ echo $x->val()
 
 You can also run tests at smart contracts, check out EthTestClient.
 
-### Limitations & Architecture
+### Event listening and handling
 
-Currently all datatypes expect Arrays and lists are supported. 
+You can use Ethereum-PHP to watch changed on your smart contracts or index a Blockchain block by block. gs
+
+See [UsingFilters](https://github.com/digitaldonkey/ethereum-php/blob/master/UsingFilters.md) and [ethereum-php-eventlistener](https://github.com/digitaldonkey/ethereum-php-eventlistener).
+
+
+### Limitations
+
+Currently not all datatypes are supported.
 
 This library is read-only for now. This means you can retrieve information stored in Ethereum Blockchain.
 

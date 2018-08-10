@@ -17,7 +17,7 @@ class EthD32 extends EthD
      * @param string $val
      *   Hexadecimal "0x"prefixed  byte value.
      *
-     * @throws Exception
+     * @throws \InvalidArgumentException
      *   If things are wrong.
      *
      * @return string
@@ -38,9 +38,9 @@ class EthD32 extends EthD
     }
 
     /**
-     * @return string|int
+     * @return string
      */
-    public static function getdataLengthType($abiType)
+    public static function getDataLengthType()
     {
         return 'static';
     }

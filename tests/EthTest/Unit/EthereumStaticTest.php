@@ -17,6 +17,7 @@ class EthereumStaticTest extends TestStatic
             '0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd',
             '0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbac0'
         ];
+
         $this->assertEquals(
             Ethereum::valueArray($values, 'EthD32'),
             array(
@@ -24,12 +25,6 @@ class EthereumStaticTest extends TestStatic
                 new EthD32('0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbac0'),
             )
         );
-
-        // Testing complex data type.
-        $values = [
-            '0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbacd',
-            '0xf79e7980a566fec5caf9cf368abb227e537999998541bad324f61cf2906fbac0'
-        ];
 
     }
 }

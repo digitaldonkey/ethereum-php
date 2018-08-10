@@ -41,9 +41,9 @@ interface Web3Interface {
 	 * 
 	 * See [Ethereum Wiki web3_clientVersion](https://github.com/ethereum/wiki/wiki/JSON-RPC#web3_clientversion)
 	 *
-	 * @return EthS
+	 * @return null|EthS
 	 */
-	public function web3_clientVersion(): EthS;
+	public function web3_clientVersion();
 
 	/**
 	 * Generated method web3_sha3().
@@ -51,36 +51,36 @@ interface Web3Interface {
 	 * See [Ethereum Wiki web3_sha3](https://github.com/ethereum/wiki/wiki/JSON-RPC#web3_sha3)
 	 *
 	 * @param EthS $arg1
-	 * @return EthD
+	 * @return null|EthD
 	 */
-	public function web3_sha3(EthS $arg1): EthD;
+	public function web3_sha3(EthS $arg1);
 
 	/**
 	 * Generated method net_version().
 	 * 
 	 * See [Ethereum Wiki net_version](https://github.com/ethereum/wiki/wiki/JSON-RPC#net_version)
 	 *
-	 * @return EthS
+	 * @return null|EthS
 	 */
-	public function net_version(): EthS;
+	public function net_version();
 
 	/**
 	 * Generated method net_peerCount().
 	 * 
 	 * See [Ethereum Wiki net_peerCount](https://github.com/ethereum/wiki/wiki/JSON-RPC#net_peercount)
 	 *
-	 * @return EthQ
+	 * @return null|EthQ
 	 */
-	public function net_peerCount(): EthQ;
+	public function net_peerCount();
 
 	/**
 	 * Generated method net_listening().
 	 * 
 	 * See [Ethereum Wiki net_listening](https://github.com/ethereum/wiki/wiki/JSON-RPC#net_listening)
 	 *
-	 * @return EthB
+	 * @return null|EthB
 	 */
-	public function net_listening(): EthB;
+	public function net_listening();
 
 	/**
 	 * Generated method personal_sign().
@@ -90,9 +90,9 @@ interface Web3Interface {
 	 * @param EthD20 $arg1
 	 * @param EthD $arg2
 	 * @param EthS $arg3
-	 * @return EthD
+	 * @return null|EthD
 	 */
-	public function personal_sign(EthD20 $arg1, EthD $arg2, EthS $arg3): EthD;
+	public function personal_sign(EthD20 $arg1, EthD $arg2, EthS $arg3);
 
 	/**
 	 * Generated method personal_ecRecover().
@@ -101,81 +101,81 @@ interface Web3Interface {
 	 *
 	 * @param EthD $arg1
 	 * @param EthD $arg2
-	 * @return EthD20
+	 * @return null|EthD20
 	 */
-	public function personal_ecRecover(EthD $arg1, EthD $arg2): EthD20;
+	public function personal_ecRecover(EthD $arg1, EthD $arg2);
 
 	/**
 	 * Generated method eth_protocolVersion().
 	 * 
 	 * See [Ethereum Wiki eth_protocolVersion](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_protocolversion)
 	 *
-	 * @return EthS
+	 * @return null|EthS
 	 */
-	public function eth_protocolVersion(): EthS;
+	public function eth_protocolVersion();
 
 	/**
 	 * Generated method eth_syncing().
 	 * 
 	 * See [Ethereum Wiki eth_syncing](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_syncing)
 	 *
-	 * @return EthB
+	 * @return null|EthB
 	 */
-	public function eth_syncing(): EthB;
+	public function eth_syncing();
 
 	/**
 	 * Generated method eth_coinbase().
 	 * 
 	 * See [Ethereum Wiki eth_coinbase](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_coinbase)
 	 *
-	 * @return EthD20
+	 * @return null|EthD20
 	 */
-	public function eth_coinbase(): EthD20;
+	public function eth_coinbase();
 
 	/**
 	 * Generated method eth_mining().
 	 * 
 	 * See [Ethereum Wiki eth_mining](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_mining)
 	 *
-	 * @return EthB
+	 * @return null|EthB
 	 */
-	public function eth_mining(): EthB;
+	public function eth_mining();
 
 	/**
 	 * Generated method eth_hashrate().
 	 * 
 	 * See [Ethereum Wiki eth_hashrate](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_hashrate)
 	 *
-	 * @return EthQ
+	 * @return null|EthQ
 	 */
-	public function eth_hashrate(): EthQ;
+	public function eth_hashrate();
 
 	/**
 	 * Generated method eth_gasPrice().
 	 * 
 	 * See [Ethereum Wiki eth_gasPrice](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gasprice)
 	 *
-	 * @return EthQ
+	 * @return null|EthQ
 	 */
-	public function eth_gasPrice(): EthQ;
+	public function eth_gasPrice();
 
 	/**
 	 * Generated method eth_accounts().
 	 * 
 	 * See [Ethereum Wiki eth_accounts](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_accounts)
 	 *
-	 * @return array   Array of EthD20
+	 * @return null|array   Array of EthD20
 	 */
-	public function eth_accounts(): array;
+	public function eth_accounts();
 
 	/**
 	 * Generated method eth_blockNumber().
 	 * 
 	 * See [Ethereum Wiki eth_blockNumber](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_blocknumber)
 	 *
-	 * @return EthQ
+	 * @return null|EthQ
 	 */
-	public function eth_blockNumber(): EthQ;
+	public function eth_blockNumber();
 
 	/**
 	 * Generated method eth_getBalance().
@@ -184,9 +184,9 @@ interface Web3Interface {
 	 *
 	 * @param EthD20 $arg1
 	 * @param EthBlockParam $arg2
-	 * @return EthQ
+	 * @return null|EthQ
 	 */
-	public function eth_getBalance(EthD20 $arg1, EthBlockParam $arg2): EthQ;
+	public function eth_getBalance(EthD20 $arg1, EthBlockParam $arg2);
 
 	/**
 	 * Generated method eth_getStorageAt().
@@ -196,9 +196,9 @@ interface Web3Interface {
 	 * @param EthD20 $arg1
 	 * @param EthQ $arg2
 	 * @param EthBlockParam $arg3
-	 * @return EthD
+	 * @return null|EthD
 	 */
-	public function eth_getStorageAt(EthD20 $arg1, EthQ $arg2, EthBlockParam $arg3): EthD;
+	public function eth_getStorageAt(EthD20 $arg1, EthQ $arg2, EthBlockParam $arg3);
 
 	/**
 	 * Generated method eth_getTransactionCount().
@@ -207,9 +207,9 @@ interface Web3Interface {
 	 *
 	 * @param EthD20 $arg1
 	 * @param EthBlockParam $arg2
-	 * @return EthQ
+	 * @return null|EthQ
 	 */
-	public function eth_getTransactionCount(EthD20 $arg1, EthBlockParam $arg2): EthQ;
+	public function eth_getTransactionCount(EthD20 $arg1, EthBlockParam $arg2);
 
 	/**
 	 * Generated method eth_getBlockTransactionCountByHash().
@@ -217,9 +217,9 @@ interface Web3Interface {
 	 * See [Ethereum Wiki eth_getBlockTransactionCountByHash](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getblocktransactioncountbyhash)
 	 *
 	 * @param EthD32 $arg1
-	 * @return EthQ
+	 * @return null|EthQ
 	 */
-	public function eth_getBlockTransactionCountByHash(EthD32 $arg1): EthQ;
+	public function eth_getBlockTransactionCountByHash(EthD32 $arg1);
 
 	/**
 	 * Generated method eth_getBlockTransactionCountByNumber().
@@ -227,9 +227,9 @@ interface Web3Interface {
 	 * See [Ethereum Wiki eth_getBlockTransactionCountByNumber](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getblocktransactioncountbynumber)
 	 *
 	 * @param EthBlockParam $arg1
-	 * @return EthQ
+	 * @return null|EthQ
 	 */
-	public function eth_getBlockTransactionCountByNumber(EthBlockParam $arg1): EthQ;
+	public function eth_getBlockTransactionCountByNumber(EthBlockParam $arg1);
 
 	/**
 	 * Generated method eth_getUncleCountByBlockHash().
@@ -237,9 +237,9 @@ interface Web3Interface {
 	 * See [Ethereum Wiki eth_getUncleCountByBlockHash](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getunclecountbyblockhash)
 	 *
 	 * @param EthD32 $arg1
-	 * @return EthQ
+	 * @return null|EthQ
 	 */
-	public function eth_getUncleCountByBlockHash(EthD32 $arg1): EthQ;
+	public function eth_getUncleCountByBlockHash(EthD32 $arg1);
 
 	/**
 	 * Generated method eth_getUncleCountByBlockNumber().
@@ -247,9 +247,9 @@ interface Web3Interface {
 	 * See [Ethereum Wiki eth_getUncleCountByBlockNumber](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getunclecountbyblocknumber)
 	 *
 	 * @param EthQ $arg1
-	 * @return EthQ
+	 * @return null|EthQ
 	 */
-	public function eth_getUncleCountByBlockNumber(EthQ $arg1): EthQ;
+	public function eth_getUncleCountByBlockNumber(EthQ $arg1);
 
 	/**
 	 * Generated method eth_getCode().
@@ -258,9 +258,9 @@ interface Web3Interface {
 	 *
 	 * @param EthD20 $arg1
 	 * @param EthBlockParam $arg2
-	 * @return EthD
+	 * @return null|EthD
 	 */
-	public function eth_getCode(EthD20 $arg1, EthBlockParam $arg2): EthD;
+	public function eth_getCode(EthD20 $arg1, EthBlockParam $arg2);
 
 	/**
 	 * Generated method eth_sign().
@@ -269,9 +269,9 @@ interface Web3Interface {
 	 *
 	 * @param EthD20 $arg1
 	 * @param EthD32 $arg2
-	 * @return EthD
+	 * @return null|EthD
 	 */
-	public function eth_sign(EthD20 $arg1, EthD32 $arg2): EthD;
+	public function eth_sign(EthD20 $arg1, EthD32 $arg2);
 
 	/**
 	 * Generated method eth_sendTransaction().
@@ -279,9 +279,9 @@ interface Web3Interface {
 	 * See [Ethereum Wiki eth_sendTransaction](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_sendtransaction)
 	 *
 	 * @param SendTransaction $arg1
-	 * @return EthD
+	 * @return null|EthD
 	 */
-	public function eth_sendTransaction(SendTransaction $arg1): EthD;
+	public function eth_sendTransaction(SendTransaction $arg1);
 
 	/**
 	 * Generated method eth_sendRawTransaction().
@@ -289,9 +289,9 @@ interface Web3Interface {
 	 * See [Ethereum Wiki eth_sendRawTransaction](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_sendrawtransaction)
 	 *
 	 * @param EthD $arg1
-	 * @return EthD32
+	 * @return null|EthD32
 	 */
-	public function eth_sendRawTransaction(EthD $arg1): EthD32;
+	public function eth_sendRawTransaction(EthD $arg1);
 
 	/**
 	 * Generated method eth_call().
@@ -300,9 +300,9 @@ interface Web3Interface {
 	 *
 	 * @param CallTransaction $arg1
 	 * @param EthBlockParam $arg2
-	 * @return EthD
+	 * @return null|EthD
 	 */
-	public function eth_call(CallTransaction $arg1, EthBlockParam $arg2): EthD;
+	public function eth_call(CallTransaction $arg1, EthBlockParam $arg2);
 
 	/**
 	 * Generated method eth_estimateGas().
@@ -311,9 +311,9 @@ interface Web3Interface {
 	 *
 	 * @param EstimateTransaction $arg1
 	 * @param EthBlockParam $arg2
-	 * @return EthQ
+	 * @return null|EthQ
 	 */
-	public function eth_estimateGas(EstimateTransaction $arg1, EthBlockParam $arg2): EthQ;
+	public function eth_estimateGas(EstimateTransaction $arg1, EthBlockParam $arg2);
 
 	/**
 	 * Generated method eth_getBlockByHash().
@@ -322,9 +322,9 @@ interface Web3Interface {
 	 *
 	 * @param EthD32 $arg1
 	 * @param EthB $arg2
-	 * @return Block
+	 * @return null|Block
 	 */
-	public function eth_getBlockByHash(EthD32 $arg1, EthB $arg2): Block;
+	public function eth_getBlockByHash(EthD32 $arg1, EthB $arg2);
 
 	/**
 	 * Generated method eth_getBlockByNumber().
@@ -333,9 +333,9 @@ interface Web3Interface {
 	 *
 	 * @param EthBlockParam $arg1
 	 * @param EthB $arg2
-	 * @return Block
+	 * @return null|Block
 	 */
-	public function eth_getBlockByNumber(EthBlockParam $arg1, EthB $arg2): Block;
+	public function eth_getBlockByNumber(EthBlockParam $arg1, EthB $arg2);
 
 	/**
 	 * Generated method eth_getTransactionByHash().
@@ -343,9 +343,9 @@ interface Web3Interface {
 	 * See [Ethereum Wiki eth_getTransactionByHash](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionbyhash)
 	 *
 	 * @param EthD32 $arg1
-	 * @return Transaction
+	 * @return null|Transaction
 	 */
-	public function eth_getTransactionByHash(EthD32 $arg1): Transaction;
+	public function eth_getTransactionByHash(EthD32 $arg1);
 
 	/**
 	 * Generated method eth_getTransactionByBlockHashAndIndex().
@@ -354,9 +354,9 @@ interface Web3Interface {
 	 *
 	 * @param EthD32 $arg1
 	 * @param EthQ $arg2
-	 * @return Transaction
+	 * @return null|Transaction
 	 */
-	public function eth_getTransactionByBlockHashAndIndex(EthD32 $arg1, EthQ $arg2): Transaction;
+	public function eth_getTransactionByBlockHashAndIndex(EthD32 $arg1, EthQ $arg2);
 
 	/**
 	 * Generated method eth_getTransactionByBlockNumberAndIndex().
@@ -365,9 +365,9 @@ interface Web3Interface {
 	 *
 	 * @param EthBlockParam $arg1
 	 * @param EthQ $arg2
-	 * @return Transaction
+	 * @return null|Transaction
 	 */
-	public function eth_getTransactionByBlockNumberAndIndex(EthBlockParam $arg1, EthQ $arg2): Transaction;
+	public function eth_getTransactionByBlockNumberAndIndex(EthBlockParam $arg1, EthQ $arg2);
 
 	/**
 	 * Generated method eth_getTransactionReceipt().
@@ -375,9 +375,9 @@ interface Web3Interface {
 	 * See [Ethereum Wiki eth_getTransactionReceipt](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionreceipt)
 	 *
 	 * @param EthD32 $arg1
-	 * @return Receipt
+	 * @return null|Receipt
 	 */
-	public function eth_getTransactionReceipt(EthD32 $arg1): Receipt;
+	public function eth_getTransactionReceipt(EthD32 $arg1);
 
 	/**
 	 * Generated method eth_getUncleByBlockHashAndIndex().
@@ -386,9 +386,9 @@ interface Web3Interface {
 	 *
 	 * @param EthD32 $arg1
 	 * @param EthQ $arg2
-	 * @return Block
+	 * @return null|Block
 	 */
-	public function eth_getUncleByBlockHashAndIndex(EthD32 $arg1, EthQ $arg2): Block;
+	public function eth_getUncleByBlockHashAndIndex(EthD32 $arg1, EthQ $arg2);
 
 	/**
 	 * Generated method eth_getUncleByBlockNumberAndIndex().
@@ -397,18 +397,18 @@ interface Web3Interface {
 	 *
 	 * @param EthBlockParam $arg1
 	 * @param EthQ $arg2
-	 * @return Block
+	 * @return null|Block
 	 */
-	public function eth_getUncleByBlockNumberAndIndex(EthBlockParam $arg1, EthQ $arg2): Block;
+	public function eth_getUncleByBlockNumberAndIndex(EthBlockParam $arg1, EthQ $arg2);
 
 	/**
 	 * Generated method eth_getCompilers().
 	 * 
 	 * See [Ethereum Wiki eth_getCompilers](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getcompilers)
 	 *
-	 * @return array   Array of EthS
+	 * @return null|array   Array of EthS
 	 */
-	public function eth_getCompilers(): array;
+	public function eth_getCompilers();
 
 	/**
 	 * Generated method eth_compileLLL().
@@ -416,9 +416,9 @@ interface Web3Interface {
 	 * See [Ethereum Wiki eth_compileLLL](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_compilelll)
 	 *
 	 * @param EthS $arg1
-	 * @return EthD
+	 * @return null|EthD
 	 */
-	public function eth_compileLLL(EthS $arg1): EthD;
+	public function eth_compileLLL(EthS $arg1);
 
 	/**
 	 * Generated method eth_compileSolidity().
@@ -426,9 +426,9 @@ interface Web3Interface {
 	 * See [Ethereum Wiki eth_compileSolidity](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_compilesolidity)
 	 *
 	 * @param EthS $arg1
-	 * @return EthD
+	 * @return null|EthD
 	 */
-	public function eth_compileSolidity(EthS $arg1): EthD;
+	public function eth_compileSolidity(EthS $arg1);
 
 	/**
 	 * Generated method eth_compileSerpent().
@@ -436,9 +436,9 @@ interface Web3Interface {
 	 * See [Ethereum Wiki eth_compileSerpent](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_compileserpent)
 	 *
 	 * @param EthS $arg1
-	 * @return EthD
+	 * @return null|EthD
 	 */
-	public function eth_compileSerpent(EthS $arg1): EthD;
+	public function eth_compileSerpent(EthS $arg1);
 
 	/**
 	 * Generated method eth_newFilter().
@@ -446,27 +446,27 @@ interface Web3Interface {
 	 * See [Ethereum Wiki eth_newFilter](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_newfilter)
 	 *
 	 * @param Filter $arg1
-	 * @return EthQ
+	 * @return null|EthQ
 	 */
-	public function eth_newFilter(Filter $arg1): EthQ;
+	public function eth_newFilter(Filter $arg1);
 
 	/**
 	 * Generated method eth_newBlockFilter().
 	 * 
 	 * See [Ethereum Wiki eth_newBlockFilter](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_newblockfilter)
 	 *
-	 * @return EthQ
+	 * @return null|EthQ
 	 */
-	public function eth_newBlockFilter(): EthQ;
+	public function eth_newBlockFilter();
 
 	/**
 	 * Generated method eth_newPendingTransactionFilter().
 	 * 
 	 * See [Ethereum Wiki eth_newPendingTransactionFilter](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_newpendingtransactionfilter)
 	 *
-	 * @return EthQ
+	 * @return null|EthQ
 	 */
-	public function eth_newPendingTransactionFilter(): EthQ;
+	public function eth_newPendingTransactionFilter();
 
 	/**
 	 * Generated method eth_uninstallFilter().
@@ -474,9 +474,9 @@ interface Web3Interface {
 	 * See [Ethereum Wiki eth_uninstallFilter](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_uninstallfilter)
 	 *
 	 * @param EthQ $arg1
-	 * @return EthB
+	 * @return null|EthB
 	 */
-	public function eth_uninstallFilter(EthQ $arg1): EthB;
+	public function eth_uninstallFilter(EthQ $arg1);
 
 	/**
 	 * Generated method eth_getFilterChanges().
@@ -484,9 +484,9 @@ interface Web3Interface {
 	 * See [Ethereum Wiki eth_getFilterChanges](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getfilterchanges)
 	 *
 	 * @param EthQ $arg1
-	 * @return array   Array of FilterChange
+	 * @return null|array   Array of FilterChange
 	 */
-	public function eth_getFilterChanges(EthQ $arg1): array;
+	public function eth_getFilterChanges(EthQ $arg1);
 
 	/**
 	 * Generated method eth_getFilterLogs().
@@ -494,9 +494,9 @@ interface Web3Interface {
 	 * See [Ethereum Wiki eth_getFilterLogs](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getfilterlogs)
 	 *
 	 * @param EthQ $arg1
-	 * @return array   Array of FilterChange
+	 * @return null|array   Array of FilterChange
 	 */
-	public function eth_getFilterLogs(EthQ $arg1): array;
+	public function eth_getFilterLogs(EthQ $arg1);
 
 	/**
 	 * Generated method eth_getLogs().
@@ -504,18 +504,18 @@ interface Web3Interface {
 	 * See [Ethereum Wiki eth_getLogs](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getlogs)
 	 *
 	 * @param Filter $arg1
-	 * @return array   Array of FilterChange
+	 * @return null|array   Array of FilterChange
 	 */
-	public function eth_getLogs(Filter $arg1): array;
+	public function eth_getLogs(Filter $arg1);
 
 	/**
 	 * Generated method eth_getWork().
 	 * 
 	 * See [Ethereum Wiki eth_getWork](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getwork)
 	 *
-	 * @return array   Array of EthD
+	 * @return null|array   Array of EthD
 	 */
-	public function eth_getWork(): array;
+	public function eth_getWork();
 
 	/**
 	 * Generated method eth_submitWork().
@@ -525,9 +525,9 @@ interface Web3Interface {
 	 * @param EthD $arg1
 	 * @param EthD32 $arg2
 	 * @param EthD32 $arg3
-	 * @return EthB
+	 * @return null|EthB
 	 */
-	public function eth_submitWork(EthD $arg1, EthD32 $arg2, EthD32 $arg3): EthB;
+	public function eth_submitWork(EthD $arg1, EthD32 $arg2, EthD32 $arg3);
 
 	/**
 	 * Generated method eth_submitHashrate().
@@ -536,9 +536,9 @@ interface Web3Interface {
 	 *
 	 * @param EthD $arg1
 	 * @param EthD $arg2
-	 * @return EthB
+	 * @return null|EthB
 	 */
-	public function eth_submitHashrate(EthD $arg1, EthD $arg2): EthB;
+	public function eth_submitHashrate(EthD $arg1, EthD $arg2);
 
 	/**
 	 * Generated method db_putString().
@@ -548,9 +548,9 @@ interface Web3Interface {
 	 * @param EthS $arg1
 	 * @param EthS $arg2
 	 * @param EthS $arg3
-	 * @return EthB
+	 * @return null|EthB
 	 */
-	public function db_putString(EthS $arg1, EthS $arg2, EthS $arg3): EthB;
+	public function db_putString(EthS $arg1, EthS $arg2, EthS $arg3);
 
 	/**
 	 * Generated method db_getString().
@@ -559,9 +559,9 @@ interface Web3Interface {
 	 *
 	 * @param EthS $arg1
 	 * @param EthS $arg2
-	 * @return EthS
+	 * @return null|EthS
 	 */
-	public function db_getString(EthS $arg1, EthS $arg2): EthS;
+	public function db_getString(EthS $arg1, EthS $arg2);
 
 	/**
 	 * Generated method db_putHex().
@@ -571,9 +571,9 @@ interface Web3Interface {
 	 * @param EthS $arg1
 	 * @param EthS $arg2
 	 * @param EthD $arg3
-	 * @return EthB
+	 * @return null|EthB
 	 */
-	public function db_putHex(EthS $arg1, EthS $arg2, EthD $arg3): EthB;
+	public function db_putHex(EthS $arg1, EthS $arg2, EthD $arg3);
 
 	/**
 	 * Generated method db_getHex().
@@ -582,9 +582,9 @@ interface Web3Interface {
 	 *
 	 * @param EthS $arg1
 	 * @param EthS $arg2
-	 * @return EthD
+	 * @return null|EthD
 	 */
-	public function db_getHex(EthS $arg1, EthS $arg2): EthD;
+	public function db_getHex(EthS $arg1, EthS $arg2);
 
 	/**
 	 * Generated method shh_post().
@@ -592,27 +592,27 @@ interface Web3Interface {
 	 * See [Ethereum Wiki shh_post](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_post)
 	 *
 	 * @param SHHPost $arg1
-	 * @return EthB
+	 * @return null|EthB
 	 */
-	public function shh_post(SHHPost $arg1): EthB;
+	public function shh_post(SHHPost $arg1);
 
 	/**
 	 * Generated method shh_version().
 	 * 
 	 * See [Ethereum Wiki shh_version](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_version)
 	 *
-	 * @return EthS
+	 * @return null|EthS
 	 */
-	public function shh_version(): EthS;
+	public function shh_version();
 
 	/**
 	 * Generated method shh_newIdentity().
 	 * 
 	 * See [Ethereum Wiki shh_newIdentity](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_newidentity)
 	 *
-	 * @return EthD
+	 * @return null|EthD
 	 */
-	public function shh_newIdentity(): EthD;
+	public function shh_newIdentity();
 
 	/**
 	 * Generated method shh_hasIdentity().
@@ -620,18 +620,18 @@ interface Web3Interface {
 	 * See [Ethereum Wiki shh_hasIdentity](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_hasidentity)
 	 *
 	 * @param EthD $arg1
-	 * @return EthB
+	 * @return null|EthB
 	 */
-	public function shh_hasIdentity(EthD $arg1): EthB;
+	public function shh_hasIdentity(EthD $arg1);
 
 	/**
 	 * Generated method shh_newGroup().
 	 * 
 	 * See [Ethereum Wiki shh_newGroup](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_newgroup)
 	 *
-	 * @return EthD
+	 * @return null|EthD
 	 */
-	public function shh_newGroup(): EthD;
+	public function shh_newGroup();
 
 	/**
 	 * Generated method shh_addToGroup().
@@ -639,9 +639,9 @@ interface Web3Interface {
 	 * See [Ethereum Wiki shh_addToGroup](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_addtogroup)
 	 *
 	 * @param EthD $arg1
-	 * @return EthB
+	 * @return null|EthB
 	 */
-	public function shh_addToGroup(EthD $arg1): EthB;
+	public function shh_addToGroup(EthD $arg1);
 
 	/**
 	 * Generated method shh_newFilter().
@@ -649,9 +649,9 @@ interface Web3Interface {
 	 * See [Ethereum Wiki shh_newFilter](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_newfilter)
 	 *
 	 * @param SHHFilter $arg1
-	 * @return EthQ
+	 * @return null|EthQ
 	 */
-	public function shh_newFilter(SHHFilter $arg1): EthQ;
+	public function shh_newFilter(SHHFilter $arg1);
 
 	/**
 	 * Generated method shh_uninstallFilter().
@@ -659,9 +659,9 @@ interface Web3Interface {
 	 * See [Ethereum Wiki shh_uninstallFilter](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_uninstallfilter)
 	 *
 	 * @param EthQ $arg1
-	 * @return EthB
+	 * @return null|EthB
 	 */
-	public function shh_uninstallFilter(EthQ $arg1): EthB;
+	public function shh_uninstallFilter(EthQ $arg1);
 
 	/**
 	 * Generated method shh_getFilterChanges().
@@ -669,9 +669,9 @@ interface Web3Interface {
 	 * See [Ethereum Wiki shh_getFilterChanges](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_getfilterchanges)
 	 *
 	 * @param EthQ $arg1
-	 * @return array   Array of SHHFilterChange
+	 * @return null|array   Array of SHHFilterChange
 	 */
-	public function shh_getFilterChanges(EthQ $arg1): array;
+	public function shh_getFilterChanges(EthQ $arg1);
 
 	/**
 	 * Generated method shh_getMessages().
@@ -679,7 +679,7 @@ interface Web3Interface {
 	 * See [Ethereum Wiki shh_getMessages](https://github.com/ethereum/wiki/wiki/JSON-RPC#shh_getmessages)
 	 *
 	 * @param EthQ $arg1
-	 * @return array   Array of SHHFilterChange
+	 * @return null|array   Array of SHHFilterChange
 	 */
-	public function shh_getMessages(EthQ $arg1): array;
+	public function shh_getMessages(EthQ $arg1);
 }
