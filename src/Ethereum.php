@@ -74,7 +74,8 @@ class Ethereum extends EthereumStatic implements Web3Interface
 
       $this->client = RpcClient::factory($url, [
             // Debug JsonRPC requests.
-            'debug' => false,
+            'debug'     => false,
+            'rpc_error' => true,
         ]);
 
         $this->definition = self::getDefinition();
