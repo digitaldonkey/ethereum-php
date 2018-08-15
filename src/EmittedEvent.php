@@ -39,6 +39,13 @@ class EmittedEvent extends Event
         $this->contractAddress = $filterChange->address->hexVal();
     }
 
+    /**
+     * @return string
+     */
+    public function getLog() {
+      $txHash = $this->transaction->getProperty('hash', TRUE);
+      return "Transaction: $txHash \n Contract: $this->contractAddress\n Event Emiter: $this->emitterAddress\n Data " . print_r($this->toArray(), TRUE);
+    }
 
     /**
      * @return string
@@ -93,6 +100,17 @@ class EmittedEvent extends Event
         return $this->transaction;
     }
 
+
+   /**
+    * @return array
+    */
+    public function toArray() {
+      $data = [];
+      foreach ($this->data as $k => $v) {
+        $data[$k] = $v->hexVal();
+      }
+      return $data;
+    }
 
     /**
      * @param \Ethereum\DataType\FilterChange $filterChange
