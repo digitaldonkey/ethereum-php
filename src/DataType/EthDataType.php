@@ -260,7 +260,7 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
      * Determine type class name for primitive and complex data types.
      *
      * @param string $type
-     *   Type containing Schema name.
+     *   Type containing Schema name. Might be "[D20]" to indicate an array
      *
      * @param bool $typed_constructor
      *   If true this function will return "array" for types of array($type),
@@ -273,9 +273,11 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
      */
     public static function getTypeClass(string $type, bool $typed_constructor = false)
     {
+        $isArray = FALSE;
         // Handling "[type]".
         if (strpos($type, '[') !== FALSE) {
             $type = str_replace(['[', ']'], '', $type);
+            $isArray = TRUE;
         }
 
         $primitive_type = EthD::typeMap($type);
@@ -286,10 +288,10 @@ abstract class EthDataType extends EthereumStatic implements EthDataTypeInterfac
         else {
             // Sadly arrayOf <type> is not supported by PHP.
             if ($typed_constructor) {
-                $type_class = is_array($type) ? 'array' : $type;
+                $type_class = $isArray ? 'array' : $type;
             }
             else {
-                $type_class = is_array($type) ? $type[0] : $type;
+                $type_class = $type;
             }
         }
 

@@ -74,7 +74,8 @@ class Ethereum extends EthereumStatic implements Web3Interface
 
       $this->client = RpcClient::factory($url, [
             // Debug JsonRPC requests.
-            'debug' => false,
+            'debug'     => false,
+            'rpc_error' => true,
         ]);
 
         $this->definition = self::getDefinition();
@@ -192,7 +193,7 @@ class Ethereum extends EthereumStatic implements Web3Interface
                 $is_primitive = (is_array($return_type)) ? (bool)EthD::typeMap($return_type[0]) : (bool)EthD::typeMap($return_type);
 
                 if (is_array($return_type)) {
-                    $return_type_class = [EthD::typeMap($return_type[0])];
+                    $return_type_class = '[' . EthD::typeMap($return_type[0]) . ']';
                 } elseif ($is_primitive) {
                     $return_type_class = EthD::typeMap($return_type);
                 } else {
@@ -266,7 +267,7 @@ class Ethereum extends EthereumStatic implements Web3Interface
         // Get return value type.
         $class_name = '\\Ethereum\\DataType\\' . EthDataType::getTypeClass($return_type_class);
         // Is array ?
-        $array_val = is_array($return_type_class);
+        $array_val = $this->isArrayType($return_type_class);
         // Is primitive data type?
         $is_primitive = $class_name::isPrimitive();
 
@@ -313,6 +314,18 @@ class Ethereum extends EthereumStatic implements Web3Interface
         return $return;
     }
 
+
+  /**
+   *
+   * Note if there are still Arrays passed here we crash.
+   * Array types should be insicated by "[TYPE]" or type[].
+   *
+   * @param string $type
+   * @return bool
+   */
+    protected static function isArrayType(string $type) {
+      return (strpos($type, '[') !== FALSE );
+    }
 
     /**
      * Request().
@@ -486,10 +499,20 @@ class Ethereum extends EthereumStatic implements Web3Interface
                     $sub_values = [];
                     foreach ($values[$name] as $sub_val) {
 
+                        // Working around the "DATA|Transaction" type in Blocks.
+                        // This is a weired Ethereum problem. In eth_getBlockByHash
+                        // and eth_getblockbynumber return type depends on the
+                        // second param.
+                        // @See: https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getblockbynumber.
+                        if (!is_array($sub_val) && $name === 'transactions') {
+                          $val_class = '\\Ethereum\\DataType\\EthD32';
+                        }
+
                         // Work around testrpc giving not back an array.
                         if (is_array($sub_val)) {
                             $sub_values[] = self::arrayToComplexType($val_class, $sub_val);
-                        } else {
+                        }
+                        else {
                             $sub_values[] = new $val_class($sub_val);
                         }
                     }

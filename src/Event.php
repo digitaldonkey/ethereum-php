@@ -100,4 +100,8 @@ class Event extends EthereumStatic
     public function getAbi() {
         return $this->abi;
     }
+
+    public function getName() {
+      return $this->name;
+    }
 }

@@ -13,6 +13,9 @@ class EmittedEvent extends Event
     protected $contractAddress;
     protected $emitterAddress;
 
+    /* @var $response Optionally pass data from within Contract "onEvent" handler */
+    protected $response;
+
     /**
      * EmittedEvent constructor.
      * @param $eventOrAbi
@@ -39,6 +42,13 @@ class EmittedEvent extends Event
         $this->contractAddress = $filterChange->address->hexVal();
     }
 
+    /**
+     * @return string
+     */
+    public function getLog() {
+      $txHash = $this->transaction->getProperty('hash', TRUE);
+      return "Transaction: $txHash \n Contract: $this->contractAddress\n Event Emiter: $this->emitterAddress\n Data " . print_r($this->toArray(), TRUE);
+    }
 
     /**
      * @return string
@@ -47,6 +57,20 @@ class EmittedEvent extends Event
         return $this->contractAddress;
     }
 
+   /**
+    * @param $response
+    *   Any JSON encodable data.
+    */
+    public function setResponse($response) {
+      $this->response = $response;
+    }
+
+   /**
+    * @return mixed
+    */
+    public function getResponse() {
+      return $this->response;
+    }
 
     /**
      * @return string
@@ -93,6 +117,17 @@ class EmittedEvent extends Event
         return $this->transaction;
     }
 
+
+   /**
+    * @return array
+    */
+    public function toArray() {
+      $data = [];
+      foreach ($this->data as $k => $v) {
+        $data[$k] = $v->hexVal();
+      }
+      return $data;
+    }
 
     /**
      * @param \Ethereum\DataType\FilterChange $filterChange

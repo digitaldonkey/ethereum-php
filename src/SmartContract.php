@@ -112,7 +112,12 @@ class SmartContract
             if (isset($this->events[$topic])) {
                 $transaction = $this->eth->eth_getTransactionByHash($filterChange->transactionHash);
                 // We have a relevant event.
-                return new EmittedEvent($this->events[$topic], $filterChange, $transaction);
+                $event = new EmittedEvent($this->events[$topic], $filterChange, $transaction);
+                // Process onEventName handler.
+                if (method_exists($this, $event->getHandler())) {
+                    call_user_func([$this, $event->getHandler()], $event);
+                }
+                return $event;
             }
         }
         return null;
