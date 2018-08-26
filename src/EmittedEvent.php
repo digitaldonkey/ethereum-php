@@ -13,6 +13,9 @@ class EmittedEvent extends Event
     protected $contractAddress;
     protected $emitterAddress;
 
+    /* @var $response Optionally pass data from within Contract "onEvent" handler */
+    protected $response;
+
     /**
      * EmittedEvent constructor.
      * @param $eventOrAbi
@@ -54,6 +57,20 @@ class EmittedEvent extends Event
         return $this->contractAddress;
     }
 
+   /**
+    * @param $response
+    *   Any JSON encodable data.
+    */
+    public function setResponse($response) {
+      $this->response = $response;
+    }
+
+   /**
+    * @return mixed
+    */
+    public function getResponse() {
+      return $this->response;
+    }
 
     /**
      * @return string
