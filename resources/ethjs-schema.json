@@ -148,6 +148,7 @@
       "cumulativeGasUsed": "Q",
       "gasUsed": "Q",
       "contractAddress": "D20",
+      "status": "Q",
       "logs": ["FilterChange"]
     },
     "Filter": {

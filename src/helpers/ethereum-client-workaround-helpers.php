@@ -52,3 +52,16 @@ function eth_workaround_ethereum_datatype_transaction(array $values)
     }
     return $values;
 }
+
+/**
+ * Workaround for Ethereum\DataType\FilterChange.
+ *
+ * Fixing the "data" address field might be "0x" instead of null.
+ */
+function eth_workaround_ethereum_datatype_filterchange(array $values)
+{
+    if (isset($values['data']) && $values['data'] === '0x') {
+        $values['data'] = null;
+    }
+    return $values;
+}
