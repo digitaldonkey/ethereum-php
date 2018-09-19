@@ -68,19 +68,13 @@ class EthQ extends EthD
             // All Hex strings are lowercase.
             $val = strtolower($val);
 
-            // Hex encoded number.
-            // Math_BigInteger($val, $base)
-            // A negative base will encode using wo's compliment.
+            // Some positive values are unprefixed. Enforcing left pad.
+            if (strlen(self::removeHexPrefix($val)) < self::HEXPADDING) {
+              $val = $this->padLeft($val);
+            }
 
-            // Test for two's complement.
-            // With this we can guess negative values if no ABI is given.
-            // But it will trigger negative if we have the highest number
-            // a of current hex length.
-
-            // @todo This might be wrong. We need to check for RLP.
-            // @see https://github.com/ethereum/wiki/wiki/RLP
-
-            if (strlen($val) >= 10 && $val[2] === 'f') {
+            // A negative base will encode using two's compliment.
+            if ($val[2] === 'f') {
                 $big_int = new Math_BigInteger($val, -16);
                 $big_int->is_negative = true;
             }
@@ -122,6 +116,23 @@ class EthQ extends EthD
         else {
             throw new \InvalidArgumentException('Can not decode Hex number: ' . $val);
         }
+    }
+
+
+    /**
+     * Pad unpadded positive quantities.
+     *
+     * @param string
+     *   Hexadecimal non-negative $value
+     *
+     * @return string
+     *    Hex prefixed value padded to 32 bit.
+     */
+    private static function padLeft(string $val)
+    {
+      $unprefixed = self::removeHexPrefix($val);
+      $fillUp = self::HEXPADDING - (strlen($unprefixed) % self::HEXPADDING);
+      return self::ensureHexPrefix(str_repeat("0", $fillUp) . $unprefixed);
     }
 
     /**
