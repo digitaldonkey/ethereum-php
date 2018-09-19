@@ -53,6 +53,11 @@ class Receipt extends EthDataType {
 	public $contractAddress;
 
 	/**
+	 * Value for 'status'.
+	 */
+	public $status;
+
+	/**
 	 * Value for 'logs'.
 	 */
 	public $logs;
@@ -65,9 +70,10 @@ class Receipt extends EthDataType {
 	 * @param EthQ $cumulativeGasUsed
 	 * @param EthQ $gasUsed
 	 * @param EthD20 $contractAddress
+	 * @param EthQ $status
 	 * @param array $logs Array of FilterChange
 	 */
-	public function __construct(EthD32 $transactionHash = null, EthQ $transactionIndex = null, EthD32 $blockHash = null, EthQ $blockNumber = null, EthQ $cumulativeGasUsed = null, EthQ $gasUsed = null, EthD20 $contractAddress = null, array $logs = null) {
+	public function __construct(EthD32 $transactionHash = null, EthQ $transactionIndex = null, EthD32 $blockHash = null, EthQ $blockNumber = null, EthQ $cumulativeGasUsed = null, EthQ $gasUsed = null, EthD20 $contractAddress = null, EthQ $status = null, array $logs = null) {
 		$this->transactionHash = $transactionHash;  
 		$this->transactionIndex = $transactionIndex;  
 		$this->blockHash = $blockHash;  
@@ -75,6 +81,7 @@ class Receipt extends EthDataType {
 		$this->cumulativeGasUsed = $cumulativeGasUsed;  
 		$this->gasUsed = $gasUsed;  
 		$this->contractAddress = $contractAddress;  
+		$this->status = $status;  
 		$this->logs = $logs;
 	}
 
@@ -90,6 +97,7 @@ class Receipt extends EthDataType {
 			'cumulativeGasUsed' => 'EthQ',
 			'gasUsed' => 'EthQ',
 			'contractAddress' => 'EthD20',
+			'status' => 'EthQ',
 			'logs' => '[FilterChange]',
 		);
 	}
@@ -106,6 +114,7 @@ class Receipt extends EthDataType {
 		(!is_null($this->cumulativeGasUsed)) ? $return['cumulativeGasUsed'] = $this->cumulativeGasUsed->hexVal() : NULL; 
 		(!is_null($this->gasUsed)) ? $return['gasUsed'] = $this->gasUsed->hexVal() : NULL; 
 		(!is_null($this->contractAddress)) ? $return['contractAddress'] = $this->contractAddress->hexVal() : NULL; 
+		(!is_null($this->status)) ? $return['status'] = $this->status->hexVal() : NULL; 
 		(!is_null($this->logs)) ? $return['logs'] = Ethereum::valueArray($this->logs, 'FilterChange') : array(); 
 		return $return;
 	}
