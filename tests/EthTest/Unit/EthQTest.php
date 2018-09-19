@@ -2,6 +2,7 @@
 namespace Ethereum;
 use Ethereum\DataType\EthQ;
 use Ethereum\TestStatic;
+use Math_BigInteger;
 
 /**
  * EthQTest
@@ -76,17 +77,24 @@ class EthQTest extends TestStatic
     public function testEthQ__negative()
     {
 
-        $x = new EthQ(-999);
-        $this->assertSame($x->val(), -999);
-        $this->assertSame($x->hexVal(), '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
+      $x = new EthQ(-999);
+      $this->assertSame($x->val(), -999);
+      $this->assertSame($x->hexVal(), '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
 
-        $y = new EthQ('0xfffffffffffffc19');
-        $this->assertSame($y->val(), -999);
-        $this->assertSame($y->hexVal(), '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
+      // @deprecated Not supporting unpadded negative numbers anymore
+      //  $y = new EthQ('0xfffffffffffffc19');
+      //  $this->assertSame($y->val(), -999);
+      //  $this->assertSame($y->hexVal(), '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
 
-        $z = new EthQ('0xfffffc19');
-        $this->assertSame($z->hexVal(), '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
-        $this->assertSame($z->val(), -999);
+      $z = new EthQ('0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
+      $this->assertSame($z->hexVal(), '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
+      $this->assertSame($z->val(), -999);
+
+      // You might still do the following for a unpadded negative hex number.
+      $unpadded = new Math_BigInteger('0xfffffffffffffc19', -16);
+      $y = new EthQ($unpadded->toString());
+      $this->assertSame($y->val(), -999);
+      $this->assertSame($y->hexVal(), '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
     }
 
     // Given ABI.
