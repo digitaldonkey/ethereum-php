@@ -159,7 +159,7 @@ class Abi extends EthereumStatic
      * @return string
      *    Function signature. E.g: multiply(uint256).
      */
-    private static function getSignature(object $m)
+    private static function getSignature($m)
     {
         $sign = $m->name . '(';
         foreach ($m->inputs as $i => $item) {
