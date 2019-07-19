@@ -300,7 +300,7 @@ abstract class EthereumStatic
             // Gwei, Shannon, Nanoether, Nano
             'gwei' => 1000000000,
             // Szabo, Microether,Micro
-            'gwei' => 1000000,
+            'szabo' => 1000000,
             // Finney, Milliether,Milli
             'methere' => 1000,
             'ether' => 1,
