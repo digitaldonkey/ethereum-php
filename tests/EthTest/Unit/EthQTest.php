@@ -74,27 +74,35 @@ class EthQTest extends TestStatic
     /**
      * @throw Exception
      */
-    public function testEthQ__negative()
+    public function testEthQDecimalNegative()
     {
-
       $x = new EthQ(-999);
       $this->assertSame($x->val(), -999);
       $this->assertSame($x->hexVal(), '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
+    }
 
-      // @deprecated Not supporting unpadded negative numbers anymore
-      //  $y = new EthQ('0xfffffffffffffc19');
-      //  $this->assertSame($y->val(), -999);
-      //  $this->assertSame($y->hexVal(), '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testCanNotDetectHex()
+    {
+        new EthQ('0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
+    }
 
-      $z = new EthQ('0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
-      $this->assertSame($z->hexVal(), '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
-      $this->assertSame($z->val(), -999);
+    public function testNegativeValueWithAbi()
+    {
+        $result = new EthQ('0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19', ['abi' => 'int256']);
+        $this->assertSame($result->val(), -999);
+        $this->assertSame($result->hexVal(), '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
+    }
 
-      // You might still do the following for a unpadded negative hex number.
-      $unpadded = new Math_BigInteger('0xfffffffffffffc19', -16);
-      $y = new EthQ($unpadded->toString());
-      $this->assertSame($y->val(), -999);
-      $this->assertSame($y->hexVal(), '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
+    public function testNegativeValueCorrection()
+    {
+        // You might still do the following for a unpadded negative hex number.
+        $unpadded = new Math_BigInteger('0xfffffffffffffc19', -16);
+        $y = new EthQ($unpadded->toString());
+        $this->assertSame($y->val(), -999);
+        $this->assertSame($y->hexVal(), '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffc19');
     }
 
     // Given ABI.
@@ -107,6 +115,16 @@ class EthQTest extends TestStatic
         $x = new EthQ('0x000000000000000000000000000000000000000000000000000000000000270f', ['abi' => 'uint16']);
         $this->assertSame($x->val(), 9999);
         $this->assertSame($x->hexVal(), '0x000000000000000000000000000000000000000000000000000000000000270f');
+    }
+
+    public function testMaxUnsigned256()
+    {
+        $x = new EthQ('0xf00000000000000000000000000000000000000000000000000000000000270f', ['abi' => 'uint256']);
+    }
+
+    public function testMaxSigned256()
+    {
+        $x = new EthQ('0xf00000000000000000000000000000000000000000000000000000000000270f', ['abi' => 'uint256']);
     }
 
     /**
