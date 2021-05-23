@@ -101,7 +101,7 @@ class SmartContract
      *
      * @return \Ethereum\EmittedEvent with emitted Data.
      */
-    public function processLog(FilterChange $filterChange) {
+    public function processLog(FilterChange $filterChange, $eventHandle = true) {
 
         if ($filterChange->address->hexVal() !== $this->contractAddress) {
             return null;
@@ -114,8 +114,10 @@ class SmartContract
                 // We have a relevant event.
                 $event = new EmittedEvent($this->events[$topic], $filterChange, $transaction);
                 // Process onEventName handler.
-                if (method_exists($this, $event->getHandler())) {
-                    call_user_func([$this, $event->getHandler()], $event);
+                if ($eventHandle) {
+                    if (method_exists($this, $event->getHandler())) {
+                        call_user_func([$this, $event->getHandler()], $event);
+                    }
                 }
                 return $event;
             }
