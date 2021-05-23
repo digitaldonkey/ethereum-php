@@ -282,7 +282,7 @@ class Rlp extends EthereumStatic
         return 2 * hexdec($hex);
     }
 
-    protected static function getByteValueAt(string $msgData, int $pos)
+    public static function getByteValueAt(string $msgData, int $pos)
     {
         return self::byteLength(substr($msgData, $pos, 64));
     }

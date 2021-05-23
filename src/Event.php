@@ -39,13 +39,15 @@ class Event extends EthereumStatic
 
         // Removing topic[0]. Topic[1-n] are indexed values.
         $indexedValues = array_slice($filterChange->topics, 1);
+        $offset = 0;
 
-        foreach ($this->inputs as $i => $param) {
+        foreach ($this->inputs as $i => $param) {            
             if ($param->indexed) {
-                $values[$param->name] = $indexedValues[$i]->convertByAbi($param->type);
+                $values[$param->name] = $indexedValues[$i - $offset]->convertByAbi($param->type);
             }
             else {
                 $abiDecode[] = $param;
+                $offset++;
             }
         }
 
