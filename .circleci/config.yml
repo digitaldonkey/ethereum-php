@@ -14,11 +14,10 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # Using the RAM variation mitigates I/O contention
       # for database intensive operations.
-      - image: composer:latest
+      # - image: composer:latest
 
     steps:
       - checkout
-
       - run: sudo apt update  && apt-get install -y \
              libfreetype6-dev \
              libjpeg62-turbo-dev \
@@ -36,11 +35,9 @@ jobs:
              && docker-php-ext-configure gmp \
              && docker-php-ext-install gmp \
              && docker-php-ext-install zip
-
-        # Link Composer
-        # @see https://github.com/docker-library/php/issues/344#issuecomment-364843883
-#      -run: docker  --from=composer:latest /usr/bin/composer /usr/bin/composer
-
+      - php/install-composer:
+          install-version: 2.1.0
+      - php/install-packages
 
       # Download and cache dependencies
       - restore_cache:
