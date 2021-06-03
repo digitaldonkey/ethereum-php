@@ -20,23 +20,24 @@ jobs:
 
     steps:      
       - checkout
-      - run: sudo apt update  \
-             && sudo apt install -y \
-               libfreetype6-dev \
-               libjpeg62-turbo-dev \
-               libmcrypt-dev \
-               libpng-dev \
-               libgmp-dev \
-               re2c libmhash-dev \
-               libmcrypt-dev \
-               file \
-               zlib1g-dev \
-             && sudo ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ \
-             && sudo docker-php-ext-install -j$(nproc) iconv mcrypt \
-             && sudo docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-             && sudo docker-php-ext-install -j$(nproc) gd \
-             && sudo docker-php-ext-configure gmp \
-             && sudo docker-php-ext-install gmp \
+      - run: |
+         sudo apt update && 
+         sudo apt install -y 
+               libfreetype6-dev 
+               libjpeg62-turbo-dev 
+               libmcrypt-dev 
+               libpng-dev 
+               libgmp-dev 
+               re2c libmhash-dev 
+               libmcrypt-dev 
+               file 
+               zlib1g-dev 
+             && sudo ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ 
+             && sudo docker-php-ext-install -j$(nproc) iconv mcrypt 
+             && sudo docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ 
+             && sudo docker-php-ext-install -j$(nproc) gd 
+             && sudo docker-php-ext-configure gmp 
+             && sudo docker-php-ext-install gmp 
              && sudo docker-php-ext-install zip
       - php/install-composer:
           install-version: 2.1.0
