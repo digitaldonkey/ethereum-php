@@ -50,7 +50,6 @@ jobs:
           key: pecl-v1-{{ checksum "circle-ci-scripts/install-php-extensions.sh" }}
           paths:
             - php-ext-cache
-      - run: sudo docker-php-ext-install -j$(nproc) gmp gd mcrypt
 
 #       - run: | 
 #           sudo pecl install mcrypt-1.0.4 && 
