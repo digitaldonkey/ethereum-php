@@ -25,40 +25,32 @@ jobs:
           sudo apt install -y libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev libgmp-dev re2c libmhash-dev libmcrypt-dev file zlib1g-dev  && 
           sudo ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ 
 
-      - run: | 
-          sudo pecl install mcrypt-1.0.4 && 
-          sudo docker-php-ext-enable mcrypt && 
-          sudo docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/  && 
-          sudo docker-php-ext-install -j$(nproc) gd  && 
-          sudo docker-php-ext-configure gmp  && 
-          sudo docker-php-ext-install gmp  && 
-          sudo docker-php-ext-install zip
-
       - run: ls -al /usr/local/lib/php/extensions/no-debug-non-zts-20190902
     
-      - run: mkdir pecl-cache
+      - run: mkdir php-ext-cache
       - restore_cache:
           keys:
-            - pecl-v1-{{ checksum "circle-ci-scripts/pecl-extensions.sh" }}
+            - pecl-v1-{{ checksum "circle-ci-scripts/install-php-extensions.sh" }}
             - pecl-v1-
       - run:
           name: Copying restored pecl extensions cache into extensions directory 
-          command: sudo cp -R pecl-cache/. /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
+          command: sudo cp -R php-ext-cache/. /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
 
       - run: 
-          name: Install Pecl Extensions if not cached.
+          name: Install Extensions if not cached.
           command: |
-            if [ ! -f /usr/local/lib/php/extensions/no-debug-non-zts-20160303/mongodb.so ]; then 
-              sudo pecl install mongodb ;
+            if [ ! -f /usr/local/lib/php/extensions/no-debug-non-zts-20160303/mcrypt.so ]; then 
+              ./circle-ci-scripts/install-php-extensions.sh;
             fi
       - run:
           name: Copying pecl extensions to temp directory which will be cached
-          command: sudo cp -R /usr/local/lib/php/extensions/no-debug-non-zts-20160303/* pecl-cache/
+          command: sudo cp -R /usr/local/lib/php/extensions/no-debug-non-zts-20160303/* php-ext-cache/
 
-      - save_cache: 
-          key: pecl-v1-{{ checksum "scripts/pecl-extensions.sh" }}
+      - save_cache:         
+          key: pecl-v1-{{ checksum "circle-ci-scripts/install-php-extensions.sh" }}
           paths:
-            - pecl-cachedocker-php-ext-install
+            - php-ext-cache
+      - run: sudo docker-php-ext-install j$(nproc) gmp gd mcrypt
 
 #       - run: | 
 #           sudo pecl install mcrypt-1.0.4 && 
