@@ -23,7 +23,8 @@ jobs:
       - run: sudo apt update -y 
       - run: sudo apt install -y libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev libgmp-dev re2c libmhash-dev libmcrypt-dev file zlib1g-dev 
       - run: sudo ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ 
-      - run: sudo docker-php-ext-install -j$(nproc) iconv mcrypt 
+      - run: sudo pecl install mcrypt-1.0.3
+      - run: docker-php-ext-enable mcrypt
       - run: sudo docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ 
       - run: sudo docker-php-ext-install -j$(nproc) gd 
       - run: sudo docker-php-ext-configure gmp 
