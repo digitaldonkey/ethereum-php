@@ -44,7 +44,7 @@ jobs:
             fi
       - run:
           name: Copying pecl extensions to temp directory which will be cached
-          command: sudo cp -R /usr/local/lib/php/extensions/no-debug-non-zts-20160303/* php-ext-cache/
+          command: sudo cp -R /usr/local/lib/php/extensions/no-debug-non-zts-20190902/* php-ext-cache/
 
       - save_cache:         
           key: pecl-v1-{{ checksum "circle-ci-scripts/install-php-extensions.sh" }}
