@@ -45,8 +45,9 @@ jobs:
             - v1-dependencies-
       - run: |
           php -v && 
-          composer -v && 
-          composer install -n --prefer-dist         
+          composer --version && 
+          composer install -n --prefer-dist && 
+          ./vendor/bin/phpunit --version       
 
       - save_cache:
            key: v1-dependencies-{{ checksum "composer.json" }}
