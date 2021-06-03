@@ -2,7 +2,9 @@
 #
 # Check https://circleci.com/docs/2.0/language-php/ for more details
 #
-version: 2
+version: 2.1
+orbs:
+  php: circleci/php@1.1.0
 jobs:
   build:
     docker:
@@ -16,7 +18,7 @@ jobs:
       # for database intensive operations.
       # - image: composer:latest
 
-    steps:
+    steps:      
       - checkout
       - run: sudo apt update  && apt-get install -y \
              libfreetype6-dev \
