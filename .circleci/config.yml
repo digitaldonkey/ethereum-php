@@ -7,14 +7,14 @@ jobs:
   build:
     docker:
       # Specify the version you desire here
-      - image: circleci/8.0-buster
+      - image: circleci/php:8.0-buster
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # Using the RAM variation mitigates I/O contention
       # for database intensive operations.
-      - image: composer/latest
+      - image: composer:latest
 
     steps:
       - checkout
