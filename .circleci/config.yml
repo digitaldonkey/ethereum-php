@@ -49,6 +49,8 @@ jobs:
           composer install -n --prefer-dist && 
           ./vendor/bin/phpunit --version       
 
+      - run: pecl config-show 
+
       - save_cache:
            key: v1-dependencies-{{ checksum "composer.json" }}
            paths:
