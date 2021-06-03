@@ -30,7 +30,7 @@ jobs:
           sudo docker-php-ext-install -j$(nproc) gd  && 
           sudo docker-php-ext-configure gmp  && 
           sudo docker-php-ext-install gmp  && 
-          sudo docker-php-ext-install zip && 
+          sudo docker-php-ext-install zip
       - php/install-composer:
           install-version: 2.1.0
       - php/install-packages
