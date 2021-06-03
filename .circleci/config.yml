@@ -40,7 +40,7 @@ jobs:
           name: Install Extensions if not cached.
           command: |
             if [ ! -f /usr/local/lib/php/extensions/no-debug-non-zts-20160303/mcrypt.so ]; then 
-              circle-ci-scripts/install-php-extensions.sh;
+              ./circle-ci-scripts/install-php-extensions.sh;
             fi
       - run:
           name: Copying pecl extensions to temp directory which will be cached
