@@ -21,7 +21,7 @@ jobs:
     steps:      
       - checkout
       - run: |
-         sudo apt update && 
+         sudo apt update -y && 
          sudo apt install -y 
                libfreetype6-dev 
                libjpeg62-turbo-dev 
