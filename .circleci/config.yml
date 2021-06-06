@@ -42,6 +42,7 @@ jobs:
             if [ ! -f /usr/local/lib/php/extensions/no-debug-non-zts-20160303/mcrypt.so ]; then 
               ./circle-ci-scripts/install-php-extensions.sh;
             fi
+            sudo docker-php-ext-enable mcrypt
       - run:
           name: Copying pecl extensions to temp directory which will be cached
           command: sudo cp -R /usr/local/lib/php/extensions/no-debug-non-zts-20190902/* php-ext-cache/
