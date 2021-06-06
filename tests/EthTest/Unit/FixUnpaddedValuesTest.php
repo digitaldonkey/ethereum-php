@@ -14,7 +14,7 @@ class FixUnpaddedValuesTest extends TestEthClient
 {
 
     public function testMainNetTx() {
-      $web3 = new Ethereum('https://mainnet.infura.io/drupal');
+      $web3 = new Ethereum($_ENV['INFURA_MAINNET_URL']);
 
       // @see https://etherscan.io/tx/0x527e9b670536c09fe160b0c2e33728eadd7f8affae7803049fa8d8ec2d1c7cfe
       $mainNetTx = new EthD32('0x527e9b670536c09fe160b0c2e33728eadd7f8affae7803049fa8d8ec2d1c7cfe');
