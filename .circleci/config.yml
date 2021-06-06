@@ -25,7 +25,7 @@ jobs:
           sudo apt install -y libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev libgmp-dev re2c libmhash-dev libmcrypt-dev file zlib1g-dev  && 
           sudo ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ 
 
-      - run: ls -al /usr/local/lib/php/extensions/no-debug-non-zts-20190902
+      # - run: ls -al /usr/local/lib/php/extensions/no-debug-non-zts-20190902
     
       - run: mkdir php-ext-cache
       - restore_cache:
@@ -44,7 +44,7 @@ jobs:
             fi
             sudo docker-php-ext-enable mcrypt
       - run:
-          name: Copying pecl extensions to temp directory which will be cached
+          name: Copying extensions to temp directory which will be cached
           command: sudo cp -R /usr/local/lib/php/extensions/no-debug-non-zts-20190902/* php-ext-cache/
 
       - save_cache:         
@@ -74,11 +74,8 @@ jobs:
       - run: |
           php -v && 
           composer --version && 
-          composer install -n --prefer-dist && 
-          ./vendor/bin/phpunit --version       
-
-      - run: pecl config-show 
-
+          ./vendor/bin/phpunit --version
+      # - run: pecl config-show 
       - save_cache:
            key: v1-dependencies-{{ checksum "composer.json" }}
            paths:
