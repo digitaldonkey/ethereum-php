@@ -10,6 +10,7 @@ jobs:
     docker:
       # Specify the version you desire here
       - image: circleci/php:7.4.9-cli-buster
+      - image: trufflesuite/ganache-cli:latest
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -19,7 +20,8 @@ jobs:
       # - image: composer:latest
 
     steps:      
-      - checkout
+      - setup_remote_docker
+      - checkout      
       - run: | 
           sudo apt update -y && 
           sudo apt install -y libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev libgmp-dev re2c libmhash-dev libmcrypt-dev file zlib1g-dev  && 
@@ -80,7 +82,12 @@ jobs:
            key: v1-dependencies-{{ checksum "composer.json" }}
            paths:
              - ./vendor
-             
+
+
+         # echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin    
+      - run: |         
+         docker run trufflesuite/ganache-cli:latest -d  -v ./ganache_data:/ganache_data node /app/ganache-core.docker.cli.js  node /app/ganache-core.docker.cli.js  --hostname '0.0.0.0' --deterministic --db=/ganache_data --mnemonic 'minimum symptom minute gloom tragic situate silver mechanic salad amused elite beef' --networkId '5777'
+
 #       # prepare the database
 #       - run: touch storage/testing.sqlite
 #       - run: php artisan migrate --env=testing --database=sqlite_testing --force
