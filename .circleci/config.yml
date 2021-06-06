@@ -85,8 +85,11 @@ jobs:
 
 
          # echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin    
-      - run: |         
-         docker run trufflesuite/ganache-cli:latest -d  -v ./ganache_data:/ganache_data node /app/ganache-core.docker.cli.js  node /app/ganache-core.docker.cli.js  --hostname '0.0.0.0' --deterministic --db=/ganache_data --mnemonic 'minimum symptom minute gloom tragic situate silver mechanic salad amused elite beef' --networkId '5777'
+      - run:
+          name: Run Ganach Cli for testing
+          command: |         
+            docker run trufflesuite/ganache-cli:latest -d  -v ./ganache_data:/ganache_data node /app/ganache-core.docker.cli.js  node /app/ganache-core.docker.cli.js  --hostname '0.0.0.0' --deterministic --db=/ganache_data --mnemonic 'minimum symptom minute gloom tragic situate silver mechanic salad amused elite beef' --networkId '5777'
+          background: true
 
 #       # prepare the database
 #       - run: touch storage/testing.sqlite
