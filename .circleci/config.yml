@@ -36,7 +36,7 @@ jobs:
             - pecl-v1-
       - run:
           name: Copying restored pecl extensions cache into extensions directory 
-          command: sudo cp -R php-ext-cache/. /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
+          command: sudo cp -R php-ext-cache/* /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
 
       - run: 
           name: Install Extensions if not cached.
