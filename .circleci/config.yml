@@ -6,7 +6,7 @@ version: 2.1
 orbs:
   php: circleci/php@1.1.0
 jobs:
-  build:
+  build-and-test:
     docker:
       # Specify the version you desire here
       - image: circleci/php:7.4.9-cli-buster
@@ -22,6 +22,9 @@ jobs:
     steps:      
       - setup_remote_docker
       - checkout      
+      - run:
+          name: "echo environment variables from org-global context"
+          command: echo $INFURA_MAINNET_URL
       - run: | 
           sudo apt update -y && 
           sudo apt install -y libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev libgmp-dev re2c libmhash-dev libmcrypt-dev file zlib1g-dev  && 
@@ -95,12 +98,10 @@ jobs:
           name: Phpunit All
           command: |         
             ./vendor/bin/phpunit
+workflows:
+  my-workflow:
+    jobs:
+      - build-and-test:
+          context:
+            - infura
 
-#       # prepare the database
-#       - run: touch storage/testing.sqlite
-#       - run: php artisan migrate --env=testing --database=sqlite_testing --force
-# 
-#       # run tests with phpunit or codecept
-#       #- run: ./vendor/bin/phpunit
-#       - run: ./vendor/bin/codecept build
-#       - run: ./vendor/bin/codecept run
