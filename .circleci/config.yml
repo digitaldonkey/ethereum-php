@@ -6,7 +6,7 @@ version: 2.1
 orbs:
   php: circleci/php@1.1.0
 jobs:
-  build-and-test:
+  build:
     docker:
       # Specify the version you desire here
       - image: circleci/php:7.4.9-cli-buster
@@ -22,69 +22,52 @@ jobs:
     steps:      
       - setup_remote_docker
       - checkout      
-      - run:
-          name: "echo environment variables from org-global context"
-          command: echo $INFURA_MAINNET_URL
       - run: | 
           sudo apt update -y && 
           sudo apt install -y libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev libgmp-dev re2c libmhash-dev libmcrypt-dev file zlib1g-dev  && 
-          sudo ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/ 
-
-      # - run: ls -al /usr/local/lib/php/extensions/no-debug-non-zts-20190902
-    
+          sudo ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/     
+      
       - run: mkdir php-ext-cache
       - restore_cache:
           keys:
-            - pecl-v1-{{ checksum "circle-ci-scripts/install-php-extensions.sh" }}
-            - pecl-v1-
+            - extensions-v1-{{ checksum "circle-ci-scripts/install-php-extensions.sh" }}
+            - extensions-v1-
       - run:
-          name: Copying restored pecl extensions cache into extensions directory 
+          name: Copying restored extensions cache into extensions directory 
           command: sudo cp -R php-ext-cache/* /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
-
+      # - run: pecl config-show 
       - run: 
-          name: Install Extensions if not cached.
+          name: Install Extensions (if not cached)
           command: |
             if [ ! -f /usr/local/lib/php/extensions/no-debug-non-zts-20160303/mcrypt.so ]; then 
               ./circle-ci-scripts/install-php-extensions.sh;
             fi
       - run:
-          name: Copying extensions to temp directory which will be cached
+          name: Copying extensions to temp directory for cache
           command: sudo cp -R /usr/local/lib/php/extensions/no-debug-non-zts-20190902/* php-ext-cache/
-
       - save_cache:         
-          key: pecl-v1-{{ checksum "circle-ci-scripts/install-php-extensions.sh" }}
+          key: extensions-v1-{{ checksum "circle-ci-scripts/install-php-extensions.sh" }}
           paths:
-            - php-ext-cache
+            - php-ext-cache/
+      
+      - run: 
+          name: View PHP environment
+          command: |         
+            php -v && 
+            composer --version && 
+            ./vendor/bin/phpunit --version      
 
-#       - run: | 
-#           sudo pecl install mcrypt-1.0.4 && 
-#           sudo docker-php-ext-enable mcrypt && 
-#           sudo docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/  && 
-#           sudo docker-php-ext-install -j$(nproc) gd  && 
-#           sudo docker-php-ext-configure gmp  && 
-#           sudo docker-php-ext-install gmp  && 
-#           sudo docker-php-ext-install zip
       - php/install-composer:
-          install-version: 2.1.0
-
-      # Download and cache dependencies
+          install-version: 2.1.0      
       - restore_cache:
           keys:
-            # "composer.lock" can be used if it is committed to the repo
-            - v1-dependencies-{{ checksum "composer.json" }}
-            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-{{ checksum "composer.lock" }}
             - v1-dependencies-
       - php/install-packages
-      - run: |
-          php -v && 
-          composer --version && 
-          ./vendor/bin/phpunit --version
-      # - run: pecl config-show 
       - save_cache:
            key: v1-dependencies-{{ checksum "composer.json" }}
            paths:
              - ./vendor
-
 
          # echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin    
       - run:
@@ -93,14 +76,21 @@ jobs:
             docker run trufflesuite/ganache-cli:latest -d -v ./ganache_data:/ganache_data node /app/ganache-core.docker.cli.js  node /app/ganache-core.docker.cli.js  --hostname '0.0.0.0' --deterministic --db=/ganache_data --mnemonic 'minimum symptom minute gloom tragic situate silver mechanic salad amused elite beef' --networkId '5777'
           background: true
       
+      # TODO 
+      # - ganache_data dir ethereum-php/tests/TestEthClient/GanacheClientDb
+      # - Make workflow Jobs/jobs dependent
+      #  - CodeGenerators (verify that no generated file is manually changed)
+      #   - Static test (EthTest)
+      #   - Mainnet Test 
+      #   - Contract tests (TestEthClient)
       - run:
           name: Phpunit All
           command: |         
             ./vendor/bin/phpunit
 workflows:
-  my-workflow:
+  build-and-test:
     jobs:
-      - build-and-test:
+      - build:
           context:
             - infura
 
