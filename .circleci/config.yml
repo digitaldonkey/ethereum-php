@@ -50,13 +50,6 @@ jobs:
           paths:
             - php-ext-cache/
       
-      - run: 
-          name: View PHP environment
-          command: |         
-            php -v && 
-            composer --version && 
-            ./vendor/bin/phpunit --version      
-
       - php/install-composer:
           install-version: 2.1.0      
       - restore_cache:
@@ -68,6 +61,13 @@ jobs:
            key: v1-dependencies-{{ checksum "composer.json" }}
            paths:
              - ./vendor
+
+      - run: 
+          name: View PHP environment
+          command: |         
+            php -v && 
+            composer --version && 
+            ./vendor/bin/phpunit --version      
 
          # echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin    
       - run:
