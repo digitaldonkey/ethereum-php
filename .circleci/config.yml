@@ -65,8 +65,12 @@ jobs:
       - run:
           name: Run Ganach Cli for testing
           command: |         
-            docker run trufflesuite/ganache-cli:latest -d -v ./ganache_data:/ganache_data node /app/ganache-core.docker.cli.js  node /app/ganache-core.docker.cli.js  --hostname '0.0.0.0' --deterministic --db=/ganache_data --mnemonic 'minimum symptom minute gloom tragic situate silver mechanic salad amused elite beef' --networkId '5777'
-          background: true
+            docker run trufflesuite/ganache-cli:latest -d -v ./tests/TestEthClient/GanacheClientDb:/ganache_data node /app/ganache-core.docker.cli.js  node /app/ganache-core.docker.cli.js  --hostname '0.0.0.0' --deterministic --db=/ganache_data --mnemonic 'minimum symptom minute gloom tragic situate silver mechanic salad amused elite beef' --networkId '5777'
+          
+          
+      - run: echo get container ip address
+      - run: ls -al ./tests/TestEthClient/GanacheClientDb
+
       
       # TODO 
       # - ganache_data dir ethereum-php/tests/TestEthClient/GanacheClientDb
@@ -86,9 +90,9 @@ jobs:
             ./vendor/bin/phpunit --testsuite EthereumPhp
 # 
 #      - run:
-#          name: Phpunit testsuite EthereumPhp
+#          name: Phpunit testsuite EthereumMainnet
 #          command: |         
-#            ./vendor/bin/phpunit --testsuite EthereumPhp
+#            ./vendor/bin/phpunit --testsuite EthereumMainnet
 
     # RENAME TO Ganache
       - run:
