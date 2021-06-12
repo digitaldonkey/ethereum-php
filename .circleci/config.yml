@@ -10,7 +10,7 @@ jobs:
     docker:
       # Specify the version you desire here
       - image: circleci/php:7.4.9-cli-buster
-#      - image: trufflesuite/ganache-cli:latest
+
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -70,6 +70,14 @@ jobs:
             ./vendor/bin/phpunit --version      
 
          # echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin    
+
+  test:
+    docker:
+      - image: circleci/php:7.4.9-cli-buster
+#      - image: trufflesuite/ganache-cli:latest
+    steps:      
+      - setup_remote_docker
+      - checkout      
       - run:
           name: Run Ganach Cli for testing
           command: |         
@@ -90,7 +98,10 @@ jobs:
 workflows:
   build-and-test:
     jobs:
-      - build:
+      - build
+      - test:
           context:
             - infura
+          requires:
+            - build
 
