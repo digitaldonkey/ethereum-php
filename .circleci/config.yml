@@ -68,7 +68,7 @@ jobs:
             docker run trufflesuite/ganache-cli:latest -d -v ./tests/TestEthClient/GanacheClientDb:/ganache_data node /app/ganache-core.docker.cli.js  --hostname '0.0.0.0' --deterministic --db=/ganache_data --mnemonic 'minimum symptom minute gloom tragic situate silver mechanic salad amused elite beef' --networkId '5777'
           
           
-#      - run: echo get container ip address
+      - run: netstat -lntp
       - run: ls -al ./tests/TestEthClient/GanacheClientDb
 
       
