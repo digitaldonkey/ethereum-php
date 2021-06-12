@@ -76,9 +76,26 @@ jobs:
       #   - Mainnet Test 
       #   - Contract tests (TestEthClient)
       - run:
-          name: Phpunit All
+          name: Phpunit testsuite CodeGenerators
           command: |         
-            ./vendor/bin/phpunit --group staticTests
+            ./vendor/bin/phpunit --testsuite CodeGenerators
+         # TODO VERIFY THAT NO GENERATED FILE WAS CHANGED
+      - run:
+          name: Phpunit testsuite EthereumPhp
+          command: |         
+            ./vendor/bin/phpunit --testsuite EthereumPhp
+# 
+#      - run:
+#          name: Phpunit testsuite EthereumPhp
+#          command: |         
+#            ./vendor/bin/phpunit --testsuite EthereumPhp
+
+    # RENAME TO Ganache
+      - run:
+          name: Phpunit testsuite TestEthClient 
+          command: |         
+            ./vendor/bin/phpunit --testsuite TestEthClient
+
 workflows:
   build-and-test:
     jobs:
