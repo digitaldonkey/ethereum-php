@@ -52,15 +52,7 @@ jobs:
       
       - php/install-composer:
           install-version: 2.1.0      
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "composer.lock" }}
-            - v1-dependencies-
       - php/install-packages
-      - save_cache:
-           key: v1-dependencies-{{ checksum "composer.lock" }}
-           paths:
-             - ./vendor
 
       - run: 
           name: View PHP environment
@@ -86,7 +78,7 @@ jobs:
       - run:
           name: Phpunit All
           command: |         
-            ./vendor/bin/phpunit
+            ./vendor/bin/phpunit --group staticTests
 workflows:
   build-and-test:
     jobs:
