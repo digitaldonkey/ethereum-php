@@ -74,7 +74,7 @@ jobs:
           name: Run Ganach Cli for testing
           command: |
             echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
-            docker run --publish 8545:8545 -v "$PWD/tests/TestEthClient/GanacheClientDb:/db" trufflesuite/ganache-cli:latest  node /app/ganache-core.docker.cli.js  --hostname '0.0.0.0' --deterministic --db /db --mnemonic 'minimum symptom minute gloom tragic situate silver mechanic salad amused elite beef' --networkId '5777' --debug
+            docker run --name ganache --publish 8545:8545 -v "$PWD/tests/TestEthClient/GanacheClientDb:/db" trufflesuite/ganache-cli:latest  node /app/ganache-core.docker.cli.js  --hostname '0.0.0.0' --deterministic --db /db --mnemonic 'minimum symptom minute gloom tragic situate silver mechanic salad amused elite beef' --networkId '5777' --debug
           background: true
 
       - run: sleep 30 && netstat -lntp
@@ -84,7 +84,7 @@ jobs:
 
       - run:
           name: Wait for Ganache
-          command: dockerize -wait "tcp://$DOCKER_HOST:8545" -timeout 120s
+          command: dockerize -wait "tcp://192.168.112.3:8545" -timeout 120s
 
       - run: netstat -lntp
 
