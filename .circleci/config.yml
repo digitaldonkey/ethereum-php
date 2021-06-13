@@ -6,12 +6,14 @@ version: 2.1
 orbs:
   php: circleci/php@1.1.0
   docker: circleci/docker@1.6.0
+  node: circleci/node@4.5.0
 jobs:
   build:
     docker:
       # Specify the version you desire here
       - image: circleci/php:7.4.9-cli-buster
-      #- image: trufflesuite/ganache-cli:latest
+#      - image: trufflesuite/ganache-cli:latest
+#        name: Ganache Eth Client (TestRPC)
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -68,19 +70,23 @@ jobs:
             composer --version &&
             ./vendor/bin/phpunit --version
 
-         # echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
-      - run: ls -al ./tests/TestEthClient/GanacheClientDb
-      - run: echo $DOCKER_HOST
-      - run:
-          name: Run Ganach Cli for testing
-          command: |
-            echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
-            docker run --name ganache -it --publish 8545:8545 -v "$PWD/tests/TestEthClient/GanacheClientDb:/db" trufflesuite/ganache-cli:latest  node /app/ganache-core.docker.cli.js  --hostname '0.0.0.0' --deterministic --db /db --mnemonic 'minimum symptom minute gloom tragic situate silver mechanic salad amused elite beef' --networkId '5777' --debug
-          background: true
+      - node/install
+      - run: node --version
+      - run: npm install -g ganache-cli
 
-      - run: sleep 30 && netstat -lntp
-      - run: docker ps
-      - run: cat /etc/hosts
+        # echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+#      - run: ls -al ./tests/TestEthClient/GanacheClientDb
+#      - run: echo $DOCKER_HOST
+#      - run:
+#          name: Run Ganach Cli for testing
+#          command: |
+#            echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+#            docker run --name ganache -it --publish 8545:8545 -v "$PWD/tests/TestEthClient/GanacheClientDb:/db" trufflesuite/ganache-cli:latest  node /app/ganache-core.docker.cli.js  --hostname '0.0.0.0' --deterministic --db /db --mnemonic 'minimum symptom minute gloom tragic situate silver mechanic salad amused elite beef' --networkId '5777' --debug
+#          background: true
+#
+#      - run: sleep 30 && netstat -lntp
+#      - run: docker ps
+#      - run: cat /etc/hosts
 
 
       - run:
