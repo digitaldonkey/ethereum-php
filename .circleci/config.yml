@@ -43,9 +43,11 @@ jobs:
       - run:
           name: Install Extensions (if not cached)
           command: |
+            ls -al  /usr/local/include/php/
             if [ true || ! -f /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mcrypt.so ]; then
               .circleci/scripts/install-php-extensions.sh;
             fi
+            ls -al  /usr/local/include/php/
       - run:
           name: Copying extensions to temp directory for cache
           command: sudo cp -R /usr/local/lib/php/extensions/no-debug-non-zts-20190902/* ./php-ext-cache/
