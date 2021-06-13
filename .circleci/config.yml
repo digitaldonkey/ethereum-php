@@ -84,7 +84,7 @@ jobs:
 
       - run:
           name: Wait for Ganache
-          command: dockerize -wait "tcp://127.0.0.1:8545" -timeout 120s
+          command: dockerize -wait "tcp://172.25.0.3:8545" -timeout 120s
 
       - run: netstat -lntp
 
