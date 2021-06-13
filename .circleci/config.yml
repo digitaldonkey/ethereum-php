@@ -70,8 +70,9 @@ jobs:
             docker run --detach --publish 8545:8545 -v "$PWD/tests/TestEthClient/GanacheClientDb:/db" trufflesuite/ganache-cli:latest  node /app/ganache-core.docker.cli.js  --hostname '0.0.0.0' --deterministic --db=/db --mnemonic 'minimum symptom minute gloom tragic situate silver mechanic salad amused elite beef' --networkId '5777' --debug
           background: true
 
-      - run: dockerize -wait tcp://localhost:8545
-
+      - run:
+          name: Wait for Ganache
+          command: dockerize -wait tcp://localhost:8545 -timeout 120s
 
       - run: netstat -lntp
 
