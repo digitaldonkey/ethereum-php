@@ -7,21 +7,18 @@ orbs:
   php: circleci/php@1.1.0
   docker: circleci/docker@1.6.0
   node: circleci/node@4.5.0
+
+workflows:
+  build-and-test:
+    jobs:
+      - build_and_test:
+          context:
+            - infura
+            - docker
 jobs:
-  build:
+  build_and_test:
     docker:
-      # Specify the version you desire here
       - image: circleci/php:7.4.9-cli-buster
-#      - image: trufflesuite/ganache-cli:latest
-#        name: Ganache Eth Client (TestRPC)
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # Using the RAM variation mitigates I/O contention
-      # for database intensive operations.
-      # - image: composer:latest
-
     steps:
       - setup_remote_docker
       - checkout
@@ -78,28 +75,7 @@ jobs:
             npm install -g ganache-cli
             ganache-cli --deterministic --db= "$PWD/tests/TestEthClient/GanacheClientDb" --mnemonic 'minimum symptom minute gloom tragic situate silver mechanic salad amused elite beef' --networkId '5777' --hostname '0.0.0.0' --debug
           background: true
-
-      # echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
-#      - run: ls -al ./tests/TestEthClient/GanacheClientDb
-#      - run: echo $DOCKER_HOST
-#      - run:
-#          name: Run Ganach Cli for testing
-#          command: |
-#            echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
-#            docker run --name ganache -it --publish 8545:8545 -v "$PWD/tests/TestEthClient/GanacheClientDb:/db" trufflesuite/ganache-cli:latest  node /app/ganache-core.docker.cli.js  --hostname '0.0.0.0' --deterministic --db /db --mnemonic 'minimum symptom minute gloom tragic situate silver mechanic salad amused elite beef' --networkId '5777' --debug
-#          background: true
-#
-#      - run: sleep 30 && netstat -lntp
-#      - run: docker ps
-#      - run: cat /etc/hosts
-
-
-      - run:
-          name: Wait for Ganache
-          command: dockerize -wait "tcp://localhost:8545" -timeout 120s
-
-      - run: netstat -lntp
-
+      - run: dockerize -wait "tcp://localhost:8545" -timeout 120s
 
       # TODO
       # - ganache_data dir ethereum-php/tests/TestEthClient/GanacheClientDb
@@ -129,11 +105,5 @@ jobs:
           command: |
             ./vendor/bin/phpunit --testsuite TestEthClient
 
-workflows:
-  build-and-test:
-    jobs:
-      - build:
-          context:
-            - infura
-            - docker
+
 
