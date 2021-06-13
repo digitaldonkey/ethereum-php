@@ -75,6 +75,7 @@ jobs:
 
       - run: sleep 30 && netstat -lntp
       - run: docker ps
+      - run: cat /etc/hosts
 
       - run:
           name: Wait for Ganache
