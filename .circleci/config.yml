@@ -70,10 +70,22 @@ jobs:
             composer --version &&
             ./vendor/bin/phpunit --version
 
+      # Ganache / TestRPC
       - node/install
-      - run: node --version
-      - run: npm install -g ganache-cli
-      - run: ganache-cli --deterministic --db=./tests/TestEthClient/GanacheClientDb --mnemonic 'minimum symptom minute gloom tragic situate silver mechanic salad amused elite beef' --networkId '5777' --hostname '0.0.0.0' --debug
+      - run:
+        name: Run Ganache Ethereum Test client
+        command:  npm install -g ganache-cli
+      - run:
+          name: Run Ganache Ethereum Test client
+          command: |
+            ganache-cli
+              --deterministic
+              --db=./tests/TestEthClient/GanacheClientDb
+              --mnemonic 'minimum symptom minute gloom tragic situate silver mechanic salad amused elite beef'
+              --networkId '5777'
+              --hostname '0.0.0.0'
+              --debug
+          background: true
 
       # echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
 #      - run: ls -al ./tests/TestEthClient/GanacheClientDb
