@@ -67,6 +67,7 @@ jobs:
 
          # echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
       - run: ls -al ./tests/TestEthClient/GanacheClientDb
+      - run: echo $DOCKER_HOST
       - run:
           name: Run Ganach Cli for testing
           command: |
@@ -77,6 +78,7 @@ jobs:
       - run: sleep 30 && netstat -lntp
       - run: docker ps
       - run: cat /etc/hosts
+
 
       - run:
           name: Wait for Ganache
