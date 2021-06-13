@@ -73,8 +73,8 @@ jobs:
       # Ganache / TestRPC
       - node/install
       - run:
-        name: Run Ganache Ethereum Test client
-        command:  npm install -g ganache-cli
+          name: Run Ganache Ethereum Test client
+          command:  npm install -g ganache-cli
       - run:
           name: Run Ganache Ethereum Test client
           command: |
