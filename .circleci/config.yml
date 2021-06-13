@@ -73,8 +73,9 @@ jobs:
       - node/install
       - run: node --version
       - run: npm install -g ganache-cli
+      - run: ganache-cli --deterministic --db=./tests/TestEthClient/GanacheClientDb --mnemonic 'minimum symptom minute gloom tragic situate silver mechanic salad amused elite beef' --networkId '5777' --hostname '0.0.0.0' --debug
 
-        # echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+      # echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
 #      - run: ls -al ./tests/TestEthClient/GanacheClientDb
 #      - run: echo $DOCKER_HOST
 #      - run:
