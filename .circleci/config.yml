@@ -40,7 +40,7 @@ jobs:
       - run:
           name: Install Extensions (if not cached)
           command: |
-            if [ ! -f /usr/local/lib/php/extensions/no-debug-non-zts-20160303/mcrypt.so ]; then
+            if [ ! -f /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mcrypt.so ]; then
               .circleci/scripts/install-php-extensions.sh;
             fi
       - run:
