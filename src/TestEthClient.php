@@ -63,6 +63,11 @@ use Exception;
  */
 abstract class TestEthClient extends TestStatic {
 
+  /**
+   * @var \Ethereum\Ethereum
+   */
+    protected $web3;
+
     /**
      * %Ethereum Test Base class
      *
@@ -89,4 +94,15 @@ abstract class TestEthClient extends TestStatic {
             );
         }
     }
+
+  /**
+   * Create Ethereum instance.
+   *
+   * @throws Exception
+   *   If Smart contracts have not been compiled.
+   */
+  protected function setUp()
+  {
+    $this->web3 = new Ethereum(SERVER_URL);
+  }
 }

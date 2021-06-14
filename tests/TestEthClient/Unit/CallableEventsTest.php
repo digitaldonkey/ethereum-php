@@ -68,8 +68,7 @@ class CallableEvents extends TestEthContract
     public function testSimpleContract($eventName, $eventData, $tx)
     {
         $tx = json_decode($tx);
-        $web3 = new Ethereum(SERVER_URL);
-        $receipt = $web3->eth_getTransactionReceipt(new EthD32($tx->tx));
+        $receipt = $this->web3->eth_getTransactionReceipt(new EthD32($tx->tx));
 
         if (is_null($receipt)) {
             throw new \Exception('Your chain data might not match the source data in this test for event ' . $eventName);
@@ -81,7 +80,6 @@ class CallableEvents extends TestEthContract
             $this->assertSame($eventData, $event->getRawData());
         }
     }
-
 
 }
 

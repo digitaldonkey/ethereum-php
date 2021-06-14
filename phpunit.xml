@@ -5,15 +5,19 @@
     <testsuite name="CodeGenerators">
       <directory>tests/CodeGenerators</directory>
     </testsuite>
-    <testsuite name="EthereumPhp">
-      <directory>tests/EthTest/Unit</directory>
+    <testsuite name="EthStatic">
+      <directory>tests/EthStatic/Unit</directory>
+    </testsuite>
+    <testsuite name="EthMainnet">
+      <directory>tests/EthMainnet/Unit</directory>
     </testsuite>
     <testsuite name="TestEthClient">
       <directory>tests/TestEthClient/Unit</directory>
     </testsuite>
   </testsuites>
   <php>
-    <env name="SERVER_URL" value="http://192.168.99.100:8545"/>
+    <env name="SERVER_URL" value="http://127.0.0.1:8545"/>
     <env name="NETWORK_ID" value="5777"/>
+    <const name="INFURA_MAINNET_URL" value=""/>
   </php>
 </phpunit>

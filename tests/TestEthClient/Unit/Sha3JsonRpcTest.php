@@ -2,7 +2,6 @@
 namespace Ethereum;
 use Exception;
 use Ethereum\DataType\EthS;
-use Ethereum\TestEthClient;
 
 /**
  * EthereumStaticTestEthB
@@ -11,14 +10,14 @@ use Ethereum\TestEthClient;
  */
 class Sha3JsonRpcTest extends TestEthClient {
 
-    protected function setUp()
-    {
-        $this->markTestSkipped(
-            'sha3() in JsonRPC has a wrong schema type. It actually does not expect EthS (which is RLP encoded), '
-            .'but a hex encoded UTF8 string (like returned by EthS::hexToStr($hex)). For now skipping this test. '
-            . 'We might remove sha3() in schema (there is now a PHP native kessac256) or "invent" a new data type just for this case.'
-        );
-    }
+//    protected function setUp()
+//    {
+//        $this->markTestSkipped(
+//            'sha3() in JsonRPC has a wrong schema type. It actually does not expect EthS (which is RLP encoded), '
+//            .'but a hex encoded UTF8 string (like returned by EthS::hexToStr($hex)). For now skipping this test. '
+//            . 'We might remove sha3() in schema (there is now a PHP native kessac256) or "invent" a new data type just for this case.'
+//        );
+//    }
 
     public function kessacStringProvider() {
         // UTF8 text, Kessac256
@@ -39,8 +38,7 @@ class Sha3JsonRpcTest extends TestEthClient {
 
     public function testEmptyStringWithEthereumSha3()
     {
-        $eth = new Ethereum('http://localhost:7545');
-        $x = $eth->web3_sha3(new EthS(''));
+        $x = $this->web3->web3_sha3(new EthS(''));
         $this->assertSame(
           '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470',
           $x->hexVal()
@@ -68,15 +66,8 @@ class Sha3JsonRpcTest extends TestEthClient {
      */
     public function testManyWithEthereumSha3($text, $sha3)
     {
-        if (defined('SERVER_URL')) {
-            $eth = new Ethereum(SERVER_URL);
-            $val = new EthS($text);
-            $x = $eth->web3_sha3($val);
-            $this->assertSame($sha3, $x->hexVal());
-        }
-        else {
-            $this->markTestSkipped('Ethereum web3_sha3 can only be tested if SERVER_URL is defined.');
-        }
-
+      $val = new EthS($text);
+      $x = $this->web3->web3_sha3($val);
+      $this->assertSame($sha3, $x->hexVal());
     }
 }

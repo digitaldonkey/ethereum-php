@@ -10,7 +10,6 @@ namespace Ethereum;
 
 use Ethereum\TestStatic;
 use Exception;
-
 /**
  * @defgroup ethereumTests EthereumClientTest
  * @ingroup tests
@@ -61,46 +60,50 @@ use Exception;
  *  "links": {},
  *  "address": "0x345ca3e014aaf5dca488057592ee47305d9b3e10"
  *  },
- *
  */
-abstract class TestEthContract extends TestEthClient {
+abstract class TestEthMainnet extends TestStatic {
 
-    protected $data;
-    protected $contract;
+  /**
+   * @var \Ethereum\Ethereum
+   */
+  protected $web3;
 
-    /**
-     * This constructs a smart contract
+  /**
+     * %Ethereum Test Base class
      *
      * @throws Exception
-     *   If Smart contracts have not been compiled.
+     *    If  NETWORK_ID or SERVER_URL are not defined env vars in phpunit.xml.
      */
-    protected function setUp()
-    {
-        /**
-         * @var $contractName
-         *    * The contract should be deployed to the network reachable at
-         *    SERVER_URL.
-         *    * MetaData is loaded from ../test_contracts/build/contracts/$contract.json
-         *    * The address of the deployed contract is loaded from
-         *        MetaData->netwoks->NETWORK_ID->address.
-         */
-        $contractName = (new \ReflectionClass($this))->getShortName();
-        $fileName = getcwd() . '/tests/TestEthClient/test_contracts/build/contracts/' . $contractName . '.json';
+    public static function setUpBeforeClass() {
 
-        if (!file_exists($fileName)) {
-            throw new Exception(
-                'You need to compile and deploy the smartcontracts located in TestEthClient/test_contracts/contracts using truffle.'
-                . ' (npm -i -g truffle && truffle compile && truffle migrate)'
+        $serverUrl = getenv("INFURA_MAINNET_URL");
+        if (!$serverUrl) {
+            if (!defined('INFURA_MAINNET_URL')) {
+                define('INFURA_MAINNET_URL', $serverUrl);
+            }
+        }
+        else
+        {
+            throw new \Exception(
+                'INFURA_MAINNET_URL must be defined in phpunit.xml or as ENV variable.'
             );
         }
 
-        $this->data = json_decode(file_get_contents($fileName));
-        $this->web3 = new Ethereum(SERVER_URL);
-        $this->contract = new SmartContract(
-            $this->data->abi,
-            $this->data->networks->{NETWORK_ID}->address,
-            $this->web3
-        );
+        if (substr(INFURA_MAINNET_URL, 0, 4) !== 'http') {
+          throw new \Exception(
+            'INFURA_MAINNET_URL must start with http or https. INFURA_MAINNET_URL started with ' . substr(INFURA_MAINNET_URL, 0, 12) . '...'
+          );
+        }
     }
 
+  /**
+   * Create Ethereum instance.
+   *
+   * @throws Exception
+   *   If Smart contracts have not been compiled.
+   */
+  protected function setUp()
+  {
+    $this->web3 = new Ethereum(INFURA_MAINNET_URL);
+  }
 }
