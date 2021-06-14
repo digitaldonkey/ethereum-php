@@ -12,16 +12,12 @@ use Ethereum\DataType\EthB;
 class EthMethodsTest extends TestEthClient
 {
 
-    private $web3;
-
-
     public function __construct(
       ?string $name = null,
       array $data = [],
       string $dataName = ''
     ) {
         parent::__construct($name, $data, $dataName);
-        $this->web3 = new Ethereum($_ENV['SERVER_URL']);
     }
 
     /**
