@@ -83,17 +83,17 @@ jobs:
             ./vendor/bin/phpunit --testsuite CodeGenerators
 
       - run:
-          name: Phpunit testsuite EthereumPhp
+          name: Ethereum-PHP Static (EthStatic) tests
           command: |
-            ./vendor/bin/phpunit --testsuite EthereumPhp
+            ./vendor/bin/phpunit --testsuite EthStatic
 
       - run:
-          name: Phpunit testsuite EthMainnet
+          name: Ethereum-PHP Main Net test (EthMainnet)
           command: |
             ./vendor/bin/phpunit --testsuite EthMainnet
 
       - run:
-          name: Phpunit testsuite TestEthClient
+          name: Ethereum-PHP testsuite Ganache based tests (TestEthClient)
           command: |
             ./vendor/bin/phpunit --testsuite TestEthClient
 
