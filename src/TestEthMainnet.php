@@ -76,10 +76,9 @@ abstract class TestEthMainnet extends TestStatic {
      */
     public static function setUpBeforeClass() {
 
-        $serverUrl = getenv("INFURA_MAINNET_URL");
-        if (!$serverUrl) {
+        if (!isset($_ENV["INFURA_MAINNET_URL"])) {
             if (!defined('INFURA_MAINNET_URL')) {
-                define('INFURA_MAINNET_URL', $serverUrl);
+                define('INFURA_MAINNET_URL', $_ENV["INFURA_MAINNET_URL"]);
             }
         }
         else
