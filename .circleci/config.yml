@@ -20,7 +20,6 @@ jobs:
     docker:
       - image: circleci/php:7.4.9-cli-buster
     steps:
-#      - setup_remote_docker
       - checkout
       - docker/install-docker-tools
       - run: |
