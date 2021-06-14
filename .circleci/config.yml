@@ -88,7 +88,7 @@ jobs:
             ./vendor/bin/phpunit --testsuite EthStatic
 
       - run:
-          name: Ethereum-PHP Main Net test (EthMainnet)
+          name: Ethereum-PHP Main Net tests (EthMainnet)
           command: |
             ./vendor/bin/phpunit --testsuite EthMainnet
 

@@ -18,6 +18,6 @@
   <php>
     <env name="SERVER_URL" value="http://127.0.0.1:8545"/>
     <env name="NETWORK_ID" value="5777"/>
-    <const name="INFURA_MAINNET_URL" value=""/>
+    <env name="INFURA_MAINNET_URL" value=""/>
   </php>
 </phpunit>
