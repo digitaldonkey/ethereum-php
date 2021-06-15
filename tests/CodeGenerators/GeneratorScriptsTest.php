@@ -1,6 +1,8 @@
 <?php
 namespace Ethereum;
 
+use PhpParser\Node\Scalar\String_;
+
 /**
  * GeneratorScriptsTest
  *
@@ -19,17 +21,44 @@ class GeneratorScriptsTest extends TestStatic {
     {
         $output = [];
         $scriptSuccess = null;
-
+        $this->deleteScripts('generate-complex-datatypes');
         exec ($this->scriptCommand('generate-complex-datatypes'),$output,$scriptSuccess);
         $this->assertSame(0, $scriptSuccess);
+        $this->checkGitNotModified();
     }
 
     public function testGenerateMethods()
     {
         $output = [];
         $scriptSuccess = null;
+        $this->deleteScripts('generate-methods');
         exec ($this->scriptCommand('generate-methods'),$output,$scriptSuccess);
         $this->assertSame(0, $scriptSuccess);
+        $this->checkGitNotModified();
+    }
+
+    private function checkGitNotModified() {
+        $output = [];
+        $scriptSuccess = null;
+        exec ('git status --porcelain',$output,$scriptSuccess);
+        var_dump($output);
+        var_dump($scriptSuccess);
+    }
+
+    private function deleteScripts(string $type)
+    {
+        $root = __DIR__ . '/../../';
+        if ($type === 'generate-methods') {
+            unlink($root . 'src/Web3Interface.php');
+            unlink($root . 'src/Web3Methods.php');
+        }
+        if ($type === 'generate-complex-datatypes') {
+            $schema = json_decode(file_get_contents($root . "resources/ethjs-schema.json"), true);
+            $names = array_keys($schema['objects']);
+            foreach ($names as $name) {
+                unlink($root . 'src/DataType/' . ucfirst($name) . '.php');
+            }
+        }
     }
 
     private function scriptCommand($name)
@@ -42,7 +71,7 @@ class GeneratorScriptsTest extends TestStatic {
 
         return $phpBin . ' ' .  str_replace(
           'tests/CodeGenerators',
-          'scripts/' . $name . '.php --no-file-generation',
+          'scripts/' . $name . '.php',
           dirname(__FILE__)
         );
     }
