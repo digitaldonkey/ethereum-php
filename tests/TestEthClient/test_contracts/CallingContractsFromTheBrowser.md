@@ -1,4 +1,4 @@
-# Calling contracts fromm the Browser Console
+# Calling contracts from the Browser Console
 
 You can call contracts in the Broser console using Web3JS.
 
