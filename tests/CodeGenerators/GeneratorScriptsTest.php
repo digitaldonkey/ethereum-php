@@ -23,8 +23,8 @@ class GeneratorScriptsTest extends TestStatic {
         $scriptSuccess = null;
         $this->deleteScripts('generate-complex-datatypes');
         exec ($this->scriptCommand('generate-complex-datatypes'),$output,$scriptSuccess);
-        $this->assertSame(0, $scriptSuccess);
-        $this->checkGitNotModified();
+        $this->assertSame(0, $scriptSuccess, 'Generated scripts sucessfully');
+        $this->assertTrue($this->checkGitNotModified(), 'Generated files match git commit');
     }
 
     public function testGenerateMethods()
@@ -33,16 +33,15 @@ class GeneratorScriptsTest extends TestStatic {
         $scriptSuccess = null;
         $this->deleteScripts('generate-methods');
         exec ($this->scriptCommand('generate-methods'),$output,$scriptSuccess);
-        $this->assertSame(0, $scriptSuccess);
-        $this->checkGitNotModified();
+        $this->assertSame(0, $scriptSuccess, 'Generated scripts sucessfully');
+        $this->assertTrue($this->checkGitNotModified(), 'Generated files match git commit');
     }
 
-    private function checkGitNotModified() {
+    private function checkGitNotModified() : bool {
         $output = [];
         $scriptSuccess = null;
         exec ('git status --porcelain',$output,$scriptSuccess);
-        var_dump($output);
-        var_dump($scriptSuccess);
+        return $scriptSuccess === 0 && empty($output);
     }
 
     private function deleteScripts(string $type)
