@@ -77,21 +77,29 @@ jobs:
       - run: dockerize -wait "tcp://localhost:8545" -timeout 120s
 
       - run:
-          name: Phpunit testsuite CodeGenerators
+          name: Phpunit tests
           command: |
-            ./vendor/bin/phpunit --testsuite CodeGenerators
+            ./vendor/bin/phpunit --log-junit test-results/phpunit/junit-CodeGenerators.xml
+      - store_test_results:
+          path: test-results
 
-      - run:
-          name: Ethereum-PHP Static (EthStatic) tests
-          command: |
-            ./vendor/bin/phpunit --testsuite EthStatic
 
-      - run:
-          name: Ethereum-PHP Main Net tests (EthMainnet)
-          command: |
-            ./vendor/bin/phpunit --testsuite EthMainnet
-
-      - run:
-          name: Ethereum-PHP testsuite Ganache based tests (TestEthClient)
-          command: |
-            ./vendor/bin/phpunit --testsuite TestEthClient
+#      - run:
+#          name: Phpunit testsuite CodeGenerators
+#          command: |
+#            ./vendor/bin/phpunit --testsuite CodeGenerators
+#
+#      - run:
+#          name: Ethereum-PHP Static (EthStatic) tests
+#          command: |
+#            ./vendor/bin/phpunit --testsuite EthStatic
+#
+#      - run:
+#          name: Ethereum-PHP Main Net tests (EthMainnet)
+#          command: |
+#            ./vendor/bin/phpunit --testsuite EthMainnet
+#
+#      - run:
+#          name: Ethereum-PHP testsuite Ganache based tests (TestEthClient)
+#          command: |
+#            ./vendor/bin/phpunit --testsuite TestEthClient
