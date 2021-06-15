@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "39115a44acf7d7980a3eba11106d3a0e",
+    "content-hash": "f6a0cb964897dc0dc5452442f846b8c4",
     "packages": [
         {
             "name": "digitaldonkey/ecverify",
@@ -506,16 +506,16 @@
         },
         {
             "name": "simplito/elliptic-php",
-            "version": "1.0.4",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplito/elliptic-php.git",
-                "reference": "be6b14c6999a5c328457d571f643ef8b3f3f82d0"
+                "reference": "a2612c8289270bd00086d1c070efc3fca9d7abce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplito/elliptic-php/zipball/be6b14c6999a5c328457d571f643ef8b3f3f82d0",
-                "reference": "be6b14c6999a5c328457d571f643ef8b3f3f82d0",
+                "url": "https://api.github.com/repos/simplito/elliptic-php/zipball/a2612c8289270bd00086d1c070efc3fca9d7abce",
+                "reference": "a2612c8289270bd00086d1c070efc3fca9d7abce",
                 "shasum": ""
             },
             "require": {
@@ -562,7 +562,11 @@
                 "nistp521",
                 "secp256k1"
             ],
-            "time": "2018-05-11T07:40:56+00:00"
+            "support": {
+                "issues": "https://github.com/simplito/elliptic-php/issues",
+                "source": "https://github.com/simplito/elliptic-php/tree/1.0.7"
+            },
+            "time": "2021-01-12T11:40:37+00:00"
         }
     ],
     "packages-dev": [
@@ -2274,7 +2278,9 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6"
+        "php": ">=7.1",
+        "ext-json": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }
