@@ -1,0 +1,105 @@
+# PHP CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-php/ for more details
+#
+version: 2.1
+orbs:
+  php: circleci/php@1.1.0
+  docker: circleci/docker@1.6.0
+  node: circleci/node@4.5.0
+
+workflows:
+  build-and-test:
+    jobs:
+      - build_and_test:
+          context:
+            - infura
+            - docker
+jobs:
+  build_and_test:
+    docker:
+      - image: circleci/php:7.4.9-cli-buster
+    steps:
+      - checkout
+      - docker/install-docker-tools
+      - run: |
+          sudo apt update -y &&
+          sudo apt install -y libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev libgmp-dev re2c libmhash-dev libmcrypt-dev file zlib1g-dev  &&
+          sudo ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/local/include/
+
+      - run: mkdir ./php-ext-cache/
+      - restore_cache:
+          keys:
+            - extensions-v1-{{ checksum ".circleci/scripts/install-php-extensions.sh" }}
+            - extensions-v1-
+      - run:
+          name: Copying restored extensions cache into extensions directory
+          command: sudo cp -R ./php-ext-cache/. /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
+      # - run: pecl config-show
+
+
+      # TODO This caching does not work as expected.
+      - run:
+          name: Install Extensions (if not cached)
+          command: |
+            ls -al  /usr/local/include/php/
+            if [ true || ! -f /usr/local/lib/php/extensions/no-debug-non-zts-20190902/mcrypt.so ]; then
+              .circleci/scripts/install-php-extensions.sh;
+            fi
+            ls -al  /usr/local/include/php/
+      - run:
+          name: Copying extensions to temp directory for cache
+          command: sudo cp -R /usr/local/lib/php/extensions/no-debug-non-zts-20190902/* ./php-ext-cache/
+      - save_cache:
+          key: extensions-v1-{{ checksum ".circleci/scripts/install-php-extensions.sh" }}
+          paths:
+            - ./php-ext-cache/
+
+      - php/install-composer:
+          install-version: 2.1.0
+      - php/install-packages
+
+      - run:
+          name: View PHP environment
+          command: |
+            php -v &&
+            composer --version &&
+            ./vendor/bin/phpunit --version
+
+      # Ganache / TestRPC
+      - node/install
+      - run:
+          name: Install and run Ganache Ethereum Test client
+          command: |
+            npm install -g ganache-cli
+            ganache-cli --deterministic --db=./tests/TestEthClient/GanacheClientDb --mnemonic 'minimum symptom minute gloom tragic situate silver mechanic salad amused elite beef' --networkId '5777' --hostname '0.0.0.0' --debug
+          background: true
+      - run: dockerize -wait "tcp://localhost:8545" -timeout 120s
+
+      - run:
+          name: Phpunit tests
+          command: |
+            ./vendor/bin/phpunit --log-junit test-results/phpunit/junit-CodeGenerators.xml
+      - store_test_results:
+          path: test-results
+
+
+#      - run:
+#          name: Phpunit testsuite CodeGenerators
+#          command: |
+#            ./vendor/bin/phpunit --testsuite CodeGenerators
+#
+#      - run:
+#          name: Ethereum-PHP Static (EthStatic) tests
+#          command: |
+#            ./vendor/bin/phpunit --testsuite EthStatic
+#
+#      - run:
+#          name: Ethereum-PHP Main Net tests (EthMainnet)
+#          command: |
+#            ./vendor/bin/phpunit --testsuite EthMainnet
+#
+#      - run:
+#          name: Ethereum-PHP testsuite Ganache based tests (TestEthClient)
+#          command: |
+#            ./vendor/bin/phpunit --testsuite TestEthClient

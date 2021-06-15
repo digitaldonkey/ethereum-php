@@ -95,10 +95,12 @@ abstract class TestEthContract extends TestEthClient {
         }
 
         $this->data = json_decode(file_get_contents($fileName));
+        $this->web3 = new Ethereum(SERVER_URL);
         $this->contract = new SmartContract(
             $this->data->abi,
             $this->data->networks->{NETWORK_ID}->address,
-            new Ethereum(SERVER_URL)
+            $this->web3
         );
     }
+
 }

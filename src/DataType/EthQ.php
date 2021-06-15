@@ -3,6 +3,9 @@
 namespace Ethereum\DataType;
 
 /* @see https://pear.php.net/package/Math_BigInteger/docs/latest/Math_BigInteger/Math_BigInteger.html Math_BigInteger documentation */
+
+use Exception;
+use InvalidArgumentException;
 use Math_BigInteger;
 
 
@@ -13,10 +16,15 @@ use Math_BigInteger;
  */
 class EthQ extends EthD
 {
-    // Validation properties.
-    private $intTypes = ['int', 'uint'];
+    const INT = 'int';
+    const UINT = 'uint';
 
-    // @var $value Math_BigInteger Math big integer pear library.
+    // Validation properties.
+    private $intTypes = [self::INT, self::UINT];
+
+    /**
+     * @var $value Math_BigInteger Math big integer pear library.
+     */
     public $value;
 
     /**
@@ -74,13 +82,18 @@ class EthQ extends EthD
             }
 
             // A negative base will encode using two's compliment.
-            if ($val[2] === 'f') {
+            $limit = hexdec('7');
+            $firstHex = hexdec($val[2]);
+            if ($firstHex > $limit && $abi && preg_match('/^' . self::INT . '/', $abi)) {
                 $big_int = new Math_BigInteger($val, -16);
                 $big_int->is_negative = true;
-            }
-            else {
+            } elseif ($abi && preg_match('/^' . self::UINT . '/', $abi)) {
                 // defaults to unsigned int if no abi is given.
                 $big_int = new Math_BigInteger($val, 16);
+            } elseif ($firstHex <= $limit) {
+                $big_int = new Math_BigInteger($val, 16);
+            } else {
+                throw new InvalidArgumentException('Can not detect integer type: ' . $val . ' can be negative int or uint');
             }
         }
         elseif (is_numeric($val)) {
@@ -106,7 +119,7 @@ class EthQ extends EthD
                         $this->abi = $abi;
                     }
                     else {
-                        throw new \InvalidArgumentException(
+                        throw new InvalidArgumentException(
                           'Given ABI (' . $abi . ') does not match number given number: ' . $val);
                     }
                 }
@@ -114,7 +127,7 @@ class EthQ extends EthD
             return $big_int;
         }
         else {
-            throw new \InvalidArgumentException('Can not decode Hex number: ' . $val);
+            throw new InvalidArgumentException('Can not decode Hex number: ' . $val);
         }
     }
 
@@ -166,7 +179,7 @@ class EthQ extends EthD
             }
         }
         if (!$abi_l) {
-            throw new \InvalidArgumentException('NOT IN RANGE: ' . $number->toString() . ' > (u)int256');
+            throw new InvalidArgumentException('NOT IN RANGE: ' . $number->toString() . ' > (u)int256');
         }
         if ($negative) {
             return 'int' . $abi_l;
@@ -196,7 +209,7 @@ class EthQ extends EthD
         $valid_length = in_array($abiObj->intLength, $this->getValidLengths());
         $valid_type = in_array($abiObj->intType, $this->intTypes);
         if (!($valid_length || $valid_type)) {
-            throw new \InvalidArgumentException('Can not validate ABI: ' . $abi);
+            throw new InvalidArgumentException('Can not validate ABI: ' . $abi);
         }
         return true;
     }
@@ -235,7 +248,7 @@ class EthQ extends EthD
             ];
         }
         else {
-            throw new \InvalidArgumentException('Could not decode ABI for: ' . $abi);
+            throw new InvalidArgumentException('Could not decode ABI for: ' . $abi);
         }
     }
 
@@ -251,7 +264,7 @@ class EthQ extends EthD
         $value = $this->value->toHex($this->value->is_negative);
 
         if (strlen($value) > self::HEXPADDING) {
-            throw new \Exception('Values > (u)int32 not supported yet: ' . $value);
+            throw new Exception('Values > (u)int32 not supported yet: ' . $value);
         }
 
         // Calc padding.
@@ -335,6 +348,7 @@ class EthQ extends EthD
 
     /**
      * @return string
+     * @throws Exception
      */
     public function encodedHexVal()
     {
