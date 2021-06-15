@@ -76,7 +76,6 @@ jobs:
           background: true
       - run: dockerize -wait "tcp://localhost:8545" -timeout 120s
 
-        # TODO VERIFY THAT NO GENERATED FILE WAS CHANGED
       - run:
           name: Phpunit testsuite CodeGenerators
           command: |
@@ -96,6 +95,3 @@ jobs:
           name: Ethereum-PHP testsuite Ganache based tests (TestEthClient)
           command: |
             ./vendor/bin/phpunit --testsuite TestEthClient
-
-
-
