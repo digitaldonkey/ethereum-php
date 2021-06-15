@@ -21,9 +21,9 @@ class GeneratorScriptsTest extends TestStatic {
     {
         $output = [];
         $scriptSuccess = null;
-        $this->deleteScripts('generate-complex-datatypes');
+        $this->assertTrue($this->deleteScripts('generate-complex-datatypes'),'Successfully deleted committed files');
         exec ($this->scriptCommand('generate-complex-datatypes'),$output,$scriptSuccess);
-        $this->assertSame(0, $scriptSuccess, 'Generated scripts sucessfully');
+        $this->assertSame(0, $scriptSuccess, 'Generated files sucessfully');
         $this->assertTrue($this->checkGitNotModified(), 'Generated files match git commit');
     }
 
@@ -31,7 +31,7 @@ class GeneratorScriptsTest extends TestStatic {
     {
         $output = [];
         $scriptSuccess = null;
-        $this->deleteScripts('generate-methods');
+        $this->assertTrue($this->deleteScripts('generate-methods'),'Successfully deleted committed files');
         exec ($this->scriptCommand('generate-methods'),$output,$scriptSuccess);
         $this->assertSame(0, $scriptSuccess, 'Generated scripts sucessfully');
         $this->assertTrue($this->checkGitNotModified(), 'Generated files match git commit');
@@ -40,23 +40,26 @@ class GeneratorScriptsTest extends TestStatic {
     private function checkGitNotModified() : bool {
         $output = [];
         $scriptSuccess = null;
-        exec ('git status --porcelain',$output,$scriptSuccess);
+        exec ('git status --porcelain ' . $this->rootDir() . 'src' ,$output,$scriptSuccess);
         return $scriptSuccess === 0 && empty($output);
     }
 
     private function deleteScripts(string $type)
     {
-        $root = __DIR__ . '/../../';
         if ($type === 'generate-methods') {
-            unlink($root . 'src/Web3Interface.php');
-            unlink($root . 'src/Web3Methods.php');
+            return unlink($this->rootDir() . 'src/Web3Interface.php')
+                && unlink($this->rootDir() . 'src/Web3Methods.php');
         }
+
         if ($type === 'generate-complex-datatypes') {
-            $schema = json_decode(file_get_contents($root . "resources/ethjs-schema.json"), true);
+            $schema = json_decode(file_get_contents($this->rootDir() . "resources/ethjs-schema.json"), true);
             $names = array_keys($schema['objects']);
             foreach ($names as $name) {
-                unlink($root . 'src/DataType/' . ucfirst($name) . '.php');
+                if (!unlink($this->rootDir() . 'src/DataType/' . ucfirst($name) . '.php')) {
+                    return FALSE;
+                }
             }
+            return TRUE;
         }
     }
 
@@ -73,6 +76,10 @@ class GeneratorScriptsTest extends TestStatic {
           'scripts/' . $name . '.php',
           dirname(__FILE__)
         );
+    }
+
+    private function rootDir() {
+        return  __DIR__ . '/../../';
     }
 
 }
