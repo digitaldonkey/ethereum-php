@@ -32,7 +32,7 @@ class EthBytes extends EthD
      */
     public function validate($val, array $params)
     {
-        if (!ctype_xdigit($this->removeHexPrefix($val))) {
+        if (!ctype_xdigit($this->removeHexPrefix($val)) && $this->removeHexPrefix($val) != '') {
             throw new \InvalidArgumentException(
               'Value of dynamic ABI type is not a valid hex string.'
             );
