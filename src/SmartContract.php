@@ -97,6 +97,9 @@ class SmartContract
 
     /**
      * @param \Ethereum\DataType\FilterChange $filterChange
+     *
+     * @param boolean $eventHandle
+     * 
      * @throws \Exception
      *
      * @return \Ethereum\EmittedEvent with emitted Data.
