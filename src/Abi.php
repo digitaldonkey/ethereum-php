@@ -109,7 +109,7 @@ class Abi extends EthereumStatic
             }
             elseif ($lengthType === 'dynamic') {
                 // Dynamic length type.
-                $offsetInChars = 2 * Rlp::getByteValueAtOffsetPos($msgData, $pos);
+                $offsetInChars = 2 * Rlp::getByteValueAt($msgData, $pos);
                 $rlpDecoded = Rlp::decode(substr($msgData, $offsetInChars));
 
                 if (count($rlpDecoded) === 1) {

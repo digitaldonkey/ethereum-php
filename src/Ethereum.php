@@ -7,6 +7,7 @@ use Ethereum\DataType\EthDataType;
 use Exception;
 use Ethereum\DataType\EthD;
 use Ethereum\DataType\EthD32;
+use Ethereum\DataType\EthB;
 use Ethereum\EcRecover;
 use Ethereum\DataType\FilterChange;
 
@@ -286,7 +287,7 @@ class Ethereum extends EthereumStatic implements Web3Interface
         elseif (!$is_primitive) {
 
             if ($array_val) {
-                if ($method === 'eth_getFilterChanges') {
+                if ($method === 'eth_getFilterChanges' || $method === 'eth_getLogs') {
                     // Only be [FilterChange| D32]
                     $return = $this->handleFilterChangeValues($value);
                 }
@@ -428,7 +429,7 @@ class Ethereum extends EthereumStatic implements Web3Interface
 
                     if (substr($type, 0, 1) === '[') {
                         // param is an array. E.g topics.
-                        $className = '\Ethereum\Datatype\\' . str_replace(['[', ']'], '', $type);
+                        $className = '\Ethereum\DataType\\' . str_replace(['[', ']'], '', $type);
                         $sub = [];
                         foreach ($val[$key] as $subVal) {
                             $sub[] = new $className($subVal);
@@ -438,7 +439,7 @@ class Ethereum extends EthereumStatic implements Web3Interface
                         // @todo We'll need to decode the ABI of the values too!
                     }
                     else {
-                        $className = '\Ethereum\Datatype\\' . $type;
+                        $className = '\Ethereum\DataType\\' . $type;
                         $processed[] = isset($val[$key]) ? new $className($val[$key]) : null;
                     }
                 }
