@@ -46,7 +46,7 @@ class Abi extends EthereumStatic
         foreach ($values as $i => $val) {
             $expectedType = $m->inputs[$i]->type;
             $validAbiType = self::convertByAbi($expectedType, $val);
-            $params .= EthereumStatic::removeHexPrefix($validAbiType->encodedHexVal());
+            $params .= str_pad(EthereumStatic::removeHexPrefix($validAbiType->encodedHexVal()), 64, "0", STR_PAD_LEFT);
         }
         return new EthD($params);
     }
